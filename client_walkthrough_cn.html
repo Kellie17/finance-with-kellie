@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kellie基金智能助手 - 使用指南</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0e1621;
+    font-family: 'Noto Sans SC', 'Inter', -apple-system, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .phone {
+    width: 390px;
+    height: 844px;
+    background: #17212b;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 0 3px #2a3a4a, 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .header {
+    background: #1f2936;
+    padding: 50px 16px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #0e1621;
+    position: relative;
+    z-index: 10;
+  }
+
+  .header-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e8443a, #f4845f);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; color: white;
+  }
+
+  .header-info h3 { color: #e1e3e6; font-size: 15px; font-weight: 600; }
+  .header-info span { color: #6c7883; font-size: 12px; }
+
+  .chat-area {
+    height: 690px;
+    overflow-y: auto;
+    padding: 12px 8px;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .chat-area::-webkit-scrollbar { display: none; }
+
+  .msg {
+    max-width: 300px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: msgIn 0.35s ease forwards;
+    position: relative;
+  }
+
+  @keyframes msgIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg.user {
+    background: #c0392b;
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+    font-weight: 500;
+  }
+
+  .msg.bot {
+    background: #182533;
+    color: #e1e3e6;
+    margin-right: auto;
+    border-bottom-left-radius: 4px;
+  }
+
+  .msg b { color: #e1e3e6; }
+  .msg .cmd { color: #e74c3c; }
+  .msg .section-header { color: #e1e3e6; font-weight: 600; display: block; margin-top: 6px; }
+  .msg .dim { color: #6c7883; font-style: italic; font-size: 13px; }
+  .msg .source { color: #6c7883; font-size: 12px; }
+  .msg .highlight { color: #e74c3c; }
+  .msg .green { color: #27ae60; font-weight: 600; }
+  .msg .red { color: #e74c3c; font-weight: 600; }
+  .msg .gold { color: #f39c12; font-weight: 600; }
+  .msg .cta { color: #e74c3c; font-style: italic; font-size: 13px; display: block; margin-top: 6px; }
+  .msg .link { color: #3498db; text-decoration: underline; }
+  .msg .bar { display: inline-block; height: 8px; border-radius: 4px; margin-right: 4px; vertical-align: middle; }
+  .msg .bar-green { background: #27ae60; }
+
+  .typing {
+    display: flex;
+    gap: 4px;
+    padding: 12px 16px;
+    opacity: 0;
+    animation: msgIn 0.3s ease forwards;
+  }
+  .typing span {
+    width: 8px; height: 8px;
+    background: #4a5968;
+    border-radius: 50%;
+    animation: typingDot 1.2s ease infinite;
+  }
+  .typing span:nth-child(2) { animation-delay: 0.2s; }
+  .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typingDot {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-6px); opacity: 1; }
+  }
+
+  .input-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: #1f2936;
+    padding: 10px 12px 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid #0e1621;
+  }
+
+  .input-field {
+    flex: 1;
+    background: #242f3d;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 16px;
+    color: #e1e3e6;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+  }
+  .input-field::placeholder { color: #4a5968; }
+
+  .send-btn {
+    width: 36px; height: 36px;
+    background: #c0392b;
+    border: none; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .send-btn svg { fill: white; width: 16px; height: 16px; }
+
+  .scene-label {
+    text-align: center;
+    padding: 8px;
+    margin: 8px 0;
+    opacity: 0;
+    animation: msgIn 0.5s ease forwards;
+  }
+  .scene-label span {
+    background: #1f2936;
+    color: #6c7883;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 10px;
+  }
+
+  .narrator {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(192,57,43,0.95);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 20;
+    width: 340px;
+    pointer-events: none;
+  }
+  .narrator.show { opacity: 1; }
+
+  .progress-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: #0e1621;
+    z-index: 20;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #c0392b, #e74c3c);
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+
+  .replay-btn {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #c0392b;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    display: none;
+    z-index: 30;
+    box-shadow: 0 4px 20px rgba(192,57,43,0.4);
+  }
+  .replay-btn:hover { background: #e74c3c; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+  <div class="header">
+    <div class="header-avatar">K</div>
+    <div class="header-info">
+      <h3>Kellie基金智能助手</h3>
+      <span>机器人</span>
+    </div>
+  </div>
+
+  <div class="chat-area" id="chat"></div>
+
+  <div class="narrator" id="narrator"></div>
+
+  <div class="input-bar">
+    <input class="input-field" placeholder="输入消息" readonly id="inputField">
+    <div class="send-btn">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </div>
+  </div>
+
+  <button class="replay-btn" id="replayBtn" onclick="replay()">重新播放</button>
+</div>
+
+<script>
+const chat = document.getElementById('chat');
+const narrator = document.getElementById('narrator');
+const progress = document.getElementById('progress');
+const inputField = document.getElementById('inputField');
+const replayBtn = document.getElementById('replayBtn');
+
+const totalScenes = 13;
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+function scrollDown() { chat.scrollTop = chat.scrollHeight; }
+function setProgress(scene) { progress.style.width = ((scene / totalScenes) * 100) + '%'; }
+
+function showNarrator(text, duration = 2500) {
+  narrator.textContent = text;
+  narrator.classList.add('show');
+  return sleep(duration).then(() => narrator.classList.remove('show'));
+}
+
+function addMsg(type, html, delay = 0) {
+  return sleep(delay).then(() => {
+    const div = document.createElement('div');
+    div.className = 'msg ' + type;
+    div.innerHTML = html;
+    chat.appendChild(div);
+    scrollDown();
+    return sleep(400).then(() => scrollDown());
+  });
+}
+
+function addLabel(text, delay = 0) {
+  return sleep(delay).then(() => {
+    const div = document.createElement('div');
+    div.className = 'scene-label';
+    div.innerHTML = '<span>' + text + '</span>';
+    chat.appendChild(div);
+    scrollDown();
+  });
+}
+
+function showTyping(duration = 1200) {
+  const div = document.createElement('div');
+  div.className = 'msg bot typing';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  chat.appendChild(div);
+  scrollDown();
+  return sleep(duration).then(() => { div.remove(); });
+}
+
+function typeInput(text, duration = 600) {
+  inputField.value = '';
+  let i = 0;
+  const step = duration / text.length;
+  return new Promise(resolve => {
+    const interval = setInterval(() => {
+      inputField.value = text.substring(0, ++i);
+      if (i >= text.length) { clearInterval(interval); setTimeout(() => { inputField.value = ''; resolve(); }, 300); }
+    }, step);
+  });
+}
+
+async function scene0_intro() {
+  setProgress(0);
+  await sleep(300);
+
+  await addMsg('bot',
+    '<b>欢迎使用Kellie基金智能助手</b><br><br>' +
+    '您的专属基金门户 — 涵盖 <b>93只HSBC基金</b>的实时数据、排名、新闻和分析，尽在Telegram。<br><br>' +
+    '<span class="dim">让我为您展示功能。</span>'
+  );
+
+  await sleep(3000);
+  await showNarrator('实时基金数据 + 市场情报，随时查询', 3000);
+  await sleep(800);
+}
+
+async function scene1_overview() {
+  setProgress(1);
+  await addLabel('📊 /overview — 基金概览');
+  await sleep(400);
+  await typeInput('/overview PIMCO');
+  await addMsg('user', '/overview PIMCO');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>📊 PIMCO GIS收益基金</b><br><br>' +
+    '<b>净值:</b> $9.42 <span class="green">▲ +0.32%</span><br>' +
+    '<b>1年回报:</b> <span class="green">+8.74%</span><br>' +
+    '<b>3年回报:</b> <span class="green">+12.31%</span><br>' +
+    '<b>风险等级:</b> 4 / 7<br>' +
+    '<b>类别:</b> 固定收益 — 全球<br>' +
+    '<b>分红:</b> 每月派息<br><br>' +
+    '<span class="link">📄 基金概况</span> · <span class="link">📋 招股说明书</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene2_performance() {
+  setProgress(2);
+  await addLabel('🏆 /performance — 业绩排名');
+  await sleep(400);
+  await typeInput('/performance');
+  await addMsg('user', '/performance');
+  await showTyping(2000);
+
+  await addMsg('bot',
+    '<b>🏆 年度最佳表现基金</b><br><br>' +
+    '1. <b>富达全球科技基金</b><br>' +
+    '   <span class="bar bar-green" style="width:140px"></span> <span class="green">+28.4%</span><br>' +
+    '2. <b>AB美国增长基金</b><br>' +
+    '   <span class="bar bar-green" style="width:125px"></span> <span class="green">+24.7%</span><br>' +
+    '3. <b>摩根亚洲增长基金</b><br>' +
+    '   <span class="bar bar-green" style="width:110px"></span> <span class="green">+21.3%</span><br>' +
+    '4. <b>施罗德亚洲股息基金</b><br>' +
+    '   <span class="bar bar-green" style="width:95px"></span> <span class="green">+18.9%</span><br>' +
+    '5. <b>路博迈5G基金</b><br>' +
+    '   <span class="bar bar-green" style="width:90px"></span> <span class="green">+17.6%</span><br><br>' +
+    '<span class="dim">基于93只HSBC可投资基金</span>'
+  );
+
+  await sleep(3500);
+}
+
+async function scene3_recommend() {
+  setProgress(3);
+  await addLabel('💡 /recommend — 个性化推荐');
+  await sleep(400);
+  await typeInput('/recommend_income');
+  await addMsg('user', '/recommend_income');
+  await showTyping(1800);
+
+  await addMsg('bot',
+    '<b>💡 收益型推荐</b><br>' +
+    '<span class="dim">适合追求稳定现金流的投资者</span><br><br>' +
+    '1. <b>PIMCO GIS收益基金</b><br>' +
+    '   收益率: <span class="gold">5.8%</span> · 风险: 4/7 · 每月派息<br>' +
+    '   <span class="dim">全球多元债券，稳定分红</span><br><br>' +
+    '2. <b>施罗德亚洲股息基金</b><br>' +
+    '   收益率: <span class="gold">4.9%</span> · 风险: 5/7 · 每季派息<br>' +
+    '   <span class="dim">亚洲股息收入，增长潜力更高</span><br><br>' +
+    '3. <b>摩根全球收益基金</b><br>' +
+    '   收益率: <span class="gold">4.2%</span> · 风险: 3/7 · 每月派息<br>' +
+    '   <span class="dim">多元资产，波动较低</span>'
+  );
+
+  await sleep(3500);
+}
+
+async function scene4_top5() {
+  setProgress(4);
+  await addLabel('🔥 /top5 — 月度精选');
+  await sleep(400);
+  await typeInput('/top5');
+  await addMsg('user', '/top5');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>🔥 本月前五基金</b><br><br>' +
+    '🥇 <b>富达全球科技基金</b> <span class="green">+4.2%</span><br>' +
+    '🥈 <b>AB美国增长基金</b> <span class="green">+3.8%</span><br>' +
+    '🥉 <b>贝莱德世界黄金基金</b> <span class="green">+3.5%</span><br>' +
+    '4. <b>Amundi先锋美国股票</b> <span class="green">+3.1%</span><br>' +
+    '5. <b>路博迈5G基金</b> <span class="green">+2.9%</span><br><br>' +
+    '<span class="dim">本月至今回报 截至2026年4月22日</span>'
+  );
+
+  await sleep(2500);
+}
+
+async function scene5_yield() {
+  setProgress(5);
+  await addLabel('💰 /yield — 股息收益率');
+  await sleep(400);
+  await typeInput('/yield');
+  await addMsg('user', '/yield');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>💰 最高收益率基金</b><br><br>' +
+    '1. <b>PIMCO GIS收益</b> — <span class="gold">5.8%</span> 每月<br>' +
+    '2. <b>安联收益及增长</b> — <span class="gold">5.5%</span> 每月<br>' +
+    '3. <b>施罗德亚洲股息</b> — <span class="gold">4.9%</span> 每季<br>' +
+    '4. <b>摩根全球收益</b> — <span class="gold">4.2%</span> 每月<br>' +
+    '5. <b>富兰克林收益</b> — <span class="gold">4.0%</span> 每月<br><br>' +
+    '<span class="dim">历史分红收益率，不代表未来表现</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene6_compare() {
+  setProgress(6);
+  await addLabel('⚖️ /compare — 基金对比');
+  await sleep(400);
+  await typeInput('/compare PIMCO vs JPMorgan');
+  await addMsg('user', '/compare PIMCO vs JPMorgan');
+  await showTyping(2000);
+
+  await addMsg('bot',
+    '<b>⚖️ 基金对比</b><br><br>' +
+    '<b>PIMCO GIS收益</b> vs <b>摩根全球收益</b><br><br>' +
+    '              PIMCO    |    摩根<br>' +
+    '1年回报:  <span class="green">+8.7%</span>    |  <span class="green">+6.2%</span><br>' +
+    '3年回报:  <span class="green">+12.3%</span>  |  <span class="green">+9.8%</span><br>' +
+    '收益率:    <span class="gold">5.8%</span>     |  <span class="gold">4.2%</span><br>' +
+    '风险:        4/7       |   3/7<br>' +
+    '派息:      每月      |  每月<br><br>' +
+    '<span class="dim">PIMCO: 更高收益和回报，风险略高</span>'
+  );
+
+  await sleep(3500);
+}
+
+async function scene7_news() {
+  setProgress(7);
+  await addLabel('📰 /news — 市场头条');
+  await sleep(400);
+  await typeInput('/news');
+  await addMsg('user', '/news');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>📰 市场头条</b><br>' +
+    '<span class="dim">经多源交叉验证</span><br><br>' +
+    '• <b>美联储维持利率不变，关税不确定性下释放耐心信号</b><br>' +
+    '<span class="source">[Reuters] [Bloomberg] | 2026年4月22日</span><br><br>' +
+    '• <b>中国GDP超预期达5.2%，刺激措施推动复苏</b><br>' +
+    '<span class="source">[FT] [Reuters] | 2026年4月22日</span><br><br>' +
+    '• <b>新加坡金管局维持新元中性政策区间立场</b><br>' +
+    '<span class="source">[海峡时报] [Bloomberg] | 2026年4月22日</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene8_sector() {
+  setProgress(8);
+  await addLabel('📈 /sector — 行业动态');
+  await sleep(400);
+  await typeInput('/sector_technology');
+  await addMsg('user', '/sector_technology');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>📈 科技</b><br><br>' +
+    '• <b>英伟达Q1营收创纪录，AI芯片需求激增</b><br>' +
+    '<span class="source">[Bloomberg] | 2026年4月22日</span><br><br>' +
+    '• <b>苹果发布iPhone新AI功能，股价创历史新高</b><br>' +
+    '<span class="source">[Reuters] | 2026年4月22日</span><br><br>' +
+    '• <b>台积电扩建新加坡工厂，确认投资80亿新元</b><br>' +
+    '<span class="source">[海峡时报] | 2026年4月21日</span>'
+  );
+
+  await sleep(2500);
+}
+
+async function scene9_house() {
+  setProgress(9);
+  await addLabel('🏛 /house — 基金公司动态');
+  await sleep(400);
+  await typeInput('/house');
+  await addMsg('user', '/house');
+  await showTyping(1800);
+
+  await addMsg('bot',
+    '<b>🏛 基金公司动态</b><br><br>' +
+    '<b>贝莱德</b><br>' +
+    '• 上调2026年股市展望，看好AI基建<br>' +
+    '<span class="source">[Bloomberg] | 2026年4月22日</span><br><br>' +
+    '<b>PIMCO</b><br>' +
+    '• 预计下半年降息，增加久期配置<br>' +
+    '<span class="source">[FT] | 2026年4月21日</span><br><br>' +
+    '<b>施罗德</b><br>' +
+    '• 为新加坡市场推出新亚洲收益策略<br>' +
+    '<span class="source">[海峡时报] | 2026年4月21日</span><br><br>' +
+    '<span class="dim">覆盖29家基金公司</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene10_ask() {
+  setProgress(10);
+  await addLabel('🤔 /ask — 有问必答');
+  await sleep(400);
+  await typeInput('/ask 我该转投债券吗？');
+  await addMsg('user', '/ask 我该转投债券吗？');
+  await showTyping(2500);
+
+  await addMsg('bot',
+    '<b>🤔 有问必答</b><br><br>' +
+    '这取决于您的投资期限和风险偏好。美联储释放耐心信号，债券对收益型投资者很有吸引力。<br><br>' +
+    '建议<b>均衡配置</b>，保持40-60%股票同时增加债券敞口：<br><br>' +
+    '• <b>PIMCO GIS收益</b> — 全球债券，5.8%收益率<br>' +
+    '• <b>摩根全球收益</b> — 多元资产，波动较低<br><br>' +
+    '全部转为债券可能错过股票上涨空间，尤其是科技和亚洲板块。<br><br>' +
+    '<span class="cta">想要个性化分析？/contact</span>'
+  );
+
+  await sleep(3500);
+}
+
+async function scene11_learn() {
+  setProgress(11);
+  await addLabel('💡 /learn — 金融知识');
+  await sleep(400);
+  await typeInput('/learn_srs');
+  await addMsg('user', '/learn_srs');
+  await showTyping(1800);
+
+  await addMsg('bot',
+    '<b>💡 SRS — 退休辅助计划</b><br><br>' +
+    '<b>什么是SRS？</b><br>' +
+    '自愿储蓄计划，今天享受税务减免，明天拥有退休储备金。<br><br>' +
+    '<b>2026年关键数字：</b><br>' +
+    '• 缴款上限: $15,300/年（公民和永久居民）<br>' +
+    '• 税务减免: 最高$3,366/年（22%税率）<br>' +
+    '• 提取税: 62岁后仅50%需缴税<br><br>' +
+    '<b>SRS + 基金：</b><br>' +
+    'SRS现金利率仅0.05%。投资基金可争取4-8%回报，同时保留税务优惠。<br><br>' +
+    '<span class="cta">想优化您的SRS配置？/contact</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene12_dividend() {
+  setProgress(12);
+  await addLabel('📅 /dividend — 派息日历');
+  await sleep(400);
+  await typeInput('/dividend');
+  await addMsg('user', '/dividend');
+  await showTyping(1200);
+
+  await addMsg('bot',
+    '<b>📅 即将派息</b><br><br>' +
+    '<b>2026年4月</b><br>' +
+    '• PIMCO GIS收益 — $0.042/单位 — 4月25日<br>' +
+    '• 安联收益及增长 — $0.038/单位 — 4月28日<br>' +
+    '• 摩根全球收益 — $0.031/单位 — 4月30日<br><br>' +
+    '<b>2026年5月</b><br>' +
+    '• 施罗德亚洲股息 — $0.056/单位 — 5月15日<br>' +
+    '• 富兰克林收益 — $0.029/单位 — 5月20日<br><br>' +
+    '<span class="dim">日期以基金公司最终确认为准</span>'
+  );
+
+  await sleep(2500);
+}
+
+async function finale() {
+  setProgress(totalScenes);
+  await sleep(500);
+
+  await addMsg('bot',
+    '<b>这就是您的基金智能工具箱。</b><br><br>' +
+    '<b>📊 基金数据</b><br>' +
+    '<span class="cmd">/overview</span> — 基金概览<br>' +
+    '<span class="cmd">/performance</span> — 业绩排名<br>' +
+    '<span class="cmd">/yield</span> — 股息收益率<br>' +
+    '<span class="cmd">/top5</span> — 月度精选<br>' +
+    '<span class="cmd">/compare</span> — 基金对比<br>' +
+    '<span class="cmd">/dividend</span> — 派息日历<br>' +
+    '<span class="cmd">/factsheet</span> — 基金文件<br>' +
+    '<span class="cmd">/funds</span> — 搜索全部93只基金<br>' +
+    '<span class="cmd">/recommend</span> — 个性化推荐<br><br>' +
+    '<b>📰 市场情报</b><br>' +
+    '<span class="cmd">/news</span> — 市场头条<br>' +
+    '<span class="cmd">/sgnews</span> — 新加坡新闻<br>' +
+    '<span class="cmd">/sector</span> — 17个行业板块<br>' +
+    '<span class="cmd">/house</span> — 29家基金公司<br><br>' +
+    '<b>💡 更多</b><br>' +
+    '<span class="cmd">/ask</span> — 有问必答<br>' +
+    '<span class="cmd">/learn</span> — 金融知识<br>' +
+    '<span class="cmd">/help</span> — 完整指令列表'
+  );
+
+  await sleep(500);
+  scrollDown();
+  await sleep(2000);
+  await showNarrator('93只基金。16条指令。尽在Telegram。', 3000);
+  await sleep(1000);
+  replayBtn.style.display = 'block';
+}
+
+async function runWalkthrough() {
+  chat.innerHTML = '';
+  replayBtn.style.display = 'none';
+  setProgress(0);
+
+  await sleep(800);
+  await scene0_intro();
+  await scene1_overview();
+  await scene2_performance();
+  await scene3_recommend();
+  await scene4_top5();
+  await scene5_yield();
+  await scene6_compare();
+  await scene7_news();
+  await scene8_sector();
+  await scene9_house();
+  await scene10_ask();
+  await scene11_learn();
+  await scene12_dividend();
+  await finale();
+}
+
+function replay() { runWalkthrough(); }
+runWalkthrough();
+</script>
+</body>
+</html>
