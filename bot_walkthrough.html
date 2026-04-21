@@ -288,7 +288,11 @@ let sceneIndex = 0;
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 function scrollDown() {
-  chat.scrollTop = chat.scrollHeight;
+  requestAnimationFrame(() => {
+    chat.scrollTop = chat.scrollHeight + 500;
+    const last = chat.lastElementChild;
+    if (last) last.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  });
 }
 
 function setProgress(scene) {
