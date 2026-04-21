@@ -30,11 +30,20 @@
   }
 
   @media (max-width: 430px) {
-    body { padding: 10px 0; }
-    .phone {
-      transform: scale(0.88);
-      transform-origin: top center;
+    body {
+      padding: 12px 0;
+      overflow-y: auto;
+      align-items: flex-start;
     }
+    .phone {
+      width: 86vw;
+      height: 82vh;
+      border-radius: 32px;
+      margin: 0 auto;
+      flex-shrink: 0;
+    }
+    .chat-area { height: calc(82vh - 160px); }
+    .header { padding-top: 30px; }
   }
 
   .header {
