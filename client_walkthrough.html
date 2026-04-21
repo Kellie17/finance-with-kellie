@@ -54,7 +54,7 @@
   .chat-area {
     height: 690px;
     overflow-y: auto;
-    padding: 12px 8px;
+    padding: 12px 8px 80px;
     scroll-behavior: smooth;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -292,7 +292,8 @@ function addMsg(type, html, delay = 0) {
     div.innerHTML = html;
     chat.appendChild(div);
     scrollDown();
-    return sleep(400).then(() => scrollDown());
+    setTimeout(scrollDown, 300);
+    return sleep(100);
   });
 }
 
