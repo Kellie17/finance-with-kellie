@@ -31,19 +31,17 @@
 
   @media (max-width: 430px) {
     body {
-      padding: 8px 0;
-      overflow-y: auto;
-      align-items: flex-start;
+      overflow: hidden;
+      align-items: stretch;
     }
     .phone {
-      width: 92vw;
-      height: 82vh;
-      border-radius: 28px;
-      margin: 0 auto;
-      flex-shrink: 0;
+      width: 100%;
+      height: 100dvh;
+      border-radius: 0;
+      box-shadow: none;
     }
-    .chat-area { height: calc(82vh - 150px); padding-bottom: 120px; }
-    .header { padding-top: 24px; }
+    .chat-area { height: calc(100dvh - 120px); }
+    .header { padding-top: 12px; }
   }
 
   .header {
