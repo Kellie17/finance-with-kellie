@@ -31,19 +31,28 @@
 
   @media (max-width: 430px) {
     body {
-      padding: 8px 0;
-      overflow-y: auto;
-      align-items: flex-start;
+      overflow: hidden;
+      align-items: stretch;
     }
     .phone {
-      width: 92vw;
-      height: 82vh;
-      border-radius: 28px;
-      margin: 0 auto;
+      width: 100%;
+      height: 100dvh;
+      border-radius: 0;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+    }
+    .header { padding-top: 12px; flex-shrink: 0; }
+    .chat-area {
+      flex: 1;
+      height: auto !important;
+      padding-bottom: 20px !important;
+      overflow-y: auto;
+    }
+    .input-bar {
+      position: relative !important;
       flex-shrink: 0;
     }
-    .chat-area { height: calc(82vh - 150px); padding-bottom: 120px; }
-    .header { padding-top: 24px; }
   }
 
   .header {
@@ -281,7 +290,11 @@ const totalScenes = 11;
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 function scrollDown() {
-  chat.scrollTop = chat.scrollHeight;
+  requestAnimationFrame(() => {
+    chat.scrollTop = chat.scrollHeight + 500;
+    const last = chat.lastElementChild;
+    if (last) last.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  });
 }
 
 function setProgress(scene) {
