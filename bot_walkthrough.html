@@ -39,9 +39,20 @@
       height: 100dvh;
       border-radius: 0;
       box-shadow: none;
+      display: flex;
+      flex-direction: column;
     }
-    .chat-area { height: calc(100dvh - 70px); padding-bottom: 140px !important; }
-    .header { padding-top: 12px; }
+    .header { padding-top: 12px; flex-shrink: 0; }
+    .chat-area {
+      flex: 1;
+      height: auto !important;
+      padding-bottom: 20px !important;
+      overflow-y: auto;
+    }
+    .input-bar {
+      position: relative !important;
+      flex-shrink: 0;
+    }
   }
 
   .header {
