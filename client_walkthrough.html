@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kellie's Fund Intelligence Bot - Walkthrough</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0e1621;
+    font-family: 'Inter', -apple-system, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .phone {
+    width: 390px;
+    height: 844px;
+    background: #17212b;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 0 3px #2a3a4a, 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  @media (max-width: 430px) {
+    body { align-items: stretch; overflow: auto; }
+    .phone {
+      width: 100%;
+      height: 100vh;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    .header { padding-top: 16px; }
+    .chat-area { height: calc(100vh - 130px); }
+  }
+
+  .header {
+    background: #1f2936;
+    padding: 50px 16px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #0e1621;
+    position: relative;
+    z-index: 10;
+  }
+
+  .header-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e8443a, #f4845f);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; color: white;
+  }
+
+  .header-info h3 { color: #e1e3e6; font-size: 15px; font-weight: 600; }
+  .header-info span { color: #6c7883; font-size: 12px; }
+
+  .chat-area {
+    height: 690px;
+    overflow-y: auto;
+    padding: 12px 8px 80px;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .chat-area::-webkit-scrollbar { display: none; }
+
+  .msg {
+    max-width: 300px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: msgIn 0.35s ease forwards;
+    position: relative;
+  }
+
+  @keyframes msgIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg.user {
+    background: #c0392b;
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+    font-weight: 500;
+  }
+
+  .msg.bot {
+    background: #182533;
+    color: #e1e3e6;
+    margin-right: auto;
+    border-bottom-left-radius: 4px;
+  }
+
+  .msg b { color: #e1e3e6; }
+  .msg .cmd { color: #e74c3c; }
+  .msg .section-header { color: #e1e3e6; font-weight: 600; display: block; margin-top: 6px; }
+  .msg .dim { color: #6c7883; font-style: italic; font-size: 13px; }
+  .msg .source { color: #6c7883; font-size: 12px; }
+  .msg .highlight { color: #e74c3c; }
+  .msg .green { color: #27ae60; font-weight: 600; }
+  .msg .red { color: #e74c3c; font-weight: 600; }
+  .msg .gold { color: #f39c12; font-weight: 600; }
+  .msg .cta { color: #e74c3c; font-style: italic; font-size: 13px; display: block; margin-top: 6px; }
+  .msg .link { color: #3498db; text-decoration: underline; }
+  .msg .whatsapp { color: #25d366; font-weight: 500; }
+  .msg .bar { display: inline-block; height: 8px; border-radius: 4px; margin-right: 4px; vertical-align: middle; }
+  .msg .bar-green { background: #27ae60; }
+  .msg .bar-red { background: #e74c3c; }
+  .msg .bar-gold { background: #f39c12; }
+
+  .typing {
+    display: flex;
+    gap: 4px;
+    padding: 12px 16px;
+    opacity: 0;
+    animation: msgIn 0.3s ease forwards;
+  }
+  .typing span {
+    width: 8px; height: 8px;
+    background: #4a5968;
+    border-radius: 50%;
+    animation: typingDot 1.2s ease infinite;
+  }
+  .typing span:nth-child(2) { animation-delay: 0.2s; }
+  .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typingDot {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-6px); opacity: 1; }
+  }
+
+  .input-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: #1f2936;
+    padding: 10px 12px 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid #0e1621;
+  }
+
+  .input-field {
+    flex: 1;
+    background: #242f3d;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 16px;
+    color: #e1e3e6;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+  }
+  .input-field::placeholder { color: #4a5968; }
+
+  .send-btn {
+    width: 36px; height: 36px;
+    background: #c0392b;
+    border: none; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .send-btn svg { fill: white; width: 16px; height: 16px; }
+
+  .scene-label {
+    text-align: center;
+    padding: 8px;
+    margin: 8px 0;
+    opacity: 0;
+    animation: msgIn 0.5s ease forwards;
+  }
+  .scene-label span {
+    background: #1f2936;
+    color: #6c7883;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 10px;
+  }
+
+  .narrator {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(192,57,43,0.95);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 20;
+    width: 340px;
+    pointer-events: none;
+  }
+  .narrator.show { opacity: 1; }
+
+  .progress-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: #0e1621;
+    z-index: 20;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #c0392b, #e74c3c);
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+
+  .replay-btn {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #c0392b;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    display: none;
+    z-index: 30;
+    box-shadow: 0 4px 20px rgba(192,57,43,0.4);
+  }
+  .replay-btn:hover { background: #e74c3c; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+  <div class="header">
+    <div class="header-avatar">K</div>
+    <div class="header-info">
+      <h3>Kellie's Fund Intelligence</h3>
+      <span>bot</span>
+    </div>
+  </div>
+
+  <div class="chat-area" id="chat"></div>
+
+  <div class="narrator" id="narrator"></div>
+
+  <div class="input-bar">
+    <input class="input-field" placeholder="Message" readonly id="inputField">
+    <div class="send-btn">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </div>
+  </div>
+
+  <button class="replay-btn" id="replayBtn" onclick="replay()">Replay</button>
+</div>
+
+<script>
+const chat = document.getElementById('chat');
+const narrator = document.getElementById('narrator');
+const progress = document.getElementById('progress');
+const inputField = document.getElementById('inputField');
+const replayBtn = document.getElementById('replayBtn');
+
+const totalScenes = 13;
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function scrollDown() {
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function setProgress(scene) {
+  progress.style.width = ((scene / totalScenes) * 100) + '%';
+}
+
+function showNarrator(text, duration = 2500) {
+  narrator.textContent = text;
+  narrator.classList.add('show');
+  return sleep(duration).then(() => narrator.classList.remove('show'));
+}
+
+function addMsg(type, html, delay = 0) {
+  return sleep(delay).then(() => {
+    const div = document.createElement('div');
+    div.className = 'msg ' + type;
+    div.innerHTML = html;
+    chat.appendChild(div);
+    scrollDown();
+    setTimeout(scrollDown, 300);
+    return sleep(100);
+  });
+}
+
+function addLabel(text, delay = 0) {
+  return sleep(delay).then(() => {
+    const div = document.createElement('div');
+    div.className = 'scene-label';
+    div.innerHTML = '<span>' + text + '</span>';
+    chat.appendChild(div);
+    scrollDown();
+  });
+}
+
+function showTyping(duration = 1200) {
+  const div = document.createElement('div');
+  div.className = 'msg bot typing';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  chat.appendChild(div);
+  scrollDown();
+  return sleep(duration).then(() => {
+    div.remove();
+  });
+}
+
+function typeInput(text, duration = 600) {
+  inputField.value = '';
+  let i = 0;
+  const step = duration / text.length;
+  return new Promise(resolve => {
+    const interval = setInterval(() => {
+      inputField.value = text.substring(0, ++i);
+      if (i >= text.length) { clearInterval(interval); setTimeout(() => { inputField.value = ''; resolve(); }, 300); }
+    }, step);
+  });
+}
+
+async function scene0_intro() {
+  setProgress(0);
+  await sleep(300);
+
+  await addMsg('bot',
+    '<b>Welcome to Kellie\'s Fund Intelligence Bot</b><br><br>' +
+    'Your personal portal to <b>93 HSBC funds</b> — live data, rankings, news, and insights, all from Telegram.<br><br>' +
+    '<span class="dim">Let me show you what I can do.</span>'
+  );
+
+  await sleep(3000);
+  await showNarrator('Live fund data + market intelligence, on demand', 3000);
+  await sleep(800);
+}
+
+async function scene1_overview() {
+  setProgress(1);
+  await addLabel('📊 /overview — Fund snapshot');
+  await sleep(400);
+  await typeInput('/overview PIMCO');
+  await addMsg('user', '/overview PIMCO');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>📊 PIMCO GIS Income Fund</b><br><br>' +
+    '<b>NAV:</b> $9.42 <span class="green">▲ +0.32%</span><br>' +
+    '<b>1Y Return:</b> <span class="green">+8.74%</span><br>' +
+    '<b>3Y Return:</b> <span class="green">+12.31%</span><br>' +
+    '<b>Risk Level:</b> 4 / 7<br>' +
+    '<b>Category:</b> Fixed Income — Global<br>' +
+    '<b>Distribution:</b> Monthly<br><br>' +
+    '<span class="link">📄 Factsheet</span> · <span class="link">📋 Prospectus</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene2_performance() {
+  setProgress(2);
+  await addLabel('🏆 /performance — Fund rankings');
+  await sleep(400);
+  await typeInput('/performance');
+  await addMsg('user', '/performance');
+  await showTyping(2000);
+
+  await addMsg('bot',
+    '<b>🏆 Top Performers — 1 Year</b><br><br>' +
+    '1. <b>Fidelity Global Technology</b><br>' +
+    '   <span class="bar bar-green" style="width:140px"></span> <span class="green">+28.4%</span><br>' +
+    '2. <b>AB American Growth</b><br>' +
+    '   <span class="bar bar-green" style="width:125px"></span> <span class="green">+24.7%</span><br>' +
+    '3. <b>JPMorgan Asia Growth</b><br>' +
+    '   <span class="bar bar-green" style="width:110px"></span> <span class="green">+21.3%</span><br>' +
+    '4. <b>Schroder Asian Equity Yield</b><br>' +
+    '   <span class="bar bar-green" style="width:95px"></span> <span class="green">+18.9%</span><br>' +
+    '5. <b>Neuberger Berman 5G</b><br>' +
+    '   <span class="bar bar-green" style="width:90px"></span> <span class="green">+17.6%</span><br><br>' +
+    '<span class="dim">Based on 93 HSBC-available funds</span>'
+  );
+
+  await sleep(3500);
+}
+
+async function scene3_recommend() {
+  setProgress(3);
+  await addLabel('💡 /recommend — Personalised picks');
+  await sleep(400);
+  await typeInput('/recommend_income');
+  await addMsg('user', '/recommend_income');
+  await showTyping(1800);
+
+  await addMsg('bot',
+    '<b>💡 Income Recommendations</b><br>' +
+    '<span class="dim">For regular cash flow seekers</span><br><br>' +
+    '1. <b>PIMCO GIS Income Fund</b><br>' +
+    '   Yield: <span class="gold">5.8%</span> · Risk: 4/7 · Monthly payout<br>' +
+    '   <span class="dim">Diversified global bonds, consistent distributor</span><br><br>' +
+    '2. <b>Schroder Asian Equity Yield</b><br>' +
+    '   Yield: <span class="gold">4.9%</span> · Risk: 5/7 · Quarterly payout<br>' +
+    '   <span class="dim">Asia equity income, higher growth potential</span><br><br>' +
+    '3. <b>JPMorgan Global Income</b><br>' +
+    '   Yield: <span class="gold">4.2%</span> · Risk: 3/7 · Monthly payout<br>' +
+    '   <span class="dim">Multi-asset, lower volatility</span>'
+  );
+
+  await sleep(3500);
+}
+
+async function scene4_top5() {
+  setProgress(4);
+  await addLabel('🔥 /top5 — Quick picks');
+  await sleep(400);
+  await typeInput('/top5');
+  await addMsg('user', '/top5');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>🔥 Top 5 Funds This Month</b><br><br>' +
+    '🥇 <b>Fidelity Global Technology</b> <span class="green">+4.2%</span><br>' +
+    '🥈 <b>AB American Growth</b> <span class="green">+3.8%</span><br>' +
+    '🥉 <b>BlackRock World Gold</b> <span class="green">+3.5%</span><br>' +
+    '4. <b>Amundi Pioneer US Equity</b> <span class="green">+3.1%</span><br>' +
+    '5. <b>Neuberger Berman 5G</b> <span class="green">+2.9%</span><br><br>' +
+    '<span class="dim">MTD returns as of 22 Apr 2026</span>'
+  );
+
+  await sleep(2500);
+}
+
+async function scene5_yield() {
+  setProgress(5);
+  await addLabel('💰 /yield — Dividend yields');
+  await sleep(400);
+  await typeInput('/yield');
+  await addMsg('user', '/yield');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>💰 Highest Yielding Funds</b><br><br>' +
+    '1. <b>PIMCO GIS Income</b> — <span class="gold">5.8%</span> Monthly<br>' +
+    '2. <b>Allianz Income & Growth</b> — <span class="gold">5.5%</span> Monthly<br>' +
+    '3. <b>Schroder Asian Eq Yield</b> — <span class="gold">4.9%</span> Quarterly<br>' +
+    '4. <b>JPMorgan Global Income</b> — <span class="gold">4.2%</span> Monthly<br>' +
+    '5. <b>Franklin Templeton Income</b> — <span class="gold">4.0%</span> Monthly<br><br>' +
+    '<span class="dim">Distribution yields are historical and not guaranteed</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene6_compare() {
+  setProgress(6);
+  await addLabel('⚖️ /compare — Side by side');
+  await sleep(400);
+  await typeInput('/compare PIMCO vs JPMorgan');
+  await addMsg('user', '/compare PIMCO vs JPMorgan');
+  await showTyping(2000);
+
+  await addMsg('bot',
+    '<b>⚖️ Fund Comparison</b><br><br>' +
+    '<b>PIMCO GIS Income</b> vs <b>JPM Global Income</b><br><br>' +
+    '              PIMCO    |    JPM<br>' +
+    '1Y Return:  <span class="green">+8.7%</span>    |  <span class="green">+6.2%</span><br>' +
+    '3Y Return:  <span class="green">+12.3%</span>  |  <span class="green">+9.8%</span><br>' +
+    'Yield:        <span class="gold">5.8%</span>     |  <span class="gold">4.2%</span><br>' +
+    'Risk:          4/7       |   3/7<br>' +
+    'Payout:     Monthly  |  Monthly<br><br>' +
+    '<span class="dim">PIMCO: higher yield & return, slightly higher risk</span>'
+  );
+
+  await sleep(3500);
+}
+
+async function scene7_news() {
+  setProgress(7);
+  await addLabel('📰 /news — Market headlines');
+  await sleep(400);
+  await typeInput('/news');
+  await addMsg('user', '/news');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>📰 Market Headlines</b><br>' +
+    '<span class="dim">Cross-verified from multiple sources</span><br><br>' +
+    '• <b>Fed holds rates steady, signals patience amid tariff uncertainty</b><br>' +
+    '<span class="source">[Reuters] [Bloomberg] | 22 Apr 2026</span><br><br>' +
+    '• <b>China GDP beats expectations at 5.2%, stimulus measures drive recovery</b><br>' +
+    '<span class="source">[FT] [Reuters] | 22 Apr 2026</span><br><br>' +
+    '• <b>MAS maintains S$NEER neutral stance amid global crosswinds</b><br>' +
+    '<span class="source">[Straits Times] [Bloomberg] | 22 Apr 2026</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene8_sector() {
+  setProgress(8);
+  await addLabel('📈 /sector — Industry trends');
+  await sleep(400);
+  await typeInput('/sector_technology');
+  await addMsg('user', '/sector_technology');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>📈 Technology</b><br><br>' +
+    '• <b>Nvidia Q1 revenue hits record, AI chip demand surges</b><br>' +
+    '<span class="source">[Bloomberg] | 22 Apr 2026</span><br><br>' +
+    '• <b>Apple unveils new iPhone AI features, stock hits all-time high</b><br>' +
+    '<span class="source">[Reuters] | 22 Apr 2026</span><br><br>' +
+    '• <b>TSMC expands Singapore fab, confirms S$80bn investment</b><br>' +
+    '<span class="source">[Straits Times] | 21 Apr 2026</span>'
+  );
+
+  await sleep(2500);
+}
+
+async function scene9_house() {
+  setProgress(9);
+  await addLabel('🏛 /house — Fund house updates');
+  await sleep(400);
+  await typeInput('/house');
+  await addMsg('user', '/house');
+  await showTyping(1800);
+
+  await addMsg('bot',
+    '<b>🏛 Fund House Updates</b><br><br>' +
+    '<b>BlackRock</b><br>' +
+    '• Raises 2026 equity outlook, favours AI infrastructure<br>' +
+    '<span class="source">[Bloomberg] | 22 Apr 2026</span><br><br>' +
+    '<b>PIMCO</b><br>' +
+    '• Expects rate cuts in H2, overweights duration<br>' +
+    '<span class="source">[FT] | 21 Apr 2026</span><br><br>' +
+    '<b>Schroders</b><br>' +
+    '• Launches new Asia income strategy for SG market<br>' +
+    '<span class="source">[Straits Times] | 21 Apr 2026</span><br><br>' +
+    '<span class="dim">Covering 29 fund houses</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene10_ask() {
+  setProgress(10);
+  await addLabel('🤔 /ask — Ask Kellie anything');
+  await sleep(400);
+  await typeInput('/ask Should I switch to bonds?');
+  await addMsg('user', '/ask Should I switch to bonds?');
+  await showTyping(2500);
+
+  await addMsg('bot',
+    '<b>🤔 Ask Kellie</b><br><br>' +
+    'It depends on your timeline and risk appetite. With the Fed signalling patience, bonds look attractive for income seekers.<br><br>' +
+    'For a <b>balanced approach</b>, consider keeping 40-60% equities and adding bond exposure through:<br><br>' +
+    '• <b>PIMCO GIS Income</b> — global bonds, 5.8% yield<br>' +
+    '• <b>JPMorgan Global Income</b> — multi-asset, lower volatility<br><br>' +
+    'A full switch to bonds may miss equity upside, especially in tech and Asia.<br><br>' +
+    '<span class="cta">Want a personalised review? /contact</span>'
+  );
+
+  await sleep(3500);
+}
+
+async function scene11_learn() {
+  setProgress(11);
+  await addLabel('💡 /learn — Financial education');
+  await sleep(400);
+  await typeInput('/learn_srs');
+  await addMsg('user', '/learn_srs');
+  await showTyping(1800);
+
+  await addMsg('bot',
+    '<b>💡 SRS — Supplementary Retirement Scheme</b><br><br>' +
+    '<b>What is SRS?</b><br>' +
+    'A voluntary savings scheme that gives you tax relief today and a retirement nest egg for tomorrow.<br><br>' +
+    '<b>Key numbers (2026):</b><br>' +
+    '• Contribution cap: $15,300/year (Citizens & PRs)<br>' +
+    '• Tax relief: Up to $3,366/year (at 22% bracket)<br>' +
+    '• Withdrawal tax: Only 50% taxable after age 62<br><br>' +
+    '<b>SRS + Funds:</b><br>' +
+    'SRS cash earns 0.05%. Investing in funds can target 4-8% returns while keeping the tax benefit.<br><br>' +
+    '<span class="cta">Want to optimise your SRS? /contact</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene12_dividend() {
+  setProgress(12);
+  await addLabel('📅 /dividend — Payout calendar');
+  await sleep(400);
+  await typeInput('/dividend');
+  await addMsg('user', '/dividend');
+  await showTyping(1200);
+
+  await addMsg('bot',
+    '<b>📅 Upcoming Dividends</b><br><br>' +
+    '<b>April 2026</b><br>' +
+    '• PIMCO GIS Income — $0.042/unit — 25 Apr<br>' +
+    '• Allianz Income & Growth — $0.038/unit — 28 Apr<br>' +
+    '• JPMorgan Global Income — $0.031/unit — 30 Apr<br><br>' +
+    '<b>May 2026</b><br>' +
+    '• Schroder Asian Eq Yield — $0.056/unit — 15 May<br>' +
+    '• Franklin Templeton Income — $0.029/unit — 20 May<br><br>' +
+    '<span class="dim">Dates subject to fund manager confirmation</span>'
+  );
+
+  await sleep(2500);
+}
+
+async function finale() {
+  setProgress(totalScenes);
+  await sleep(500);
+
+  await addMsg('bot',
+    '<b>That\'s your fund intelligence toolkit.</b><br><br>' +
+    '<b>📊 Fund Data</b><br>' +
+    '<span class="cmd">/overview</span> — Fund snapshot<br>' +
+    '<span class="cmd">/performance</span> — Rankings<br>' +
+    '<span class="cmd">/yield</span> — Dividend yields<br>' +
+    '<span class="cmd">/top5</span> — Monthly top picks<br>' +
+    '<span class="cmd">/compare</span> — Side by side<br>' +
+    '<span class="cmd">/dividend</span> — Payout calendar<br>' +
+    '<span class="cmd">/factsheet</span> — Fund documents<br>' +
+    '<span class="cmd">/funds</span> — Search all 93 funds<br>' +
+    '<span class="cmd">/recommend</span> — Personalised picks<br><br>' +
+    '<b>📰 Market Intel</b><br>' +
+    '<span class="cmd">/news</span> — Headlines<br>' +
+    '<span class="cmd">/sgnews</span> — Singapore news<br>' +
+    '<span class="cmd">/sector</span> — 17 sectors<br>' +
+    '<span class="cmd">/house</span> — 29 fund houses<br><br>' +
+    '<b>💡 More</b><br>' +
+    '<span class="cmd">/ask</span> — Ask Kellie<br>' +
+    '<span class="cmd">/learn</span> — Financial education<br>' +
+    '<span class="cmd">/help</span> — Full command list'
+  );
+
+  await sleep(500);
+  scrollDown();
+  await sleep(2000);
+  await showNarrator('93 funds. 16 commands. All from Telegram.', 3000);
+  await sleep(1000);
+  replayBtn.style.display = 'block';
+}
+
+async function runWalkthrough() {
+  chat.innerHTML = '';
+  replayBtn.style.display = 'none';
+  setProgress(0);
+
+  await sleep(800);
+  await scene0_intro();
+  await scene1_overview();
+  await scene2_performance();
+  await scene3_recommend();
+  await scene4_top5();
+  await scene5_yield();
+  await scene6_compare();
+  await scene7_news();
+  await scene8_sector();
+  await scene9_house();
+  await scene10_ask();
+  await scene11_learn();
+  await scene12_dividend();
+  await finale();
+}
+
+function replay() {
+  runWalkthrough();
+}
+
+runWalkthrough();
+</script>
+</body>
+</html>
