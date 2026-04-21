@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance with Kellie - Bot Walkthrough</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0e1621;
+    font-family: 'Inter', -apple-system, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .phone {
+    width: 390px;
+    height: 844px;
+    background: #17212b;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 0 3px #2a3a4a, 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  @media (max-width: 430px) {
+    body {
+      padding: 8px 0;
+      overflow-y: auto;
+      align-items: flex-start;
+    }
+    .phone {
+      width: 92vw;
+      height: 82vh;
+      border-radius: 28px;
+      margin: 0 auto;
+      flex-shrink: 0;
+    }
+    .chat-area { height: calc(82vh - 150px); padding-bottom: 120px; }
+    .header { padding-top: 24px; }
+  }
+
+  .header {
+    background: #1f2936;
+    padding: 50px 16px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #0e1621;
+    position: relative;
+    z-index: 10;
+  }
+
+  .header-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c6aef, #a78bfa);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; color: white;
+  }
+
+  .header-info h3 { color: #e1e3e6; font-size: 15px; font-weight: 600; }
+  .header-info span { color: #6c7883; font-size: 12px; }
+
+  .chat-area {
+    height: 690px;
+    overflow-y: auto;
+    padding: 12px 8px 100px;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .chat-area::-webkit-scrollbar { display: none; }
+
+  .msg {
+    max-width: 300px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: msgIn 0.35s ease forwards;
+    position: relative;
+  }
+
+  @keyframes msgIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg.user {
+    background: #766ac8;
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+    font-weight: 500;
+  }
+
+  .msg.bot {
+    background: #182533;
+    color: #e1e3e6;
+    margin-right: auto;
+    border-bottom-left-radius: 4px;
+  }
+
+  .msg b { color: #e1e3e6; }
+  .msg .cmd { color: #7cacf8; }
+  .msg .emoji { font-size: 15px; }
+  .msg .section-header { color: #e1e3e6; font-weight: 600; display: block; margin-top: 6px; }
+  .msg .dim { color: #6c7883; font-style: italic; font-size: 13px; }
+  .msg .source { color: #6c7883; font-size: 12px; }
+  .msg .highlight { color: #7cacf8; }
+  .msg .cta { color: #a78bfa; font-style: italic; font-size: 13px; display: block; margin-top: 6px; }
+  .msg .whatsapp { color: #25d366; font-weight: 500; }
+
+  .msg-time {
+    color: #4a5968;
+    font-size: 10px;
+    text-align: right;
+    margin-top: 2px;
+  }
+
+  .typing {
+    display: flex;
+    gap: 4px;
+    padding: 12px 16px;
+    opacity: 0;
+    animation: msgIn 0.3s ease forwards;
+  }
+  .typing span {
+    width: 8px; height: 8px;
+    background: #4a5968;
+    border-radius: 50%;
+    animation: typingDot 1.2s ease infinite;
+  }
+  .typing span:nth-child(2) { animation-delay: 0.2s; }
+  .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typingDot {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-6px); opacity: 1; }
+  }
+
+  .input-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: #1f2936;
+    padding: 10px 12px 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid #0e1621;
+  }
+
+  .input-field {
+    flex: 1;
+    background: #242f3d;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 16px;
+    color: #e1e3e6;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+  }
+  .input-field::placeholder { color: #4a5968; }
+
+  .send-btn {
+    width: 36px; height: 36px;
+    background: #766ac8;
+    border: none; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .send-btn svg { fill: white; width: 16px; height: 16px; }
+
+  .scene-label {
+    text-align: center;
+    padding: 8px;
+    margin: 8px 0;
+    opacity: 0;
+    animation: msgIn 0.5s ease forwards;
+  }
+  .scene-label span {
+    background: #1f2936;
+    color: #6c7883;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 10px;
+  }
+
+  .narrator {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(118,106,200,0.95);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 20;
+    width: 340px;
+    pointer-events: none;
+  }
+  .narrator.show { opacity: 1; }
+
+  .progress-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: #0e1621;
+    z-index: 20;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #766ac8, #a78bfa);
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+
+  .replay-btn {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #766ac8;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    display: none;
+    z-index: 30;
+    box-shadow: 0 4px 20px rgba(118,106,200,0.4);
+  }
+  .replay-btn:hover { background: #8b7fd4; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+  <div class="header">
+    <div class="header-avatar">F</div>
+    <div class="header-info">
+      <h3>Finance with Kellie</h3>
+      <span>bot</span>
+    </div>
+  </div>
+
+  <div class="chat-area" id="chat"></div>
+
+  <div class="narrator" id="narrator"></div>
+
+  <div class="input-bar">
+    <input class="input-field" placeholder="Message" readonly id="inputField">
+    <div class="send-btn">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </div>
+  </div>
+
+  <button class="replay-btn" id="replayBtn" onclick="replay()">Replay Walkthrough</button>
+</div>
+
+<script>
+const chat = document.getElementById('chat');
+const narrator = document.getElementById('narrator');
+const progress = document.getElementById('progress');
+const inputField = document.getElementById('inputField');
+const replayBtn = document.getElementById('replayBtn');
+
+const totalScenes = 11;
+let sceneIndex = 0;
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function scrollDown() {
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function setProgress(scene) {
+  progress.style.width = ((scene / totalScenes) * 100) + '%';
+}
+
+function showNarrator(text, duration = 2500) {
+  narrator.textContent = text;
+  narrator.classList.add('show');
+  return sleep(duration).then(() => narrator.classList.remove('show'));
+}
+
+function addMsg(type, html, delay = 0) {
+  return sleep(delay).then(() => {
+    const div = document.createElement('div');
+    div.className = 'msg ' + type;
+    div.innerHTML = html;
+    chat.appendChild(div);
+    scrollDown();
+    return sleep(100);
+  });
+}
+
+function addLabel(text, delay = 0) {
+  return sleep(delay).then(() => {
+    const div = document.createElement('div');
+    div.className = 'scene-label';
+    div.innerHTML = '<span>' + text + '</span>';
+    chat.appendChild(div);
+    scrollDown();
+  });
+}
+
+function showTyping(duration = 1200) {
+  const div = document.createElement('div');
+  div.className = 'msg bot typing';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  chat.appendChild(div);
+  scrollDown();
+  return sleep(duration).then(() => {
+    div.remove();
+  });
+}
+
+function typeInput(text, duration = 600) {
+  inputField.value = '';
+  let i = 0;
+  const step = duration / text.length;
+  return new Promise(resolve => {
+    const interval = setInterval(() => {
+      inputField.value = text.substring(0, ++i);
+      if (i >= text.length) { clearInterval(interval); setTimeout(() => { inputField.value = ''; resolve(); }, 300); }
+    }, step);
+  });
+}
+
+async function scene1_welcome() {
+  setProgress(1);
+  await showNarrator('Welcome to Finance with Kellie', 2000);
+  await sleep(500);
+
+  await addMsg('bot',
+    '<b>👋 Welcome to Finance with Kellie</b><br>欢迎来到 Finance with Kellie<br><br>' +
+    'This group delivers market news, sector insights, and financial education to help you make smarter money decisions.<br>' +
+    '本群提供市场新闻、行业动态和理财知识，帮助您做出更明智的财务决策。<br><br>' +
+    '<span class="section-header">📰 News 新闻</span>' +
+    '<span class="cmd">/news</span> — Market headlines 市场头条<br>' +
+    '<span class="cmd">/sgnews</span> — 🇸🇬 Singapore news 新加坡新闻<br>' +
+    '<span class="cmd">/sector</span> — Sector news 行业新闻<br>' +
+    '<span class="cmd">/sector_all</span> — All sectors ranked 所有板块排名<br><br>' +
+    '<span class="section-header">💡 Learn 学习中心</span>' +
+    '<span class="cmd">/learn</span> — Financial topics 金融知识<br><br>' +
+    '<span class="section-header">⚙️ Settings 设置</span>' +
+    '<span class="cmd">/lang</span> — Switch language 切换中英文<br><br>' +
+    '<span class="section-header">📞 Contact 联系</span>' +
+    '<span class="cmd">/contact</span> — Reach Kellie 联系Kellie'
+  );
+
+  await sleep(2500);
+}
+
+async function scene2_news() {
+  setProgress(2);
+  await addLabel('📰 /news — Market Headlines');
+  await sleep(400);
+  await typeInput('/news');
+  await addMsg('user', '/news');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>📰 Market Headlines</b><br>' +
+    '<span class="dim">Cross-verified from 2+ sources</span><br><br>' +
+    '• <b>Fed holds rates steady, signals patience on cuts amid tariff uncertainty</b><br>' +
+    '<span class="source">[Reuters] [Bloomberg] | 22 Apr 2026</span><br><br>' +
+    '• <b>China GDP beats expectations at 5.2%, stimulus measures boosting recovery</b><br>' +
+    '<span class="source">[FT] [Reuters] | 22 Apr 2026</span><br><br>' +
+    '• <b>Singapore MAS maintains neutral SGD policy band stance</b><br>' +
+    '<span class="source">[Straits Times] [Bloomberg] | 22 Apr 2026</span><br><br>' +
+    '• <b>Oil prices surge 3% as OPEC signals deeper production cuts</b><br>' +
+    '<span class="source">[Reuters] [CNBC] | 21 Apr 2026</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene3_sector() {
+  setProgress(3);
+  await addLabel('📈 /sector — Sector News');
+  await sleep(400);
+  await typeInput('/sector_technology');
+  await addMsg('user', '/sector_technology');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>📈 Technology</b><br><br>' +
+    '• <b>NVIDIA reports record Q1 revenue, AI chip demand surges</b><br>' +
+    '<span class="source">[Bloomberg] | 22 Apr 2026</span><br><br>' +
+    '• <b>Apple unveils new AI features for iPhone, stock hits all-time high</b><br>' +
+    '<span class="source">[Reuters] | 22 Apr 2026</span><br><br>' +
+    '• <b>TSMC expands Singapore fab, S$8B investment confirmed</b><br>' +
+    '<span class="source">[Straits Times] | 21 Apr 2026</span>'
+  );
+
+  await sleep(2500);
+}
+
+async function scene4_sector_all() {
+  setProgress(4);
+  await addLabel('📈 /sector_all — Full Sector Ranking');
+  await sleep(400);
+  await typeInput('/sector_all');
+  await addMsg('user', '/sector_all');
+  await showTyping(2000);
+
+  await addMsg('bot',
+    '<b>📈 All Sectors — Ranked by Activity</b><br><br>' +
+    '<b>1. Technology</b><br>' +
+    '• NVIDIA record revenue, AI chip demand surges<br>' +
+    '• Apple AI features, stock at all-time high<br><br>' +
+    '<b>2. Energy</b><br>' +
+    '• Oil surges 3% on OPEC production cuts<br>' +
+    '• Shell pivots back to fossil fuel investments<br><br>' +
+    '<b>3. Real Estate</b><br>' +
+    '• Singapore private home prices rise 1.2% in Q1<br>' +
+    '• Hong Kong property sales rebound on rate hopes<br><br>' +
+    '<span class="dim">... 14 more sectors</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene5_sgnews() {
+  setProgress(5);
+  await addLabel('🇸🇬 /sgnews — Singapore News');
+  await sleep(400);
+  await typeInput('/sgnews');
+  await addMsg('user', '/sgnews');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>🇸🇬 Singapore News</b><br><br>' +
+    '<b>🏛️ Government & Policy</b><br>' +
+    '• MAS introduces new digital banking framework<br>' +
+    '<span class="source">[Straits Times] | 22 Apr 2026</span><br><br>' +
+    '<b>🏥 Healthcare</b><br>' +
+    '• CPF MediSave limits raised for 2027<br>' +
+    '<span class="source">[CNA] | 22 Apr 2026</span><br><br>' +
+    '<b>🏠 Property</b><br>' +
+    '• BTO launches in Tengah see record applications<br>' +
+    '<span class="source">[Straits Times] | 21 Apr 2026</span><br><br>' +
+    '<span class="dim">+ Business, Employment</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene6_learn() {
+  setProgress(6);
+  await addLabel('💡 /learn — Financial Education');
+  await sleep(400);
+  await typeInput('/learn_cpf');
+  await addMsg('user', '/learn_cpf');
+  await showTyping(1800);
+
+  await addMsg('bot',
+    '<b>💡 CPF — Central Provident Fund</b><br><br>' +
+    '<b>What is CPF?</b><br>' +
+    'A mandatory savings scheme for Singapore citizens and PRs, covering retirement, healthcare, and housing.<br><br>' +
+    '<b>The 3 Accounts:</b><br>' +
+    '• <b>OA</b> (Ordinary) — Housing, education, investments. Earns 2.5% p.a.<br>' +
+    '• <b>SA</b> (Special) — Retirement. Earns 4% p.a.<br>' +
+    '• <b>MA</b> (MediSave) — Healthcare. Earns 4% p.a.<br><br>' +
+    '<b>Key Numbers (2026):</b><br>' +
+    '• BRS: $106,500 | FRS: $213,000<br>' +
+    '• Salary ceiling: $8,000/month<br><br>' +
+    '<span class="cta">Want personalised advice? /contact</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene7_learn_menu() {
+  setProgress(7);
+  await typeInput('/learn');
+  await addMsg('user', '/learn');
+  await showTyping(800);
+
+  await addMsg('bot',
+    '<b>💡 Learn — Financial Topics</b><br><br>' +
+    '<span class="cmd">/learn_cpf</span> — CPF Basics<br>' +
+    '<span class="cmd">/learn_cpf_life</span> — CPF LIFE<br>' +
+    '<span class="cmd">/learn_srs</span> — SRS Tax Savings<br>' +
+    '<span class="cmd">/learn_insurance</span> — Insurance 101<br>' +
+    '<span class="cmd">/learn_investing</span> — Investing Basics<br>' +
+    '<span class="cmd">/learn_retirement</span> — Retirement Planning<br>' +
+    '<span class="cmd">/learn_tax</span> — Tax Optimisation<br>' +
+    '<span class="cmd">/learn_budgeting</span> — Budgeting<br>' +
+    '<span class="dim">... and more</span>'
+  );
+
+  await sleep(2500);
+}
+
+async function scene8_contact() {
+  setProgress(8);
+  await addLabel('📞 /contact — Reach Kellie');
+  await sleep(400);
+  await typeInput('/contact');
+  await addMsg('user', '/contact');
+  await showTyping(800);
+
+  await addMsg('bot',
+    '<b>📞 Contact Kellie</b><br><br>' +
+    'Kellie is a licensed wealth solution consultant at HSBC, helping you protect what you have, grow what you earn, and plan what you leave behind.<br><br>' +
+    '<span class="whatsapp">💬 WhatsApp Kellie</span><br><br>' +
+    '<span class="dim">Free consultation. No pressure. Just a conversation.</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene9_lang() {
+  setProgress(9);
+  await addLabel('🌐 /lang — Switch Language');
+  await sleep(400);
+  await typeInput('/lang');
+  await addMsg('user', '/lang');
+  await showTyping(600);
+
+  await addMsg('bot',
+    '🌐 语言已切换为<b>中文</b>。<br><br>输入 /lang 切换回英文。'
+  );
+
+  await sleep(1500);
+  await typeInput('/lang');
+  await addMsg('user', '/lang');
+  await showTyping(600);
+
+  await addMsg('bot',
+    '🌐 Language set to <b>English</b>.<br><br>Type /lang to switch back to Chinese.'
+  );
+
+  await sleep(2000);
+}
+
+async function scene0_intro() {
+  setProgress(0);
+  await sleep(300);
+
+  await addMsg('bot',
+    '<b>📢 How Finance with Kellie works</b><br>' +
+    'Finance with Kellie 使用方式<br><br>' +
+    '<b>Step 1 步骤一</b><br>' +
+    '🔔 Subscribe to <span class="highlight">@FinanceWithKellie</span> channel<br>' +
+    '订阅频道获取每日自动推送<br>' +
+    '<span class="dim">Daily sector updates &amp; breaking news delivered automatically</span><br>' +
+    '<span class="dim">每日行业动态和突发新闻自动推送</span><br><br>' +
+    '<b>Step 2 步骤二</b><br>' +
+    '🤖 Message <span class="highlight">@FinanceWithKellie_bot</span> directly<br>' +
+    '直接私信机器人使用指令<br>' +
+    '<span class="dim">Use commands like /news, /sector, /learn anytime</span><br>' +
+    '<span class="dim">随时使用 /news、/sector、/learn 等指令</span>'
+  );
+
+  await sleep(4000);
+
+  await showNarrator('Channel = auto updates. Bot = interactive commands.', 3000);
+  await sleep(1000);
+}
+
+async function finale() {
+  setProgress(totalScenes);
+  await sleep(500);
+
+  await addMsg('bot',
+    '<b>That\'s it! 就这么简单！</b><br><br>' +
+    '<b>📢 Channel 频道 — auto updates 自动推送</b><br>' +
+    'Subscribe to <span class="highlight">@FinanceWithKellie</span><br>' +
+    '订阅频道: t.me/FinanceWithKellie<br><br>' +
+    '<b>🤖 Bot 机器人 — interactive commands 互动指令</b><br>' +
+    'Message <span class="highlight">@FinanceWithKellie_bot</span><br>' +
+    '私信机器人: t.me/FinanceWithKellie_bot<br><br>' +
+    '<span class="cmd">/news</span> — Market headlines 市场头条<br>' +
+    '<span class="cmd">/sector</span> — 17 sectors 行业新闻<br>' +
+    '<span class="cmd">/sector_all</span> — Full ranking 板块排名<br>' +
+    '<span class="cmd">/sgnews</span> — SG news 新加坡新闻<br>' +
+    '<span class="cmd">/learn</span> — 12 topics 金融知识<br>' +
+    '<span class="cmd">/contact</span> — WhatsApp Kellie 联系Kellie<br>' +
+    '<span class="cmd">/lang</span> — Switch EN/CN 切换语言'
+  );
+
+  await sleep(2500);
+  await showNarrator('Channel for updates, Bot for commands', 3000);
+  await sleep(1000);
+  replayBtn.style.display = 'block';
+}
+
+async function runWalkthrough() {
+  chat.innerHTML = '';
+  replayBtn.style.display = 'none';
+  setProgress(0);
+
+  await sleep(800);
+  await scene0_intro();
+  await scene1_welcome();
+  await scene2_news();
+  await scene3_sector();
+  await scene4_sector_all();
+  await scene5_sgnews();
+  await scene6_learn();
+  await scene7_learn_menu();
+  await scene8_contact();
+  await scene9_lang();
+  await finale();
+}
+
+function replay() {
+  runWalkthrough();
+}
+
+runWalkthrough();
+</script>
+</body>
+</html>

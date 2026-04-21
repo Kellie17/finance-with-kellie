@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance with Kellie - 使用指南</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0e1621;
+    font-family: 'Noto Sans SC', 'Inter', -apple-system, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .phone {
+    width: 390px;
+    height: 844px;
+    background: #17212b;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 0 3px #2a3a4a, 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  @media (max-width: 430px) {
+    body {
+      padding: 8px 0;
+      overflow-y: auto;
+      align-items: flex-start;
+    }
+    .phone {
+      width: 92vw;
+      height: 82vh;
+      border-radius: 28px;
+      margin: 0 auto;
+      flex-shrink: 0;
+    }
+    .chat-area { height: calc(82vh - 150px); padding-bottom: 120px; }
+    .header { padding-top: 24px; }
+  }
+
+  .header {
+    background: #1f2936;
+    padding: 50px 16px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #0e1621;
+    position: relative;
+    z-index: 10;
+  }
+
+  .header-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c6aef, #a78bfa);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; color: white;
+  }
+
+  .header-info h3 { color: #e1e3e6; font-size: 15px; font-weight: 600; }
+  .header-info span { color: #6c7883; font-size: 12px; }
+
+  .chat-area {
+    height: 690px;
+    overflow-y: auto;
+    padding: 12px 8px 100px;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .chat-area::-webkit-scrollbar { display: none; }
+
+  .msg {
+    max-width: 300px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: msgIn 0.35s ease forwards;
+    position: relative;
+  }
+
+  @keyframes msgIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg.user {
+    background: #766ac8;
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+    font-weight: 500;
+  }
+
+  .msg.bot {
+    background: #182533;
+    color: #e1e3e6;
+    margin-right: auto;
+    border-bottom-left-radius: 4px;
+  }
+
+  .msg b { color: #e1e3e6; }
+  .msg .cmd { color: #7cacf8; }
+  .msg .section-header { color: #e1e3e6; font-weight: 600; display: block; margin-top: 6px; }
+  .msg .dim { color: #6c7883; font-style: italic; font-size: 13px; }
+  .msg .source { color: #6c7883; font-size: 12px; }
+  .msg .highlight { color: #7cacf8; }
+  .msg .cta { color: #a78bfa; font-style: italic; font-size: 13px; display: block; margin-top: 6px; }
+  .msg .whatsapp { color: #25d366; font-weight: 500; }
+
+  .typing {
+    display: flex;
+    gap: 4px;
+    padding: 12px 16px;
+    opacity: 0;
+    animation: msgIn 0.3s ease forwards;
+  }
+  .typing span {
+    width: 8px; height: 8px;
+    background: #4a5968;
+    border-radius: 50%;
+    animation: typingDot 1.2s ease infinite;
+  }
+  .typing span:nth-child(2) { animation-delay: 0.2s; }
+  .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typingDot {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-6px); opacity: 1; }
+  }
+
+  .input-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: #1f2936;
+    padding: 10px 12px 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid #0e1621;
+  }
+
+  .input-field {
+    flex: 1;
+    background: #242f3d;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 16px;
+    color: #e1e3e6;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+  }
+  .input-field::placeholder { color: #4a5968; }
+
+  .send-btn {
+    width: 36px; height: 36px;
+    background: #766ac8;
+    border: none; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .send-btn svg { fill: white; width: 16px; height: 16px; }
+
+  .scene-label {
+    text-align: center;
+    padding: 8px;
+    margin: 8px 0;
+    opacity: 0;
+    animation: msgIn 0.5s ease forwards;
+  }
+  .scene-label span {
+    background: #1f2936;
+    color: #6c7883;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 10px;
+  }
+
+  .narrator {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(118,106,200,0.95);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 20;
+    width: 340px;
+    pointer-events: none;
+  }
+  .narrator.show { opacity: 1; }
+
+  .progress-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: #0e1621;
+    z-index: 20;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #766ac8, #a78bfa);
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+
+  .replay-btn {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #766ac8;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    display: none;
+    z-index: 30;
+    box-shadow: 0 4px 20px rgba(118,106,200,0.4);
+  }
+  .replay-btn:hover { background: #8b7fd4; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+  <div class="header">
+    <div class="header-avatar">F</div>
+    <div class="header-info">
+      <h3>Finance with Kellie</h3>
+      <span>机器人</span>
+    </div>
+  </div>
+
+  <div class="chat-area" id="chat"></div>
+
+  <div class="narrator" id="narrator"></div>
+
+  <div class="input-bar">
+    <input class="input-field" placeholder="输入消息" readonly id="inputField">
+    <div class="send-btn">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </div>
+  </div>
+
+  <button class="replay-btn" id="replayBtn" onclick="replay()">重新播放</button>
+</div>
+
+<script>
+const chat = document.getElementById('chat');
+const narrator = document.getElementById('narrator');
+const progress = document.getElementById('progress');
+const inputField = document.getElementById('inputField');
+const replayBtn = document.getElementById('replayBtn');
+
+const totalScenes = 11;
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function scrollDown() {
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function setProgress(scene) {
+  progress.style.width = ((scene / totalScenes) * 100) + '%';
+}
+
+function showNarrator(text, duration = 2500) {
+  narrator.textContent = text;
+  narrator.classList.add('show');
+  return sleep(duration).then(() => narrator.classList.remove('show'));
+}
+
+function addMsg(type, html, delay = 0) {
+  return sleep(delay).then(() => {
+    const div = document.createElement('div');
+    div.className = 'msg ' + type;
+    div.innerHTML = html;
+    chat.appendChild(div);
+    scrollDown();
+    return sleep(100);
+  });
+}
+
+function addLabel(text, delay = 0) {
+  return sleep(delay).then(() => {
+    const div = document.createElement('div');
+    div.className = 'scene-label';
+    div.innerHTML = '<span>' + text + '</span>';
+    chat.appendChild(div);
+    scrollDown();
+  });
+}
+
+function showTyping(duration = 1200) {
+  const div = document.createElement('div');
+  div.className = 'msg bot typing';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  chat.appendChild(div);
+  scrollDown();
+  return sleep(duration).then(() => {
+    div.remove();
+  });
+}
+
+function typeInput(text, duration = 600) {
+  inputField.value = '';
+  let i = 0;
+  const step = duration / text.length;
+  return new Promise(resolve => {
+    const interval = setInterval(() => {
+      inputField.value = text.substring(0, ++i);
+      if (i >= text.length) { clearInterval(interval); setTimeout(() => { inputField.value = ''; resolve(); }, 300); }
+    }, step);
+  });
+}
+
+async function scene0_intro() {
+  setProgress(0);
+  await sleep(300);
+
+  await addMsg('bot',
+    '<b>📢 Finance with Kellie 使用指南</b><br><br>' +
+    '<b>步骤一</b><br>' +
+    '🔔 订阅 <span class="highlight">@FinanceWithKellie</span> 频道<br>' +
+    '<span class="dim">每天自动推送行业动态和突发新闻</span><br><br>' +
+    '<b>步骤二</b><br>' +
+    '🤖 私信 <span class="highlight">@FinanceWithKellie_bot</span> 机器人<br>' +
+    '<span class="dim">随时使用 /news、/sector、/learn 等指令查询信息</span>'
+  );
+
+  await sleep(4000);
+
+  await showNarrator('频道 = 自动推送 ｜ 机器人 = 互动查询', 3000);
+  await sleep(1000);
+}
+
+async function scene1_welcome() {
+  setProgress(1);
+  await showNarrator('欢迎来到 Finance with Kellie', 2000);
+  await sleep(500);
+
+  await addMsg('bot',
+    '<b>👋 欢迎来到 Finance with Kellie</b><br><br>' +
+    '本群提供市场新闻、行业动态和理财知识，帮助您做出更明智的财务决策。<br><br>' +
+    '<span class="section-header">📰 新闻</span>' +
+    '<span class="cmd">/news</span> — 市场头条<br>' +
+    '<span class="cmd">/sgnews</span> — 🇸🇬 新加坡新闻<br>' +
+    '<span class="cmd">/sector</span> — 行业新闻 (17个板块)<br>' +
+    '<span class="cmd">/sector_all</span> — 所有板块排名<br><br>' +
+    '<span class="section-header">💡 学习中心</span>' +
+    '<span class="cmd">/learn</span> — 金融知识简单学<br><br>' +
+    '<span class="section-header">⚙️ 设置</span>' +
+    '<span class="cmd">/lang</span> — 切换中文/英文<br><br>' +
+    '<span class="section-header">📞 联系</span>' +
+    '<span class="cmd">/contact</span> — 联系Kellie'
+  );
+
+  await sleep(2500);
+}
+
+async function scene2_news() {
+  setProgress(2);
+  await addLabel('📰 /news — 市场头条');
+  await sleep(400);
+  await typeInput('/news');
+  await addMsg('user', '/news');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>📰 市场头条</b><br>' +
+    '<span class="dim">经多源交叉验证</span><br><br>' +
+    '• <b>美联储维持利率不变，关税不确定性下释放耐心信号</b><br>' +
+    '<span class="source">[Reuters] [Bloomberg] | 2026年4月22日</span><br><br>' +
+    '• <b>中国GDP超预期达5.2%，刺激措施推动复苏</b><br>' +
+    '<span class="source">[FT] [Reuters] | 2026年4月22日</span><br><br>' +
+    '• <b>新加坡金管局维持新元中性政策区间立场</b><br>' +
+    '<span class="source">[海峡时报] [Bloomberg] | 2026年4月22日</span><br><br>' +
+    '• <b>OPEC暗示深化减产，油价飙升3%</b><br>' +
+    '<span class="source">[Reuters] [CNBC] | 2026年4月21日</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene3_sector() {
+  setProgress(3);
+  await addLabel('📈 /sector — 行业新闻');
+  await sleep(400);
+  await typeInput('/sector_technology');
+  await addMsg('user', '/sector_technology');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>📈 科技</b><br><br>' +
+    '• <b>英伟达Q1营收创纪录，AI芯片需求激增</b><br>' +
+    '<span class="source">[Bloomberg] | 2026年4月22日</span><br><br>' +
+    '• <b>苹果发布iPhone新AI功能，股价创历史新高</b><br>' +
+    '<span class="source">[Reuters] | 2026年4月22日</span><br><br>' +
+    '• <b>台积电扩建新加坡工厂，确认投资80亿新元</b><br>' +
+    '<span class="source">[海峡时报] | 2026年4月21日</span>'
+  );
+
+  await sleep(2500);
+}
+
+async function scene4_sector_all() {
+  setProgress(4);
+  await addLabel('📈 /sector_all — 所有板块排名');
+  await sleep(400);
+  await typeInput('/sector_all');
+  await addMsg('user', '/sector_all');
+  await showTyping(2000);
+
+  await addMsg('bot',
+    '<b>📈 所有板块 — 按热度排名</b><br><br>' +
+    '<b>1. 科技</b><br>' +
+    '• 英伟达营收创纪录，AI芯片需求激增<br>' +
+    '• 苹果AI功能发布，股价创新高<br><br>' +
+    '<b>2. 能源</b><br>' +
+    '• OPEC减产推动油价飙升3%<br>' +
+    '• 壳牌重新转向化石燃料投资<br><br>' +
+    '<b>3. 房地产</b><br>' +
+    '• 新加坡私宅价格Q1上涨1.2%<br>' +
+    '• 降息预期推动香港楼市回暖<br><br>' +
+    '<span class="dim">... 还有14个板块</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene5_sgnews() {
+  setProgress(5);
+  await addLabel('🇸🇬 /sgnews — 新加坡新闻');
+  await sleep(400);
+  await typeInput('/sgnews');
+  await addMsg('user', '/sgnews');
+  await showTyping(1500);
+
+  await addMsg('bot',
+    '<b>🇸🇬 新加坡新闻</b><br><br>' +
+    '<b>🏛️ 政府与政策</b><br>' +
+    '• 金管局推出新数字银行框架<br>' +
+    '<span class="source">[海峡时报] | 2026年4月22日</span><br><br>' +
+    '<b>🏥 医疗</b><br>' +
+    '• 2027年公积金保健储蓄上限提高<br>' +
+    '<span class="source">[亚洲新闻台] | 2026年4月22日</span><br><br>' +
+    '<b>🏠 房产</b><br>' +
+    '• 登加BTO组屋申请创纪录<br>' +
+    '<span class="source">[海峡时报] | 2026年4月21日</span><br><br>' +
+    '<span class="dim">+ 商业、就业</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene6_learn() {
+  setProgress(6);
+  await addLabel('💡 /learn — 金融知识');
+  await sleep(400);
+  await typeInput('/learn_cpf');
+  await addMsg('user', '/learn_cpf');
+  await showTyping(1800);
+
+  await addMsg('bot',
+    '<b>💡 公积金 (CPF) — 中央公积金</b><br><br>' +
+    '<b>什么是公积金？</b><br>' +
+    '新加坡公民和永久居民的强制储蓄计划，涵盖退休、医疗和住房。<br><br>' +
+    '<b>三个账户：</b><br>' +
+    '• <b>普通账户 (OA)</b> — 住房、教育、投资。年利率2.5%<br>' +
+    '• <b>特别账户 (SA)</b> — 退休。年利率4%<br>' +
+    '• <b>保健储蓄 (MA)</b> — 医疗。年利率4%<br><br>' +
+    '<b>2026年关键数字：</b><br>' +
+    '• 基本存款额: $106,500 | 全额存款额: $213,000<br>' +
+    '• 薪金上限: $8,000/月<br><br>' +
+    '<span class="cta">想要个性化建议？ /contact</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene7_learn_menu() {
+  setProgress(7);
+  await typeInput('/learn');
+  await addMsg('user', '/learn');
+  await showTyping(800);
+
+  await addMsg('bot',
+    '<b>💡 学习中心 — 金融知识</b><br><br>' +
+    '<span class="cmd">/learn_cpf</span> — 公积金基础<br>' +
+    '<span class="cmd">/learn_cpf_life</span> — 公积金终身入息<br>' +
+    '<span class="cmd">/learn_srs</span> — SRS退休辅助计划<br>' +
+    '<span class="cmd">/learn_insurance</span> — 保险入门<br>' +
+    '<span class="cmd">/learn_investing</span> — 投资基础<br>' +
+    '<span class="cmd">/learn_retirement</span> — 退休规划<br>' +
+    '<span class="cmd">/learn_tax</span> — 税务优化<br>' +
+    '<span class="cmd">/learn_budgeting</span> — 预算管理<br>' +
+    '<span class="dim">... 更多主题</span>'
+  );
+
+  await sleep(2500);
+}
+
+async function scene8_contact() {
+  setProgress(8);
+  await addLabel('📞 /contact — 联系Kellie');
+  await sleep(400);
+  await typeInput('/contact');
+  await addMsg('user', '/contact');
+  await showTyping(800);
+
+  await addMsg('bot',
+    '<b>📞 联系Kellie</b><br><br>' +
+    'Kellie是HSBC持牌财富方案顾问，帮助您守护现有财富、增值财富、规划未来传承。<br><br>' +
+    '<span class="whatsapp">💬 WhatsApp联系Kellie</span><br><br>' +
+    '<span class="dim">免费咨询，无压力，随时聊。</span>'
+  );
+
+  await sleep(3000);
+}
+
+async function scene9_lang() {
+  setProgress(9);
+  await addLabel('🌐 /lang — 切换语言');
+  await sleep(400);
+  await typeInput('/lang');
+  await addMsg('user', '/lang');
+  await showTyping(600);
+
+  await addMsg('bot',
+    '🌐 Language set to <b>English</b>.<br><br>Type /lang to switch back to Chinese.'
+  );
+
+  await sleep(1500);
+  await typeInput('/lang');
+  await addMsg('user', '/lang');
+  await showTyping(600);
+
+  await addMsg('bot',
+    '🌐 语言已切换为<b>中文</b>。<br><br>输入 /lang 切换回英文。'
+  );
+
+  await sleep(2000);
+}
+
+async function finale() {
+  setProgress(totalScenes);
+  await sleep(500);
+
+  await addMsg('bot',
+    '<b>就这么简单！</b><br><br>' +
+    '<b>📢 频道 — 自动推送</b><br>' +
+    '订阅 <span class="highlight">@FinanceWithKellie</span><br>' +
+    '链接: t.me/FinanceWithKellie<br><br>' +
+    '<b>🤖 机器人 — 互动指令</b><br>' +
+    '私信 <span class="highlight">@FinanceWithKellie_bot</span><br>' +
+    '链接: t.me/FinanceWithKellie_bot<br><br>' +
+    '<span class="cmd">/news</span> — 市场头条<br>' +
+    '<span class="cmd">/sector</span> — 17个行业板块<br>' +
+    '<span class="cmd">/sector_all</span> — 全板块排名<br>' +
+    '<span class="cmd">/sgnews</span> — 新加坡新闻<br>' +
+    '<span class="cmd">/learn</span> — 12个金融知识主题<br>' +
+    '<span class="cmd">/contact</span> — WhatsApp联系Kellie<br>' +
+    '<span class="cmd">/lang</span> — 切换中英文'
+  );
+
+  await sleep(2500);
+  await showNarrator('频道接收推送，机器人互动查询', 3000);
+  await sleep(1000);
+  replayBtn.style.display = 'block';
+}
+
+async function runWalkthrough() {
+  chat.innerHTML = '';
+  replayBtn.style.display = 'none';
+  setProgress(0);
+
+  await sleep(800);
+  await scene0_intro();
+  await scene1_welcome();
+  await scene2_news();
+  await scene3_sector();
+  await scene4_sector_all();
+  await scene5_sgnews();
+  await scene6_learn();
+  await scene7_learn_menu();
+  await scene8_contact();
+  await scene9_lang();
+  await finale();
+}
+
+function replay() {
+  runWalkthrough();
+}
+
+runWalkthrough();
+</script>
+</body>
+</html>
