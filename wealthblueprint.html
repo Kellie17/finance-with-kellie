@@ -127,8 +127,7 @@
       flex-wrap: wrap;
     }
 
-    .progress-pill,
-    .save-pill {
+    .progress-pill {
       color: var(--cream);
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(201, 162, 39, 0.55);
@@ -137,12 +136,6 @@
       font-size: 0.9rem;
       font-weight: 750;
       white-space: nowrap;
-    }
-
-    .save-pill {
-      color: #8fd6b5;
-      background: rgba(31, 122, 92, 0.18);
-      border-color: rgba(143, 214, 181, 0.5);
     }
 
     .control-button {
@@ -362,6 +355,10 @@
         #ffffff;
       background-size: 44px 44px;
       overflow: hidden;
+    }
+
+    .canvas.funds-canvas {
+      min-height: 880px;
     }
 
     .canvas.checkin-canvas {
@@ -888,7 +885,7 @@
       position: absolute;
       left: 50%;
       top: auto;
-      bottom: clamp(8px, 2%, 16px);
+      bottom: clamp(96px, 14%, 150px);
       transform: translateX(-50%) rotate(-2deg);
       z-index: 6;
       width: min(320px, 40%);
@@ -1706,6 +1703,10 @@
       left: 0;
       right: 0;
       top: 440px;
+    }
+
+    .readiness-board .checkin-readiness {
+      top: 0;
     }
 
     .readiness-grid {
@@ -2761,6 +2762,10 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
+    .zone-row.cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .zone-row.cols-3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -3038,7 +3043,7 @@
       display: block;
       margin-top: 3px;
       color: var(--navy);
-      font-size: 0.98rem;
+      font-size: 1.18rem;
       line-height: 1.2;
     }
 
@@ -3258,8 +3263,8 @@
     .report-card li,
     .report-note-box p {
       color: var(--muted);
-      font-size: 0.84rem;
-      line-height: 1.38;
+      font-size: 0.95rem;
+      line-height: 1.4;
     }
 
     .report-card p {
@@ -3441,18 +3446,18 @@
 
     .report-table th,
     .report-table td {
-      padding: 9px 10px;
-      border-bottom: 1px solid #e5edf5;
+      padding: 10px 12px;
+      border-bottom: 1px solid #eadfca;
       text-align: left;
       vertical-align: top;
-      font-size: 0.84rem;
-      line-height: 1.3;
+      font-size: 0.98rem;
+      line-height: 1.32;
     }
 
     .report-table th {
       color: var(--navy);
       background: var(--blue-soft);
-      font-size: 0.74rem;
+      font-size: 0.8rem;
       font-weight: 900;
       letter-spacing: 0.05em;
       text-transform: uppercase;
@@ -3464,6 +3469,56 @@
 
     .report-table strong {
       color: var(--navy);
+    }
+
+    .report-retire-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .report-concept-banner {
+      margin-top: 12px;
+      border: 1.5px solid var(--navy);
+      border-radius: var(--radius);
+      background: #fbf6e9;
+      padding: 14px 16px;
+    }
+
+    .report-concept-banner strong {
+      display: block;
+      color: var(--navy);
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+
+    .report-concept-banner p {
+      margin: 0;
+      color: var(--ink);
+      font-size: 0.98rem;
+      line-height: 1.45;
+    }
+
+    .report-lifestyle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .report-chosen-chip {
+      display: inline-block;
+      margin-left: 7px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 0.66rem;
+      font-weight: 850;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      vertical-align: middle;
     }
 
     .report-note-box {
@@ -3603,9 +3658,14 @@
     }
 
     .report-copyright {
-      margin-top: 8px;
-      color: var(--navy);
-      font-weight: 850;
+      margin-top: 16px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 650;
+      letter-spacing: 0.02em;
     }
 
     @media print {
@@ -3673,11 +3733,15 @@
       .report-hero p,
       .report-card p,
       .report-card li,
-      .report-note-box p,
+      .report-note-box p {
+        font-size: 0.84rem;
+        line-height: 1.3;
+      }
+
       .report-table th,
       .report-table td {
-        font-size: 0.76rem;
-        line-height: 1.28;
+        font-size: 0.9rem;
+        line-height: 1.3;
       }
 
       .report-brand-lockup {
@@ -3935,6 +3999,16 @@
       }
     }
 
+    @media (max-width: 1366px) {
+      .timeline-canvas {
+        min-height: 920px;
+      }
+
+      .timeline-detail-final .timeline-breakdown {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
     @media (max-width: 1180px) {
       .app-shell {
         grid-template-columns: 190px minmax(0, 1fr);
@@ -4029,7 +4103,6 @@
     </div>
     <div class="header-actions">
       <span class="progress-pill" id="globalProgress">Step 1 of 11</span>
-      <span class="save-pill" id="saveStatus">Saved</span>
       <button class="control-button" type="button" id="prevBtn" title="Previous step">Prev step</button>
       <button class="control-button" type="button" id="backBtn" title="Undo previous reveal">Back point</button>
       <button class="control-button primary" type="button" id="revealBtn" title="Reveal next piece">Reveal next</button>
@@ -4096,13 +4169,14 @@
         <fieldset class="report-section-picker">
           <legend>Show sections</legend>
           <label><input type="checkbox" data-report-section="timeline" checked> Timeline</label>
+          <label><input type="checkbox" data-report-section="lifeEvents" checked> Life events</label>
           <label><input type="checkbox" data-report-section="checkIn" checked> Your check-in</label>
           <label><input type="checkbox" data-report-section="retirement" checked> Retirement concept</label>
           <label><input type="checkbox" data-report-section="lifestyle" checked> Lifestyle</label>
           <label><input type="checkbox" data-report-section="math" checked> Funding projection</label>
           <label><input type="checkbox" data-report-section="incomePool" checked> Income pool</label>
           <label><input type="checkbox" data-report-section="methods" checked> Methods</label>
-          <label><input type="checkbox" data-report-section="notes" checked> Advisor notes</label>
+          <label><input type="checkbox" data-report-section="notes" checked> Consultant notes</label>
         </fieldset>
       </div>
       <article class="profile-report" id="profileReport"></article>
@@ -4321,15 +4395,31 @@
         bankTitle: "Your check-in pieces",
         cues: [
           "Rate how you feel about savings, spending and income from unhappy to very happy.",
-          "Pick the concerns you want the plan to answer.",
-          "Use the readiness formulas to connect your cashflow facts to surplus, savings rate and emergency buffer."
+          "Pick the concerns you want the plan to answer."
         ],
         items: [
           { id: "happiness", target: "happiness", label: "Happiness", detail: "savings, spending, income", tone: "green", note: "Rate savings, spending and income from 1 unhappy to 5 very happy." },
-          { id: "concerns", target: "concerns", label: "Concerns", detail: "what worries you", tone: "red", note: "Pick the worries the plan should answer." },
-          { id: "readiness", target: "readiness", label: "Readiness check", detail: "formula and facts", tone: "green", note: "Use the formulas to show surplus, savings rate and emergency buffer." }
+          { id: "concerns", target: "concerns", label: "Concerns", detail: "what worries you", tone: "red", note: "Pick the worries the plan should answer." }
         ],
-        reveal: ["happiness", "concerns", "readiness"]
+        reveal: ["happiness", "concerns"]
+      },
+      {
+        id: "readiness",
+        num: "6B",
+        short: "Readiness",
+        title: "Cashflow Readiness Check",
+        subtitle: "Your numbers first, then the verdict",
+        renderer: "readiness",
+        bankTitle: "Readiness pieces",
+        cues: [
+          "Capture the cashflow facts: income, essential and lifestyle spending, current saving and liquid savings.",
+          "Then reveal the verdict: monthly surplus, savings rate and emergency buffer."
+        ],
+        items: [
+          { id: "facts", target: "facts", label: "Your numbers", detail: "income, spending, savings", tone: "blue", note: "Capture the five cashflow facts before any judgement." },
+          { id: "verdict", target: "verdict", label: "Readiness verdict", detail: "surplus, rate, buffer", tone: "green", note: "Reveal monthly surplus, savings rate and emergency buffer from the facts." }
+        ],
+        reveal: ["facts", "verdict"]
       },
       {
         id: "retirementPlan",
@@ -4341,13 +4431,13 @@
         bankTitle: "Retirement planning pieces",
         cues: [
           "After the ages are in, show the years they have to build money before retirement.",
-          "Then show average life expectancy: men around 84, women around 88, and the income years after retirement.",
+          "Then show average life expectancy: men around 82, women around 86, and the income years after retirement.",
           "Explain retirement as not working for money. It is about lifestyle, not just a destination age.",
           "Finally, show the uncertainty: we do not know if we live past life expectancy, so planning needs a buffer."
         ],
         items: [
           { id: "buildYears", target: "buildYears", label: "Years to build", detail: "now to retirement", tone: "green", note: "This shows the accumulation runway. The earlier they start, the more time can carry the work." },
-          { id: "expectancy", target: "expectancy", label: "Life expectancy", detail: "men 84, women 88", tone: "blue", note: "Use the life expectancy marker to make the retirement period visible, not abstract." },
+          { id: "expectancy", target: "expectancy", label: "Life expectancy", detail: "men 82, women 86", tone: "blue", note: "Use the life expectancy marker to make the retirement period visible, not abstract." },
           { id: "incomeYears", target: "incomeYears", label: "Income years", detail: "retirement to expectancy", tone: "blue", note: "This is how many years the portfolio may need to support them without work income." },
           { id: "concept", target: "concept", label: "Retirement concept", detail: "do not work for money", tone: "green", note: "Shift the frame from stopping work to choosing a lifestyle that is paid for." },
           { id: "pastExpectancy", target: "pastExpectancy", label: "Past expectancy", detail: "we do not know", tone: "red", note: "This is the prudence point. If they live longer than expected, the plan should not collapse." }
@@ -4489,6 +4579,7 @@
         concerns: [],
         sections: {
           timeline: true,
+          lifeEvents: true,
           checkIn: true,
           retirement: true,
           lifestyle: true,
@@ -4511,7 +4602,6 @@
       stepList: document.getElementById("stepList"),
       canvas: document.getElementById("canvas"),
       globalProgress: document.getElementById("globalProgress"),
-      saveStatus: document.getElementById("saveStatus"),
       prevBtn: document.getElementById("prevBtn"),
       backBtn: document.getElementById("backBtn"),
       nextBtn: document.getElementById("nextBtn"),
@@ -4623,10 +4713,7 @@
       };
       try {
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-        el.saveStatus.textContent = "Saved";
-      } catch (error) {
-        el.saveStatus.textContent = "Not saved";
-      }
+      } catch (error) {}
     }
 
     function totalPlacedCount() {
@@ -4769,6 +4856,7 @@
         funds: renderFunds,
         timeline: renderTimeline,
         checkIn: renderCheckIn,
+        readiness: renderReadiness,
         retirementPlan: renderRetirementPlan,
         lifestyle: renderLifestyle,
         mathTime: renderMathTime,
@@ -4776,7 +4864,8 @@
         secret: renderSecret
       }[currentStep.renderer];
 
-      el.canvas.className = `canvas ${currentStep.renderer === "checkIn" ? "checkin-canvas" : ""}`;
+      const canvasModifier = { checkIn: "checkin-canvas", timeline: "timeline-canvas", funds: "funds-canvas" }[currentStep.renderer] || "";
+      el.canvas.className = `canvas ${canvasModifier}`;
       el.canvas.innerHTML = `
         <div class="diagram-title"><span class="bubble">${currentStep.num}</span><span>${escapeHtml(currentStep.subtitle)}</span></div>
         ${renderer(currentStep)}
@@ -5349,8 +5438,8 @@
           ${visible.buildYears ? `<div class="year-bracket build" style="left:${buildLeft}%; width:${Math.max(retireLeft - buildLeft, 4)}%;">${values.yearsToRetire} years to build</div>` : ""}
           ${visible.incomeYears ? `<div class="year-bracket income" style="left:${retireLeft}%; width:${Math.max(expectLeft - retireLeft, 4)}%;">${values.incomeYears} years of income</div>` : ""}
           ${visible.expectancy ? `<div class="life-chips">
-            <span class="life-expectancy-chip">Men 84</span>
-            <span class="life-expectancy-chip">Women 88</span>
+            <span class="life-expectancy-chip">Men 82</span>
+            <span class="life-expectancy-chip">Women 86</span>
           </div>` : ""}
         </div>
       `;
@@ -5464,8 +5553,8 @@
 
     function renderCheckIn() {
       const has = (target) => Boolean(getPlacedItemAt(target));
-      const showHappiness = ["happiness", "concerns", "readiness"].some(has);
-      const showConcerns = ["concerns", "readiness"].some(has);
+      const showHappiness = ["happiness", "concerns"].some(has);
+      const showConcerns = ["concerns"].some(has);
       return `
         <div class="checkin-board">
           ${showHappiness ? `
@@ -5484,7 +5573,20 @@
             </section>
           ` : ""}
 
-          ${has("readiness") ? `
+          <div class="zone-row cols-2">
+            ${zoneHtml("happiness", "story-zone")}
+            ${zoneHtml("concerns", "story-zone")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderReadiness() {
+      const has = (target) => Boolean(getPlacedItemAt(target));
+      const showFacts = ["facts", "verdict"].some(has);
+      return `
+        <div class="checkin-board readiness-board">
+          ${showFacts ? `
             <section class="checkin-readiness">
               <h3>Cashflow Readiness Check</h3>
               <div class="checkin-input-grid">
@@ -5494,14 +5596,13 @@
                 ${moneyInput("currentMonthlySaving", "Current saving")}
                 ${moneyInput("liquidSavings", "Liquid savings")}
               </div>
-              ${readinessCardsHtml()}
+              ${has("verdict") ? readinessCardsHtml() : ""}
             </section>
           ` : ""}
 
-          <div class="zone-row cols-3">
-            ${zoneHtml("happiness", "story-zone")}
-            ${zoneHtml("concerns", "story-zone")}
-            ${zoneHtml("readiness", "story-zone")}
+          <div class="zone-row cols-2">
+            ${zoneHtml("facts", "story-zone")}
+            ${zoneHtml("verdict", "story-zone")}
           </div>
         </div>
       `;
@@ -6347,11 +6448,14 @@
           </div>
           <div class="report-checkin-lower">
             <table class="report-table" style="margin-top:0;">
+              <thead>
+                <tr><th>Cashflow facts</th><th style="text-align:right;">Amount</th></tr>
+              </thead>
               <tbody>
-                <tr><td><strong>Monthly income</strong></td><td>${reportMoney(readiness.monthlyIncome)}/mth</td></tr>
-                <tr><td><strong>Total monthly spending</strong></td><td>${reportMoney(readiness.totalSpending)}/mth</td></tr>
-                <tr><td><strong>Current monthly saving</strong></td><td>${reportMoney(readiness.currentMonthlySaving)}/mth</td></tr>
-                <tr><td><strong>Liquid savings</strong></td><td>${reportMoney(readiness.liquidSavings)}</td></tr>
+                <tr><td><strong>Monthly income</strong></td><td style="text-align:right;">${reportMoney(readiness.monthlyIncome)}/mth</td></tr>
+                <tr><td><strong>Total monthly spending</strong></td><td style="text-align:right;">${reportMoney(readiness.totalSpending)}/mth</td></tr>
+                <tr><td><strong>Current monthly saving</strong></td><td style="text-align:right;">${reportMoney(readiness.currentMonthlySaving)}/mth</td></tr>
+                <tr><td><strong>Liquid savings</strong></td><td style="text-align:right;">${reportMoney(readiness.liquidSavings)}</td></tr>
               </tbody>
             </table>
             <div class="report-note-box report-concerns-box">
@@ -6421,7 +6525,7 @@
       `).join("");
       const compareIncomePoolInMethods = reportSectionEnabled("incomePool");
       const advisorNotesHtml = reportSectionEnabled("notes") && state.report.notes.trim()
-        ? `<div class="report-note-box report-advisor-note"><p><strong>Advisor Notes:</strong> ${reportLineBreaks(state.report.notes.trim())}</p></div>`
+        ? `<div class="report-note-box report-advisor-note"><p><strong>Wealth Consultant's Notes:</strong> ${reportLineBreaks(state.report.notes.trim())}</p></div>`
         : "";
       const sections = [];
       let sectionNumber = 1;
@@ -6439,13 +6543,21 @@
           <section class="report-section report-timeline-section">
             <h3>${heading("Preferred Timeline Planning")}</h3>
             ${reportTimelineDiagram(values)}
+            <div class="report-note-box important" style="margin-top:10px;">
+              <p><strong>Trinity of events:</strong> House, getting married and kids are planned across ${trinitySpread} year${trinitySpread === 1 ? "" : "s"}. This cluster should be reviewed first because several large cash needs may arrive close together.</p>
+            </div>
+          </section>
+        `);
+      }
+
+      if (reportSectionEnabled("lifeEvents")) {
+        sections.push(`
+          <section class="report-section">
+            <h3>${heading("Life Events")}</h3>
             <table class="report-table">
               <thead><tr><th>Life event</th><th>Preferred age</th><th>Cash needs to plan for</th></tr></thead>
               <tbody>${eventRows}</tbody>
             </table>
-            <div class="report-note-box important" style="margin-top:10px;">
-              <p><strong>Trinity of events:</strong> House, getting married and kids are planned across ${trinitySpread} year${trinitySpread === 1 ? "" : "s"}. This cluster should be reviewed first because several large cash needs may arrive close together.</p>
-            </div>
           </section>
         `);
       }
@@ -6463,11 +6575,14 @@
         sections.push(`
           <section class="report-section${retirementGroupClass()}">
             <h3>${heading("Retirement Planning & Budgeting")}</h3>
-            <div class="report-card-grid single">
-              <article class="report-card selected">
-                <h4>Concept of retirement</h4>
-                <p>Retirement is about not working for money. The goal is to create income that supports lifestyle choice.</p>
-              </article>
+            <div class="report-retire-stats">
+              <div class="report-kpi"><span>Years to build</span><strong>${values.yearsToRetire} years</strong><small>Age ${values.currentAge} to ${values.retirementAge}</small></div>
+              <div class="report-kpi green"><span>Years of income</span><strong>${values.incomeYears} years</strong><small>Age ${values.retirementAge} to ${values.expectancyAge}</small></div>
+              <div class="report-kpi"><span>Life expectancy used</span><strong>${values.expectancyAge}</strong><small>SG averages: men 82, women 86</small></div>
+            </div>
+            <div class="report-concept-banner">
+              <strong>Concept of retirement</strong>
+              <p>Retirement is not the end of work. It is the point where your money does the working, creating income that pays for the lifestyle you choose.</p>
             </div>
           </section>
         `);
@@ -6477,13 +6592,16 @@
         sections.push(`
           <section class="report-section${retirementGroupClass()}">
             <h3>${heading("Retirement Lifestyle")}</h3>
-            <div class="report-card-grid single">
-              <article class="report-card selected">
-                <h4>${escapeHtml(lifestyle.label)}</h4>
-                <p><strong>${reportMoney(values.monthly)}/mth today</strong></p>
-                <p>${escapeHtml(lifestyle.details)}</p>
-              </article>
+            <div class="report-lifestyle-grid">
+              ${lifestyleOptions().map((option) => `
+                <article class="report-card ${lifestyle.key === option.key ? "selected" : ""}">
+                  <h4>${escapeHtml(option.label)}${lifestyle.key === option.key ? `<span class="report-chosen-chip">Chosen</span>` : ""}</h4>
+                  <p><strong>${reportMoney(option.amount)}/mth today</strong></p>
+                  <p>${escapeHtml(option.details)}</p>
+                </article>
+              `).join("")}
             </div>
+            ${lifestyle.isCustom ? `<div class="report-note-box" style="margin-top:10px;"><p><strong>Selected amount:</strong> ${reportMoney(values.monthly)}/mth today (custom figure used for the illustration).</p></div>` : ""}
           </section>
         `);
       }
@@ -6516,7 +6634,7 @@
       if (reportSectionEnabled("incomePool")) {
         sections.push(`
           <section class="report-section report-funding-section${pageBreakIfNeeded()}">
-            <h3>${heading("Income Pool Insight")}</h3>
+            <h3>${heading("The Income Pool Strategy")}</h3>
             ${reportSecretSnapshot(values)}
           </section>
         `);
@@ -6576,9 +6694,9 @@
         ${sections.join("")}
 
         <div class="report-disclaimer">
-          This report is a discussion record and planning illustration based on the inputs captured during the pitch. It is not a product recommendation, guarantee of returns, or personalised financial advice by itself. Actual suitability, affordability, risks, fees, product features and current rates should be reviewed before any implementation.
-          <div class="report-copyright">&copy; 2026 Finance with Kellie. All rights reserved.</div>
+          This report is a discussion record and planning illustration based on the inputs captured during our discussion. It is not a product recommendation, guarantee of returns, or personalised financial advice by itself. Actual suitability, affordability, risks, fees, product features and current rates should be reviewed before any implementation.
         </div>
+        <div class="report-copyright">&copy; 2026 Finance with Kellie &middot; All rights reserved.</div>
       `;
     }
 
@@ -6595,7 +6713,7 @@
         ""
       ];
       if (reportSectionEnabled("notes") && state.report.notes.trim()) {
-        lines.push("Advisor notes:", state.report.notes.trim(), "");
+        lines.push("Wealth Consultant's notes:", state.report.notes.trim(), "");
       }
       let sectionNumber = 1;
       const pushSection = (title, sectionLines) => {
@@ -6611,6 +6729,14 @@
 
       if (reportSectionEnabled("timeline")) {
         pushSection("Preferred timeline planning", reportEventRows()
+          .map((row, index) => ({ row, index }))
+          .filter(({ row }) => Number(row[1]) > 0)
+          .sort((a, b) => Number(a.row[1]) - Number(b.row[1]) || a.index - b.index)
+          .map(({ row: [label, age] }) => `${label}: age ${age}`));
+      }
+
+      if (reportSectionEnabled("lifeEvents")) {
+        pushSection("Life events", reportEventRows()
           .map((row, index) => ({ row, index }))
           .filter(({ row }) => Number(row[1]) > 0)
           .sort((a, b) => Number(a.row[1]) - Number(b.row[1]) || a.index - b.index)
@@ -6656,7 +6782,7 @@
       }
 
       if (reportSectionEnabled("incomePool")) {
-        pushSection("Income pool insight", [
+        pushSection("The income pool strategy", [
           `${reportMoney(values.dividendTarget)} x ${values.dividendRatePct}% = ${reportMoney(values.annualNeed)}/yr.`,
           `Illustrated monthly investment to build the income pool at ${values.dividendRatePct}%: ${reportMoney(values.secretMonthlyDividend)}/mth.`
         ]);
