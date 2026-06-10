@@ -1766,7 +1766,7 @@
     .timeline-controls,
     .mini-input-grid {
       display: grid;
-      grid-template-columns: repeat(7, minmax(70px, 1fr));
+      grid-template-columns: repeat(9, minmax(62px, 1fr));
       gap: 7px;
       position: absolute;
       left: 0;
@@ -4552,6 +4552,8 @@
         marriedAge: 30,
         kidsAge: 35,
         educationAge: 55,
+        educationAge2: 0,
+        educationAge3: 0,
         carAge: 40,
         retirementAge: 65,
         expectancyAge: 85,
@@ -5452,11 +5454,14 @@
       const showInputs = ["eventList", "selectedAges", "houseDetail", "marriedDetail", "kidsDetail", "trinity", "educationDetail", "retirementDetail", "carDetail"].some(has);
       const showAges = ["selectedAges", "houseDetail", "marriedDetail", "kidsDetail", "trinity", "educationDetail", "retirementDetail", "carDetail"].some(has);
       const showDetails = ["houseDetail", "marriedDetail", "kidsDetail", "trinity", "educationDetail", "retirementDetail", "carDetail"].some(has);
+      const eduCount = [state.calc.educationAge, state.calc.educationAge2, state.calc.educationAge3].filter((age) => Number(age) > 0).length;
       const events = [
         { key: "house", age: Number(state.calc.houseAge) || 0, label: "House", tone: "", order: 1 },
         { key: "married", age: Number(state.calc.marriedAge) || 0, label: "Get married", tone: "amber", order: 2 },
         { key: "kids", age: Number(state.calc.kidsAge) || 0, label: "Kids", tone: "amber", order: 3 },
-        { key: "education", age: Number(state.calc.educationAge) || 0, label: "Kids education", tone: "", order: 4 },
+        { key: "education", age: Number(state.calc.educationAge) || 0, label: eduCount > 1 ? "Kid 1 education" : "Kids education", tone: "", order: 4 },
+        { key: "education2", age: Number(state.calc.educationAge2) || 0, label: "Kid 2 education", tone: "", order: 4.1 },
+        { key: "education3", age: Number(state.calc.educationAge3) || 0, label: "Kid 3 education", tone: "", order: 4.2 },
         { key: "retirement", age: Number(values.retirementAge) || 0, label: "Retirement", tone: "green", order: 5 },
         { key: "car", age: Number(state.calc.carAge) || 0, label: "Car", tone: "", order: 6 }
       ].filter((event) => event.age > 0).sort((a, b) => a.age - b.age || a.order - b.order);
@@ -5484,7 +5489,8 @@
       const trinityBracketWidth = Math.min(Math.max(trinityRight - trinityLeft, 12), 93 - trinityBracketLeft);
       const currentPos = markerPct(values.currentAge);
       const trinityKeys = ["house", "married", "kids"];
-      const trinityActive = has("trinity");
+      const trinityApplicable = trinityEvents.length === 3 && trinityEvents.every((event) => event.age >= Number(values.currentAge));
+      const trinityActive = has("trinity") && trinityApplicable;
       const eventMarker = (event) => {
         const isTrinityEvent = trinityKeys.includes(event.key);
         const insideTrinitySpan = trinityActive && event.pos >= trinityBracketLeft && event.pos <= trinityBracketLeft + trinityBracketWidth;
@@ -5513,14 +5519,16 @@
             ${ageInput("houseAge", "House")}
             ${ageInput("marriedAge", "Married")}
             ${ageInput("kidsAge", "Kids")}
-            ${ageInput("educationAge", "Education")}
+            ${ageInput("educationAge", "Edu 1")}
+            ${ageInput("educationAge2", "Edu 2")}
+            ${ageInput("educationAge3", "Edu 3")}
             ${ageInput("retirementAge", "Retire")}
             ${ageInput("carAge", "Car")}
           </div>` : ""}
           ${showLine ? `<div class="timeline-line" style="top:255px;"></div>` : ""}
           ${showAges ? `<div class="age-dot" style="left:calc(${currentPos}% - 22px); top:233px;">${escapeHtml(values.currentAge)}</div>` : ""}
           ${showAges ? positionedEvents.map(eventMarker).join("") : ""}
-          ${has("trinity") ? `
+          ${trinityActive ? `
             <div class="trinity-bracket" style="left:${trinityBracketLeft}%; width:${trinityBracketWidth}%;">
               <span>Trinity of events (within 5 years)</span>
             </div>
@@ -6312,11 +6320,14 @@
     }
 
     function reportEventRows() {
+      const eduCount = [state.calc.educationAge, state.calc.educationAge2, state.calc.educationAge3].filter((age) => Number(age) > 0).length;
       return [
         ["House", state.calc.houseAge, "Downpayment, CPF OA and renovation."],
         ["Get married", state.calc.marriedAge, "Proposal, wedding ring, banquet or ceremony, photoshoot, honeymoon and dowry where relevant."],
         ["Kids", state.calc.kidsAge, "Cash for delivery, monthly expenses, confinement and contingency."],
-        ["Kids education", state.calc.educationAge, "Future university fees and education funding."],
+        [eduCount > 1 ? "Kid 1 education" : "Kids education", state.calc.educationAge, "Future university fees and education funding."],
+        ["Kid 2 education", state.calc.educationAge2, "Future university fees and education funding."],
+        ["Kid 3 education", state.calc.educationAge3, "Future university fees and education funding."],
         ["Retirement", state.calc.retirementAge, "Self-planning milestone and future income goal."],
         ["Car", state.calc.carAge, "Lower-priority lifestyle milestone: downpayment, road tax, COE and running costs."]
       ];
@@ -6327,11 +6338,14 @@
     }
 
     function reportTimelineDiagram(values) {
+      const eduCount = [state.calc.educationAge, state.calc.educationAge2, state.calc.educationAge3].filter((age) => Number(age) > 0).length;
       const events = [
         { key: "house", label: "House", age: Number(state.calc.houseAge) || 0, className: "", order: 1 },
         { key: "married", label: "Get married", age: Number(state.calc.marriedAge) || 0, className: "amber", order: 2 },
         { key: "kids", label: "Kids", age: Number(state.calc.kidsAge) || 0, className: "amber", order: 3 },
-        { key: "education", label: "Education", age: Number(state.calc.educationAge) || 0, className: "", order: 4 },
+        { key: "education", label: eduCount > 1 ? "Edu kid 1" : "Education", age: Number(state.calc.educationAge) || 0, className: "", order: 4 },
+        { key: "education2", label: "Edu kid 2", age: Number(state.calc.educationAge2) || 0, className: "", order: 4.1 },
+        { key: "education3", label: "Edu kid 3", age: Number(state.calc.educationAge3) || 0, className: "", order: 4.2 },
         { key: "retirement", label: "Retirement", age: Number(values.retirementAge) || 0, className: "green", order: 5 },
         { key: "car", label: "Car", age: Number(state.calc.carAge) || 0, className: "", order: 6 }
       ].filter((event) => event.age > 0).sort((a, b) => a.age - b.age || a.order - b.order);
@@ -6363,10 +6377,11 @@
       const trinityBandWidth = Math.min(Math.max(trinityRight - trinityLeft, 10), 92 - trinityBandLeft);
       const trinityKeys = ["house", "married", "kids"];
       const trinityBandRight = trinityBandLeft + trinityBandWidth;
+      const trinityApplicable = trinityEvents.length === 3 && trinityEvents.every((event) => event.age >= Number(values.currentAge));
       const eventRows = [];
       const reportEvents = positionedEvents.map((event) => {
-        const isTrinityEvent = trinityKeys.includes(event.key);
-        const insideTrinitySpan = event.pos >= trinityBandLeft && event.pos <= trinityBandRight;
+        const isTrinityEvent = trinityApplicable && trinityKeys.includes(event.key);
+        const insideTrinitySpan = trinityApplicable && event.pos >= trinityBandLeft && event.pos <= trinityBandRight;
         const row = eventRows.length && event.pos - eventRows[eventRows.length - 1].pos < 11
           ? (eventRows[eventRows.length - 1].row === 1 ? 2 : 1)
           : 1;
@@ -6384,9 +6399,11 @@
       return `
         <div class="report-timeline-diagram">
           <div class="report-timeline-track"></div>
+          ${trinityApplicable ? `
           <div class="report-trinity-band" style="left:${trinityBandLeft}%; width:${trinityBandWidth}%;">
             <span>Trinity of events</span>
           </div>
+          ` : ""}
           ${markers.map((marker) => `
             <div class="report-timeline-marker ${escapeHtml(marker.className)}" style="left:${marker.pos}%;">
               <div class="dot">${escapeHtml(marker.age)}</div>
@@ -6511,6 +6528,7 @@
       const lifestyle = selectedLifestyle(values);
       const trinityAges = [Number(state.calc.houseAge) || 0, Number(state.calc.marriedAge) || 0, Number(state.calc.kidsAge) || 0];
       const trinitySpread = Math.max(...trinityAges) - Math.min(...trinityAges);
+      const trinityApplicable = trinityAges.every((age) => age > 0 && age >= values.currentAge);
       const prospectName = state.report.prospectName.trim() || "Prospect";
       const eventRows = reportEventRows()
         .map((row, index) => ({ row, index }))
@@ -6543,9 +6561,11 @@
           <section class="report-section report-timeline-section">
             <h3>${heading("Preferred Timeline Planning")}</h3>
             ${reportTimelineDiagram(values)}
+            ${trinityApplicable ? `
             <div class="report-note-box important" style="margin-top:10px;">
               <p><strong>Trinity of events:</strong> House, getting married and kids are planned across ${trinitySpread} year${trinitySpread === 1 ? "" : "s"}. This cluster should be reviewed first because several large cash needs may arrive close together.</p>
             </div>
+            ` : ""}
           </section>
         `);
       }
