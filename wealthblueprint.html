@@ -161,6 +161,57 @@
       border-color: var(--gold);
     }
 
+    .language-button {
+      min-width: 68px;
+    }
+
+    .language-button.active {
+      color: var(--navy);
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .dual-text {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1.16;
+      vertical-align: middle;
+    }
+
+    .dual-text.inline {
+      display: inline;
+      line-height: inherit;
+    }
+
+    .dual-text.inline .cn-text {
+      margin-left: 0.35em;
+    }
+
+    .cn-text {
+      color: var(--muted);
+      font-size: 0.82em;
+      font-weight: 650;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .brand .cn-text,
+    .app-header .cn-text {
+      color: #f0dfab;
+    }
+
+    .placed-card .cn-text,
+    .step-text .cn-text {
+      font-size: 0.76em;
+    }
+
+    .report-table .cn-text,
+    .report-card .cn-text,
+    .report-kpi .cn-text {
+      font-size: 0.78em;
+    }
+
     .control-button.danger {
       color: var(--red);
       border-color: rgba(207, 20, 43, 0.28);
@@ -543,13 +594,15 @@
 
     .asset-inflation span {
       position: absolute;
-      top: -28px;
+      top: -30px;
       left: 0;
       color: var(--red);
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 800;
       background: #ffffff;
       padding-right: 8px;
+      line-height: 1.08;
+      white-space: nowrap;
     }
 
     .asset-inflation-zone {
@@ -640,14 +693,140 @@
       position: absolute;
       right: 10px;
       bottom: -17px;
+      max-width: calc(100% - 20px);
       color: var(--green);
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       font-weight: 850;
       background: #ffffff;
       padding: 4px 8px;
       border-radius: 999px;
       border: 1px solid rgba(31, 122, 92, 0.25);
       z-index: 4;
+      line-height: 1.08;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .asset-bank-note {
+      position: absolute;
+      left: 260px;
+      right: 250px;
+      top: 87%;
+      min-height: 66px;
+      color: var(--green);
+      font-weight: 780;
+      text-align: center;
+      z-index: 6;
+      pointer-events: none;
+    }
+
+    .asset-bank-note-card {
+      display: inline-grid;
+      gap: 2px;
+      width: 330px;
+      max-width: 100%;
+      padding: 7px 14px;
+      border: 2px solid var(--green);
+      border-radius: 18px;
+      background: rgba(237, 248, 243, 0.96);
+      line-height: 1.12;
+      box-shadow: 0 8px 20px rgba(31, 122, 92, 0.08);
+    }
+
+    .asset-bank-note-card strong {
+      color: var(--green);
+      font-size: 0.76rem;
+      line-height: 1.08;
+      overflow-wrap: anywhere;
+    }
+
+    .asset-bank-note-card .asset-bank-note-title {
+      color: var(--green);
+      font-size: 0.62rem;
+      font-weight: 900;
+      line-height: 1.08;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .asset-bank-note-card span {
+      color: var(--green);
+      font-size: 0.62rem;
+      line-height: 1.18;
+    }
+
+    .asset-bonus-zone {
+      position: absolute;
+      left: 84px;
+      right: 116px;
+      top: 84%;
+      min-height: 40px;
+      z-index: 5;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .asset-bonus-zone .placed-card {
+      display: none;
+    }
+
+    .readiness-baseline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 6px 0 10px;
+      padding: 10px 12px;
+      border: 2px solid rgba(183, 121, 31, 0.46);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(255, 247, 230, 0.98), rgba(246, 236, 206, 0.86)),
+        #ffffff;
+      color: var(--amber);
+      font-size: 0.78rem;
+      font-weight: 850;
+      line-height: 1.18;
+      box-shadow: 0 8px 20px rgba(183, 121, 31, 0.08);
+    }
+
+    .readiness-baseline-title {
+      min-width: 176px;
+      color: var(--amber);
+      font-size: 0.9rem;
+      font-weight: 950;
+    }
+
+    .readiness-baseline-chips {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .readiness-baseline-chip {
+      display: grid;
+      place-items: center;
+      min-height: 38px;
+      padding: 6px 8px;
+      border: 1px solid rgba(183, 121, 31, 0.32);
+      border-radius: 999px;
+      background: rgba(255, 253, 246, 0.94);
+      color: var(--navy);
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
+    .readiness-baseline-chip .cn-text {
+      color: var(--muted);
+      font-size: 0.82em;
+    }
+
+    .readiness-baseline span:last-child:not(.readiness-baseline-chip) {
+      color: var(--muted);
+      font-weight: 760;
+      text-align: right;
     }
 
     .var-reveal-return {
@@ -1100,7 +1279,7 @@
       position: absolute;
       left: 32%;
       right: 32%;
-      bottom: 76px;
+      bottom: 18px;
       border: 1.5px solid var(--green);
       border-radius: var(--radius);
       background: var(--green-soft);
@@ -1515,6 +1694,17 @@
       color: var(--muted);
       font-weight: 850;
       padding: 5px;
+      cursor: pointer;
+      box-shadow: inset 0 -2px 0 rgba(23, 35, 52, 0.04);
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease, box-shadow 140ms ease;
+    }
+
+    .face-choice:hover,
+    .face-choice:focus-visible {
+      transform: translateY(-2px);
+      border-color: var(--green);
+      background: #f9fdfb;
+      box-shadow: 0 10px 22px rgba(23, 35, 52, 0.12);
     }
 
     .face-choice.selected {
@@ -1690,6 +1880,18 @@
       font-size: 0.64rem;
       font-weight: 760;
       line-height: 1.08;
+      cursor: pointer;
+      box-shadow: inset 0 -2px 0 rgba(184, 154, 85, 0.14);
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease, box-shadow 140ms ease, color 140ms ease;
+    }
+
+    .concern-chip:hover,
+    .concern-chip:focus-visible {
+      color: var(--green);
+      border-color: rgba(31, 122, 92, 0.55);
+      background: var(--green-soft);
+      box-shadow: 0 8px 18px rgba(31, 122, 92, 0.10);
+      transform: translateY(-1px);
     }
 
     .concern-chip.selected {
@@ -1717,7 +1919,7 @@
     }
 
     .readiness-card {
-      min-height: 112px;
+      min-height: 158px;
       display: grid;
       align-content: start;
       gap: 4px;
@@ -1761,6 +1963,112 @@
       font-size: 0.66rem;
       line-height: 1.18;
       font-weight: 800;
+    }
+
+    .readiness-rating {
+      display: grid;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .readiness-scale {
+      --marker: 0%;
+      --rating-columns: 1fr 1fr 1fr;
+      position: relative;
+      display: grid;
+      grid-template-columns: var(--rating-columns);
+      height: 9px;
+      overflow: visible;
+      border-radius: 999px;
+      background: #ffffff;
+      box-shadow: inset 0 0 0 1px rgba(29, 61, 104, 0.12);
+    }
+
+    .readiness-scale i {
+      display: block;
+      min-width: 0;
+      height: 100%;
+    }
+
+    .readiness-scale i:first-child {
+      border-radius: 999px 0 0 999px;
+    }
+
+    .readiness-scale i:last-child {
+      border-radius: 0 999px 999px 0;
+    }
+
+    .readiness-scale .healthy {
+      background: rgba(31, 122, 92, 0.72);
+    }
+
+    .readiness-scale .watch {
+      background: rgba(183, 121, 31, 0.74);
+    }
+
+    .readiness-scale .attention {
+      background: rgba(207, 20, 43, 0.76);
+    }
+
+    .readiness-marker {
+      position: absolute;
+      left: var(--marker);
+      top: -4px;
+      width: 2px;
+      height: 17px;
+      background: var(--navy);
+      border-radius: 999px;
+      transform: translateX(-1px);
+      box-shadow: 0 0 0 2px #ffffff;
+    }
+
+    .readiness-marker:after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -4px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--navy);
+      transform: translateX(-50%);
+    }
+
+    .readiness-thresholds {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+
+    .readiness-thresholds small {
+      color: var(--muted);
+      font-size: 0.58rem;
+      font-weight: 820;
+      line-height: 1.12;
+      overflow-wrap: anywhere;
+    }
+
+    .readiness-thresholds .dual-text,
+    .readiness-thresholds .dual-text span {
+      color: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      letter-spacing: 0;
+      line-height: inherit;
+      text-transform: none;
+    }
+
+    .readiness-thresholds .dual-text {
+      display: grid;
+      gap: 1px;
+    }
+
+    .readiness-thresholds .dual-text span {
+      display: block;
+    }
+
+    .readiness-thresholds .dual-text .cn-text {
+      margin-left: 0;
     }
 
     .timeline-controls,
@@ -1863,6 +2171,8 @@
       bottom: 24px;
       min-height: 0;
       padding: 10px;
+      border: 0;
+      background: transparent;
     }
 
     .trinity-bracket {
@@ -1882,9 +2192,9 @@
 
     .trinity-bracket span {
       position: relative;
-      top: -15px;
+      top: -23px;
       display: inline-block;
-      background: #ffffff;
+      background: transparent;
       padding: 0 10px;
       font-size: 0.82rem;
       font-weight: 900;
@@ -2186,6 +2496,15 @@
       margin-top: 4px;
     }
 
+    .lifestyle-card li .dual-text.inline,
+    .lifestyle-card li .dual-text.inline span {
+      display: inline;
+    }
+
+    .lifestyle-card li .dual-text.inline .cn-text {
+      margin-left: 0.3em;
+    }
+
     .life-expectancy-chip {
       display: inline-flex;
       align-items: center;
@@ -2236,7 +2555,42 @@
     }
 
     .lifestyle-card.selected {
-      border-width: 2px;
+      border-width: 3px;
+      box-shadow: 0 0 0 4px rgba(31, 122, 92, 0.18), 0 24px 52px rgba(23, 35, 52, 0.16);
+    }
+
+    .lifestyle-selected-badge {
+      position: absolute;
+      right: 18px;
+      bottom: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: 999px;
+      background: var(--green);
+      color: #ffffff;
+      padding: 6px 10px;
+      font-size: 0.7rem;
+      font-weight: 900;
+      line-height: 1.05;
+      box-shadow: 0 10px 22px rgba(31, 122, 92, 0.22);
+      z-index: 4;
+    }
+
+    .lifestyle-selected-badge:before {
+      content: "✓";
+      display: inline-grid;
+      place-items: center;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      color: var(--green);
+      background: #ffffff;
+      font-size: 0.66rem;
+    }
+
+    .lifestyle-selected-badge .cn-text {
+      color: inherit;
     }
 
     .lifestyle-card:before {
@@ -2326,7 +2680,7 @@
       position: absolute;
       left: 22%;
       right: 22%;
-      bottom: 54px;
+      bottom: 118px;
       border: 1.5px solid var(--green);
       border-radius: var(--radius);
       color: var(--green);
@@ -2399,6 +2753,12 @@
       font-size: 0.76rem;
       line-height: 1.2;
       margin-top: 4px;
+    }
+
+    .math-node small {
+      color: var(--muted);
+      font-size: 0.72rem;
+      line-height: 1.2;
     }
 
     .math-timeline {
@@ -2817,6 +3177,7 @@
       background: #ffffff;
       box-shadow: 0 24px 70px rgba(23, 35, 52, 0.22);
       overflow: hidden;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Noto Sans CJK SC", "Microsoft YaHei", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     .report-toolbar {
@@ -2931,6 +3292,7 @@
       padding: 28px;
       color: var(--ink);
       background: #ffffff;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Noto Sans CJK SC", "Microsoft YaHei", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     .report-hero {
@@ -3231,7 +3593,7 @@
       position: relative;
       top: -10px;
       display: inline-block;
-      background: #ffffff;
+      background: transparent;
       padding: 0 8px;
       font-size: 0.66rem;
       font-weight: 900;
@@ -3369,7 +3731,7 @@
     }
 
     .report-readiness-card {
-      min-height: 108px;
+      min-height: 138px;
       padding: 9px;
       background: #ffffff;
     }
@@ -3395,6 +3757,14 @@
       font-size: 0.68rem;
       line-height: 1.22;
       font-weight: 720;
+    }
+
+    .report-readiness-card .readiness-rating {
+      margin-top: 5px;
+    }
+
+    .report-readiness-card .readiness-thresholds small {
+      font-size: 0.5rem;
     }
 
     .report-amount-needed {
@@ -3711,6 +4081,7 @@
       .profile-report {
         padding: 13mm 10mm;
         font-size: 0.9rem;
+        font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Noto Sans CJK SC", "Microsoft YaHei", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
       }
 
       .report-hero {
@@ -3842,7 +4213,7 @@
       }
 
       .report-readiness-card {
-        min-height: 80px;
+        min-height: 112px;
       }
 
       .report-readiness-card p {
@@ -3854,6 +4225,26 @@
         margin-top: 3px;
         padding-top: 4px;
         font-size: 0.5rem;
+      }
+
+      .readiness-scale {
+        height: 6px;
+      }
+
+      .readiness-marker {
+        top: -3px;
+        height: 12px;
+      }
+
+      .readiness-marker:after {
+        top: -3px;
+        width: 5px;
+        height: 5px;
+      }
+
+      .report-readiness-card .readiness-thresholds small {
+        font-size: 0.42rem;
+        line-height: 1.05;
       }
 
       .report-kpi {
@@ -4097,12 +4488,13 @@
     <div class="brand">
       <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAA3KADAAQAAAABAAAA3AAAAAD/7QA4UGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAAA4QklNBCUAAAAAABDUHYzZjwCyBOmACZjs+EJ+/8AAEQgA3ADcAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/bAEMAAgICAgICAwICAwUDAwMFBgUFBQUGCAYGBgYGCAoICAgICAgKCgoKCgoKCgwMDAwMDA4ODg4ODw8PDw8PDw8PD//bAEMBAgICBAQEBwQEBxALCQsQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEP/dAAQADv/aAAwDAQACEQMRAD8A/EwUvNNpa+4Pnxc0nvRg0UABpRSUUgCikpRSsAtJS/WgUAFKB60mV4BPJ6e9eo+Ffgn8YfG6rL4T8FaxqcT9JYrKXyj/ANtGUJ/49WdWtCmuao0l5uxcKcpO0Vdnl5FNxX17pX7Cv7TuqKHfwpHp4b/n7v7SIj6qJGYflXVxf8E8v2iHGZF0WI+jahn/ANBjIrxanFeVwdpYmH/gS/zPRhkmMlrGjL7mfDAzQea+2bz/AIJ/ftG2qForLSrrHaLUowT/AN/Alec63+yD+0joKNLc+Bb26ReS1k8N5+kEjt+laUOJcuqu1PEQb/xL/MirlGLgrzpSXyZ810Vua74b8ReF7k2XibSrvSLgHHl3kElu/wCUiqaxccV7Saaujz2rOzG0YpQKOgpiEFFL04pKTASilpBQgFHrRRRTsAlOApPrThUsD//Q/E3HFFANIa+4Pnwo74op1IBtFL9KUdKAExSdKsW9vcXlxFZ2cT3FxOyxxxxqXd3Y4VVUZJJPAA5Nfqf8EP2BdA8M+Gx8YP2vtVTwv4dtVWYaQ83kysDyou5V+ZC3aCLMp6Eqflryc2zrD4KHPiJb7Jatvsl1OzB4GpXly016vovVn59fCv4KfFL42ax/Ynwz8PXOtSoQJpkAS1t895p3xHH9C2T2Br9LfC//AATk+Gfww0aLxh+1Z8RrbS7YDJsrOdbWEnrs+0zDzJT6rFED6GvR4P2n/iR8T3/4U1+wB8PU0vQtN/cvrMtslvbWynjeqMBDDnrumLyv18vNeoeAv+CbOm67qy+Of2pPGWofETxFNh5LeO4ljs1PXY0zHz5FHonlL/s4r4vMM6xtVXqz+rw7L3qj9ekfzR7uFy+iv4cfaPvtH/Nng9p+0x+xh8ILtNA/Z0+GEvi/W1+WO4t7I+ZI3QEXN0Jbpsn+7Hj0ru0+KP8AwUN+KREngT4RW3hSylH7ubVvkdQeh/0uWHP4Q1+pPgX4ZfDr4Y6eulfDzw1p/h62UYIsrdImb3dwN7n3Zia7lmVUaR2CqgLMzHAAHUkntXyNVYFy5nRdSX81STk/uukfQ0oYlK3tORdoJL8dz8iY/wBnj/gpF4p/e678S9E8Oh+SluVJXPb9xaH/ANDq2P2Jv2zbkb7z9oUxue0a3RH6bP5V9e/FD9tT9n34VzS2Opa8dZ1CLIa20tPtJBHYyZWMf99V8f6h/wAFaPAUF80Nj4Bv5LRTgSy6hbxyH/tmqvj/AL6r0KMajX7rDU0v8Ef1RhU5E/3labf+JiP+xr+3Hpvz6R8era8Zei3K3AB+u6KUVmXPww/4KZeCwZLa88O+OIY/4A1ursB/vpaN/wCPV9PfBX9v/wCCPxj1WHw7un8OaxcHEdvelSJD6I6/Kx9FHzH0r7hR0kRZY2Do4BVgcgg8ggjqDXLiZxT5cRhqb9YR/NWNqEG9aVea/wC3n+p+JWv/ALTfxn8CWh0v9pb4G3sGln5ZbiKFprMjoTtnWWBv+/1eeDwt+wp+0OQnhm5XwRr1z91ISNOcue3kS77WTntEQT61+/DjejRuAyMMMp5BB7Ed6+S/i7+xD+zf8ZEnn1jwtFomrTZP9o6OFsp9x/idEHkye++Nj71lhVhKbvh3OhLvCTcfnCV7r5mldYiStVUaq/vKz+Ukfhv8V/2E/i54DWbU/CGzxppKAvmzQpfInXLWpJLcf88mk+gr4nlilgleCdGjliYq6MCrKwOCCDyCO4Nfth4i/Z8/bA/ZN3av8KNXPxU8DWpLvpsyM15BEvPywZZxgfxW7n1MeK4U3n7Nv7akD2Gs27eDfiQqlAxCpemROCMnal4gPVHCyqOm3rX2GF4pxeFjzY5KrS/5+QWq/wAcN16rQ8CtktCvLlwzcKn8kuv+GWz+ep+Q1GK9v+NX7P8A8QfgXq62nim2Fzpdy5Wz1S3Ba0ucc7cnmOQDrG+GHUbl+avEq/QMLiqVenGtRkpRezWx8tXoTpTdOorNdGNIptPpuK3RkLR70nvRQAlOGe1J9acKTA//0fxNFLR2oxX3B8+HHajpQKWgBMVveGPDHiHxp4gsfCvhSwl1PVtTlENvbwjc8jn9AAOWY4CgEkgAmqGmaZqOtala6Po9tJe319KkEEESl5JZZDtVFUdSScCv118LaV4G/YF+Fo8T69DDr3xa8URGKGBTv8vdj9xGw5EEZx50i8yvhV424+ez/PVg4RhTjz1Z6Qj3fd9kt2z1Msy1125TfLCOspdl/m+iNnwb4G+C3/BP3wbb/EL4ntD4q+KupRE2NrCQ3kMRgpa7gfLRTxJdMMnlUH8J7X4d/sxfGf8AbF16z+L/AO1ne3GieEVPnaT4Yti1u7QtypZTzAjDq7ZnkHdFwa9G/ZU/ZB8Qa14hX9pb9qUHWfG2qMtzp+l3SgxacnWJ5Yj8olUf6uLG2EckGT7v6i89Tya/N62KdCo6rnz4h7z6R/u010S77s+spYZVYqPLy0ltHq/OXd+XQ5vwj4P8K+AvD9p4U8F6TbaJo9ku2G1tYxHGvqcDqx7sSSTySTXR0tY/iDX9I8K6JeeIteuBa2FhGZZZD2A7AdyegHrXjPmlK71bPV0itNEZvjHxhoPgXRZNd1+YpECEjjjG6aeUglY4k43McZ6gAAsxCgkfhJ+19+2b448Y6nc+DtIu/wCxtIhJD2ttJkMO3muMFj9eM/dUDk+8/Hf9oS+8Srr+t28vlzWcDx2qD5hY278FFH/PZyMyP1yMcKqCvyd1PSzotwbjVwZddu/3xjk5Foj/ADBnB6zsDuwf9WMfxk7ffynBrm5pI8/H1WopL+v+Cec3qa1qkhkuiyK/P7wkZz329fzrAns1U+X5yFvQrx/6FXR3ss13uy7Jb5PIOHlI68noPUmuRuH05SV8tAPXDH/x4/z6V9TE+fkZ0lxdaZcLNbO0LxsGBRiMYOQykYIIP+elfaOlft/ftcpYadZWXjhrO206NYY1W0sz5gT+KQyRO8jHqSTjPTFfD918+YcliCAM9cHjHvXV6ZYOgRHtxk922k/kf5VFSlCXxK44TkvhZ+23wF/4Kb6xDLYaL+0ZpsTWd2Qi65p0JjaM5xuuLVSysnq0W1h/zzPWv2G0fV9I8RaVZ69oN5DqOm6hEs1vc27iSKaJxlXR1JBBHpX8e/iqFLLTLGKIkZTLDdlQ3cbTyh9untX3T+wD+2VdfBzxVB8L/H96z+BdcmCo8rZGmXUpwJ1J6ROTiZRwM+Z1Dbvn8wyeMo+0oqz7Hr4XMHGXJN6H9GOdvSvir9pj9iD4Z/tAxy+JtLC+EvHkf7yHWLRNomlXlRdxpjzOekgxIvZiBtP2rwwBGCD0I5FIDzXzuFxlWhPnpOzPXxGGp1Y8s1dH4WaV8UfFHwz1mf8AZp/bg0dJ9Pv08m21i4XzbW7hztR5JQBvQH7twuJI2/1gDAsPkv8Aan/ZI1r4HzL408ItJrPgDUXXybrIkksmk5SK4ZeGVs/u5h8r9Dhuv9Fvxq+CHw++Pvgm48D/ABCsRcW7Ze2uY8Lc2U+MCaByDtYdx91hwwIr8nvB/ijxX+yF41k/Zf8A2m0TX/hj4iR4NI1edC9qLaU7SrBs/uOQJYicwN8y5Qgn3ssxMqE3isuj5zpLaS6yp9pLrHqePjqSqRVHFvyjPqv7su68+h+MY5pMV9nfthfsq3v7PfimPXPDW+/8Ba+5bTrrPmG2kYbvsszjqQvMT/8ALRP9pWr4yr9Uy/MKWKoxxFCV4y/r7+58XisLOjUdKorNCGkp1J34rsOcQ804UnalFID/0vxNApaBS19wfPhRRX0j+y18Fj8avifbabqcTN4d0YLe6ow4DxK2I7fPrO/y+oQOR0rjzDHUsLQniKztGKuzfC4adapGlTV23ZH1P+zD8PfDfwI+Gt3+1F8VItt3LAf7FtXGJEhmBVHQH/ltdfdjP8MWX6Nx9Y/sY/ATX/jN4xb9sD48QefJcybvDGmSgmGGKMkR3Oxv4I+kAI+Zsynkqa8nsvDUv7bH7S1v8PrUkfCv4aMJdTeH5YrqVDs8pNvA8xlMUePuxK7L1FfuBaWtrYWkFhYwpb21sixRRRqFSONBtVVUYAVQAAB0FfkNfGVVzYqtpXqrb/n3T+zFdm95H3lLDwk1Qp/w6b/8Cn1l6LZFgnJyacDTKUda8NHqkg5OBX5O/t9/tEnRIYPBOhThliAncA53OSVhJHcFlZwP7iqeVlr9MfG+sw6PochluPsgud6PPnBggjjaW5mz28uFHYH+9t9a/lS+O/xQvfiR8RtU8UTp5Md3cPOkAPywxcLBCB6RQrHGP92vcyfB88uZ7Hl4/Ecqsj1r4Wa4NTeDR9RlM0Ml0ksgY5Ms/wB5EYnqqgeY/wBEU/erzz4iaFcrrc8jDzLjV5pZflJY+UX+Xn1f73+7t9TXn/hvWHs9St4VkKpAGDsD0ZjunYY9l2j2UV9Jz+NNC13S7K7vIV+1vG0EQxtSJmOWb1+QEhf/AK1e7OLhPmS3OOElUhyt7HxZ41vm050sIx87jCgf3R0/Dv75HpXnqzXu7MuWz2IH6EV9WfD79nvxb+0J8RdYm0Qmz8OWd01t9tcHBWI7VjjA5ZsAcD8a/V34bf8ABN74OeHLGOTxcbvW7h1+ZJJdigkY/h5B9skfjXFj+JcNhpezk7y7Lp6ndgeGMTiY+1StHo319Op+CVtpdwEt7yZGRJiwiJGN2wkHGcdDxXrngvw7He3ayXAZIrch5MAbto647NjuBz7Gv3T+JX7BnwK8d6aYrTTG0e+jiEUM9vIwMaoPlUBsrjPJGOeT1Oa/HX42fCH4jfs8X134T1vfd6BI3+j3ipjOc7d/senXg9MdDnlvEdHFP2a92XZ/oXmPDdbCr2j96PddPX+meZ/EDV7TUdWmjt41WKPCxuuMMoGM8cfh+WK8okJt5hInBHI7j/64qy9+0nzOd2eT7+4qOQxzx/KeRyK+khGysfN1JXdz+k7/AIJwftEN8Yvg+fBHiC687xJ4GWK2LO2ZJ9ObItpCTyWj2mJj/soTy1foljvX8oX7Efxpf4IftDeG9evLjydH1KUabqWT8ptLwhGY/wDXN9kv/AK/q/YYJFfE51hFTq3WzPpMsxHPCz3QleMfHv4GeDf2hfhzffD7xjFtEoMtleKoM1jdqMRzx59Ojr0dSVPqPZ6Uda82hXlTmpwdmjtrUozi4yV0z8Q/gxrV7HJ4k/YD/akt/OntkaDSLlz/AK2BRviWCRuSVAE1q/XAMZ+6Fr8s/jL8J/EPwU+IeqfD/wARfvHsm329yF2pdWsnMM6ezDqP4WDKeRX9Av7fv7Ot18UPAcPxZ8BRvB4++Hw+2WssHE1zZwnzZIQRyXiI82L3DKPv18G/E2Cx/bJ/Zps/ido8KHx94Ljk+1QxD5pBGoa6hAHO2RMTwjswKDkmvrsrzSOFxEcTHSjWdprpCo9peUZ9fM+dxeBdak6EtalNXi/5odV6x/I/Jqk+lLwRkHOaK/U2fFhilA9KSlpID//T/E4ClpAaWvuD58QkAEngCv1QgWX9lj9km3itIzF47+IjKQFH75JLpPlUDrm3tyAB2lkPrXxN+zV8OF+KXxp8OeGLqLztOimN9fL2NrafvHU+zkLH/wACr9QvCOhj9o/9vO00+7UXHhX4QQfa51xmKS9jdSqkdMm5ZQR3WEivz/ivERr4qlgZfBFe1qeai/dj/wBvS3XkfUZJSdKhPEx+KT5I+r3fyj+Z99/sefAOD9nv4I6R4Wu4VXxDqgGo6zIOWN5Mo/dZ7iBMRj3BP8Rr6mpW5Oc0BeK+AxWInWqSqzer1Pq6FGNOChHZCU4dKMcUtZI0Z8Mft0ePF8H/AAh8VOJNk9zp1vpMGDznV5nNzj3+zWjj/gVfzH3upST3bXbnc5PmH3Odw/M4r9pP+CsPjOSxutG8G2kgK3NtFeTqp5WTdNDHv9PlZtv1NfiC0gNxx0yPyX/9Qr7bJ6SVFPufM5hP37HV2UzQRSYPzbQme+SeT+h/Ough1qSNEVmOIVdhk8Anj+prlIQY7RHbrIS34DgfrmtjRdOl1rWbTR4F3S3s8Nso/wCujhSfw3Zr0qlkm2c1NNtRXU/oE/Yp8FafpPwZ8L6lDAqCSzSfpjfcXP72SQ+p+br/AIV9sYGK8Y/Z+0hNG+DHg6wQgsumWruFI+UvGrYPpgEV7IDX4ZWd6k5Pq2/vZ+5J+5GK2SS+5D9teb/Ez4WeF/il4em8PeKbJLiORWCM6biu7qMcZU9xkeoIYAjyX4paV+0N8R9bm8LfD3WYvh94XtzsuNW2ebqNyf4vs69ETsGypPXd2rwZPgZ+yn4C1TzviT8SL/WfEiZeSfVPEM0M28cllWB4yv0yx966KVGFlLn17JXf6HLUrVE7KGnduy/U/LX9qz9lnxJ+z5rP9qWsMtx4XvpGEUxBdIXJ+WNpAO4+6SAezKDgn5AjlEnKsEY9ieD9DX9UuqeA/hz8SfhlqHw8e9bXvDuqwtBvmu3vpEIA2ss0jPJujbDDLEg8e1fgP8Ff2fZr79o+78AeN9IfU9P8JXF2b+2XcguWtyUgjyvO2WUoWx/Bmvvcj4kU8PUdd6wV/Vf59D4fPOGZRxNONBWVR2t2f+XX7z5YVmV1d8qQc5Ff12fsk/FJfjD+zt4J8ZyzifUfsKWWoc5Zbyy/cS7/AELFA/0YGv54/wBtv4PaX8I/EXh7XdF0+30q38QC6jntLRWS2Sa1MZDRIxYoGSVQy5IyCe9fdH/BJj4sxpZeK/hldThRBJDqcUROP3UxW2nYf9c5PJP+67nsK7cTWhjcHHEU/wCujPJng54HGSw1R3a7fej9v6UcmkPFH0r5Q9ckBwc1+HnirQP+GPf2z5dJsh9k8AfFYCe1HSG3nlkOEHYeRcMVA7RSr6V+4QNfBH/BRr4RD4l/s7X/AIl06InW/Acn9r2zqPn+zr8t2gI5/wBX+8+sYr18sUKrlhK3wVFyvyfR+qdmedj+aHLiKfxQd1+q+aPww/aw+E6fCb4w6lY6bB5Gia2P7S09QMKkczHzIR/1ylDKB/d2+tfNVfqD8dUX49fsh+GfjFEBLrfhVlF6Ry20streZ9jIIpvYZNfl9X6VwjmVTEYJKv8AxINwl/ijp+Ks/mfIZ9hIUsQ3S+CSUo+j1/DYKOaQk0CvpWeMf//U/E4DApaQHilr7g+fP0w/YL02y8H+DfiV8cdVQeVpFqbWFm/u28Zu5wP94iEV9+f8Ev8AwRc2Xwf8Q/FrWlLat8QNXnnaRh8zW9ozIOfQzNMfyr4SlP8Awrf/AIJy27Rjy7rxlckt2ZhdXRP6wW4H0r9tP2cvBq/D74C+APB4Ty30/RrPzRjH7+aMSzE+5kdq/GsZifaSxmJ/nqci/wANNfrJn6BhqPL9Xo/yw5n6zf8Akj2bFPFJS14B67YUjOkaNJKwVEBLE9ABySaWvJPjxq99o3wi8SzaS5S/vIFsLZgcET38iWsZH0aQVpThzSSMpysmz8Hv+CiutP4iXw149ui3neOtS1K8tFbjZo+l+XY2Ix6SN502e4cV+YdlE91dFF45xn0A6mv05/4KqrZaH8ZPAvw70nC2PhPwna28S9lUzSqMn3VFzX53+G9GupbcSwIX3EhGwQJHHJP+4nc9z+Ar7zANKjE+XxKbqMfgGR3YYhtlAx6Beg/E11vw+8N6d4p12Gx1vUG0y1EbzvOjiNkYsscfJzgb3BbvtVvrXL3vk4FhE/7mP55ZOm7Hf6ele1/s8/Be5+MvjG1u9TtjdeE9K1G0TVoISRdNasSSqYHzAD5nAIJH3ctiozLERp0JSlLlXf1OzKsNOriIwhDme9u9j9gP2ebj9jnwr4ii0D4O+MorrXZAIxHJqju9yRxhY2YI59lX8K+9lJbrwa/n++Lf7KXxfsfi34y8EfBzRrTV/CfijUrfVNN1K0tYWe1t4GZ4IY7vaGsmiMmyRN0e/arcgCv3U8DWGtaN4M0DSvEt42oavZ2FrDeXLkM01ykSrK5YYzlwecc9etflud4KnScZwq87e/c/TcmxlWqpQqUeRLbsc58XdE8ceKvCi+Dvh5dnTdZ8QXMVkL5cZtIGDPPMM8bljRgmeN5U+1fzR23gzVdR8eeGvCt94MuU8UaXqktr4gkv7iW6bU53vMbZIHUGHy48oxBO7mQkV/VWHIO5CVI6EHBFcte6RYC+m1aO0hF9PgSXAjXznAGBukxuOBxyarKM++p05RjC7fUeY8PfXasHOdkuh8//AAM+CXw/+Bun63aeBrSa3h1a/nmjN07STR2fmN9mg+ckqqocleu4ktz04W/+HmmwfEXxhqiWxe48Qarp1zCEXEhkjsGWRt68hUOHyTgMa+pls3Mma/Mr9ov/AIKDR/CPxd4y+GHgfw2LzxDpsi20epzTA20UpgQuxhC5donJG0sASOeBg+XhaGKxtWcaau5b+l0fTY+vg8vpU5ydlHb7mfK//BSfx/YeIvipofw9sJxdP4OsCL2QHIN5d7GdT/tLEkZPoSR1FfPH7LfjzXvhf8XdK8Z6Oryw6Yk39oxp1k014yt1kdwkRZ/bbu7V4LcX2qeIdXvNc1q5e91DUGlubieVtzySytud2PcknJr6v/Yr0G28Q/tC+HtD1Bd9lq1hq9tOM4Bjl0y5Rx+TV+w4PAxw2EVDdRX/AA5+E5lmEsXipYh6cz/4C/A/rKtriG7tYbu3kE0U6LIjr0dXAIYexBzUteF/sxX2o3nwG8H2+sOZL7SbaXSZnY5LPpU8lkWJ9/JzXunevhq1Plk49j6GnK8UxQaq6jptjrOm3ejanEJrK/hkt54zyHilUo6n6qSKs4p4PFKEmndFSV0fgt+y54XbTtX+NX7JviVt0dlPdwxh+8blrORwD6jyZB9c1+TGo6fd6TqF1pV8uy6sZZIJVPaSJijD8CDX7bfE+1Hwz/4KaWd3CPJtPiFpcbPjgNJLbtEfx861U/U1+ZX7W3hlfCf7RnjnTok8uG6vvt0YHTbfRrcHH/ApCK/ReHsRy5pWj0qwhU+fwy/FI+PzSnfBU31pylD5fEv1PnGnUUox3r76x8wf/9X8ThQx2qSewzQOlNl/1T/Q19wj58/Wb9o7SfJ+A37PPwxiG0arPpkbqO5+zRIf/Hrg1++6xR26i3iGEiARQOwXgD8q/EP9ouCN/iP+y7pLD9wNSsRjtxLYL/Kv3Ab7xPua/BaU+bLqEv5nUl983/kfpko2xdVdlBfdFDKUGjFA4rlOlsK8Z+Pc9ta/Dxby6USrb6xocwi3BWmMOp28hRSxAyVUnngAEngE17MK+T/2kfiZ4Y8C/C3xh478XolxYQw3Gi6VbOSBPczK0c8nHOVYMMjkLE20gvXThYtzRhXlaLPxv/bk8Gat8R/2wfE8/iu8S20Tw9ZaXBqFwvyRwn7Ok/2aIkZZv3mN2Cx67ckLXivxS1DwN4c8L6fpvg90d7qMKEVf3xiX7ocAnYvUqo5PJYtkmvFfiL8XfFPxF1+41rWr2W5e4maciZtzPM/3pZSPvSN/FxgcKoCjFeT3/iR0EyWjmSefPnTtyfov/wBbivtKWFlaPM9uh4EsRFKSit+o3WNTESsn8RO7b1JPqx9uwHA+vNffv7EPxW8GeGNSsYXvYtJu1Lw6pDcOF+1RyN+7uIWOATESN6dQu4jOa/NNw7Moc7i3zE96runyhvUms83yuOLoulJ2OzIs7ngMR7eEU+ln/Wh/YRphmJHPBroryG9ktkawZBLC6yASZ2OF6qSM4z64Nfj5+xr+394Zh0XTvhb8er7+zrvT0W3sdblyYJolGEju25KOo4Ep+VgPnIIy36zatovh74g6NaXcGoTNbH99a3umXjxH5sfMkkDhZFOBlW3KR1FfkGNyqrhZunWXz6P0P2OhndHGRVWi/VdvU2P7Qh00ebrd1DbtOfkTOD9FHVjn0FZfhrxGPFo1C6trGW30+1uGt7eeYFDdGPiV1jIDKivlFLfewSABgmKz0PWLa2l0zzLWCC4GySe1gWG6kTphpB83I67SM/pW5c3ej+FdEa4u5UsdN06IAs3Coi8AAdz2AHJPA5rltFKyOmrGzumr+X/Daemp5v8AGr4neHPgh8M9c+JPiRl8nSoSYIScNc3T8QQL6l3wPYZboDX8n+ua5qfi7xBqvirXJfP1DV7ma7uJD/FLcOXc/mTX6w/8FHvFmvePPAeia+6yWuh22seRbW7ZHJt5W8yQDgyNj/gIwB/ET+SNnGDBI56Lt/Wv0rgvCQjQdZbydvuPzDjrE1frEcPPaKv95uaX5cMF3KwyWQoo9O5/mK+1/wBg5bCH9onwPquoOsdnYPdTXLM21UhhgkeUk9wI1OR6Zr4lso2ltpdozgE/nn/CvR/h5rd1oWpNNaXMlo+JEMkf3xDcRmGcD/eidl/E19dXjzRce58ZTdmmf1qfAaymtPhJ4euLhPLm1VJ9UZCMFTqlxJehSOxAmANetkVy/gbXNJ8ReEdK1XQ5Y5rGW2hMLxfcaIopjZf9l0KsvsRXUk4NfnddvnbZ9dR+FWEzinU3rS9OhrJGp+Q3/BQ2L/hHP2jv2f8Ax3GNjG7Nq7f7MN7A2Pymavhb/go7pC6b+0FbXqrj+0tEs5D7tFJNDn8kFfe3/BVBRHP8Fb1eJItaugD7ZtW/mK+Pf+Cn8SL8XfCco4Z9EYH6LdzY/nX2eTStj8FLvTqL7pJnzOPX+z4mPaUH96aPzTxmiilH1r9SPjT/1vxPFMk5jcexp4o4719wfPs/Yv8AaQ1JItT/AGYPGecwJfae5bt8xsZf5A1+6kgw7D3NfzzfHS8k8Q/sT/B/x9bNum8PTWKEjqGiiktj/wCRIVr9/vD2sQeIvD+l+IbVg8OqWkF2hHQrPGsgP5NX4RTpuOApQ/knUi/lO/6n6U53xc5fzRhL/wAlt+hsUUuOaUVxo6hrMYkaQDJQE49cV+HP/BQLWLrXvDVloDuW0PwD4a0/Vbhf4Z9Y8RT+XCG9dsUc02D3Hua/coda/MD48/BC+8dWfx2+H1kqy6pd6d4X1PTN/RrWyW6t41HujIyk9BnPevVyycYzvL+un6nBj4tx0P5srqeTIgU/NLyx74P+NUxAfJZgOrYrb1jR77StXu9PvoHgurRwskcilXVk+VlKnkEMCCOxqSO3WS3d4+VIDg/TrX26Z820YqxfMjN02D9DzUbW5CywY5ByP5itRkADKeq8j6H/APVRMgVkn/hOFb6GkFjBeIOFYfxKfzFex/Cj9oP4x/A69juvhx4ludOtmPmSWTt51lL3O+3kzGSfUAN6GvLLqE20vPMbAsp7HNQ29s0xEkgJRQFUDq5PAA+p4olhY1lySV157F08RKlLmg7PyP6JP2fv20fEXxP+HNr4o8T+GIGv3klt3NhO0UZmhIzmOUOV3Aq3Dt16V3Vxd+Mfi5rEEerqtvZwtvhtYiTDEB/y0cnBdwP4iB6KBk5+Yv2BPhL4qh+Ed/N4gtDpxutWkkSG4Uo4iMEIDbMZHI6HB9a/TnQfDVjoVr9ntFyzcu5+8x/w9BX4PnMIxxVWnSfupu1j+hcmqxjg6VWov3jSvfv3Pz6/b9+GqT/swXsulwlv+EcvrO9J77N5gkY/9/cn2FfgSEmtUCvyki8EdDiv6ov2mfEfhbwl8C/GGo+LbdLyyurGWyS1c7Rcz3amKKL15ZgSRyFBbtX8y02nwTQi1xmJAFU9DwMZ+p61+qeHOEnWwlSNrJPR99NV8v1PybxDxEI4uE76tar56P5/oYug6iLOSaMgMJkxz7En+RNXob37PIhHJHyH8On5j+lc/Np93a3DRwqZBER8yjnBGRxUbTjJjlBQnggjBHvX1NWhKLtJHx0KqezP2v8A+CdP7Xr+H7y3+CvjyZm0uZxHpt65+WAyMStvIf4QXJMZPcsnOUC/u0cEZ/Wv4+P2ZNe0a0+L+h6H4vyfD/iOYaPqQU4byL8iJZkbs8EhSeNhyHQGv6jP2bPF2s+KPhfDpni2YT+J/B97eeHdXcfx3elSmDzf+2sYST/gVfHZ5hFGXtI/M+hyuu2uRnvNKOTQetA6186j2D8j/wDgp+x1Dxf8CvDMfMl1q9y+P96azjH86+Nv+CnN6k/xs8O2SHm00JCf+2t1Of5Cvrz9smZfG37dnwR8BRnzE0aGC9mX+7vuZLhs/wDALZTX57f8FAddXWv2mtbto23LpFlYWXB6MIRMw/76lNfb5LTvmGEh/LSnL/wKSR8vmE/9mxEu84r7otnxZTgQKZmlr9PPjz//1/xPpR1pKWvuD58/Tf4NL/ws79hTx34ET99feFJ57mJOp2IUvkwPcrKor9bv2FvHcfxA/ZY8C6g0vm3Ok2raRcc5Ik09jCufrEEb8a/Ff/gnr42ttI+Kuq/D/VSDY+MbB4wjfda4tQ0gX/gUTSj34r7w/wCCdWtz/DL4nfFX9l7WpCjabeNqumK5xviUiKQr/vRGB/zNfkWYYV06+Nwv96NWPmpLll90kfdYWvzU8NX8nTfqtY/gfrdSimZNDv5SGTaW284UZP4DvXzKPckPrzjxp4Qv77VtO8a+GREdc0uKW1kgnO2DUNPuCrTWkrYO07lWSJ8EI4wRsd669vEfh5FZ5tUtoRHywlmSMrj+8HII/GvA/ir+0Tpfg7w1c6n4TtH1iUBkiuWBhs/MA7SuMOB3KBsdg3SuilGV9EYTlFqx+Pn/AAVA8LfDjQ/F3hm/0TShpvivVIJ7nUwzAT+QNqQ/aFRmjeTIbEqnLqAW3H5j+Uml7xIbf+FlZxn0IOa98+PPjrxH8T/HeqeJ/EV015cXMuZpiCEzztjiByQgHCgkk8sTk149Y2PMt9J8sQXYvuM849+wr7nBwcaaTZ8zXd5uxh3kYWRVx1KD8zTLiL/QXPoufyqWVjdXhdfuRkn/AIEeAPwFLeHZbPH6jH58V1GBXSIXUBtnG9ox5ifQdRX39+w18C7zxv4hufiBc2P2yz0gmG0U7f8Aj5IBklAbAPlIQq8/eb1FfAtusn2+0WEEthhtHUjHT8elf0q/sc+EdL8L/BDQY9Kj2xSRfK5A3Pkl3ZsY5Z2bP0FfM8YZnOhgXRh9t2v5dfv2+8+t4KwEKuM9vU19mrpefT7t/kj6C8I6TZaPo0VjZxmMRE71YYYMeTu9SepPeukFzAeFJf8A3VJ/kMVNtX0614L+0R8YIvg38L9a8UWLImpRqLWyZwCgvZwRCuOjMozIy9FRSzdg35RgsFUrVI0aSvJ6H6jj8dTpQlWquyWp+Yn/AAUL+Ni+MvHNv8LNCn3aV4UZvtRU8SalIuHBH/TCM+WPRmkHavzmSLmrmp311rGoT6jeztcXM7vI80hy8juxZnc9y7Es3uTWA0+qSzNaxqtuF/i+8WHqM8fpX9UZNlkMBhaeGgr2/F9WfzdmuYTxmIniJ9fwXRE62scl/cB84AjP5jH9K0TaW7LtkjWRfRhu/nUVnai23MztLJJjczHJOOn0q1I5ACqcFs8+gHU168IK2qPMctdCta2un2F/b6jawC3ns5FkSSNiu10IZSQcqeR0xX7bf8E+f2sdH8VePvF/gbx3Klt4l+IGrza1aTRJ5VpNdPEPOtwjFikhCF05IbBGQcA/iPgScHhR0FbHgvxLfeCPG2i+LtLkMV1ol7b30TDghraRZR+e3H0rws6yWjiKMo8tn0a7no4DHzpVFK+h/ZNnnNABJwOtRwXMN7bxXkH+ruEWRP8Adcbh+hrzr4xfESx+Evwr8VfEi/ICaBp81xGD/HOF2wJ9XlKr+NfiFOk5zUI7s/SJ1FGLk9j8rPBF4vxc/wCCi/xG8dowl03wVby6fDJ1RXhVLAYPuRM1fkh8a/F48ffF7xl4xRt8Wq6rdyxHt5IkKxf+Qwtfov8AAi9uvg9+x18R/jnq8hXXvGck4tZX+/I7k2sLAnrmeWWT6DNfkyBgADtX6Rw1RU8fiq8fhhy0o/8AbqvL/wAmZ8Zms3HC0ab3leb/AO3np+CD9KcFpKUGvuj50//Q/E8UtJRX3B8+dP4M8V6n4F8W6N4y0Vtt9ot3DdxdstEwbafZhlT7Gv1r+OvieP4d/Ez4S/tyeAEafQ9UW3t9UWPrJBLGco+P4ngaSLno8a96/G4da/Ur9izxJofxt+FPi79kLx1OI/tlvLe6HM/JiYESOqZ7wzBZlA6qXHQV8TxdQ9jOlmSV1C8ZrvTlo/8AwF6/efQZJU9pGeDb1lrHyktvv2P6ANJ1XTde0uz1zRrhbqw1GGO5t5kOVkhmUOjg+jKQa0RyQPWvzA/4J2/GDV7Ox1z9lT4lk2viz4fTTLZJIeZrFXw8aE/e8hzlfWJ1I4U1+nFwJmtpltziUowQ/wC1g4/Wvz/MMG6FZ073XR909mfWYTFKrSU+vVdn1Pnv4y/F3wZ8NfCN38S/GxE+m2cjRaXZDDNe3EZ2+YQfvDfxGOQBhuWZdv4L/HX9tTxx8T9ZvJEdLV7tDGSAJEtoScbIlbg49Ty7c/dwK9h/b68d3vie3g1OOY/2F4duovDulxjK/wClWtpHNfzsO7K0yRqe3zdwK/JxZZJ5GkI3FvmOTgAdsn0Ar6DLsthy881c8vFY6S92DPbn1/wtqVhB/bUH2W2idiCrF5pmbl2Yn7zMerfgBgDbx+u22oX6m4htH0vTBjYr8SMvbC9sjucewqhos0FhNHcyEzXh+YyEcQqw+VYlPAcjksfujAHOa951D+xvEfhWCWHZFNbYjCrkvM7csRklm9zgk+wr1W+V6HHFc61Pm4QpEgWJNqJ0H+e9Zso82UJ0H3iT2ArsNegg08+XMQr9BGBz+OP8muKkjdlZpMqrcn+83oOOg9q6E7nPJdD074Q+Eb/xf4r+0Wdubkw/uLaEcGa8ulaG1jXP/TQ+Y3oiMTxX9Nfwd0L/AIRj4YeG9D3rK1raKGdRhXLEsWHsc18I/sNfsoah4D0eP4pfEaIDUII5rmysyo22nmxZZ5PWcooX/YXKjlmr9EPB1rNqeg6daQSGG2t7aBZ5x1B8tT5cf+2e5/hHvjH5pxXiXiKsKVPVK5+kcKUFh6U6tXR6fqdFFHcarO1rZP5MURxPcAZ2eqJngyfmF6nJwD+Gn7f/AMa7Xxx8Sh8OfC8n/FN+CDJaqFOVm1Bj/pcxPO4qR5QY5ORIc/NX64/tR/F+1+AfwT1PxFppS21S4X+z9Hi9LucNtkI7+UgaVvXbg8mv5l55pbud7iZmkeQklnO5mJ5JJPUk8k9zzX23h5w/GMnipLbRevX7l+Z8nxrncqlqCe+vy/4J9B6d4U1DRbaPSPB/gmDxdq8FpaXeq3l5E9zFA99Gs0drBCHjjGyJ1MjtvckOw2RoTWD8WfCPh/TLWw1zRmtIJHle0v4dPeWSyhvEhiuN1q8/zmNo5QGBZ03oxR2jZMdV4S+LXgttNsbfx/plxdX2mrFFHMiLdwOkKLEH+zyTRLHM0KJE7/PvVFzt+bf5N8U/iHD8R9XjsdGs20/RLNmkdHYNLLO6Rxu7lflBKRRoqLlURAuWJZj7mBlj/r0Y1INJXu76P8bNdVZLl67a/PYiOGWHcoyTbtZdV/k+973OFtZxcQrMOjdD689R9etM3+ZmQdG6f7o6fn1qG6lESCGLgsAq47Z4/QU9DwFHHYfhX3qfRnzlupKOD7Vnyn95J/usP/HTWifTpWQ3zM5Xurn/AMdNRUdkVE/sd+GdxJefDXwjdynMk2j6c7E9y1tGT/OvzU/4KT+PtT8WX3gj9lPwVJ5mr+LLyC91BUOdkIcpbI+P4S++Zs9BGD3r9EpfFHh74RfBm38U+LrgWmleFtFt5Llz1228CLsUd3dgFUd2IFfjv+z/AKrL4u8V/EX9u74yj7PZp9qGnRtz5USLsYQ56+XGEtosfect3r8LwdX6vGpjmr8ukV/NN6RX6s/RMTH2vJhU7X1k+0VuzzL9vrxXpHhDw/4G/Zs8JPtsPDlpDd3aj1RDDaq3+0V8yVv99TX5kV23xG8dax8TPHOt+PdfP+m61cvcMuciNDxHEv8AsxoFQewria/UOHMpeCwUKEneW8n3k9W/vPjs1xv1jESqpWWyXZLRfgFOH0ptLzXtnnH/0fxPFKKSlr7g+fAV1Xgrxjr/AMPvFmk+NvC9wbXVdGuEubd+25DyrDurDKsO6kiuV707NTUpRnFwmrp6NeQ4zcWpRdmj9ifjBfXPxB8N+Ef29/2fD9k8T+GvL/tyzT5mX7ONsolUcsIgTHJ/ft2DdFr9bvgP8avCnx++G2l/Efwm4RLpfLu7UsDJZ3iAebBJ7qTlT/EpVhwa/mz/AGUv2jrz4B+NJI9XDXng7X9sGrWmN4C/dW4RDwXQEhl/jQleuMfbq6pq37EfxLg+Nnwo3eIfgp45MTahZWz747dZTuRoz0BXJNu56jML44NfkuLyt0ZrLKr2v7GT+0utNvvH7PdH29DGqcXjIf8AcRdn/OvJ9TH/AG6Ph1fn4YeMbKzhZr3wR45vdWu1x8x0zxNCklvdAf8APPzY2iJ6BlxX47MY43WzChkiKmX/AG39P90f41/Tj+094c8JftKfBOy8a/CnU/Ou9fsL62tdQsm5vLSKznvm065jON4ea3UeW43RSDcuGzn+YLlVk4wfNcnPB+X/APWa9HK6jcGpaNHLjIpSutjVjuGZzI5zuJLfU8muhtfFF7o8qSWLZvSpWP0jU9/p/M/hXFrMq/MeAMsfwqCCVyr3Lf6yYgfQZxXp8tzkU2epDTdNm0W68R6ndb5lxw2S8jueSB2X0HU9TxXYfs8eBz8Sfjj4I8NX0e60v9VgeWPGcwW+Z5M/VIyPxrxZ7h7g2liTmPJcjsccD8q+2/2EY4m/ad8KNJgeVFqDj6i0kA/nXS8Py4OtiHuk7fcTSqc2Jp0l1av95/RxNp8Fp4fuNMt12R/ZZVAHq0bA/jk0zwxZ2droWnRWkYitLe3iWGMc4G0ck9yepJ5J5rVkkjnjjYH5WIDfRuDXiXjn4oWXws+C2qeOb3B/4RzTXKof47mEeVHH9WlAX8a/KowcmoxWp+hylZNvY/Hf/got8ZG+IHxm/wCED0ufzNI8Do1qQpyr382GuW9ymEiHoUb1r8/lFS3upX2r6jdatqspuLy9lknnkY5LyysXdj9WJNZ17efZIhsG6WQ7Y19T6n2Hev6Ay3BxwuGhSXRfj1/E/IsbiXXrSqPqR31zJuFjanEzjLN/cX1+p7VPbwxWsISMYVR+dVrO38hCZG3yOdzsepNFzONpRT9a7I6e9Lc5mr6Ip+Z9o1AH+FFLfnwP61pwsGJft2rAtCZJZiP422/gv/163hheB0HFRQldXKmrBPJhDjqeK3fh7oMvirx94b8MQKXfVtSsrMKOSTc3CRYx/wACrlp3Jbb2Fdl8MtM8a6r440e0+HkU8niSW5j/ALP+z/61Zl5DqTwuz7xc4243ZGM1hjJ+5LW2j1ey82VRXvLS5+xf7XvxK1f9qf4x2H7J3wmuyPC+gXP2jxHqMXzRGW3OGXI4ZLbO1R0ecgfwA18o/ts/FnQdKstJ/Zk+GREHhzwmsS6h5ZyHuIR+7tyw+95WS8p7ytzyleteMta8N/sJfB9fAvhe5i1H4seLYhNd3a/OYAQR5xzyI4slYFPLvmRhjIr8k5557meS5uZGlmmZnd3JZndjlmYnkknkk96/OeHcBHG1oYpL9xSv7O/25daj/KP36H1OaYiWHpyot/vZ/H/dXSH6sipKKK/SD5QKKKM0Af/S/E+lpKWvuD58KWkNFMBwr7H/AGa/2mI/h1bXHww+JkP9tfDvWd0c0Eq+d9j8377In8UTdXQcg/OvzZB+N+lANebm2U0MbQdCurp/en0afRo6sDjqmHqKrSev4Ndn5H6weR42/ZOuW8d/Ci8m8X/BrW5odRktreUSyafMpDRXcDkMoZOglIKSJmKcYOa+Kv2mvBHg43Nv8bPhpqem3PhfxpdysbC1kKXWn3gTfPFLZyDzIE+bco3SKMhVkdcMbHwG/aU8X/BO7Omlf7Z8LXTH7TpkzfKN/DPATkIxHUYKv0Ydx9HeK/2efhf+0Fo9x8Qv2cNRgtr1xvvNCmIhCSHkqq9YGJ6DmJv4WUV8DOtUwNVU80fu7KqlpLsqn8sv72z/ABPp40Y4mDngVru6b3XnDuvLdH5Xspw0eecEfXPQ0luweNF/2sfTrXc+M/h34p8FavPomu6dPp19bn5re4TZIvuueGU9iMg9q4BRLHMUkTG44IPHP9DX0MsPJWa1T2a1T9DyY1k7p6NdHua0MyDYJPlljJx2wc8j6V9h/sR6ky/tL+Ehu8sSi9j3DuWtZDjv6V8aHzP9YVyVIbn+LHrX1P8Ass3y6f8AtAeBLuID57uRRj/ppbygfzrXE4aSwdZX+y9PkXhKy+s0tPtL8z+mnTb4tbNCx5Awc+n/ANavyr/4KN/EGXRPB9l8MbaXa+vaq9/Kg4P2WFVm59jPKuP9w1+kjXxglW5iO5JgHHuG6ivwo/b+8aReLP2iLrTbZg8HhvT7SwBH/PV1NzL+RlC/hXwXCWE9tjoJ7R1+7b8bH2fEWI9lhZNfa0+/f8D4vaZII2llbaiDJNYts8lzO1/OME/Ki/3V9Pr61DfXBu5/ssZzHEQW/wBp/T6D+dX48IoUdq/ZnPnlpsj8wtZE7zNj0FZ80mFLntT3fceO1Zl7ISjIvXGPxPAqatSyuOEdS/pC/wCiiZur5I/E5rVL7VLE1Xt4isSogwqADPbivsT4BfsZ/E743PDrlxCfDXhMfPJqt6hUOg5Y20Rw0vH8ZxGO7dq5sZmNDB0Pa4majFdX/Wr8lqaUcPUr1OSjFtvoj5u8A/Dzxf8AE7xPZ+EfBmmy6pql6fkijHCqPvSSMeEjXqzMQB+VfqNPJ8Mf+CfPgd4o3t/FXxk1+2AwBmO1jfpkcNHbqeezzkdlHy8/43/aN+DP7K3hm7+Ff7LFtDrPiSUeXqPiKbbOgkXgt5mMTup+6q4hT0Y5Fflxrmuaz4m1e78QeIb2bUtSv5GluLm4cySyu3VmY8n+g4HFfHOjiM6adaLp4X+V6Sqev8sfLd/l7inSy/4Gp1u/2YeneXnsi14r8V+IvHHiO/8AFviu+k1HVtTlMtxPIfmZj0AHRVUcKo4UAADArnqWkr7qFOMIqMFZLZHzspOTcpO7YUlLQaoQU3mnUUAf/9P8UKKSlr7g+fDrQBR0pc0AFApKKaEOzXQ+GPFXiPwZrMHiHwrqM+lajbH5J7dyjAd1PZlPdWBB7iud60c1FSlGcXCaununqVGbi1KLs0foh4a/a48A/EnSIfB37TfhaHUoVG2PVbSL5488bzGpEkZ9Whbn+5VrXv2J/BvxK09vE/7PHjKy1+zPzCzvJAZI++3z4xuU/wCzLGp9Wr85utauja7rXhzUI9W8PahcaZexcrPayvDIPoyEGvjZ8Izw7c8qrOlf7D96m/8At17fJn0Cz6NZKOOpqf8AeWkvvW/zO/8AH37PHxZ+HLSf8JV4YvrGBD/x8CIz2xHqJ4tyY+pzVP4I6nb+E/in4O1vVrhLWy0zVIHnuGOUjh3bWZu+Arc8V9GeBP29fj14QRLTWbq18V2i8FdRhxMV9POhKMfq26vYB+2B+zP4+IPxe+C8P2l/v3NksEzE9zuxbS/+PE1hXx+aQhKnisJzpppypyXX+7Kz/E0pYbBucZ4fEWaadpp9POOh+jPhv4w/C3xHocX9m+L9Jme2O04voQxX2UsD09u1fzu/FPxdN4u8e+JvF27dLrWpXU8Z9EklbZ+Cpj8q/Qlpv+CaHis+bIuseG5G52YvQqk/+BC0n/Ctf+CddzzF8S9ShU9mkkB/8ess14uS4+hgZyk6Na7Vtab0+5s9bNY1sXGMeenZO+k1+p+W1lCVwoB47+prUMU7jCofx4r9Nv8AhDv+Cb2kDfdeNNW1QLzsV7k5/wC/Vqn86mHxZ/4J5eCR5nhz4fX/AIouE+6bqJ5EJHr9rnx/5Dr6GHF6a5aOErS/7csvvbR4byKS1qV6a/7ev+CTPzX0bwzrniG9TTtEsptQu5DhYbWJ55ST6JGCa+yfhj/wT5+OPjh477xBYReEtNOHefVmxMF65W1jy+R/t7B716fq/wDwUWvtEsn0r4NfDrSfCltjCvIBIR7+VbrAmfqWr5F+I37SPxt+KyyW/jPxZdz2MnWyt2FraY9DDDsVv+BbjTeIzrE6U6MaK7yfPL5KOn3sXscvo/HUlUfaK5V971+5H3wumfsQfsmn7TrN4fix45tPuwII54IZV/6Zgm2iwf8Ano0rjsK+Tvjx+2Z8XPjkk2iTXC+G/C7/ACjS9PZlWRB0FxNw8vH8Pyp/sV8kdOBwKSuvA8KUYVVicVN1qq+1LZf4Y7R+6/mYYjOZuDo0IqnDtHr6vdhkYwKSiivqWeQFJRRSAKSlooAKKKKAP//U/E+ikFHevuD58WiikzxmgB1GKbk9aWgB/ApD603JopoB4opuTRk0AOopuaMmgQuRSZpM0U7hYd160tNzRk0BYXJzQKbS5pXCw7pRmm5NNJ5pDHGkoozmm2IKKKKQwoo7Uh6UALSimZOKUUAf/9k=" alt="Finance With Kellie mascot">
       <div>
-        <small>Finance With Kellie</small>
-        <h1>The Wealth Blueprint</h1>
+        <small id="brandLabel">Finance With Kellie</small>
+        <h1 id="brandTitle">The Wealth Blueprint</h1>
       </div>
     </div>
     <div class="header-actions">
       <span class="progress-pill" id="globalProgress">Step 1 of 11</span>
+      <button class="control-button language-button" type="button" id="languageBtn" title="Toggle English / Chinese">EN/CN</button>
       <button class="control-button" type="button" id="prevBtn" title="Previous step">Prev step</button>
       <button class="control-button" type="button" id="backBtn" title="Undo previous reveal">Back point</button>
       <button class="control-button primary" type="button" id="revealBtn" title="Reveal next piece">Reveal next</button>
@@ -4117,7 +4509,7 @@
 
   <main class="app-shell" id="appShell">
     <aside class="step-rail" aria-label="Pitch steps">
-      <span class="panel-label">Pitch Steps</span>
+      <span class="panel-label" id="pitchStepsLabel">Pitch Steps</span>
       <div class="step-list" id="stepList"></div>
     </aside>
 
@@ -4145,7 +4537,7 @@
       <div class="report-toolbar">
         <div>
           <strong id="reportTitle">Retirement Profile Report</strong>
-          <span>Generated from the retirement profile inputs</span>
+          <span id="reportSubtitle">Generated from the retirement profile inputs</span>
         </div>
         <div class="report-actions">
           <button class="control-button" type="button" id="copyReportBtn">Copy summary</button>
@@ -4155,28 +4547,28 @@
       </div>
       <div class="report-controls">
         <label>
-          Prospect name
+          <span data-i18n="Prospect name">Prospect name</span>
           <input id="reportProspectInput" type="text" placeholder="Name">
         </label>
         <label>
-          Meeting date
+          <span data-i18n="Meeting date">Meeting date</span>
           <input id="reportDateInput" type="date">
         </label>
         <label>
-          Notes
+          <span data-i18n="Notes">Notes</span>
           <textarea id="reportNotesInput" rows="2" placeholder="Optional follow-up notes"></textarea>
         </label>
         <fieldset class="report-section-picker">
-          <legend>Show sections</legend>
-          <label><input type="checkbox" data-report-section="timeline" checked> Timeline</label>
-          <label><input type="checkbox" data-report-section="lifeEvents" checked> Life events</label>
-          <label><input type="checkbox" data-report-section="checkIn" checked> Your check-in</label>
-          <label><input type="checkbox" data-report-section="retirement" checked> Retirement concept</label>
-          <label><input type="checkbox" data-report-section="lifestyle" checked> Lifestyle</label>
-          <label><input type="checkbox" data-report-section="math" checked> Funding projection</label>
-          <label><input type="checkbox" data-report-section="incomePool" checked> Income pool</label>
-          <label><input type="checkbox" data-report-section="methods" checked> Methods</label>
-          <label><input type="checkbox" data-report-section="notes" checked> Consultant notes</label>
+          <legend data-i18n="Show sections">Show sections</legend>
+          <label><input type="checkbox" data-report-section="timeline" checked> <span data-i18n="Timeline">Timeline</span></label>
+          <label><input type="checkbox" data-report-section="lifeEvents" checked> <span data-i18n="Life events">Life events</span></label>
+          <label><input type="checkbox" data-report-section="checkIn" checked> <span data-i18n="Your check-in">Your check-in</span></label>
+          <label><input type="checkbox" data-report-section="retirement" checked> <span data-i18n="Retirement concept">Retirement concept</span></label>
+          <label><input type="checkbox" data-report-section="lifestyle" checked> <span data-i18n="Lifestyle">Lifestyle</span></label>
+          <label><input type="checkbox" data-report-section="math" checked> <span data-i18n="Funding projection">Funding projection</span></label>
+          <label><input type="checkbox" data-report-section="incomePool" checked> <span data-i18n="Income pool">Income pool</span></label>
+          <label><input type="checkbox" data-report-section="methods" checked> <span data-i18n="Methods">Methods</span></label>
+          <label><input type="checkbox" data-report-section="notes" checked> <span data-i18n="Consultant notes">Consultant notes</span></label>
         </fieldset>
       </div>
       <article class="profile-report" id="profileReport"></article>
@@ -4245,6 +4637,7 @@
         ],
         items: [
           { id: "bank", target: "bank", label: "Bank account", detail: "base savings account", range: "0.05%", tone: "blue", note: "Use this as the familiar starting point. Base savings is easy to understand, but it is not designed to fight inflation." },
+          { id: "bonusBank", target: "bonusBank", label: "Step-up savings accounts", detail: "OCBC 360 / UOB One / DBS Multiplier", tone: "green", note: "Some bank accounts can pay above base interest when salary, card spend, bills or other transactions are completed." },
           { id: "fixed", target: "fixed", label: "Fixed deposits", detail: "short-term deposit account", range: "1%-3%", tone: "blue", note: "Explain fixed amount and fixed period. Useful for short-term cash, but usually still sits near or below inflation." },
           { id: "endowment", target: "endowment", label: "Endowments", detail: "insurance savings plans", range: "2%-3%", tone: "blue", note: "Position this as insurance savings. It can be steady, but the return range has compressed over time." },
           { id: "ssb", target: "ssb", label: "SSB / T-Bills", detail: "government-backed instruments", range: "2%-3%", tone: "blue", note: "This gives you the safety bridge. Government-backed, usually short to medium term, but not a growth engine." },
@@ -4255,7 +4648,7 @@
           { id: "speculative", target: "speculative", label: "Speculative assets", detail: "crypto / FX / options", range: "x%-xxx%", tone: "red", note: "Place this as the high-return, high-risk extreme. Then pull the conversation back to managed risk." },
           { id: "hsbcFocus", target: "hsbcFocus", label: "Investment Focus", detail: "funds, shares and bonds", tone: "green", note: "Finish here. The focus is not every asset class; it is a managed fund conversation built from shares and bonds." }
         ],
-        reveal: ["bank", "fixed", "endowment", "ssb", "inflationLine", "bonds", "funds", "shares", "speculative", "hsbcFocus"]
+        reveal: ["bank", "bonusBank", "fixed", "endowment", "ssb", "inflationLine", "bonds", "funds", "shares", "speculative", "hsbcFocus"]
       },
       {
         id: "dca",
@@ -4546,6 +4939,8 @@
       selectedItem: null,
       lastItem: null,
       present: false,
+      language: "bilingual",
+      lifestyleChoice: "",
       calc: {
         currentAge: 25,
         houseAge: 28,
@@ -4556,7 +4951,8 @@
         educationAge3: 0,
         carAge: 40,
         retirementAge: 65,
-        expectancyAge: 85,
+        expectancyAge: 86,
+        expectancyDefaultUpdated: 1,
         monthly: 5000,
         inflation: 3,
         essentialMonthly: 3000,
@@ -4601,9 +4997,13 @@
     const el = {
       body: document.body,
       shell: document.getElementById("appShell"),
+      brandLabel: document.getElementById("brandLabel"),
+      brandTitle: document.getElementById("brandTitle"),
+      pitchStepsLabel: document.getElementById("pitchStepsLabel"),
       stepList: document.getElementById("stepList"),
       canvas: document.getElementById("canvas"),
       globalProgress: document.getElementById("globalProgress"),
+      languageBtn: document.getElementById("languageBtn"),
       prevBtn: document.getElementById("prevBtn"),
       backBtn: document.getElementById("backBtn"),
       nextBtn: document.getElementById("nextBtn"),
@@ -4614,6 +5014,8 @@
       presentBtn: document.getElementById("presentBtn"),
       reportBtn: document.getElementById("reportBtn"),
       reportModal: document.getElementById("reportModal"),
+      reportTitle: document.getElementById("reportTitle"),
+      reportSubtitle: document.getElementById("reportSubtitle"),
       closeReportBtn: document.getElementById("closeReportBtn"),
       printReportBtn: document.getElementById("printReportBtn"),
       copyReportBtn: document.getElementById("copyReportBtn"),
@@ -4650,6 +5052,8 @@
       state.selectedItem = null;
       state.lastItem = null;
       state.present = Boolean(state.present);
+      state.language = state.language === "english" ? "english" : "bilingual";
+      state.lifestyleChoice = ["essential", "discretionary", "luxury"].includes(state.lifestyleChoice) ? state.lifestyleChoice : "";
       state.calc = { ...clone(DEFAULT_STATE.calc), ...(state.calc || {}) };
       Object.keys(state.calc).forEach((key) => {
         const value = Number(state.calc[key]);
@@ -4678,6 +5082,8 @@
           state.current = saved.current ?? state.current;
           state.placed = saved.placed ?? state.placed;
           state.present = saved.present ?? state.present;
+          state.language = saved.language ?? state.language;
+          state.lifestyleChoice = saved.lifestyleChoice ?? state.lifestyleChoice;
           state.calc = { ...state.calc, ...(saved.calc || {}) };
           state.report = {
             ...state.report,
@@ -4693,6 +5099,10 @@
               state.calc[key] = 6 - oldValue;
             });
             state.calc.moodScaleDirection = 2;
+          }
+          if (saved.calc && saved.calc.expectancyDefaultUpdated !== 1 && Number(saved.calc.expectancyAge) === 85) {
+            state.calc.expectancyAge = 86;
+            state.calc.expectancyDefaultUpdated = 1;
           }
         }
       } catch (error) {
@@ -4710,6 +5120,8 @@
         current: state.current,
         placed: state.placed,
         present: state.present,
+        language: state.language,
+        lifestyleChoice: state.lifestyleChoice,
         calc: state.calc,
         report: state.report
       };
@@ -4759,6 +5171,636 @@
         .replace(/"/g, "&quot;");
     }
 
+    const CN_TEXT = {
+      "Finance With Kellie": "Kellie 财务规划",
+      "The Wealth Blueprint": "财富蓝图",
+      "Pitch Steps": "讲解步骤",
+      "Retirement Profile Report": "退休规划报告",
+      "Generated from the retirement profile inputs": "根据退休规划输入生成",
+      "Prev step": "上一步",
+      "Back point": "返回上一点",
+      "Reveal next": "显示下一点",
+      "Reveal all": "全部显示",
+      "Next": "下一步",
+      "Reset step": "重置本步",
+      "Reset all": "全部重置",
+      "Focus view": "专注视图",
+      "Full view": "完整视图",
+      "Report": "报告",
+      "Copy summary": "复制摘要",
+      "Print / Save PDF": "打印 / 保存 PDF",
+      "Close": "关闭",
+      "Copied": "已复制",
+      "Complete": "完成",
+      "Money Places": "资金可放在哪里",
+      "Where can you put your money?": "你的钱可以放在哪里？",
+      "Asset classes vs inflation": "资产类别与通胀",
+      "Asset classes": "资产类别",
+      "Bank account": "银行户口",
+      "base savings account": "基本储蓄户口",
+      "Bonus savings accounts": "高息储蓄户口",
+      "Step-up savings accounts": "阶梯式高息储蓄户口",
+      "OCBC 360 / UOB One / DBS Multiplier": "OCBC 360 / UOB One / DBS Multiplier",
+      "Higher than 0.05% when more required transactions are completed.": "完成更多指定交易时，利息可能高于0.05%。",
+      "Fixed deposits": "定期存款",
+      "short-term deposit account": "短期存款户口",
+      "Endowments": "储蓄型保险",
+      "insurance savings plans": "保险储蓄计划",
+      "SSB / T-Bills": "SSB / 国库券",
+      "government-backed instruments": "政府支持工具",
+      "Inflation line": "通胀线",
+      "purchasing power check": "购买力检查",
+      "Bonds": "债券",
+      "government to investment-grade": "政府至投资级债券",
+      "Funds": "基金",
+      "unit trusts / managed funds": "单位信托 / 管理基金",
+      "Shares": "股票",
+      "direct stock ownership": "直接持有股票",
+      "Speculative assets": "投机资产",
+      "crypto / FX / options": "加密货币 / 外汇 / 期权",
+      "Investment Focus": "投资重点",
+      "funds, shares and bonds": "基金、股票和债券",
+      "Lump Vs Regular": "一笔投资 vs 定期投资",
+      "Lump Sum VS Regular": "一笔投资 vs 定期投资",
+      "Build the graph from price movement to regular investing": "从价格波动讲到定期投资",
+      "Drawing steps": "绘图步骤",
+      "Graph": "图表",
+      "price over time": "价格随时间变化",
+      "Market": "市场",
+      "heart rate monitor": "像心电图一样波动",
+      "Enter low": "低点进场",
+      "upward trend": "上升趋势",
+      "Enter high": "高点进场",
+      "downward trend": "下跌趋势",
+      "Break even": "回本",
+      "wait back to entry": "等回到进场价",
+      "Every point": "每个点",
+      "regular buys": "定期买入",
+      "Arrow": "箭头",
+      "average price": "平均价格",
+      "Dollar Cost Averaging": "定期定额平均成本法",
+      "name the strategy": "说出策略名称",
+      "Price Question": "价格问题",
+      "Can Prices Fall Forever?": "价格会永远下跌吗？",
+      "A quick price check": "快速价格检查",
+      "Explanation pieces": "讲解重点",
+      "Short term": "短期",
+      "downward trend can happen": "短期下跌可能发生",
+      "Property": "房产",
+      "$1M to $700k to $300k to $0": "100万到70万到30万到0",
+      "Burger meal": "汉堡套餐",
+      "$10 to $5 to $3 to $0": "10元到5元到3元到0",
+      "Not possible": "不现实",
+      "cannot fall forever": "不可能永远下跌",
+      "Conclusion": "结论",
+      "long term prices do not trend to zero": "长期价格不会趋向零",
+      "Variables": "三大变量",
+      "3 Variables: Time, Risk, Return": "三大变量：时间、风险、回报",
+      "How planning choices work together": "规划选择如何互相影响",
+      "Equation": "公式",
+      "Time + Risk + Return": "时间 + 风险 + 回报",
+      "Time arrow": "时间箭头",
+      "shorter time": "时间更短",
+      "Risk arrow": "风险箭头",
+      "lower risk": "风险更低",
+      "Return arrow": "回报箭头",
+      "higher return": "回报更高",
+      "No shortcut": "没有捷径",
+      "circle return and risk, cross short time": "圈出回报和风险，划掉短时间",
+      "New equation": "新公式",
+      "use time, manage risk, target return": "善用时间，管理风险，争取回报",
+      "Funds & Access": "基金与准入",
+      "Funds and Access": "基金与准入",
+      "Funds as access to shares and bonds": "用基金接触股票和债券",
+      "Types": "类别",
+      "Retail and Accredited": "零售与认可投资者",
+      "Retail": "零售基金",
+      "mass market, lower barrier, $1k entry": "大众市场，门槛较低，1千元起",
+      "AI rules": "认可投资者条件",
+      "$2M assets or $300k/year income": "200万资产或30万年收入",
+      "Returns": "回报",
+      "3%-7% vs 8%-15%+ p.a.": "年化3%-7% vs 8%-15%+",
+      "Cross": "划掉门槛",
+      "you do not need this amount": "不一定需要这个金额开始",
+      "Budget": "预算",
+      "enter at your budget": "按你的预算开始",
+      "Timeline": "时间线",
+      "Timeline Planning For Your Life": "人生时间线规划",
+      "Timeline first, then events, then the cash needs": "先看时间线，再看事件和资金需求",
+      "Life timeline pieces": "人生时间线重点",
+      "blank life line": "空白人生线",
+      "Event list": "事件清单",
+      "my preferred ages": "我希望发生的年龄",
+      "Selected ages": "已选年龄",
+      "all markers on timeline": "全部标在时间线上",
+      "House": "买房",
+      "downpayment, CPF OA, renovation": "首付、CPF OA、装修",
+      "Get married": "结婚",
+      "proposal, ring, wedding, honeymoon": "求婚、戒指、婚礼、蜜月",
+      "Kids": "孩子",
+      "delivery, monthly expenses, contingency": "生产、每月开销、备用金",
+      "Trinity": "三大事件",
+      "within 5 years": "5年内",
+      "Kids education": "孩子教育",
+      "university fees later": "未来大学费用",
+      "Retirement": "退休",
+      "have you considered yourself?": "你有为自己考虑吗？",
+      "Car": "车",
+      "downpayment, road tax, COE": "首付、路税、拥车证",
+      "Your Check-In": "你的现状检查",
+      "Your Happiness & Cashflow Check": "满意度与现金流检查",
+      "How you feel, what worries you, and whether you are ready": "感受、担忧，以及是否准备好",
+      "Your check-in pieces": "检查重点",
+      "Happiness": "满意度",
+      "savings, spending, income": "储蓄、消费、收入",
+      "Concerns": "担忧",
+      "what worries you": "你担心什么",
+      "Readiness": "准备度",
+      "Cashflow Readiness Check": "现金流准备度检查",
+      "Your numbers first, then the verdict": "先看数字，再看结论",
+      "Readiness pieces": "准备度重点",
+      "Your numbers": "你的数字",
+      "income, spending, savings": "收入、开销、储蓄",
+      "Readiness verdict": "准备度结论",
+      "surplus, rate, buffer": "结余、储蓄率、应急金",
+      "Retirement Plan": "退休规划",
+      "Retirement Planning & Budgeting": "退休规划与预算",
+      "Years to build, years to spend, and life expectancy": "累积年限、支出年限与预期寿命",
+      "Retirement planning pieces": "退休规划重点",
+      "Years to build": "累积年限",
+      "now to retirement": "现在到退休",
+      "Life expectancy": "预期寿命",
+      "men 82, women 86": "男性约82岁，女性约86岁",
+      "Income years": "收入年限",
+      "retirement to expectancy": "退休到预期寿命",
+      "Retirement concept": "退休概念",
+      "do not work for money": "不再为了钱而工作",
+      "Past expectancy": "超过预期寿命",
+      "we do not know": "我们无法确定",
+      "Lifestyle": "生活方式",
+      "Retirement Lifestyle": "退休生活方式",
+      "Lifestyle options first, costs later": "先看生活方式，再看费用",
+      "Lifestyle choices": "生活方式选择",
+      "Essential": "基本",
+      "basic needs": "基本需要",
+      "Discretionary": "舒适",
+      "basic + travel room": "基本 + 旅游空间",
+      "Luxury lifestyle": "优质生活方式",
+      "all 3 layers": "三层生活都包括",
+      "$3k": "3千元",
+      "essential monthly cost": "基本每月费用",
+      "$5k": "5千元",
+      "discretionary monthly cost": "舒适每月费用",
+      "$10k": "1万元",
+      "luxury monthly cost": "优质每月费用",
+      "Choose": "选择",
+      "which one at retirement?": "退休时你想选哪一种？",
+      "Projection": "预测",
+      "Retirement Lifestyle Funding Projection": "退休生活资金预测",
+      "Present value to future value to money consumed": "从现值到未来值，再到总资金需求",
+      "Funding projection pieces": "资金预测重点",
+      "Present value": "现值",
+      "$/month today": "今天每月金额",
+      "Future value": "未来值",
+      "$/month later": "未来每月金额",
+      "x 12": "乘以12",
+      "annual income need": "每年收入需求",
+      "Period": "期间",
+      "Money consumed": "消耗资金",
+      "over retirement period": "整个退休期间",
+      "Methods": "方法",
+      "How much per month to reach the target amount?": "每月需要多少才能达到目标？",
+      "Method comparison": "方法比较",
+      "Bank A/C": "银行户口",
+      "0.05% p.a.": "年化0.05%",
+      "Portfolio": "投资组合",
+      "3% p.a.": "年化3%",
+      "6% p.a.": "年化6%",
+      "8% p.a.": "年化8%",
+      "Secret": "秘诀",
+      "Secret Formula": "关键公式",
+      "Work backwards from monthly income": "从每月收入倒推目标",
+      "Income pool pieces": "收入池重点",
+      "Formula": "公式",
+      "$ amount x __% = FV": "金额 x __% = 未来值",
+      "Dividend Illustration": "派息示意",
+      "6%-8%, adjustable": "6%-8%，可调整",
+      "Plug rate": "填入利率",
+      "$ amount x % = FV": "金额 x % = 未来值",
+      "Circle amount": "圈出金额",
+      "income pool": "收入池",
+      "Actual invest": "实际投资",
+      "monthly amount": "每月金额",
+      "Unhappy": "不满意",
+      "Concerned": "有担忧",
+      "Neutral": "普通",
+      "Comfortable": "安心",
+      "Very happy": "很满意",
+      "Cashflow": "现金流",
+      "Growth": "增长",
+      "Are you saving enough?": "你储蓄够吗？",
+      "Are you overspending?": "你是否花太多？",
+      "Are you keeping too much in the bank?": "你是否把太多钱放在银行？",
+      "Is your money growing fast enough?": "你的钱增长够快吗？",
+      "Should you invest lump sum, monthly, or both?": "应该一笔投资、每月投资，还是两者结合？",
+      "Are you taking too much or too little risk?": "你承担的风险太多还是太少？",
+      "Can you retire at your preferred age?": "你能在理想年龄退休吗？",
+      "Can you maintain your lifestyle?": "你能维持理想生活方式吗？",
+      "What if you live longer than expected?": "如果你比预期更长寿怎么办？",
+      "What if markets drop?": "如果市场下跌怎么办？",
+      "Are you starting too late?": "现在开始会不会太迟？",
+      "Savings": "储蓄",
+      "Spending": "消费",
+      "Income": "收入",
+      "Selected": "已选择",
+      "Your concerns": "你的担忧",
+      "Select what you want the plan to answer.": "选择你希望这个规划回答的问题。",
+      "Monthly surplus": "每月结余",
+      "Savings rate": "储蓄率",
+      "Emergency buffer": "应急金缓冲",
+      "Needs attention": "需要注意",
+      "Watch": "观察",
+      "Healthy": "健康",
+      "Spending is high versus income.": "开销相对收入偏高。",
+      "Spending is manageable but tight.": "开销可控，但比较紧。",
+      "There is room between income and spending.": "收入和开销之间有空间。",
+      "Spending is within the 50/30/20 baseline.": "开销符合50/30/20基准。",
+      "Current saving rate is strong.": "当前储蓄率不错。",
+      "Savings habit exists, but may need stepping up.": "已有储蓄习惯，但可能需要提高。",
+      "Saving rate is low versus income.": "储蓄率相对收入偏低。",
+      "Emergency buffer is at least three months.": "应急金至少覆盖三个月。",
+      "Emergency buffer exists but is thin.": "有应急金，但较薄弱。",
+      "Emergency buffer is below one month.": "应急金少于一个月。",
+      "Formula: monthly income - monthly spending": "公式：每月收入 - 每月开销",
+      "Formula: current monthly saving / monthly income": "公式：当前每月储蓄 / 每月收入",
+      "Formula: liquid savings / monthly spending": "公式：流动储蓄 / 每月开销",
+      "Age": "年龄",
+      "Married": "结婚",
+      "Edu 1": "教育1",
+      "Edu 2": "教育2",
+      "Edu 3": "教育3",
+      "Retire": "退休",
+      "Expectancy": "预期寿命",
+      "Inflation %": "通胀 %",
+      "Income": "收入",
+      "Essential spend": "必要开销",
+      "Lifestyle spend": "生活开销",
+      "Current saving": "当前储蓄",
+      "Liquid savings": "流动储蓄",
+      "PV monthly": "现值每月",
+      "Use %": "采用 %",
+      "Prepared for": "为谁准备",
+      "Meeting date": "会面日期",
+      "Prepared by": "准备人",
+      "Book an appointment": "预约会面",
+      "Ideal Retirement Profile": "理想退休画像",
+      "Preferred Timeline Planning": "理想时间线规划",
+      "Life Events": "人生事件",
+      "Your Check-In Snapshot": "你的现状快照",
+      "The Income Pool Strategy": "收入池策略",
+      "Funding Methods": "资金累积方法",
+      "Current age": "当前年龄",
+      "Retirement age": "退休年龄",
+      "Income period": "收入期间",
+      "Period to build wealth": "财富累积期",
+      "Starting point": "起点",
+      "Target retirement": "目标退休",
+      "Planning age used": "规划使用年龄",
+      "Retirement to expectancy": "退休到预期寿命",
+      "Target amount to build": "要累积的目标金额",
+      "Amount needed for this lifestyle": "此生活方式所需金额",
+      "Present value today": "今天的现值",
+      "Inflation assumption": "通胀假设",
+      "Future value at retirement": "退休时未来值",
+      "Annual income need": "每年收入需求",
+      "Money consumed over period": "期间消耗资金"
+    };
+
+    Object.assign(CN_TEXT, {
+      "Higher": "较高",
+      "Lower": "较低",
+      "Typical range": "一般范围",
+      "Inflation +/-3%": "通胀约 +/-3%",
+      "Investment focus: funds, shares + bonds": "投资重点：基金、股票 + 债券",
+      "Short-term movement": "短期走势",
+      "Question": "问题",
+      "Downward trend can happen short term, not long term.": "短期下跌可以发生，但长期不应假设一直下跌。",
+      "Short-term downtrend": "短期下跌趋势",
+      "Property example": "房产例子",
+      "McDonald's burger meal": "麦当劳汉堡套餐",
+      "Now": "现在",
+      "Few years": "几年后",
+      "Later": "之后",
+      "Forever?": "永远？",
+      "If it keeps falling forever, the asset trends to zero.": "如果一直下跌，资产价值会趋近于零。",
+      "If daily prices keep falling forever, even food trends to zero.": "如果日常价格一直下跌，连食物价格也会趋近于零。",
+      "NOT POSSIBLE": "不现实",
+      "Short-term dips can happen. A broad long-term downward trend is not possible as a normal planning assumption.": "短期下跌可以发生，但长期整体一直下跌并不是合理的规划假设。",
+      "Inflation means things generally get more expensive over time, so planning still needs time and regular investing discipline.": "通胀代表长期物价通常会变贵，所以规划仍然需要时间和定期投资纪律。",
+      "shares + bonds": "股票 + 债券",
+      "Retail funds": "零售基金",
+      "Mass market": "大众市场",
+      "Lower barrier to access": "准入门槛较低",
+      "$1k entry": "1千元起",
+      "Return range": "回报范围",
+      "3%-7% p.a.": "年化3%-7%",
+      "8%-15%+ p.a.": "年化8%-15%+",
+      "Accredited Investor funds": "认可投资者基金",
+      "Specialised access": "专业化准入",
+      "You do not need this amount to start. We enter from your workable budget.": "不一定要达到这个金额才开始。我们可以从你可负担的预算开始。",
+      "Kid 1 education": "孩子1教育",
+      "Kid 2 education": "孩子2教育",
+      "Kid 3 education": "孩子3教育",
+      "Edu kid 1": "孩子1教育",
+      "Edu kid 2": "孩子2教育",
+      "Edu kid 3": "孩子3教育",
+      "Education": "教育",
+      "Downpayment, CPF OA, renovation.": "首付、CPF OA、装修。",
+      "Proposal, wedding ring, banquet or ceremony, photoshoot, honeymoon, dowry.": "求婚、戒指、婚宴或仪式、拍照、蜜月、聘礼。",
+      "Cash for delivery, monthly expenses, confinement, contingency.": "生产现金、每月开销、月子、备用金。",
+      "University fees 20 years later.": "约20年后的大学费用。",
+      "Have you considered yourself?": "你有为自己考虑吗？",
+      "Downpayment, road tax, COE, running costs.": "首付、路税、拥车证、日常用车成本。",
+      "Trinity of events (within 5 years)": "三大事件（5年内）",
+      "Life events": "人生事件",
+      "How happy are you with your current saving habit?": "你对目前的储蓄习惯满意吗？",
+      "How happy are you with your current spending pattern?": "你对目前的消费模式满意吗？",
+      "How happy are you with your income stability and sufficiency?": "你对收入稳定性和足够程度满意吗？",
+      "Men 82": "男性82岁",
+      "Women 86": "女性86岁",
+      "Build period": "累积期",
+      "Concept of retirement": "退休概念",
+      "Past life expectancy": "超过预期寿命",
+      "Do not work for money": "不再为了钱工作",
+      "Lifestyle, not destination": "是生活方式，不只是年龄终点",
+      "Income supports choice": "收入支撑选择",
+      "We do not know how long we live": "我们不知道自己会活多久",
+      "Plan buffer beyond the average": "要规划超过平均值的缓冲",
+      "Avoid running out early": "避免太早用完",
+      "Basic": "基本",
+      "Basic + choice": "基本 + 选择",
+      "Full lifestyle": "完整生活方式",
+      "Basic living needs kept stable.": "维持稳定的基本生活需要。",
+      "Basic needs plus more room for travel and family moments.": "基本需要之外，也有更多旅游和家庭时光的空间。",
+      "All three layers: basic needs, lifestyle choices and premium comfort.": "三层都包括：基本需要、生活选择和更高品质的舒适感。",
+      "Food": "饮食",
+      "Bills": "账单",
+      "Transport": "交通",
+      "Essential basics": "基本需要",
+      "Travel": "旅游",
+      "Gifts and entertainment": "礼物与娱乐",
+      "Basic needs": "基本需要",
+      "Travel and entertainment": "旅游与娱乐",
+      "Business class and luxury goods": "商务舱与奢侈品",
+      "So which one will you choose when you retire?": "退休时，你会选择哪一种生活方式？",
+      "* 12": "乘以12",
+      "Use the prudent one": "采用较谨慎的数字",
+      "Adjust the rate if needed": "需要时可调整利率",
+      "How much monthly to invest for the income pool?": "为了建立收入池，每月需要投资多少？",
+      "Income pool": "收入池",
+      "No concerns selected yet": "还未选择担忧",
+      "Cashflow facts": "现金流数据",
+      "Amount": "金额",
+      "Monthly income": "每月收入",
+      "Total monthly spending": "每月总开销",
+      "Current monthly saving": "当前每月储蓄",
+      "Your concerns selected:": "已选择的担忧：",
+      "Wealth Consultant's Notes:": "财富顾问备注：",
+      "Trinity of events:": "三大事件：",
+      "Lifestyle options": "生活方式选项",
+      "Chosen": "已选择",
+      "Selected amount:": "已选金额：",
+      "Comparison:": "比较：",
+      "Method": "方法",
+      "Illustrative rate": "示意利率",
+      "Original monthly amount": "原目标每月金额",
+      "Formula monthly amount": "公式目标每月金额",
+      "Difference": "差额",
+      "Calculation shown": "计算展示",
+      "Original monthly amount to build": "累积原目标所需每月金额",
+      "Trinity of events": "三大事件",
+      "Monthly investment to build the income pool": "建立收入池所需每月投资",
+      "Life event": "人生事件",
+      "Preferred age": "理想年龄",
+      "Cash needs to plan for": "需要规划的现金需求",
+      "Years of income": "收入年限",
+      "Life expectancy used": "采用的预期寿命",
+      "SG averages: men 82, women 86": "新加坡平均：男性82岁，女性86岁",
+      "Retirement is not the end of work. It is the point where your money does the working, creating income that pays for the lifestyle you choose.": "退休不是工作的终点，而是让你的钱开始替你工作，创造收入来支付你选择的生活方式。",
+      "This record summarises your preferred life timeline, retirement lifestyle and illustrative retirement funding numbers.": "这份记录总结你的理想人生时间线、退休生活方式，以及退休资金示意数字。",
+      "This report is a discussion record and planning illustration based on the inputs captured during our discussion. It is not a product recommendation, guarantee of returns, or personalised financial advice by itself. Actual suitability, affordability, risks, fees, product features and current rates should be reviewed before any implementation.": "本报告是根据会谈中输入资料整理的讨论记录和规划示意，不构成产品推荐、回报保证或单独的个人化财务建议。执行任何方案前，应再审查实际适合度、负担能力、风险、费用、产品特点和当前利率。",
+      "Downpayment, CPF OA and renovation.": "首付、CPF OA 和装修。",
+      "Proposal, wedding ring, banquet or ceremony, photoshoot, honeymoon and dowry where relevant.": "求婚、结婚戒指、婚宴或仪式、拍照、蜜月，以及适用时的聘礼。",
+      "Cash for delivery, monthly expenses, confinement and contingency.": "生产现金、每月开销、月子和备用金。",
+      "Future university fees and education funding.": "未来大学费用和教育资金。",
+      "Self-planning milestone and future income goal.": "为自己规划的里程碑和未来收入目标。",
+      "Lower-priority lifestyle milestone: downpayment, road tax, COE and running costs.": "优先级较低的生活里程碑：首付、路税、拥车证和日常用车成本。",
+      "Basic living needs: food, bills and transport.": "基本生活需要：饮食、账单和交通。",
+      "Basic needs plus more room for travel, gifts, entertainment and family moments.": "基本需要之外，预留更多旅游、礼物、娱乐和家庭时光空间。",
+      "All three layers: basic needs, discretionary travel and premium choices such as business class and luxury goods.": "三层都包括：基本需要、自由旅游，以及商务舱、奢侈品等高品质选择。",
+      "Selected lifestyle": "已选生活方式",
+      "Custom monthly lifestyle amount used for this retirement illustration.": "本退休示意采用自定义每月生活费。",
+      "Prospect name": "客户姓名",
+      "Notes": "备注",
+      "Show sections": "显示章节",
+      "Your check-in": "你的现状检查",
+      "Funding projection": "资金预测",
+      "Consultant notes": "顾问备注"
+    });
+
+    Object.assign(CN_TEXT, {
+      "Can prices fall forever?": "价格会永远下跌吗？",
+      "Focus: funds, shares + bonds": "重点：基金、股票 + 债券",
+      "enter low, $100k in": "低点投入10万",
+      "enter high, $100k in": "高点投入10万",
+      "enter low": "低点进场",
+      "enter high": "高点进场",
+      "$100k": "10万",
+      "$100k in": "投入10万",
+      "back to $100k": "回到10万",
+      "Invest $500 every month": "每月投资500元",
+      "Time": "时间",
+      "Risk": "风险",
+      "Return": "回报",
+      "shorter": "时间更短",
+      "lower": "更低",
+      "higher": "更高",
+      "use time": "善用时间",
+      "Use time": "善用时间",
+      "Manage risk": "管理风险",
+      "Target return": "目标回报",
+      "No shortcut: short time + low risk + high return": "没有捷径：时间短 + 风险低 + 回报高",
+      "Spending ratio": "开销占收入比例",
+      "Healthy <=70%": "健康：<=70%",
+      "Healthy <=70% spending": "健康：开销 <=70%",
+      "Watch 70%-85%": "观察：70%-85%",
+      "Attention >85%": "注意：>85%",
+      "Healthy <=70%; Watch 70%-85%; Attention >85%": "健康：<=70%；观察：70%-85%；注意：>85%",
+      "50/30/20 baseline rule": "50/30/20基准规则",
+      "Needs <=50%, wants <=30%, save/invest >=20%.": "必要开销<=50%，想要/生活选择<=30%，储蓄/投资>=20%。",
+      "Healthy <=80%": "健康：<=80%",
+      "Watch 80%-90%": "观察：80%-90%",
+      "Attention >90%": "注意：>90%",
+      "Baseline healthy <=80%; Watch 80%-90%; Attention >90%": "基准健康：<=80%；观察：80%-90%；注意：>90%",
+      "Saving rate": "储蓄率",
+      "Attention <10%": "注意：<10%",
+      "Watch 10%-19%": "观察：10%-19%",
+      "Healthy >=20%": "健康：>=20%",
+      "Attention <10%; Watch 10%-19%; Healthy >=20%": "注意：<10%；观察：10%-19%；健康：>=20%",
+      "Emergency months": "应急金月数",
+      "Attention <1 month": "注意：<1个月",
+      "Watch 1-3 months": "观察：1-3个月",
+      "Healthy >=3 months": "健康：>=3个月",
+      "Attention <1m": "注意：<1个月",
+      "Watch 1-3m": "观察：1-3个月",
+      "Healthy >=3m": "健康：>=3个月",
+      "Attention <1m; Watch 1-3m; Healthy >=3m": "注意：<1个月；观察：1-3个月；健康：>=3个月",
+      "Preferred timeline planning": "理想时间线规划",
+      "Life events": "人生事件",
+      "Your check-in snapshot": "你的现状快照",
+      "Retirement planning and budgeting": "退休规划与预算",
+      "Retirement lifestyle": "退休生活方式",
+      "Retirement lifestyle funding projection": "退休生活资金预测",
+      "The income pool strategy": "收入池策略",
+      "Funding methods": "资金累积方法",
+      "Retirement to expectancy period": "退休到预期寿命期间",
+      "Original target": "原目标",
+      "Income-pool formula target": "收入池公式目标"
+    });
+
+    Object.assign(CN_TEXT, {
+      "Prospect": "客户",
+      "Contact": "联系方式",
+      "Not set": "未设置",
+      "Selected choice": "已选择",
+      "Future value label": "未来值",
+      "Name": "姓名",
+      "Optional follow-up notes": "可选后续备注",
+      "Needs <=50%": "必要开销 <=50%",
+      "Wants <=30%": "想要/生活选择 <=30%",
+      "Save/invest >=20%": "储蓄/投资 >=20%"
+    });
+
+    function isBilingual() {
+      return state.language !== "english";
+    }
+
+    function isChineseOnly() {
+      return state.language === "chinese";
+    }
+
+    function cnText(value) {
+      return CN_TEXT[String(value ?? "")] || "";
+    }
+
+    function pairText(en, cn) {
+      if (isChineseOnly() && cn) return cn;
+      return isBilingual() && cn ? `${en} / ${cn}` : en;
+    }
+
+    function translatedText(value) {
+      const text = String(value ?? "");
+      return pairText(text, cnText(text));
+    }
+
+    function pairHtml(en, cn, className = "dual-text") {
+      if (isChineseOnly() && cn) return escapeHtml(cn);
+      if (!isBilingual() || !cn) return escapeHtml(en);
+      return `<span class="${className}"><span>${escapeHtml(en)}</span><span class="cn-text">${escapeHtml(cn)}</span></span>`;
+    }
+
+    function translatedHtml(value, className = "dual-text") {
+      const text = String(value ?? "");
+      return pairHtml(text, cnText(text), className);
+    }
+
+    function inlineTranslatedHtml(value) {
+      return translatedHtml(value, "dual-text inline");
+    }
+
+    function withReportLanguageOutput(callback) {
+      const originalLanguage = state.language;
+      state.language = originalLanguage === "english" ? "english" : "chinese";
+      try {
+        return callback();
+      } finally {
+        state.language = originalLanguage;
+      }
+    }
+
+    function svgInlineText(value, x, y, attrs = "") {
+      return `<text x="${x}" y="${y}" ${attrs}>${escapeHtml(translatedText(value))}</text>`;
+    }
+
+    function svgDualText(value, x, y, attrs = "", lineGap = 15) {
+      const text = String(value ?? "");
+      const cn = cnText(text);
+      if (!isBilingual() || !cn) {
+        return `<text x="${x}" y="${y}" ${attrs}>${escapeHtml(text)}</text>`;
+      }
+      return `<text x="${x}" y="${y}" ${attrs}><tspan x="${x}">${escapeHtml(text)}</tspan><tspan x="${x}" dy="${lineGap}">${escapeHtml(cn)}</tspan></text>`;
+    }
+
+    function svgTextBlock(lines, x, y, attrs = "", lineGap = 18) {
+      const textLines = lines.map((line) => String(line ?? ""));
+      const joined = textLines.join(" ");
+      const cn = cnText(joined);
+      if (isBilingual() && cn) {
+        return `<text x="${x}" y="${y}" ${attrs}><tspan x="${x}">${escapeHtml(joined)}</tspan><tspan x="${x}" dy="${lineGap}">${escapeHtml(cn)}</tspan></text>`;
+      }
+      return `<text x="${x}" y="${y}" ${attrs}>${textLines.map((line, index) => `<tspan x="${x}"${index ? ` dy="${lineGap}"` : ""}>${escapeHtml(line)}</tspan>`).join("")}</text>`;
+    }
+
+    function stepProgressText(currentStep) {
+      return pairText(`Step ${currentStep.num} of ${DISPLAY_STEP_TOTAL}`, `第 ${currentStep.num} 步，共 ${DISPLAY_STEP_TOTAL} 步`);
+    }
+
+    function placedProgressText(count, total) {
+      return pairText(`${count} of ${total} placed`, `已放置 ${count} / ${total}`);
+    }
+
+    function conceptText(num) {
+      return pairText(`Concept ${num}`, `概念 ${num}`);
+    }
+
+    function nextMetricHtml(item) {
+      if (!item) return translatedHtml("Complete");
+      const en = `Next: ${item.label}`;
+      const cn = cnText(item.label) ? `下一个：${cnText(item.label)}` : "";
+      return pairHtml(en, cn);
+    }
+
+    function renderChromeLabels() {
+      el.body.dataset.language = state.language;
+      document.documentElement.lang = isBilingual() ? "en-SG" : "en";
+      el.brandLabel.innerHTML = translatedHtml("Finance With Kellie");
+      el.brandTitle.innerHTML = translatedHtml("The Wealth Blueprint");
+      el.pitchStepsLabel.innerHTML = translatedHtml("Pitch Steps");
+      el.reportTitle.innerHTML = translatedHtml("Retirement Profile Report");
+      el.reportSubtitle.innerHTML = translatedHtml("Generated from the retirement profile inputs");
+      el.prevBtn.textContent = translatedText("Prev step");
+      el.backBtn.textContent = translatedText("Back point");
+      el.revealBtn.textContent = translatedText("Reveal next");
+      el.revealAllBtn.textContent = translatedText("Reveal all");
+      el.nextBtn.textContent = translatedText("Next");
+      el.resetBtn.textContent = translatedText("Reset step");
+      el.resetAllBtn.textContent = translatedText("Reset all");
+      el.presentBtn.textContent = state.present ? translatedText("Full view") : translatedText("Focus view");
+      el.reportBtn.textContent = translatedText("Report");
+	      el.copyReportBtn.textContent = translatedText("Copy summary");
+	      el.printReportBtn.textContent = translatedText("Print / Save PDF");
+	      el.closeReportBtn.textContent = translatedText("Close");
+	      el.reportProspectInput.placeholder = translatedText("Name");
+	      el.reportNotesInput.placeholder = translatedText("Optional follow-up notes");
+	      document.querySelectorAll("[data-i18n]").forEach((node) => {
+	        node.innerHTML = translatedHtml(node.dataset.i18n);
+	      });
+      el.languageBtn.textContent = isBilingual() ? "EN/CN" : "EN";
+      el.languageBtn.classList.toggle("active", isBilingual());
+      el.languageBtn.setAttribute("aria-pressed", isBilingual() ? "true" : "false");
+      el.languageBtn.title = isBilingual() ? "Showing English and Chinese" : "Showing English only";
+    }
+
     function toneClass(item) {
       return item?.tone === "red" ? "red" : item?.tone === "green" ? "green" : item?.tone === "amber" ? "amber" : "";
     }
@@ -4769,8 +5811,8 @@
       const range = item.range ? `<span class="range">${escapeHtml(item.range)}</span>` : "";
       return `
         <div class="placed-card ${tone}">
-          <strong>${escapeHtml(item.label)}</strong>
-          <span>${escapeHtml(item.detail)}</span>
+          <strong>${translatedHtml(item.label)}</strong>
+          <span>${translatedHtml(item.detail)}</span>
           ${range}
         </div>
       `;
@@ -4778,7 +5820,7 @@
 
     function zoneHtml(target, className, style = "") {
       const item = getPlacedItemAt(target);
-      const label = item ? `${item.label}, placed` : `slot ${target}`;
+      const label = item ? `${translatedText(item.label)}, placed` : `slot ${target}`;
       return `
         <button class="drop-zone ${className}" data-target="${escapeHtml(target)}" aria-label="${escapeHtml(label)}" style="${style}">
           ${cardHtml(item)}
@@ -4794,13 +5836,14 @@
       const nextItem = nextId ? getItem(nextId, currentStep) : null;
       const activeItem = state.lastItem && getItem(state.lastItem, currentStep) ? getItem(state.lastItem, currentStep) : nextItem;
 
+      renderChromeLabels();
       renderStepList();
-      el.globalProgress.textContent = `Step ${currentStep.num} of ${DISPLAY_STEP_TOTAL}`;
-      el.stageKicker.textContent = `Concept ${currentStep.num}`;
-      el.stageTitle.textContent = currentStep.title;
-      el.stageSub.textContent = currentStep.subtitle;
-      el.placedMetric.textContent = `${count} of ${total} placed`;
-      el.nextMetric.textContent = nextItem ? `Next: ${nextItem.label}` : "Complete";
+      el.globalProgress.textContent = stepProgressText(currentStep);
+      el.stageKicker.textContent = conceptText(currentStep.num);
+      el.stageTitle.innerHTML = translatedHtml(currentStep.title);
+      el.stageSub.innerHTML = translatedHtml(currentStep.subtitle);
+      el.placedMetric.textContent = placedProgressText(count, total);
+      el.nextMetric.innerHTML = nextMetricHtml(nextItem);
       el.prevBtn.disabled = state.current === 0;
       el.backBtn.disabled = count === 0;
       el.nextBtn.disabled = state.current === STEPS.length - 1;
@@ -4810,7 +5853,6 @@
         && state.current === 0
         && JSON.stringify(state.calc) === JSON.stringify(DEFAULT_STATE.calc)
         && JSON.stringify(state.report) === JSON.stringify(DEFAULT_STATE.report);
-      el.presentBtn.textContent = state.present ? "Full view" : "Focus view";
       el.body.classList.toggle("present-mode", state.present);
 
       renderCanvas(currentStep);
@@ -4830,10 +5872,10 @@
         const done = allStepDone(item) ? "done" : "";
         return `
           <button class="step-button ${active} ${done}" type="button" data-step-index="${index}">
-            <span class="step-number">${item.num}</span>
-            <span class="step-text">
-              <strong>${escapeHtml(item.short)}</strong>
-              <span>${placedCount(item)} of ${item.items.length} placed</span>
+              <span class="step-number">${item.num}</span>
+              <span class="step-text">
+              <strong>${translatedHtml(item.short)}</strong>
+              <span>${placedProgressText(placedCount(item), item.items.length)}</span>
             </span>
           </button>
         `;
@@ -4869,7 +5911,7 @@
       const canvasModifier = { checkIn: "checkin-canvas", timeline: "timeline-canvas", funds: "funds-canvas" }[currentStep.renderer] || "";
       el.canvas.className = `canvas ${canvasModifier}`;
       el.canvas.innerHTML = `
-        <div class="diagram-title"><span class="bubble">${currentStep.num}</span><span>${escapeHtml(currentStep.subtitle)}</span></div>
+        <div class="diagram-title"><span class="bubble">${currentStep.num}</span><span>${translatedHtml(currentStep.subtitle)}</span></div>
         ${renderer(currentStep)}
       `;
     }
@@ -4887,16 +5929,29 @@
       ];
       const focusReady = Boolean(getPlacedItemAt("hsbcFocus"));
       const inflationReady = Boolean(getPlacedItemAt("inflationLine"));
+      const bonusReady = Boolean(getPlacedItemAt("bonusBank"));
+      const fixedReady = Boolean(getPlacedItemAt("fixed"));
+      const showBonusNote = bonusReady && !fixedReady;
 
       return `
         <div class="asset-board">
-          <div class="axis-label" style="left:0; top:18px;">Higher</div>
-          <div class="axis-label" style="left:0; bottom:12px;">Lower</div>
+          <div class="axis-label" style="left:0; top:18px;">${translatedHtml("Higher")}</div>
+          <div class="axis-label" style="left:0; bottom:12px;">${translatedHtml("Lower")}</div>
           <div class="asset-axis"></div>
-          <div class="asset-range-head">Typical range</div>
-          <div class="asset-inflation ${inflationReady ? "visible" : ""}"><span>Inflation +/-3%</span></div>
+          <div class="asset-range-head">${translatedHtml("Typical range")}</div>
+          <div class="asset-inflation ${inflationReady ? "visible" : ""}"><span>${pairText("Inflation +/-3%", "通胀约 +/-3%")}</span></div>
           ${zoneHtml("inflationLine", "asset-inflation-zone")}
-          <div class="focus-zone ${focusReady ? "visible" : ""}"><span>Investment focus: funds, shares + bonds</span></div>
+          <div class="focus-zone ${focusReady ? "visible" : ""}"><span>${translatedText("Focus: funds, shares + bonds")}</span></div>
+          ${showBonusNote ? `
+            <div class="asset-bank-note">
+              <div class="asset-bank-note-card">
+                <span class="asset-bank-note-title">${translatedHtml("Step-up savings accounts")}</span>
+                <strong>OCBC 360 / UOB One / DBS Multiplier</strong>
+                <span>${translatedHtml("Higher than 0.05% when more required transactions are completed.")}</span>
+              </div>
+            </div>
+          ` : ""}
+          ${zoneHtml("bonusBank", "asset-bonus-zone")}
           ${rows.map(([target, top]) => {
             const item = getPlacedItemAt(target);
             return `
@@ -4934,6 +5989,12 @@
           </g>
         `;
       }).join("");
+      const purchaseBox = isBilingual()
+        ? { x: 420, y: 88, w: 250, h: 54, rx: 24, textX: 545, textY: 110, font: 15, gap: 18 }
+        : { x: 288, y: 72, w: 204, h: 34, rx: 17, textX: 390, textY: 94, font: 14, gap: 0 };
+      const dcaNameBox = isBilingual()
+        ? { x: 468, y: 22, w: 226, h: 72, rx: 14, textX: 581, textY: 50, font: 18, gap: 26 }
+        : { x: 468, y: 34, w: 222, h: 50, rx: 12, textX: 579, textY: 66, font: 18, gap: 0 };
 
       return `
         <div class="dca-board">
@@ -4952,7 +6013,7 @@
             ${showGraph ? `
               <line x1="82" y1="372" x2="645" y2="372" stroke="#607086" stroke-width="2.8" marker-end="url(#dcaArrow)"></line>
               <line x1="82" y1="372" x2="82" y2="36" stroke="#607086" stroke-width="2.8" marker-end="url(#dcaArrow)"></line>
-              <text x="104" y="52" fill="#1d3d68" font-size="24" font-weight="800">Lump Sum VS Regular</text>
+              ${svgDualText("Lump Sum VS Regular", 104, 52, 'fill="#1d3d68" font-size="23" font-weight="800"', 27)}
             ` : ""}
             ${showMarket ? `
               <path d="M82,322 L108,308 L132,314 L158,292 L178,304 L198,210 L220,172 L244,252 L274,330 L306,310 L340,196 L374,158 L404,236 L436,306 L474,284 L512,198 L548,154 L584,226 L622,282 L640,142"
@@ -4961,37 +6022,36 @@
             ${showLow && !purchaseView ? `
               <circle cx="178" cy="304" r="10" fill="#ffffff" stroke="#1f7a5c" stroke-width="4"></circle>
               <line x1="188" y1="292" x2="216" y2="184" stroke="#1f7a5c" stroke-width="3" marker-end="url(#dcaGreenArrow)"></line>
-              <text x="132" y="342" fill="#1f7a5c" font-size="14" font-weight="850">enter low</text>
-              <text x="132" y="360" fill="#1f7a5c" font-size="13" font-weight="850">$100k in</text>
+              ${svgInlineText("enter low", 132, 338, 'fill="#1f7a5c" font-size="13" font-weight="850"')}
+              ${svgInlineText("$100k", 132, 356, 'fill="#1f7a5c" font-size="12" font-weight="850"')}
             ` : ""}
             ${showHigh && !purchaseView ? `
               <circle cx="220" cy="172" r="10" fill="#ffffff" stroke="#cf142b" stroke-width="4"></circle>
               <line x1="230" y1="188" x2="272" y2="330" stroke="#cf142b" stroke-width="3" marker-end="url(#dcaRedArrow)"></line>
-              <text x="116" y="174" fill="#cf142b" font-size="14" font-weight="850">enter high</text>
-              <text x="116" y="192" fill="#cf142b" font-size="13" font-weight="850">$100k in</text>
+              ${svgInlineText("enter high", 88, 158, 'fill="#cf142b" font-size="13" font-weight="850"')}
+              ${svgInlineText("$100k", 88, 176, 'fill="#cf142b" font-size="12" font-weight="850"')}
             ` : ""}
             ${showBreakEven && !purchaseView ? `
               <circle cx="374" cy="158" r="10" fill="#ffffff" stroke="#b7791f" stroke-width="4"></circle>
               <line x1="220" y1="172" x2="374" y2="158" stroke="#b7791f" stroke-width="3" marker-end="url(#dcaArrow)"></line>
-              <text x="250" y="128" fill="#b7791f" font-size="18" font-weight="850">Break even</text>
-              <text x="268" y="146" fill="#b7791f" font-size="13" font-weight="850">back to $100k</text>
+              ${svgInlineText("Break even", 250, 126, 'fill="#b7791f" font-size="16" font-weight="850"')}
+              ${svgInlineText("back to $100k", 274, 147, 'fill="#b7791f" font-size="12" font-weight="850"')}
               <line x1="258" y1="134" x2="228" y2="162" stroke="#b7791f" stroke-width="2.5" marker-end="url(#dcaArrow)"></line>
             ` : ""}
             ${purchaseView ? `
-              <rect x="270" y="68" width="210" height="42" rx="21" fill="#ffffff" stroke="#1d3d68" stroke-width="2"></rect>
-              <text x="375" y="94" fill="#1d3d68" font-size="17" font-weight="850" text-anchor="middle">Invest $500 every month</text>
               ${purchaseTags}
+              <rect x="${purchaseBox.x}" y="${purchaseBox.y}" width="${purchaseBox.w}" height="${purchaseBox.h}" rx="${purchaseBox.rx}" fill="#ffffff" stroke="#1d3d68" stroke-width="2"></rect>
+              ${svgDualText("Invest $500 every month", purchaseBox.textX, purchaseBox.textY, `fill="#1d3d68" font-size="${purchaseBox.font}" font-weight="850" text-anchor="middle"`, purchaseBox.gap)}
             ` : ""}
             ${showEveryPoint && !purchaseView ? buyDots.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="7" fill="#ffffff" stroke="#1d3d68" stroke-width="3"></circle>`).join("") : ""}
             ${showAverage ? `
               <line x1="94" y1="344" x2="620" y2="152" stroke="#1f7a5c" stroke-width="4" marker-end="url(#dcaGreenArrow)"></line>
-              <rect x="452" y="118" width="114" height="26" rx="13" fill="#ffffff" opacity="0.96"></rect>
-              <text x="464" y="136" fill="#1f7a5c" font-size="14" font-weight="850">average price</text>
+              ${svgDualText("average price", 500, 124, 'fill="#1f7a5c" font-size="13" font-weight="850"', 14)}
             ` : ""}
             ${showName ? `
-              <rect x="500" y="56" width="214" height="64" rx="8" fill="#ffffff" stroke="#1d3d68" stroke-width="2"></rect>
-              <text x="544" y="86" fill="#1d3d68" font-size="20" font-weight="850">Dollar Cost</text>
-              <text x="560" y="108" fill="#1d3d68" font-size="20" font-weight="850">Averaging</text>
+              <rect x="${dcaNameBox.x}" y="${dcaNameBox.y}" width="${dcaNameBox.w}" height="${dcaNameBox.h}" rx="${dcaNameBox.rx}" fill="#fff7e6" stroke="#c9a227" stroke-width="4"></rect>
+              <rect x="${dcaNameBox.x + 7}" y="${dcaNameBox.y + 7}" width="${dcaNameBox.w - 14}" height="${dcaNameBox.h - 14}" rx="${Math.max(dcaNameBox.rx - 4, 6)}" fill="none" stroke="#1d3d68" stroke-width="2"></rect>
+              ${svgDualText("Dollar Cost Averaging", dcaNameBox.textX, dcaNameBox.textY, `fill="#1d3d68" font-size="${dcaNameBox.font}" font-weight="900" text-anchor="middle"`, dcaNameBox.gap)}
             ` : ""}
           </svg>
           ${zoneHtml("graph", "story-zone", "left:0; bottom:54px; width:23%;")}
@@ -5018,12 +6078,12 @@
         <div class="downtrend-board">
           <div class="downtrend-hero">
             <div class="downtrend-statement">
-              <span>${showShortTerm ? "Short-term movement" : "Question"}</span>
-              <strong>${showShortTerm ? "Downward trend can happen short term, not long term." : "Can prices fall forever?"}</strong>
+              <span>${translatedHtml(showShortTerm ? "Short-term movement" : "Question")}</span>
+              <strong>${translatedHtml(showShortTerm ? "Downward trend can happen short term, not long term." : "Can prices fall forever?")}</strong>
             </div>
             ${showShortTerm ? `
               <article class="downtrend-chart-card">
-                <h3>Short-term downtrend</h3>
+                <h3>${translatedHtml("Short-term downtrend")}</h3>
                 <svg viewBox="0 0 180 90" aria-hidden="true">
                   <line x1="18" y1="72" x2="164" y2="72" stroke="#9aa7b8" stroke-width="2"></line>
                   <line x1="18" y1="72" x2="18" y2="14" stroke="#9aa7b8" stroke-width="2"></line>
@@ -5036,35 +6096,35 @@
           <div class="downtrend-examples">
             ${showProperty ? `
               <article class="downtrend-example-card red">
-                <h3>Property example</h3>
+                <h3>${translatedHtml("Property example")}</h3>
                 <div class="downtrend-price-row">
                   ${priceStep("$1M", "Now")}
                   ${priceStep("$700k", "Few years")}
                   ${priceStep("$300k", "Later")}
                   ${priceStep("$0", "Forever?")}
                 </div>
-                <div class="downtrend-arrow">If it keeps falling forever, the asset trends to zero.</div>
+                <div class="downtrend-arrow">${translatedHtml("If it keeps falling forever, the asset trends to zero.")}</div>
               </article>
             ` : `<div></div>`}
             ${showBurger ? `
               <article class="downtrend-example-card">
-                <h3>McDonald's burger meal</h3>
+                <h3>${translatedHtml("McDonald's burger meal")}</h3>
                 <div class="downtrend-price-row">
                   ${priceStep("$10", "Now")}
                   ${priceStep("$5", "Few years")}
                   ${priceStep("$3", "Later")}
                   ${priceStep("$0", "Forever?")}
                 </div>
-                <div class="downtrend-arrow">If daily prices keep falling forever, even food trends to zero.</div>
+                <div class="downtrend-arrow">${translatedHtml("If daily prices keep falling forever, even food trends to zero.")}</div>
               </article>
             ` : `<div></div>`}
-            ${showImpossible ? `<div class="not-possible-banner">NOT POSSIBLE</div>` : ""}
+            ${showImpossible ? `<div class="not-possible-banner">${translatedHtml("NOT POSSIBLE")}</div>` : ""}
           </div>
 
           ${showConclusion ? `
             <div class="downtrend-conclusion">
-              Short-term dips can happen. A broad long-term downward trend is not possible as a normal planning assumption.
-              <span>Inflation means things generally get more expensive over time, so planning still needs time and regular investing discipline.</span>
+              ${translatedHtml("Short-term dips can happen. A broad long-term downward trend is not possible as a normal planning assumption.")}
+              <span>${translatedHtml("Inflation means things generally get more expensive over time, so planning still needs time and regular investing discipline.")}</span>
             </div>
           ` : `<div></div>`}
 
@@ -5080,7 +6140,7 @@
     }
 
     function priceStep(value, label) {
-      return `<div class="downtrend-price-step"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)}</span></div>`;
+      return `<div class="downtrend-price-step"><strong>${escapeHtml(value)}</strong><span>${translatedHtml(label)}</span></div>`;
     }
 
     function renderVariables() {
@@ -5100,31 +6160,31 @@
               </marker>
             </defs>
             ${showEquation ? `
-              <text x="94" y="92" fill="#1d3d68" font-size="34" font-weight="850">Time</text>
-              <text x="214" y="92" fill="#4c5f76" font-size="34" font-weight="650">+</text>
-              <text x="272" y="92" fill="#1d3d68" font-size="34" font-weight="850">Risk</text>
-              <text x="386" y="92" fill="#4c5f76" font-size="34" font-weight="650">+</text>
-              <text x="446" y="92" fill="#1d3d68" font-size="34" font-weight="850">Return</text>
+              ${svgDualText("Time", 150, 78, 'fill="#1d3d68" font-size="29" font-weight="850" text-anchor="middle"', 30)}
+              <text x="238" y="92" fill="#4c5f76" font-size="34" font-weight="650" text-anchor="middle">+</text>
+              ${svgDualText("Risk", 326, 78, 'fill="#1d3d68" font-size="29" font-weight="850" text-anchor="middle"', 30)}
+              <text x="418" y="92" fill="#4c5f76" font-size="34" font-weight="650" text-anchor="middle">+</text>
+              ${svgDualText("Return", 510, 78, 'fill="#1d3d68" font-size="29" font-weight="850" text-anchor="middle"', 30)}
             ` : ""}
             ${showEquation && has("timeArrow") && !showNew ? `
               <line x1="150" y1="120" x2="150" y2="178" stroke="#cf142b" stroke-width="4" marker-end="url(#varArrowRed)"></line>
-              <text x="115" y="208" fill="#cf142b" font-size="15" font-weight="850">shorter</text>
+              ${svgInlineText("shorter", 115, 208, 'fill="#cf142b" font-size="14" font-weight="850"')}
             ` : ""}
             ${showEquation && has("timeArrow") && showNew ? `
               <line x1="150" y1="178" x2="150" y2="120" stroke="#1f7a5c" stroke-width="4" marker-end="url(#varArrowGreen)"></line>
-              <text x="118" y="208" fill="#1f7a5c" font-size="15" font-weight="850">use time</text>
+              ${svgInlineText("use time", 118, 208, 'fill="#1f7a5c" font-size="14" font-weight="850"')}
             ` : ""}
             ${showEquation && has("riskArrow") && !showNew ? `
               <line x1="326" y1="120" x2="326" y2="178" stroke="#cf142b" stroke-width="4" marker-end="url(#varArrowRed)"></line>
-              <text x="298" y="208" fill="#cf142b" font-size="15" font-weight="850">lower</text>
+              ${svgInlineText("lower", 298, 208, 'fill="#cf142b" font-size="14" font-weight="850"')}
             ` : ""}
             ${showEquation && has("riskArrow") && showNew ? `
               <line x1="326" y1="120" x2="326" y2="178" stroke="#1f7a5c" stroke-width="4" marker-end="url(#varArrowGreen)"></line>
-              <text x="298" y="208" fill="#1f7a5c" font-size="15" font-weight="850">lower</text>
+              ${svgInlineText("lower", 298, 208, 'fill="#1f7a5c" font-size="14" font-weight="850"')}
             ` : ""}
             ${showEquation && has("returnArrow") ? `
               <line x1="510" y1="178" x2="510" y2="120" stroke="#1f7a5c" stroke-width="4" marker-end="url(#varArrowGreen)"></line>
-              <text x="482" y="208" fill="#1f7a5c" font-size="15" font-weight="850">higher</text>
+              ${svgInlineText("higher", 482, 208, 'fill="#1f7a5c" font-size="14" font-weight="850"')}
             ` : ""}
             ${showEquation && has("noShortcut") && !showNew ? `
               <g class="var-reveal-time">
@@ -5132,19 +6192,19 @@
                 <line x1="178" y1="116" x2="124" y2="190" stroke="#cf142b" stroke-width="4"></line>
               </g>
               <g class="var-reveal-shortcut">
-                <rect x="106" y="244" width="460" height="48" rx="24" fill="#fff0f1" stroke="#cf142b" stroke-width="2"></rect>
-                <text x="160" y="274" fill="#cf142b" font-size="17" font-weight="850">No shortcut: short time + low risk + high return</text>
+                <rect x="92" y="238" width="514" height="64" rx="28" fill="#fff0f1" stroke="#cf142b" stroke-width="2"></rect>
+                ${svgDualText("No shortcut: short time + low risk + high return", 349, 262, 'fill="#cf142b" font-size="15" font-weight="850" text-anchor="middle"', 19)}
               </g>
             ` : ""}
             ${has("newEquation") ? `
               <circle class="var-step-circle var-circle-time" cx="150" cy="150" r="42" fill="none" stroke="#1f7a5c" stroke-width="3"></circle>
               <circle class="var-step-circle var-circle-return" cx="510" cy="150" r="42" fill="none" stroke="#1f7a5c" stroke-width="3"></circle>
               <circle class="var-step-circle var-circle-risk" cx="326" cy="150" r="42" fill="none" stroke="#1f7a5c" stroke-width="3"></circle>
-              <text x="70" y="330" fill="#1d3d68" font-size="26" font-weight="850">Use time</text>
+              ${svgDualText("Use time", 70, 315, 'fill="#1d3d68" font-size="22" font-weight="850"', 23)}
               <line x1="208" y1="320" x2="278" y2="320" stroke="#1f7a5c" stroke-width="4" marker-end="url(#varArrowGreen)"></line>
-              <text x="302" y="330" fill="#1d3d68" font-size="26" font-weight="850">Manage risk</text>
+              ${svgDualText("Manage risk", 302, 315, 'fill="#1d3d68" font-size="22" font-weight="850"', 23)}
               <line x1="502" y1="320" x2="572" y2="320" stroke="#1f7a5c" stroke-width="4" marker-end="url(#varArrowGreen)"></line>
-              <text x="594" y="330" fill="#1d3d68" font-size="26" font-weight="850">Target return</text>
+              ${svgDualText("Target return", 594, 315, 'fill="#1d3d68" font-size="22" font-weight="850"', 23)}
             ` : ""}
           </svg>
           ${zoneHtml("equation", "story-zone", "left:0; bottom:0; width:23%;")}
@@ -5171,8 +6231,8 @@
         <div class="funds-board">
           ${showRoot ? `
             <div class="fund-root-card">
-              <strong>Funds</strong>
-              <span>shares + bonds</span>
+              <strong>${translatedHtml("Funds")}</strong>
+              <span>${translatedHtml("shares + bonds")}</span>
             </div>
           ` : ""}
           ${showCategories ? `
@@ -5182,30 +6242,30 @@
             </svg>
             <div class="fund-card-grid">
               <article class="fund-type-card retail">
-                <h3>Retail funds</h3>
-                <span class="fund-tag">Mass market</span>
+                <h3>${translatedHtml("Retail funds")}</h3>
+                <span class="fund-tag">${translatedHtml("Mass market")}</span>
                 ${showRetailAccess ? `
                   <ul>
-                    <li>Lower barrier to access</li>
-                    <li>$1k entry</li>
+                    <li>${translatedHtml("Lower barrier to access")}</li>
+                    <li>${translatedHtml("$1k entry")}</li>
                   </ul>
                 ` : ""}
-                ${showReturns ? `<div class="fund-return-row"><span>Return range</span><div class="fund-return">3%-7% p.a.</div></div>` : ""}
+                ${showReturns ? `<div class="fund-return-row"><span>${translatedHtml("Return range")}</span><div class="fund-return">${translatedHtml("3%-7% p.a.")}</div></div>` : ""}
               </article>
               <article class="fund-type-card ai">
-                <h3>Accredited Investor funds</h3>
-                <span class="fund-tag">Specialised access</span>
+                <h3>${translatedHtml("Accredited Investor funds")}</h3>
+                <span class="fund-tag">${translatedHtml("Specialised access")}</span>
                 ${showAiCriteria ? `
                   <ul>
-                    <li>Specialised access</li>
-                    <li><span class="criteria-line ${showCross ? "crossed" : ""}">$2M assets or $300k/year income</span></li>
+                    <li>${translatedHtml("Specialised access")}</li>
+                    <li><span class="criteria-line ${showCross ? "crossed" : ""}">${translatedHtml("$2M assets or $300k/year income")}</span></li>
                   </ul>
                 ` : ""}
-                ${showReturns ? `<div class="fund-return-row"><span>Return range</span><div class="fund-return">8%-15%+ p.a.</div></div>` : ""}
+                ${showReturns ? `<div class="fund-return-row"><span>${translatedHtml("Return range")}</span><div class="fund-return">${translatedHtml("8%-15%+ p.a.")}</div></div>` : ""}
               </article>
             </div>
           ` : ""}
-          ${showBridge ? `<div class="fund-bridge">You do not need this amount to start. We enter from your workable budget.</div>` : ""}
+          ${showBridge ? `<div class="fund-bridge">${translatedHtml("You do not need this amount to start. We enter from your workable budget.")}</div>` : ""}
           ${zoneHtml("fundRoot", "story-zone", "left:0; bottom:0; width:13%;")}
           ${zoneHtml("categories", "story-zone", "left:14.5%; bottom:0; width:13%;")}
           ${zoneHtml("retailAccess", "story-zone", "left:29%; bottom:0; width:13%;")}
@@ -5220,7 +6280,7 @@
     function numberInput(key, label, min, max, step) {
       return `
         <div class="calc-field">
-          <label for="${escapeHtml(key)}Input">${escapeHtml(label)}</label>
+          <label for="${escapeHtml(key)}Input">${translatedHtml(label)}</label>
           <input id="${escapeHtml(key)}Input" data-calc="${escapeHtml(key)}" type="number" min="${min}" max="${max}" step="${step}" value="${escapeHtml(state.calc[key])}">
         </div>
       `;
@@ -5246,7 +6306,7 @@
       return (state.report.concerns || [])
         .map((id) => concernById(id))
         .filter(Boolean)
-        .map((concern) => concern.label);
+        .map((concern) => translatedText(concern.label));
     }
 
     function moodOption(value) {
@@ -5284,17 +6344,17 @@
       const selected = moodOption(state.calc[key]);
       return `
         <article class="mood-card">
-          <h3>${escapeHtml(title)}</h3>
-          <p>${escapeHtml(prompt)}</p>
-          <div class="face-scale" role="group" aria-label="${escapeHtml(title)} mood rating">
+          <h3>${translatedHtml(title)}</h3>
+          <p>${translatedHtml(prompt)}</p>
+          <div class="face-scale" role="group" aria-label="${escapeHtml(translatedText(title))} mood rating">
             ${MOOD_OPTIONS.map((option) => `
-              <button class="face-choice rating-${option.value} ${selected.value === option.value ? "selected" : ""}" type="button" data-mood-key="${escapeHtml(key)}" data-mood-value="${option.value}" aria-pressed="${selected.value === option.value ? "true" : "false"}" title="${escapeHtml(option.label)}">
+              <button class="face-choice rating-${option.value} ${selected.value === option.value ? "selected" : ""}" type="button" data-mood-key="${escapeHtml(key)}" data-mood-value="${option.value}" aria-pressed="${selected.value === option.value ? "true" : "false"}" title="${escapeHtml(translatedText(option.label))}">
                 ${faceHtml(option.value)}
                 <span>${option.value}</span>
               </button>
             `).join("")}
           </div>
-          <div class="mood-result"><span>Selected</span><strong>${selected.value}/5: ${escapeHtml(selected.label)}</strong></div>
+          <div class="mood-result"><span>${translatedHtml("Selected")}</span><strong>${selected.value}/5: ${translatedHtml(selected.label)}</strong></div>
         </article>
       `;
     }
@@ -5305,16 +6365,20 @@
         <div class="concern-groups">
           ${CONCERN_GROUPS.map((group) => `
             <div class="concern-group">
-              <strong>${escapeHtml(group.title)}</strong>
+              <strong>${translatedHtml(group.title)}</strong>
               ${group.items.map((concern) => `
                 <button class="concern-chip ${selected.has(concern.id) ? "selected" : ""}" type="button" data-concern-id="${escapeHtml(concern.id)}" aria-pressed="${selected.has(concern.id) ? "true" : "false"}">
-                  ${escapeHtml(concern.label)}
+                  ${translatedHtml(concern.label)}
                 </button>
               `).join("")}
             </div>
           `).join("")}
         </div>
       `;
+    }
+
+    function clampNumber(value, min, max) {
+      return Math.min(Math.max(Number(value) || 0, min), max);
     }
 
     function cashflowReadiness() {
@@ -5328,11 +6392,11 @@
       const emergencyMonths = totalSpending > 0 ? liquidSavings / totalSpending : 0;
       const spendingRatio = monthlyIncome > 0 ? totalSpending / monthlyIncome : 0;
       const savingsRate = monthlyIncome > 0 ? currentMonthlySaving / monthlyIncome : 0;
-      const spendingStatus = monthlyIncome <= 0 || monthlySurplus < 0 || spendingRatio > 0.85
+      const spendingStatus = monthlyIncome <= 0 || monthlySurplus < 0 || spendingRatio > 0.9
         ? { tone: "red", label: "Needs attention", note: "Spending is high versus income." }
-        : spendingRatio > 0.7
+        : spendingRatio > 0.8
           ? { tone: "amber", label: "Watch", note: "Spending is manageable but tight." }
-          : { tone: "green", label: "Healthy", note: "There is room between income and spending." };
+          : { tone: "green", label: "Healthy", note: "Spending is within the 50/30/20 baseline." };
       const savingStatus = savingsRate >= 0.2
         ? { tone: "green", label: "Healthy", note: "Current saving rate is strong." }
         : savingsRate >= 0.1
@@ -5359,22 +6423,71 @@
             title: "Monthly surplus",
             value: `${formatCurrency(monthlySurplus)}/mth`,
             status: spendingStatus,
-            formula: "Formula: monthly income - monthly spending"
+            formula: "Formula: monthly income - monthly spending",
+            rating: {
+              label: "Spending ratio",
+              columns: "80fr 10fr 10fr",
+              markerPct: clampNumber(spendingRatio * 100, 0, 100),
+              summary: "Baseline healthy <=80%; Watch 80%-90%; Attention >90%",
+              segments: [
+                { className: "healthy", label: "Healthy <=80%" },
+                { className: "watch", label: "Watch 80%-90%" },
+                { className: "attention", label: "Attention >90%" }
+              ]
+            }
           },
           {
             title: "Savings rate",
             value: `${Math.round(savingsRate * 100)}%`,
             status: savingStatus,
-            formula: "Formula: current monthly saving / monthly income"
+            formula: "Formula: current monthly saving / monthly income",
+            rating: {
+              label: "Saving rate",
+              columns: "25fr 25fr 50fr",
+              markerPct: clampNumber((savingsRate / 0.4) * 100, 0, 100),
+              summary: "Attention <10%; Watch 10%-19%; Healthy >=20%",
+              segments: [
+                { className: "attention", label: "Attention <10%" },
+                { className: "watch", label: "Watch 10%-19%" },
+                { className: "healthy", label: "Healthy >=20%" }
+              ]
+            }
           },
           {
             title: "Emergency buffer",
             value: `${emergencyMonths.toFixed(1)} months`,
             status: emergencyStatus,
-            formula: "Formula: liquid savings / monthly spending"
+            formula: "Formula: liquid savings / monthly spending",
+            rating: {
+              label: "Emergency months",
+              columns: "1fr 2fr 3fr",
+              markerPct: clampNumber((emergencyMonths / 6) * 100, 0, 100),
+              summary: "Attention <1m; Watch 1-3m; Healthy >=3m",
+              segments: [
+                { className: "attention", label: "Attention <1m" },
+                { className: "watch", label: "Watch 1-3m" },
+                { className: "healthy", label: "Healthy >=3m" }
+              ]
+            }
           }
         ]
       };
+    }
+
+    function readinessRatingHtml(rating) {
+      if (!rating) return "";
+      const markerPct = clampNumber(rating.markerPct, 0, 100).toFixed(1);
+      return `
+        <div class="readiness-rating" aria-label="${escapeHtml(translatedText(rating.label))}">
+          <div class="readiness-scale" style="--rating-columns:${escapeHtml(rating.columns)}; --marker:${markerPct}%;">
+            ${rating.segments.map((segment) => `<i class="${escapeHtml(segment.className)}" title="${escapeHtml(translatedText(segment.label))}"></i>`).join("")}
+            <em class="readiness-marker" aria-hidden="true"></em>
+          </div>
+          <div class="readiness-thresholds">
+            <small>${translatedHtml(rating.summary)}</small>
+          </div>
+        </div>
+      `;
     }
 
     function readinessCardsHtml(mode = "screen") {
@@ -5382,13 +6495,22 @@
       const cardClass = mode === "report" ? "report-readiness-card" : "readiness-card";
       const gridClass = mode === "report" ? "report-readiness-grid" : "readiness-grid";
       return `
+        <div class="readiness-baseline">
+          <span class="readiness-baseline-title">${translatedHtml("50/30/20 baseline rule")}</span>
+          <div class="readiness-baseline-chips">
+            <span class="readiness-baseline-chip">${translatedHtml("Needs <=50%")}</span>
+            <span class="readiness-baseline-chip">${translatedHtml("Wants <=30%")}</span>
+            <span class="readiness-baseline-chip">${translatedHtml("Save/invest >=20%")}</span>
+          </div>
+        </div>
         <div class="${gridClass}">
           ${readiness.cards.map((card) => `
             <article class="${cardClass} ${card.status.tone}">
-              <span>${escapeHtml(card.title)}</span>
+              <span>${translatedHtml(card.title)}</span>
               <strong>${escapeHtml(card.value)}</strong>
-              <p>${escapeHtml(card.status.label)}. ${escapeHtml(card.status.note)}</p>
-              <p class="readiness-formula-line">${escapeHtml(card.formula)}</p>
+              <p>${inlineTranslatedHtml(card.status.label)}. ${translatedHtml(card.status.note)}</p>
+              ${readinessRatingHtml(card.rating)}
+              <p class="readiness-formula-line">${translatedHtml(card.formula)}</p>
             </article>
           `).join("")}
         </div>
@@ -5402,12 +6524,13 @@
       return 5 + ((currentAge - low) / (high - low)) * 90;
     }
 
-    function mathNode(target, show, value, label) {
+    function mathNode(target, show, value, label, subLabel = "") {
       if (!show) return `<div class="math-node" style="visibility:hidden;"></div>`;
       return `
         <div class="math-node">
           <strong>${escapeHtml(value)}</strong>
-          <span>${escapeHtml(label)}</span>
+          <span>${translatedHtml(label)}</span>
+          ${subLabel ? `<small>${escapeHtml(subLabel)}</small>` : ""}
         </div>
       `;
     }
@@ -5416,10 +6539,10 @@
       if (!show) return `<div></div>`;
       return `
         <article class="method-card">
-          <strong>${escapeHtml(title)}</strong>
-          <span class="rate">${escapeHtml(rate)}</span>
+          <strong>${translatedHtml(title)}</strong>
+          <span class="rate">${translatedHtml(rate)}</span>
           <span class="amount">${formatCurrency(amount)}/mth</span>
-          <span class="method-formula">${formatCurrency(values.targetPool)} over ${values.yearsToRetire} yrs @ ${escapeHtml(rate)} = ${formatCurrency(amount)}/mth</span>
+          <span class="method-formula">${pairText(`${formatCurrency(values.targetPool)} over ${values.yearsToRetire} yrs @ ${rate} = ${formatCurrency(amount)}/mth`, `${formatCurrency(values.targetPool)}，${values.yearsToRetire} 年，按 ${rate} = ${formatCurrency(amount)}/月`)}</span>
         </article>
       `;
     }
@@ -5437,11 +6560,11 @@
           ${visible.buildYears ? `<div class="age-dot green" style="left:calc(${retireLeft}% - 22px);">${escapeHtml(values.retirementAge)}</div>` : ""}
           ${visible.expectancy ? `<div class="age-dot" style="left:calc(${expectLeft}% - 22px);">${escapeHtml(values.expectancyAge)}</div>` : ""}
           ${visible.pastExpectancy ? `<div class="age-dot red" style="left:calc(${unknownLeft}% - 22px);">?</div>` : ""}
-          ${visible.buildYears ? `<div class="year-bracket build" style="left:${buildLeft}%; width:${Math.max(retireLeft - buildLeft, 4)}%;">${values.yearsToRetire} years to build</div>` : ""}
-          ${visible.incomeYears ? `<div class="year-bracket income" style="left:${retireLeft}%; width:${Math.max(expectLeft - retireLeft, 4)}%;">${values.incomeYears} years of income</div>` : ""}
+          ${visible.buildYears ? `<div class="year-bracket build" style="left:${buildLeft}%; width:${Math.max(retireLeft - buildLeft, 4)}%;">${pairText(`${values.yearsToRetire} years to build`, `${values.yearsToRetire} 年累积`)}</div>` : ""}
+          ${visible.incomeYears ? `<div class="year-bracket income" style="left:${retireLeft}%; width:${Math.max(expectLeft - retireLeft, 4)}%;">${pairText(`${values.incomeYears} years of income`, `${values.incomeYears} 年收入`)}</div>` : ""}
           ${visible.expectancy ? `<div class="life-chips">
-            <span class="life-expectancy-chip">Men 82</span>
-            <span class="life-expectancy-chip">Women 86</span>
+            <span class="life-expectancy-chip">${translatedText("Men 82")}</span>
+            <span class="life-expectancy-chip">${translatedText("Women 86")}</span>
           </div>` : ""}
         </div>
       `;
@@ -5499,17 +6622,17 @@
         return `
         <div class="timeline-event ${trinityActive && insideTrinitySpan && !isTrinityEvent ? "below" : ""}" style="left:calc(${event.pos}% - 48px); top:${markerTop}px;">
           <div class="event-pin ${markerTone}">${escapeHtml(event.age)}</div>
-          <strong>${escapeHtml(event.label)}</strong>
+          <strong>${translatedHtml(event.label)}</strong>
         </div>
       `;
       };
       const detailCards = [
-        has("houseDetail") ? `<article><strong>House</strong><span>Downpayment, CPF OA, renovation.</span></article>` : "",
-        has("marriedDetail") ? `<article><strong>Get married</strong><span>Proposal, wedding ring, banquet or ceremony, photoshoot, honeymoon, dowry.</span></article>` : "",
-        has("kidsDetail") ? `<article><strong>Kids</strong><span>Cash for delivery, monthly expenses, confinement, contingency.</span></article>` : "",
-        has("educationDetail") ? `<article><strong>Kids education</strong><span>University fees 20 years later.</span></article>` : "",
-        has("retirementDetail") ? `<article><strong>Retirement</strong><span>Have you considered yourself?</span></article>` : "",
-        has("carDetail") ? `<article><strong>Car</strong><span>Downpayment, road tax, COE, running costs.</span></article>` : ""
+        has("houseDetail") ? `<article><strong>${translatedHtml("House")}</strong><span>${translatedHtml("Downpayment, CPF OA, renovation.")}</span></article>` : "",
+        has("marriedDetail") ? `<article><strong>${translatedHtml("Get married")}</strong><span>${translatedHtml("Proposal, wedding ring, banquet or ceremony, photoshoot, honeymoon, dowry.")}</span></article>` : "",
+        has("kidsDetail") ? `<article><strong>${translatedHtml("Kids")}</strong><span>${translatedHtml("Cash for delivery, monthly expenses, confinement, contingency.")}</span></article>` : "",
+        has("educationDetail") ? `<article><strong>${translatedHtml("Kids education")}</strong><span>${translatedHtml("University fees 20 years later.")}</span></article>` : "",
+        has("retirementDetail") ? `<article><strong>${translatedHtml("Retirement")}</strong><span>${translatedHtml("Have you considered yourself?")}</span></article>` : "",
+        has("carDetail") ? `<article><strong>${translatedHtml("Car")}</strong><span>${translatedHtml("Downpayment, road tax, COE, running costs.")}</span></article>` : ""
       ].filter(Boolean).join("");
 
       return `
@@ -5530,12 +6653,12 @@
           ${showAges ? positionedEvents.map(eventMarker).join("") : ""}
           ${trinityActive ? `
             <div class="trinity-bracket" style="left:${trinityBracketLeft}%; width:${trinityBracketWidth}%;">
-              <span>Trinity of events (within 5 years)</span>
+              <span>${translatedHtml("Trinity of events (within 5 years)")}</span>
             </div>
           ` : ""}
           ${showDetails ? `
             <div class="timeline-detail-box timeline-detail-final">
-              <h3>Life events</h3>
+              <h3>${translatedHtml("Life events")}</h3>
               <div class="event-breakdown timeline-breakdown">
                 ${detailCards}
               </div>
@@ -5575,8 +6698,8 @@
 
           ${showConcerns ? `
             <section class="checkin-concerns">
-              <h3>Your concerns</h3>
-              <p>Select what you want the plan to answer.</p>
+              <h3>${translatedHtml("Your concerns")}</h3>
+              <p>${translatedHtml("Select what you want the plan to answer.")}</p>
               ${concernGroupsHtml()}
             </section>
           ` : ""}
@@ -5596,7 +6719,7 @@
         <div class="checkin-board readiness-board">
           ${showFacts ? `
             <section class="checkin-readiness">
-              <h3>Cashflow Readiness Check</h3>
+              <h3>${translatedHtml("Cashflow Readiness Check")}</h3>
               <div class="checkin-input-grid">
                 ${moneyInput("monthlyIncome", "Income")}
                 ${moneyInput("essentialSpending", "Essential spend")}
@@ -5635,9 +6758,9 @@
             pastExpectancy: has("pastExpectancy")
           })}
           <div class="board-grid">
-            ${has("buildYears") ? `<article class="board-card"><h3>Build period</h3><ul><li>From age ${values.currentAge} to ${values.retirementAge}</li><li>${values.yearsToRetire} years to accumulate</li></ul></article>` : ""}
-            ${has("concept") ? `<article class="board-card retirement-concept-card"><h3>Concept of retirement</h3><ul><li>Do not work for money</li><li>Lifestyle, not destination</li><li>Income supports choice</li></ul></article>` : ""}
-            ${has("pastExpectancy") ? `<article class="board-card"><h3>Past life expectancy</h3><ul><li>We do not know how long we live</li><li>Plan buffer beyond the average</li><li>Avoid running out early</li></ul></article>` : ""}
+            ${has("buildYears") ? `<article class="board-card"><h3>${translatedHtml("Build period")}</h3><ul><li>${pairText(`From age ${values.currentAge} to ${values.retirementAge}`, `从 ${values.currentAge} 岁到 ${values.retirementAge} 岁`)}</li><li>${pairText(`${values.yearsToRetire} years to accumulate`, `${values.yearsToRetire} 年累积`)}</li></ul></article>` : ""}
+            ${has("concept") ? `<article class="board-card retirement-concept-card"><h3>${translatedHtml("Concept of retirement")}</h3><ul><li>${translatedHtml("Do not work for money")}</li><li>${translatedHtml("Lifestyle, not destination")}</li><li>${translatedHtml("Income supports choice")}</li></ul></article>` : ""}
+            ${has("pastExpectancy") ? `<article class="board-card"><h3>${translatedHtml("Past life expectancy")}</h3><ul><li>${translatedHtml("We do not know how long we live")}</li><li>${translatedHtml("Plan buffer beyond the average")}</li><li>${translatedHtml("Avoid running out early")}</li></ul></article>` : ""}
           </div>
           <div class="zone-row cols-5">
             ${zoneHtml("buildYears", "story-zone")}
@@ -5653,17 +6776,18 @@
     function lifestyleCardHtml({ show, key, tone, title, tag, costKey, body, items, canSelect }) {
       if (!show) return `<div></div>`;
       const amount = Number(state.calc[costKey]) || 0;
-      const selected = canSelect && Math.abs((Number(state.calc.monthly) || 0) - amount) < 1;
+      const selected = canSelect && state.lifestyleChoice === key;
       const selectableAttrs = canSelect
         ? `role="button" tabindex="0" aria-pressed="${selected ? "true" : "false"}" data-lifestyle-key="${escapeHtml(key)}" data-lifestyle-amount="${amount}"`
         : "";
       return `
         <article class="lifestyle-card ${tone} ${canSelect ? "selectable" : ""} ${selected ? "selected" : ""}" ${selectableAttrs}>
-          <h3>${escapeHtml(title)}</h3>
-          <span class="lifestyle-tag">${escapeHtml(tag)}</span>
+          <h3>${translatedHtml(title)}</h3>
+          <span class="lifestyle-tag">${translatedHtml(tag)}</span>
           ${(canSelect || key === "essential" && getPlacedItemAt("essentialCost") || key === "discretionary" && getPlacedItemAt("discretionaryCost") || key === "luxury" && getPlacedItemAt("luxuryCost")) ? `<div class="cost">${formatCurrency(amount)}</div>` : ""}
-          <p>${escapeHtml(body)}</p>
-          <ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+          <p>${translatedHtml(body)}</p>
+          <ul>${items.map((item) => `<li>${inlineTranslatedHtml(item)}</li>`).join("")}</ul>
+          ${selected ? `<span class="lifestyle-selected-badge">${translatedHtml("Chosen")}</span>` : ""}
         </article>
       `;
     }
@@ -5711,7 +6835,7 @@
               canSelect
             })}
           </div>
-          ${has("choose") ? `<div class="choice-question">So which one will you choose when you retire?</div>` : ""}
+          ${has("choose") ? `<div class="choice-question">${translatedHtml("So which one will you choose when you retire?")}</div>` : ""}
           <div class="zone-row cols-4" style="bottom:54px;">
             ${zoneHtml("essentialInfo", "story-zone")}
             ${zoneHtml("discretionaryInfo", "story-zone")}
@@ -5740,7 +6864,7 @@
           </div>
           <div class="math-flow">
             ${mathNode("presentValue", has("presentValue"), `${formatCurrency(values.monthly)}/mth`, "Present value today")}
-            ${mathNode("futureValue", has("futureValue"), `${formatCurrency(values.futureMonthly)}/mth`, `${values.yearsToRetire} years later`)}
+            ${mathNode("futureValue", has("futureValue"), `${formatCurrency(values.futureMonthly)}/mth`, "Future value", pairText(`${values.yearsToRetire} years later`, `${values.yearsToRetire} 年后`))}
             ${mathNode("annualNeed", has("annualNeed"), `${formatCurrency(values.annualNeed)}/yr`, "* 12")}
             ${mathNode("period", has("period"), `${values.incomeYears} years`, "Retirement to expectancy")}
             ${mathNode("targetPool", has("targetPool"), formatCurrency(values.targetPool), "Money consumed over period")}
@@ -5768,9 +6892,9 @@
       return `
         <div class="methods-board">
           <div class="target-summary main-target">
-            Target amount to build
+            ${translatedHtml("Target amount to build")}
             <strong>${formatCurrency(values.targetPool)}</strong>
-            <span>over ${values.yearsToRetire} years</span>
+            <span>${pairText(`over ${values.yearsToRetire} years`, `用 ${values.yearsToRetire} 年累积`)}</span>
           </div>
           <div class="methods-grid" style="top:160px;">
             ${methodCard("bankMethod", has("bankMethod"), "Bank A/C", "0.05% p.a.", values.bankMonthly, values)}
@@ -5810,9 +6934,9 @@
               <small><span class="formula-line">$______ x ___% = ${futureMonthly}</span></small>
             </div>` : ""}
             ${has("dividendRate") ? `<article class="secret-card">
-              <h3>Dividend Illustration</h3>
-              <span class="big-number">6%-8% p.a.</span>
-              <ul><li>Use the prudent one</li><li>Adjust the rate if needed</li></ul>
+              <h3>${translatedHtml("Dividend Illustration")}</h3>
+              <span class="big-number">${translatedHtml("6%-8% p.a.")}</span>
+              <ul><li>${translatedHtml("Use the prudent one")}</li><li>${translatedHtml("Adjust the rate if needed")}</li></ul>
               <div class="secret-rate-control">${numberInput("dividendRate", "Use %", 1, 12, 0.25)}</div>
             </article>` : `<div></div>`}
             ${showIncomePool ? `<div class="secret-formula compact">
@@ -5821,19 +6945,19 @@
                 ${showDerivedPool ? `<span class="derive-line">${futureMonthly} x 12 / ${rateLabel} = ${formatCurrency(values.dividendTarget)}</span>
                 <span class="circled-amount">${formatCurrency(values.dividendTarget)}</span>` : ""}
               </div>
-              ${showDerivedPool ? `<small>Income pool</small>
-              <div class="secret-pool-note ${poolNote.tone === "green" ? "green" : ""}">${poolNote.text}</div>` : ""}
+              ${showDerivedPool ? `<small>${translatedHtml("Income pool")}</small>
+              <div class="secret-pool-note ${poolNote.tone === "green" ? "green" : ""}">${translatedHtml(poolNote.text)}</div>` : ""}
             </div>` : `<div></div>`}
             ${has("actualInvest") ? `<div class="secret-card secret-invest-card">
-              <h3>How much monthly to invest for the income pool?</h3>
+              <h3>${translatedHtml("How much monthly to invest for the income pool?")}</h3>
               <span class="big-number">${formatCurrency(values.secretMonthlyDividend)}/mth</span>
               <div class="secret-invest-formula">
-                Income pool <strong>${formatCurrency(values.dividendTarget)}</strong> over <strong>${values.yearsToRetire} years</strong> at <strong>${rateLabel} p.a.</strong> = <strong>${formatCurrency(values.secretMonthlyDividend)}/mth</strong>
+                ${pairText(`Income pool ${formatCurrency(values.dividendTarget)} over ${values.yearsToRetire} years at ${rateLabel} p.a. = ${formatCurrency(values.secretMonthlyDividend)}/mth`, `收入池 ${formatCurrency(values.dividendTarget)}，${values.yearsToRetire} 年，按年化 ${rateLabel} = ${formatCurrency(values.secretMonthlyDividend)}/月`)}
               </div>
               <div class="event-row">
-                <div class="event-chip"><strong>Income pool</strong>${formatCurrency(values.dividendTarget)}</div>
-                <div class="event-chip"><strong>Build period</strong>${values.yearsToRetire} years</div>
-                <div class="event-chip"><strong>At ${rateLabel} p.a.</strong>${formatCurrency(values.secretMonthlyDividend)}/mth</div>
+                <div class="event-chip"><strong>${translatedHtml("Income pool")}</strong>${formatCurrency(values.dividendTarget)}</div>
+                <div class="event-chip"><strong>${translatedHtml("Build period")}</strong>${pairText(`${values.yearsToRetire} years`, `${values.yearsToRetire} 年`)}</div>
+                <div class="event-chip"><strong>${pairText(`At ${rateLabel} p.a.`, `按年化 ${rateLabel}`)}</strong>${formatCurrency(values.secretMonthlyDividend)}/mth</div>
               </div>
             </div>` : ""}
           </div>
@@ -5862,6 +6986,7 @@
       document.querySelectorAll("[data-lifestyle-amount]").forEach((card) => {
         const select = () => {
           state.calc.monthly = Number(card.dataset.lifestyleAmount || 0);
+          state.lifestyleChoice = card.dataset.lifestyleKey || "";
           state.lastItem = "choose";
           state.selectedItem = null;
           render();
@@ -6161,7 +7286,7 @@
     function calcValues() {
       const currentAge = Number(state.calc.currentAge) || 25;
       const retirementAge = Math.max(Number(state.calc.retirementAge) || 65, currentAge + 1);
-      const expectancyAge = Math.max(Number(state.calc.expectancyAge) || 85, retirementAge + 1);
+      const expectancyAge = Math.max(Number(state.calc.expectancyAge) || 86, retirementAge + 1);
       const monthly = Number(state.calc.monthly) || 0;
       const yearsToRetire = Math.max(retirementAge - currentAge, 1);
       const inflation = (Number(state.calc.inflation) || 0) / 100;
@@ -6273,7 +7398,7 @@
     }
 
     function formatReportDate(value) {
-      if (!value) return "Not set";
+      if (!value) return translatedText("Not set");
       const date = new Date(`${value}T00:00:00`);
       return date.toLocaleDateString("en-SG", { day: "2-digit", month: "short", year: "numeric" });
     }
@@ -6308,8 +7433,8 @@
     function selectedLifestyle(values) {
       const monthly = Number(values.monthly) || 0;
       const options = lifestyleOptions();
-      const match = options.find((option) => Math.abs(option.amount - monthly) < 1);
-      if (match) return { ...match, isCustom: false };
+      const explicitChoice = options.find((option) => option.key === state.lifestyleChoice);
+      if (explicitChoice) return { ...explicitChoice, isCustom: false };
       return {
         key: "custom",
         label: "Selected lifestyle",
@@ -6334,7 +7459,7 @@
     }
 
     function reportTimelineLabel(value) {
-      return escapeHtml(value);
+      return translatedHtml(value);
     }
 
     function reportTimelineDiagram(values) {
@@ -6401,7 +7526,7 @@
           <div class="report-timeline-track"></div>
           ${trinityApplicable ? `
           <div class="report-trinity-band" style="left:${trinityBandLeft}%; width:${trinityBandWidth}%;">
-            <span>Trinity of events</span>
+            <span>${translatedHtml("Trinity of events")}</span>
           </div>
           ` : ""}
           ${markers.map((marker) => `
@@ -6425,18 +7550,18 @@
             <span>$______ x ___% = ${futureMonthlyShort}/mth</span>
           </div>
           <article class="report-secret-rate">
-            <h4>Dividend Illustration</h4>
-            <strong>6%-8% p.a.</strong>
-            <p>Use the prudent rate for this illustration. Current selected rate: ${rateLabel}.</p>
+            <h4>${translatedHtml("Dividend Illustration")}</h4>
+            <strong>${translatedHtml("6%-8% p.a.")}</strong>
+            <p>${pairText(`Use the prudent rate for this illustration. Current selected rate: ${rateLabel}.`, `本示意采用较谨慎的利率。目前选择利率：${rateLabel}。`)}</p>
           </article>
           <div class="report-formula">
             <span>${futureMonthlyShort}/mth x 12 / ${rateLabel} = ${dividendTargetShort}</span>
-            <span><span class="circled">${dividendTargetShort}</span> income pool</span>
+            <span><span class="circled">${dividendTargetShort}</span> ${translatedHtml("income pool")}</span>
           </div>
           <article class="report-secret-monthly">
-            <h4>Monthly investment to build the income pool</h4>
+            <h4>${translatedHtml("Monthly investment to build the income pool")}</h4>
             <strong>${reportMoney(values.secretMonthlyDividend)}/mth</strong>
-            <p>Income pool ${dividendTargetShort} over ${values.yearsToRetire} years at ${rateLabel} p.a.</p>
+            <p>${pairText(`Income pool ${dividendTargetShort} over ${values.yearsToRetire} years at ${rateLabel} p.a.`, `收入池 ${dividendTargetShort}，${values.yearsToRetire} 年，按年化 ${rateLabel}。`)}</p>
           </article>
         </div>
       `;
@@ -6457,8 +7582,8 @@
               <article class="report-mood-item ${escapeHtml(item.mood.tone)}">
                 ${faceHtml(item.mood.value)}
                 <div>
-                  <span>${escapeHtml(item.label)}</span>
-                  <strong>${item.mood.value}/5 ${escapeHtml(item.mood.label)}</strong>
+                  <span>${translatedHtml(item.label)}</span>
+                  <strong>${item.mood.value}/5 ${translatedHtml(item.mood.label)}</strong>
                 </div>
               </article>
             `).join("")}
@@ -6466,21 +7591,21 @@
           <div class="report-checkin-lower">
             <table class="report-table" style="margin-top:0;">
               <thead>
-                <tr><th>Cashflow facts</th><th style="text-align:right;">Amount</th></tr>
+                <tr><th>${translatedHtml("Cashflow facts")}</th><th style="text-align:right;">${translatedHtml("Amount")}</th></tr>
               </thead>
               <tbody>
-                <tr><td><strong>Monthly income</strong></td><td style="text-align:right;">${reportMoney(readiness.monthlyIncome)}/mth</td></tr>
-                <tr><td><strong>Total monthly spending</strong></td><td style="text-align:right;">${reportMoney(readiness.totalSpending)}/mth</td></tr>
-                <tr><td><strong>Current monthly saving</strong></td><td style="text-align:right;">${reportMoney(readiness.currentMonthlySaving)}/mth</td></tr>
-                <tr><td><strong>Liquid savings</strong></td><td style="text-align:right;">${reportMoney(readiness.liquidSavings)}</td></tr>
+                <tr><td><strong>${translatedHtml("Monthly income")}</strong></td><td style="text-align:right;">${reportMoney(readiness.monthlyIncome)}/mth</td></tr>
+                <tr><td><strong>${translatedHtml("Total monthly spending")}</strong></td><td style="text-align:right;">${reportMoney(readiness.totalSpending)}/mth</td></tr>
+                <tr><td><strong>${translatedHtml("Current monthly saving")}</strong></td><td style="text-align:right;">${reportMoney(readiness.currentMonthlySaving)}/mth</td></tr>
+                <tr><td><strong>${translatedHtml("Liquid savings")}</strong></td><td style="text-align:right;">${reportMoney(readiness.liquidSavings)}</td></tr>
               </tbody>
             </table>
             <div class="report-note-box report-concerns-box">
-              <p><strong>Your concerns selected:</strong></p>
+              <p><strong>${translatedHtml("Your concerns selected:")}</strong></p>
               <div class="report-chip-list" style="margin-top:8px;">
                 ${concernLabels.length
                   ? concernLabels.map((label) => `<span class="report-concern-chip">${escapeHtml(label)}</span>`).join("")
-                  : `<span class="report-concern-chip">No concerns selected yet</span>`}
+                  : `<span class="report-concern-chip">${translatedHtml("No concerns selected yet")}</span>`}
               </div>
             </div>
           </div>
@@ -6500,19 +7625,19 @@
         if (!compareIncomePool) {
           return `
             <tr>
-              <td><strong>${escapeHtml(row.method)}</strong></td>
-              <td>${escapeHtml(row.rate)}</td>
+              <td><strong>${translatedHtml(row.method)}</strong></td>
+              <td>${translatedHtml(row.rate)}</td>
               <td>${reportMoney(row.original)}/mth</td>
-              <td>${reportMoney(values.targetPool)} over ${values.yearsToRetire} yrs @ ${escapeHtml(row.rate)}</td>
+              <td>${pairText(`${reportMoney(values.targetPool)} over ${values.yearsToRetire} yrs @ ${row.rate}`, `${reportMoney(values.targetPool)}，${values.yearsToRetire} 年，按 ${row.rate}`)}</td>
             </tr>
           `;
         }
         return `
           <tr>
-            <td><strong>${escapeHtml(row.method)}</strong></td>
-            <td>${escapeHtml(row.rate)}</td>
-            <td>${reportMoney(row.original)}/mth<br><small>Build ${reportMoney(values.targetPool)}</small></td>
-            <td>${reportMoney(row.formula)}/mth<br><small>Build ${reportMoney(values.dividendTarget)}</small></td>
+            <td><strong>${translatedHtml(row.method)}</strong></td>
+            <td>${translatedHtml(row.rate)}</td>
+            <td>${reportMoney(row.original)}/mth<br><small>${pairText(`Build ${reportMoney(values.targetPool)}`, `累积 ${reportMoney(values.targetPool)}`)}</small></td>
+            <td>${reportMoney(row.formula)}/mth<br><small>${pairText(`Build ${reportMoney(values.dividendTarget)}`, `累积 ${reportMoney(values.dividendTarget)}`)}</small></td>
             <td>${reportSignedMoney(row.formula - row.original)}/mth</td>
           </tr>
         `;
@@ -6529,25 +7654,25 @@
       const trinityAges = [Number(state.calc.houseAge) || 0, Number(state.calc.marriedAge) || 0, Number(state.calc.kidsAge) || 0];
       const trinitySpread = Math.max(...trinityAges) - Math.min(...trinityAges);
       const trinityApplicable = trinityAges.every((age) => age > 0 && age >= values.currentAge);
-      const prospectName = state.report.prospectName.trim() || "Prospect";
+      const prospectName = state.report.prospectName.trim() || translatedText("Prospect");
       const eventRows = reportEventRows()
         .map((row, index) => ({ row, index }))
         .filter(({ row }) => Number(row[1]) > 0)
         .sort((a, b) => Number(a.row[1]) - Number(b.row[1]) || a.index - b.index)
         .map(({ row: [label, age, need] }) => `
         <tr>
-          <td><strong>${escapeHtml(label)}</strong></td>
-          <td>Age ${escapeHtml(age)}</td>
-          <td>${escapeHtml(need)}</td>
+          <td><strong>${translatedHtml(label)}</strong></td>
+          <td>${pairText(`Age ${age}`, `${age} 岁`)}</td>
+          <td>${translatedHtml(need)}</td>
         </tr>
       `).join("");
       const compareIncomePoolInMethods = reportSectionEnabled("incomePool");
       const advisorNotesHtml = reportSectionEnabled("notes") && state.report.notes.trim()
-        ? `<div class="report-note-box report-advisor-note"><p><strong>Wealth Consultant's Notes:</strong> ${reportLineBreaks(state.report.notes.trim())}</p></div>`
+        ? `<div class="report-note-box report-advisor-note"><p><strong>${translatedHtml("Wealth Consultant's Notes:")}</strong> ${reportLineBreaks(state.report.notes.trim())}</p></div>`
         : "";
       const sections = [];
       let sectionNumber = 1;
-      const heading = (title) => `${sectionNumber++}. ${title}`;
+      const heading = (title) => `${sectionNumber++}. ${translatedText(title)}`;
       const pageBreakIfNeeded = () => sections.length ? " report-page-break" : "";
       let retirementGroupBreakUsed = false;
       const retirementGroupClass = () => {
@@ -6563,7 +7688,7 @@
             ${reportTimelineDiagram(values)}
             ${trinityApplicable ? `
             <div class="report-note-box important" style="margin-top:10px;">
-              <p><strong>Trinity of events:</strong> House, getting married and kids are planned across ${trinitySpread} year${trinitySpread === 1 ? "" : "s"}. This cluster should be reviewed first because several large cash needs may arrive close together.</p>
+              <p><strong>${translatedHtml("Trinity of events:")}</strong> ${pairText(`House, getting married and kids are planned across ${trinitySpread} year${trinitySpread === 1 ? "" : "s"}. This cluster should be reviewed first because several large cash needs may arrive close together.`, `买房、结婚和孩子计划集中在 ${trinitySpread} 年内。这组事件应优先复盘，因为几笔较大的现金需求可能会接近发生。`)}</p>
             </div>
             ` : ""}
           </section>
@@ -6575,7 +7700,7 @@
           <section class="report-section">
             <h3>${heading("Life Events")}</h3>
             <table class="report-table">
-              <thead><tr><th>Life event</th><th>Preferred age</th><th>Cash needs to plan for</th></tr></thead>
+              <thead><tr><th>${translatedHtml("Life event")}</th><th>${translatedHtml("Preferred age")}</th><th>${translatedHtml("Cash needs to plan for")}</th></tr></thead>
               <tbody>${eventRows}</tbody>
             </table>
           </section>
@@ -6596,13 +7721,13 @@
           <section class="report-section${retirementGroupClass()}">
             <h3>${heading("Retirement Planning & Budgeting")}</h3>
             <div class="report-retire-stats">
-              <div class="report-kpi"><span>Years to build</span><strong>${values.yearsToRetire} years</strong><small>Age ${values.currentAge} to ${values.retirementAge}</small></div>
-              <div class="report-kpi green"><span>Years of income</span><strong>${values.incomeYears} years</strong><small>Age ${values.retirementAge} to ${values.expectancyAge}</small></div>
-              <div class="report-kpi"><span>Life expectancy used</span><strong>${values.expectancyAge}</strong><small>SG averages: men 82, women 86</small></div>
+              <div class="report-kpi"><span>${translatedHtml("Years to build")}</span><strong>${pairText(`${values.yearsToRetire} years`, `${values.yearsToRetire} 年`)}</strong><small>${pairText(`Age ${values.currentAge} to ${values.retirementAge}`, `${values.currentAge} 岁到 ${values.retirementAge} 岁`)}</small></div>
+              <div class="report-kpi green"><span>${translatedHtml("Years of income")}</span><strong>${pairText(`${values.incomeYears} years`, `${values.incomeYears} 年`)}</strong><small>${pairText(`Age ${values.retirementAge} to ${values.expectancyAge}`, `${values.retirementAge} 岁到 ${values.expectancyAge} 岁`)}</small></div>
+              <div class="report-kpi"><span>${translatedHtml("Life expectancy used")}</span><strong>${values.expectancyAge}</strong><small>${translatedHtml("SG averages: men 82, women 86")}</small></div>
             </div>
             <div class="report-concept-banner">
-              <strong>Concept of retirement</strong>
-              <p>Retirement is not the end of work. It is the point where your money does the working, creating income that pays for the lifestyle you choose.</p>
+              <strong>${translatedHtml("Concept of retirement")}</strong>
+              <p>${translatedHtml("Retirement is not the end of work. It is the point where your money does the working, creating income that pays for the lifestyle you choose.")}</p>
             </div>
           </section>
         `);
@@ -6615,13 +7740,13 @@
             <div class="report-lifestyle-grid">
               ${lifestyleOptions().map((option) => `
                 <article class="report-card ${lifestyle.key === option.key ? "selected" : ""}">
-                  <h4>${escapeHtml(option.label)}${lifestyle.key === option.key ? `<span class="report-chosen-chip">Chosen</span>` : ""}</h4>
-                  <p><strong>${reportMoney(option.amount)}/mth today</strong></p>
-                  <p>${escapeHtml(option.details)}</p>
+                  <h4>${translatedHtml(option.label)}${lifestyle.key === option.key ? `<span class="report-chosen-chip">${translatedHtml("Chosen")}</span>` : ""}</h4>
+                  <p><strong>${pairText(`${reportMoney(option.amount)}/mth today`, `${reportMoney(option.amount)}/月（今天价值）`)}</strong></p>
+                  <p>${translatedHtml(option.details)}</p>
                 </article>
               `).join("")}
             </div>
-            ${lifestyle.isCustom ? `<div class="report-note-box" style="margin-top:10px;"><p><strong>Selected amount:</strong> ${reportMoney(values.monthly)}/mth today (custom figure used for the illustration).</p></div>` : ""}
+            ${lifestyle.isCustom ? `<div class="report-note-box" style="margin-top:10px;"><p><strong>${translatedHtml("Selected amount:")}</strong> ${pairText(`${reportMoney(values.monthly)}/mth today (custom figure used for the illustration).`, `${reportMoney(values.monthly)}/月（今天价值，采用自定义数字作示意）。`)}</p></div>` : ""}
           </section>
         `);
       }
@@ -6632,19 +7757,19 @@
             <h3>${heading("Retirement Lifestyle Funding Projection")}</h3>
             <div class="report-amount-needed">
               <div>
-                <span>Amount needed for this lifestyle</span>
-                <p>Based on ${reportMoney(values.futureMonthly)}/mth at retirement for ${values.incomeYears} years.</p>
+                <span>${translatedHtml("Amount needed for this lifestyle")}</span>
+                <p>${pairText(`Based on ${reportMoney(values.futureMonthly)}/mth at retirement for ${values.incomeYears} years.`, `以退休时每月 ${reportMoney(values.futureMonthly)}、维持 ${values.incomeYears} 年为基础。`)}</p>
               </div>
               <strong>${reportMoney(values.targetPool)}</strong>
             </div>
             <table class="report-table">
               <tbody>
-                <tr><td><strong>Present value today</strong></td><td>${reportMoney(values.monthly)}/mth</td></tr>
-                <tr><td><strong>Inflation assumption</strong></td><td>${escapeHtml(state.calc.inflation)}% p.a.</td></tr>
-                <tr><td><strong>Future value at retirement</strong></td><td>${reportMoney(values.futureMonthly)}/mth</td></tr>
-                <tr><td><strong>Annual income need</strong></td><td>${reportMoney(values.annualNeed)}/yr</td></tr>
-                <tr><td><strong>Retirement to expectancy period</strong></td><td>${values.incomeYears} years</td></tr>
-                <tr><td><strong>Money consumed over period</strong></td><td>${reportMoney(values.targetPool)}</td></tr>
+                <tr><td><strong>${translatedHtml("Present value today")}</strong></td><td>${reportMoney(values.monthly)}/mth</td></tr>
+                <tr><td><strong>${translatedHtml("Inflation assumption")}</strong></td><td>${escapeHtml(state.calc.inflation)}% p.a.</td></tr>
+                <tr><td><strong>${translatedHtml("Future value at retirement")}</strong></td><td>${reportMoney(values.futureMonthly)}/mth</td></tr>
+                <tr><td><strong>${translatedHtml("Annual income need")}</strong></td><td>${reportMoney(values.annualNeed)}/yr</td></tr>
+                <tr><td><strong>${translatedHtml("Retirement to expectancy period")}</strong></td><td>${pairText(`${values.incomeYears} years`, `${values.incomeYears} 年`)}</td></tr>
+                <tr><td><strong>${translatedHtml("Money consumed over period")}</strong></td><td>${reportMoney(values.targetPool)}</td></tr>
               </tbody>
             </table>
           </section>
@@ -6667,12 +7792,12 @@
             <table class="report-table">
               <thead>
                 ${compareIncomePoolInMethods
-                  ? `<tr><th>Method</th><th>Illustrative rate</th><th>Original monthly amount</th><th>Formula monthly amount</th><th>Difference</th></tr>`
-                  : `<tr><th>Method</th><th>Illustrative rate</th><th>Original monthly amount to build ${formatCurrency(values.targetPool)}</th><th>Calculation shown</th></tr>`}
+                  ? `<tr><th>${translatedHtml("Method")}</th><th>${translatedHtml("Illustrative rate")}</th><th>${translatedHtml("Original monthly amount")}</th><th>${translatedHtml("Formula monthly amount")}</th><th>${translatedHtml("Difference")}</th></tr>`
+                  : `<tr><th>${translatedHtml("Method")}</th><th>${translatedHtml("Illustrative rate")}</th><th>${pairHtml(`Original monthly amount to build ${formatCurrency(values.targetPool)}`, `累积 ${formatCurrency(values.targetPool)} 的每月金额`)}</th><th>${translatedHtml("Calculation shown")}</th></tr>`}
               </thead>
               <tbody>${fundingMethodRows(values, compareIncomePoolInMethods)}</tbody>
             </table>
-            ${compareIncomePoolInMethods ? `<div class="report-note-box" style="margin-top:10px;"><p><strong>Comparison:</strong> Original amount builds ${reportMoney(values.targetPool)}. Formula amount builds the income-pool target of ${reportMoney(values.dividendTarget)}. Difference is formula monthly amount minus original monthly amount.</p></div>` : ""}
+            ${compareIncomePoolInMethods ? `<div class="report-note-box" style="margin-top:10px;"><p><strong>${translatedHtml("Comparison:")}</strong> ${pairText(`Original amount builds ${reportMoney(values.targetPool)}. Formula amount builds the income-pool target of ${reportMoney(values.dividendTarget)}. Difference is formula monthly amount minus original monthly amount.`, `原目标金额用于累积 ${reportMoney(values.targetPool)}。公式金额用于累积收入池目标 ${reportMoney(values.dividendTarget)}。差额 = 公式每月金额 - 原目标每月金额。`)}</p></div>` : ""}
           </section>
         `);
       }
@@ -6682,20 +7807,20 @@
           <div class="report-brand-lockup">
             <img class="report-mascot" src="${BRAND.mascotSrc}" alt="Finance With Kellie mascot">
             <div>
-              <small><a class="report-brand-link" href="${BRAND.whatsappUrl}" target="_blank" rel="noopener">Finance With Kellie</a></small>
-              <h2>Ideal Retirement Profile</h2>
-              <p>This record summarises your preferred life timeline, retirement lifestyle and illustrative retirement funding numbers.</p>
+              <small><a class="report-brand-link" href="${BRAND.whatsappUrl}" target="_blank" rel="noopener">${translatedHtml("Finance With Kellie")}</a></small>
+              <h2>${translatedHtml("Ideal Retirement Profile")}</h2>
+              <p>${translatedHtml("This record summarises your preferred life timeline, retirement lifestyle and illustrative retirement funding numbers.")}</p>
             </div>
           </div>
           <div class="report-meta">
-            <div><span>Prepared for</span><strong>${escapeHtml(prospectName)}</strong></div>
-            <div><span>Meeting date</span><strong>${escapeHtml(formatReportDate(state.report.meetingDate))}</strong></div>
+            <div><span>${translatedHtml("Prepared for")}</span><strong>${escapeHtml(prospectName)}</strong></div>
+            <div><span>${translatedHtml("Meeting date")}</span><strong>${escapeHtml(formatReportDate(state.report.meetingDate))}</strong></div>
             <div>
-              <span>Prepared by</span>
+              <span>${translatedHtml("Prepared by")}</span>
               <strong>Kellie Zheng</strong>
               <p class="report-contact-links">
                 <a href="${BRAND.whatsappUrl}" target="_blank" rel="noopener">${BRAND.whatsappLabel}</a>
-                <a href="${BRAND.bookingUrl}" target="_blank" rel="noopener">Book an appointment</a>
+                <a href="${BRAND.bookingUrl}" target="_blank" rel="noopener">${translatedHtml("Book an appointment")}</a>
               </p>
             </div>
           </div>
@@ -6704,47 +7829,47 @@
         ${advisorNotesHtml}
 
         <div class="report-kpi-grid">
-          <div class="report-kpi"><span>Current age</span><strong>${values.currentAge}</strong><small>Starting point</small></div>
-          <div class="report-kpi green"><span>Retirement age</span><strong>${values.retirementAge}</strong><small>Target retirement</small></div>
-          <div class="report-kpi"><span>Life expectancy</span><strong>${values.expectancyAge}</strong><small>Planning age used</small></div>
-          <div class="report-kpi red"><span>Income period</span><strong>${values.incomeYears} years</strong><small>Retirement to expectancy</small></div>
-          <div class="report-kpi"><span>Period to build wealth</span><strong>${values.yearsToRetire} years</strong><small>Age ${values.currentAge} to ${values.retirementAge}</small></div>
+          <div class="report-kpi"><span>${translatedHtml("Current age")}</span><strong>${values.currentAge}</strong><small>${translatedHtml("Starting point")}</small></div>
+          <div class="report-kpi green"><span>${translatedHtml("Retirement age")}</span><strong>${values.retirementAge}</strong><small>${translatedHtml("Target retirement")}</small></div>
+          <div class="report-kpi"><span>${translatedHtml("Life expectancy")}</span><strong>${values.expectancyAge}</strong><small>${translatedHtml("Planning age used")}</small></div>
+          <div class="report-kpi red"><span>${translatedHtml("Income period")}</span><strong>${pairText(`${values.incomeYears} years`, `${values.incomeYears} 年`)}</strong><small>${translatedHtml("Retirement to expectancy")}</small></div>
+          <div class="report-kpi"><span>${translatedHtml("Period to build wealth")}</span><strong>${pairText(`${values.yearsToRetire} years`, `${values.yearsToRetire} 年`)}</strong><small>${pairText(`Age ${values.currentAge} to ${values.retirementAge}`, `${values.currentAge} 岁到 ${values.retirementAge} 岁`)}</small></div>
         </div>
 
         ${sections.join("")}
 
         <div class="report-disclaimer">
-          This report is a discussion record and planning illustration based on the inputs captured during our discussion. It is not a product recommendation, guarantee of returns, or personalised financial advice by itself. Actual suitability, affordability, risks, fees, product features and current rates should be reviewed before any implementation.
+          ${translatedHtml("This report is a discussion record and planning illustration based on the inputs captured during our discussion. It is not a product recommendation, guarantee of returns, or personalised financial advice by itself. Actual suitability, affordability, risks, fees, product features and current rates should be reviewed before any implementation.")}
         </div>
-        <div class="report-copyright">&copy; 2026 Finance with Kellie &middot; All rights reserved.</div>
+        <div class="report-copyright">© Kellie Zheng. All rights reserved.</div>
       `;
     }
 
     function reportText() {
       const values = calcValues();
       const lifestyle = selectedLifestyle(values);
-      const prospectName = state.report.prospectName.trim() || "Prospect";
+      const prospectName = state.report.prospectName.trim() || translatedText("Prospect");
       const lines = [
-        "Ideal Retirement Profile",
-        `Prepared for: ${prospectName}`,
-        `Meeting date: ${formatReportDate(state.report.meetingDate)}`,
-        "Prepared by: Kellie Zheng",
-        `Contact: ${BRAND.whatsappLabel} ${BRAND.whatsappUrl} | ${BRAND.bookingUrl}`,
+        translatedText("Ideal Retirement Profile"),
+        `${translatedText("Prepared for")}: ${prospectName}`,
+        `${translatedText("Meeting date")}: ${formatReportDate(state.report.meetingDate)}`,
+        `${translatedText("Prepared by")}: Kellie Zheng`,
+        `${translatedText("Contact")}: ${BRAND.whatsappLabel} ${BRAND.whatsappUrl} | ${BRAND.bookingUrl}`,
         ""
       ];
       if (reportSectionEnabled("notes") && state.report.notes.trim()) {
-        lines.push("Wealth Consultant's notes:", state.report.notes.trim(), "");
+        lines.push(translatedText("Wealth Consultant's Notes:"), state.report.notes.trim(), "");
       }
       let sectionNumber = 1;
       const pushSection = (title, sectionLines) => {
-        lines.push(`${sectionNumber++}. ${title}`, ...sectionLines, "");
+        lines.push(`${sectionNumber++}. ${translatedText(title)}`, ...sectionLines, "");
       };
       const compareIncomePoolInMethods = reportSectionEnabled("incomePool");
       const readiness = cashflowReadiness();
       const readinessLines = [
-        `Monthly surplus: ${reportMoney(readiness.monthlySurplus)}/mth.`,
-        `Emergency buffer: ${readiness.emergencyMonths.toFixed(1)} months.`,
-        `Current saving rate: ${Math.round(readiness.savingsRate * 100)}%.`
+        `${translatedText("Monthly surplus")}: ${reportMoney(readiness.monthlySurplus)}/mth.`,
+        `${translatedText("Emergency buffer")}: ${readiness.emergencyMonths.toFixed(1)} months.`,
+        `${translatedText("Savings rate")}: ${Math.round(readiness.savingsRate * 100)}%.`
       ];
 
       if (reportSectionEnabled("timeline")) {
@@ -6752,7 +7877,7 @@
           .map((row, index) => ({ row, index }))
           .filter(({ row }) => Number(row[1]) > 0)
           .sort((a, b) => Number(a.row[1]) - Number(b.row[1]) || a.index - b.index)
-          .map(({ row: [label, age] }) => `${label}: age ${age}`));
+          .map(({ row: [label, age] }) => `${translatedText(label)}: ${pairText(`age ${age}`, `${age} 岁`)}`));
       }
 
       if (reportSectionEnabled("lifeEvents")) {
@@ -6760,51 +7885,51 @@
           .map((row, index) => ({ row, index }))
           .filter(({ row }) => Number(row[1]) > 0)
           .sort((a, b) => Number(a.row[1]) - Number(b.row[1]) || a.index - b.index)
-          .map(({ row: [label, age, need] }) => `${label}: age ${age} - ${need}`));
+          .map(({ row: [label, age, need] }) => `${translatedText(label)}: ${pairText(`age ${age}`, `${age} 岁`)} - ${translatedText(need)}`));
       }
 
       if (reportSectionEnabled("checkIn")) {
         const concernLabels = selectedConcernLabels();
         pushSection("Your check-in snapshot", [
-          `Savings mood: ${moodOption(state.calc.moodSavings).value}/5 ${moodOption(state.calc.moodSavings).report}.`,
-          `Spending mood: ${moodOption(state.calc.moodSpending).value}/5 ${moodOption(state.calc.moodSpending).report}.`,
-          `Income mood: ${moodOption(state.calc.moodIncome).value}/5 ${moodOption(state.calc.moodIncome).report}.`,
-          `Your concerns: ${concernLabels.length ? concernLabels.join("; ") : "No concerns selected yet"}.`,
-          `Monthly income: ${reportMoney(readiness.monthlyIncome)}/mth.`,
-          `Total monthly spending: ${reportMoney(readiness.totalSpending)}/mth.`,
-          `Current monthly saving: ${reportMoney(readiness.currentMonthlySaving)}/mth.`,
-          `Liquid savings: ${reportMoney(readiness.liquidSavings)}.`,
+          `${translatedText("Savings")} mood: ${moodOption(state.calc.moodSavings).value}/5 ${translatedText(moodOption(state.calc.moodSavings).label)}.`,
+          `${translatedText("Spending")} mood: ${moodOption(state.calc.moodSpending).value}/5 ${translatedText(moodOption(state.calc.moodSpending).label)}.`,
+          `${translatedText("Income")} mood: ${moodOption(state.calc.moodIncome).value}/5 ${translatedText(moodOption(state.calc.moodIncome).label)}.`,
+          `${translatedText("Your concerns")}: ${concernLabels.length ? concernLabels.join("; ") : translatedText("No concerns selected yet")}.`,
+          `${translatedText("Monthly income")}: ${reportMoney(readiness.monthlyIncome)}/mth.`,
+          `${translatedText("Total monthly spending")}: ${reportMoney(readiness.totalSpending)}/mth.`,
+          `${translatedText("Current monthly saving")}: ${reportMoney(readiness.currentMonthlySaving)}/mth.`,
+          `${translatedText("Liquid savings")}: ${reportMoney(readiness.liquidSavings)}.`,
           ...readinessLines
         ]);
       }
 
       if (reportSectionEnabled("retirement")) {
         pushSection("Retirement planning and budgeting", [
-          `Current age ${values.currentAge}, retirement age ${values.retirementAge}, life expectancy used ${values.expectancyAge}.`,
-          `${values.yearsToRetire} years to build and ${values.incomeYears} years of retirement income to plan for.`,
-          "Concept of retirement: create income that supports lifestyle choice."
+          pairText(`Current age ${values.currentAge}, retirement age ${values.retirementAge}, life expectancy used ${values.expectancyAge}.`, `当前年龄 ${values.currentAge}，退休年龄 ${values.retirementAge}，采用预期寿命 ${values.expectancyAge}。`),
+          pairText(`${values.yearsToRetire} years to build and ${values.incomeYears} years of retirement income to plan for.`, `${values.yearsToRetire} 年累积，需规划 ${values.incomeYears} 年退休收入。`),
+          pairText("Concept of retirement: create income that supports lifestyle choice.", "退休概念：建立能支撑生活选择的收入。")
         ]);
       }
 
       if (reportSectionEnabled("lifestyle")) {
         pushSection("Retirement lifestyle", [
-          `${lifestyle.label}: ${reportMoney(values.monthly)}/mth today.`,
-          lifestyle.details
+          `${translatedText(lifestyle.label)}: ${reportMoney(values.monthly)}/mth today.`,
+          translatedText(lifestyle.details)
         ]);
       }
 
       if (reportSectionEnabled("math")) {
         pushSection("Retirement lifestyle funding projection", [
-          `Amount needed for this lifestyle: ${reportMoney(values.targetPool)}.`,
-          `Future value at retirement: ${reportMoney(values.futureMonthly)}/mth.`,
-          `This is based on ${values.incomeYears} years from retirement to life expectancy.`
+          `${translatedText("Amount needed for this lifestyle")}: ${reportMoney(values.targetPool)}.`,
+          `${translatedText("Future value at retirement")}: ${reportMoney(values.futureMonthly)}/mth.`,
+          pairText(`This is based on ${values.incomeYears} years from retirement to life expectancy.`, `以退休到预期寿命的 ${values.incomeYears} 年为基础。`)
         ]);
       }
 
       if (reportSectionEnabled("incomePool")) {
         pushSection("The income pool strategy", [
           `${reportMoney(values.dividendTarget)} x ${values.dividendRatePct}% = ${reportMoney(values.annualNeed)}/yr.`,
-          `Illustrated monthly investment to build the income pool at ${values.dividendRatePct}%: ${reportMoney(values.secretMonthlyDividend)}/mth.`
+          pairText(`Illustrated monthly investment to build the income pool at ${values.dividendRatePct}%: ${reportMoney(values.secretMonthlyDividend)}/mth.`, `按 ${values.dividendRatePct}% 建立收入池的示意每月投资：${reportMoney(values.secretMonthlyDividend)}/月。`)
         ]);
       }
 
@@ -6828,7 +7953,7 @@
       }
 
       lines.push(
-        "(c) 2026 Finance with Kellie. All rights reserved.",
+        "© Kellie Zheng. All rights reserved.",
         ""
       );
 
@@ -6845,7 +7970,19 @@
     }
 
     function renderReport() {
-      el.profileReport.innerHTML = reportHtml();
+      withReportLanguageOutput(() => {
+        el.reportTitle.innerHTML = translatedHtml("Retirement Profile Report");
+        el.reportSubtitle.innerHTML = translatedHtml("Generated from the retirement profile inputs");
+        el.copyReportBtn.textContent = translatedText("Copy summary");
+        el.printReportBtn.textContent = translatedText("Print / Save PDF");
+        el.closeReportBtn.textContent = translatedText("Close");
+        el.reportProspectInput.placeholder = translatedText("Name");
+        el.reportNotesInput.placeholder = translatedText("Optional follow-up notes");
+        el.reportModal.querySelectorAll("[data-i18n]").forEach((node) => {
+          node.innerHTML = translatedHtml(node.dataset.i18n);
+        });
+        el.profileReport.innerHTML = reportHtml();
+      });
     }
 
     function openReport() {
@@ -6862,7 +7999,7 @@
     }
 
     async function copyReportSummary() {
-      const text = reportText();
+      const text = withReportLanguageOutput(reportText);
       try {
         if (navigator.clipboard?.writeText) {
           await navigator.clipboard.writeText(text);
@@ -6881,7 +8018,7 @@
         fallback.remove();
       }
       const original = el.copyReportBtn.textContent;
-      el.copyReportBtn.textContent = "Copied";
+      el.copyReportBtn.textContent = translatedText("Copied");
       window.setTimeout(() => {
         el.copyReportBtn.textContent = original;
       }, 1200);
@@ -6893,6 +8030,12 @@
     }
 
     el.prevBtn.addEventListener("click", previousStep);
+    el.languageBtn.addEventListener("click", () => {
+      state.language = isBilingual() ? "english" : "bilingual";
+      saveState();
+      render();
+      if (!el.reportModal.hidden) renderReport();
+    });
     el.nextBtn.addEventListener("click", nextStep);
     el.revealBtn.addEventListener("click", revealNext);
     el.revealAllBtn.addEventListener("click", revealAllCurrentStep);
