@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Kellie Zheng">
+<title>Finance with Kellie - Wealth Products</title>
+<style>
+  :root{
+    --red:#c9a14e; --red-dark:#8a6508; --ink:#1d1d1d; --grey:#5a5a5a; --faint:#8a8a8a;
+    --paper:#f7f6f2; --card:#ffffff; --line:#d9d6cf; --good:#0a7a3d; --warn:#b25000;
+    --hand-ink:#23355c;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif;
+       background:var(--paper); color:var(--ink); font-size:15px; line-height:1.45;}
+  .hand{font-family:"LingWai TC","HanziPen TC","HanziPen SC","Kaiti TC","Kaiti SC","Marker Felt","Bradley Hand","PingFang TC","PingFang SC","Microsoft YaHei",cursive; font-weight:700; color:var(--hand-ink);}
+  :root{--navy:#182740; --gold:#c9a14e;}
+  .mascot{width:52px;height:52px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 0 2px var(--navy),0 0 0 4px var(--gold);}
+  .report-btn{margin-left:auto;background:var(--gold);color:#16233f;border:none;border-radius:8px;padding:8px 14px;font-weight:800;font-size:13px;cursor:pointer;}
+  .report-btn:hover{background:#b88a2c;}
+  .copyline{margin-top:16px;padding-top:8px;border-top:1px solid #eceae4;font-size:11px;color:var(--faint);text-align:right;}
+  .rules-print{font-size:13px;color:#333;margin-top:18px;}
+  .rules-print h3{font-size:15px;border-top:2px solid var(--red);padding-top:10px;margin-bottom:6px;}
+  .rules-print p{margin:6px 0;}
+  .sources-print{font-size:12.5px;color:#444;}
+  .sources-print p{margin:8px 0;}
+  .report-copy{text-align:center;margin-top:60px;font-size:12px;color:var(--faint);}
+  header{background:#182740; border-bottom:3px solid #c9a14e; padding:14px 22px; display:flex; flex-wrap:wrap; align-items:center; gap:16px;
+         -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  .brandline{font-size:11.5px; font-weight:700; letter-spacing:2.6px; color:#c9a14e; text-transform:uppercase;}
+  header h1{font-size:20px; font-weight:800; letter-spacing:.2px; color:#fff; margin-top:1px;}
+  header h1 span{color:#c9a14e; font-weight:600;}
+  .subtle{color:#9fb0cf; font-size:12px;}
+  header .switch{color:#dfe6f3;}
+  .ng-note{margin-left:auto; font-size:11px; font-weight:600; color:#cdb87a; border:1px solid #3d4f74;
+           background:rgba(255,255,255,.05); padding:4px 11px; border-radius:999px; letter-spacing:.4px; white-space:nowrap;}
+  .pill{display:flex; align-items:center; justify-content:flex-start; gap:10px; flex:1 1 100%; flex-wrap:wrap; margin-left:0;}
+  .langsw{display:flex; margin-left:auto; border:1px solid #3d4f74; border-radius:999px; overflow:hidden;}
+  .langsw button{background:transparent; border:none; color:#9fb0cf; padding:5px 13px; font-size:12px; font-weight:700; cursor:pointer;}
+  .langsw button.active{background:#c9a14e; color:#16233f;}
+  .countdown{background:rgba(201,161,78,.12); border:1px solid rgba(201,161,78,.68); color:#f2d891; font-size:12.5px; padding:6px 12px; border-radius:999px; font-weight:700;}
+  .switch{display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; cursor:pointer; user-select:none;}
+  .switch .track{width:46px;height:24px;border-radius:999px;background:#cfcabf;position:relative;transition:.2s;}
+  .switch .track::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s;}
+  .switch.on .track{background:var(--gold);}
+  .switch.on .track::after{left:25px;}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; padding:12px 22px 0 22px;}
+  nav.tabs button{border:1px solid var(--line); background:#fff; padding:8px 14px; border-radius:9px 9px 0 0; font-size:13.5px; font-weight:600; color:var(--grey); cursor:pointer;}
+  nav.tabs button.active{background:var(--ink); color:#fff; border-color:var(--ink);}
+  nav.tabs button .tag{display:inline-block; margin-left:6px; font-size:10px; background:var(--gold); color:#16233f; border-radius:4px; padding:1px 5px; vertical-align:middle;}
+  main{padding:16px 22px 30px 22px; max-width:1180px; margin:0 auto;}
+  .panel{background:var(--card); border:1px solid var(--line); border-radius:0 12px 12px 12px; padding:18px;}
+  .prodhead{display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; margin-bottom:6px;}
+  .prodhead h2{font-size:20px;}
+  .prodhead .tagline{color:var(--grey); font-size:13px;}
+  .badge{font-size:11px; font-weight:800; color:#16233f; background:var(--gold); padding:2px 8px; border-radius:5px;}
+  .badge.grey{background:#777;}
+  .controls{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0 8px 0; align-items:flex-end;}
+  .ctrl{display:flex; flex-direction:column; gap:4px;}
+  .ctrl label{font-size:11.5px; font-weight:700; color:var(--grey); text-transform:uppercase; letter-spacing:.4px;}
+  .ctrl input[type=number], .ctrl select{border:1px solid var(--line); border-radius:8px; padding:7px 10px; font-size:14.5px; width:130px; background:#fff;}
+  .chips{display:flex; gap:6px;}
+  .chips button{border:1px solid var(--line); background:#fff; border-radius:999px; padding:5px 11px; font-size:12.5px; cursor:pointer; font-weight:600; color:var(--grey);}
+  .chips button.active{background:var(--gold); border-color:var(--gold); color:#16233f;}
+  .note-chip{font-size:12px; color:var(--warn); background:#fff7ef; border:1px solid #f0d9bd; padding:5px 10px; border-radius:8px; margin:6px 0;}
+  .benefit-strip{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 2px 0;}
+  .benefit-strip .benefit{background:#fff; border:1px solid var(--line); border-left:3px solid var(--red); border-radius:8px; padding:7px 10px; min-width:180px; flex:1 1 180px; font-size:12px;}
+  .benefit-strip .benefit b{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.4px; color:var(--faint); margin-bottom:2px;}
+  .summary{display:flex; flex-wrap:wrap; gap:10px; margin:12px 0;}
+  .stat{background:#faf9f6; border:1px solid var(--line); border-radius:10px; padding:9px 14px; min-width:128px;}
+  .stat .k{font-size:11px; font-weight:700; color:var(--faint); text-transform:uppercase; letter-spacing:.4px;}
+  .stat .v{font-size:17px; font-weight:700; margin-top:2px;}
+  .stat .v.red{color:var(--red-dark);}
+  .stat .v.good{color:var(--good);}
+  .tl-wrap{overflow-x:auto; border:1px dashed #cfc9bb; border-radius:10px; background:#fffdf8; padding:6px 2px; margin:10px 0;}
+  table.yrs{border-collapse:collapse; width:100%; font-size:13.5px; margin-top:10px;}
+  table.yrs th{background:var(--ink); color:#fff; padding:7px 9px; text-align:right; font-size:12px; letter-spacing:.3px;}
+  table.yrs th:first-child{text-align:center;}
+  table.yrs td{border-bottom:1px solid #eceae4; padding:6px 9px; text-align:right; font-variant-numeric:tabular-nums;}
+  table.yrs td:first-child{text-align:center; color:var(--grey); font-weight:600;}
+  table.yrs tr.mipRow td{border-bottom:2px solid var(--red);}
+  table.yrs tr:hover td{background:#fbf7ee;}
+  table.yrs .pos{color:var(--good); font-weight:600;}
+  table.yrs .neg{color:var(--red-dark);}
+  table.yrs .dim{color:var(--faint);}
+  .income-cell b{display:block; font-weight:800;}
+  .income-cell small{display:block; color:#777; font-size:10.5px; line-height:1.15; margin-top:1px;}
+  details.rules{margin-top:14px; border:1px solid var(--line); border-radius:10px; background:#faf9f6;}
+  details.rules summary{cursor:pointer; font-weight:700; font-size:13.5px; padding:10px 14px; color:var(--grey);}
+  details.rules .inner{padding:0 16px 14px 16px; font-size:13px; color:#333;}
+  details.rules .inner p{margin:6px 0;}
+  .facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:8px; margin-top:8px;}
+  .fact{font-size:12.5px; background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px 10px;}
+  .fact b{display:block; font-size:11px; text-transform:uppercase; letter-spacing:.4px; color:var(--faint); margin-bottom:2px;}
+  .camp-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:14px;}
+  .camp-card{background:#fff; border:1px solid var(--line); border-left:4px solid var(--red); border-radius:10px; padding:14px 16px;}
+  .camp-card h3{font-size:15px; margin-bottom:4px;}
+  .camp-card .when{font-size:12px; color:var(--grey); margin-bottom:8px;}
+  .camp-card table{border-collapse:collapse; width:100%; font-size:12.5px; margin:6px 0;}
+  .camp-card th{background:#f1efe9; padding:5px 7px; text-align:left; font-size:11.5px;}
+  .camp-card td{border-bottom:1px solid #efede7; padding:5px 7px;}
+  .camp-card .hl{color:var(--red-dark); font-weight:700;}
+  .liq-tabs{display:flex; flex-wrap:wrap; gap:7px; margin:12px 0;}
+  .liq-tabs button{border:1px solid var(--line); background:#fff; color:var(--grey); border-radius:8px; padding:7px 10px; font-size:12.5px; font-weight:700; cursor:pointer;}
+  .liq-tabs button.active{background:var(--ink); color:#fff; border-color:var(--ink);}
+  .charge-panel{background:#fff; border:1px solid var(--line); border-left:4px solid var(--red); border-radius:10px; padding:14px 16px; margin-top:10px;}
+  .charge-panel h3{font-size:15px; margin-bottom:3px;}
+  .charge-panel .when{font-size:13px; color:var(--grey);}
+  .charge-kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:8px; margin:10px 0;}
+  .charge-kpi{background:#faf9f6; border:1px solid #ece8df; border-radius:8px; padding:8px 10px; font-size:12px;}
+  .charge-kpi b{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.35px; color:var(--faint); margin-bottom:2px;}
+  .legend{display:flex; flex-wrap:wrap; gap:10px; font-size:11.5px; color:var(--grey); margin:8px 0 2px;}
+  .legend span::before{content:''; display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:5px; vertical-align:-1px; background:var(--dot);}
+  .charge-flow{margin:12px 0; border:1px solid #ece8df; border-radius:10px; background:#fffdf8; padding:10px 12px; overflow-x:auto;}
+  .flow-scale,.flow-row{display:grid; grid-template-columns:132px minmax(680px,1fr); gap:10px; align-items:center; min-width:822px;}
+  .flow-scale{font-size:10.5px; color:var(--faint); font-weight:700; margin-top:6px; align-items:start;}
+  .flow-track{position:relative; height:52px;}
+  .flow-track::before{content:''; position:absolute; left:0; right:0; top:8px; border-top:1px solid #d8d3c8;}
+  .flow-tick{position:absolute; top:0; height:16px; border-left:1px solid #bfb8ab;}
+  .flow-tick span{position:absolute; top:17px; transform:translateX(-50%); color:#8b887f; font-size:10px; white-space:nowrap;}
+  .flow-tick.mip{border-left-color:var(--red);}
+  .flow-tick.mip span{color:var(--red); font-weight:800;}
+  .flow-row{margin:16px 0;}
+  .flow-name{text-align:right; color:var(--grey); font-size:11px; font-weight:800; letter-spacing:.35px;}
+  .flow-lane{display:flex; flex-direction:column; gap:3px;}
+  .flow-bar{position:relative; height:40px; border-radius:9px; background:#f5f1e8; overflow:visible;}
+  .flow-seg{position:absolute; top:3px; bottom:3px; border-radius:7px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; padding:0 8px; color:#fff; overflow:hidden; text-align:center; z-index:1;}
+  .flow-seg b{font-size:11px; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%;}
+  .flow-seg small{font-size:9.5px; font-weight:600; opacity:.92; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%;}
+  .flow-seg.blocked{background:repeating-linear-gradient(45deg,#c6c0b3 0 6px,#b9b3a6 6px 12px);}
+  .flow-seg.charged{background:#b25000;}
+  .flow-seg.free{background:#0a7a3d;}
+  .flow-seg.gold{background:#b8860b;}
+  .flow-special{position:relative; height:18px;}
+  .flow-pill{position:absolute; bottom:0; height:6px; border-radius:999px; background:#b8860b; opacity:.95;}
+  .flow-pill em{position:absolute; left:2px; bottom:8px; font-style:normal; font-size:9.5px; font-weight:700; color:#8a6508; white-space:nowrap;}
+  .flow-marker{position:absolute; top:0; bottom:0; border-left:2px dashed var(--red); z-index:4;}
+  .flow-marker.scale-mip{top:0; bottom:auto; height:16px;}
+  .flow-marker b{position:absolute; top:17px; transform:translateX(-50%); color:var(--red); font-size:10.5px; font-weight:800; white-space:nowrap; background:#fffdf8; border:1px solid var(--red); border-radius:999px; padding:1px 7px;}
+  .charge-table{width:100%; border-collapse:collapse; font-size:12.5px; margin-top:12px;}
+  .charge-table th{background:#f1efe9; color:#555; text-align:left; padding:7px 8px; font-size:11px; text-transform:uppercase; letter-spacing:.35px;}
+  .charge-table td{border-bottom:1px solid #efede7; padding:8px; vertical-align:top;}
+  .charge-table td:first-child{font-weight:800; color:#333;}
+  .period-title{margin-top:14px; font-size:12px; text-transform:uppercase; letter-spacing:.4px; color:#555;}
+  .period-scroll{overflow-x:auto; border:1px solid #ece8df; border-radius:8px; margin-top:6px;}
+  .period-table{width:100%; min-width:820px; border-collapse:collapse; font-size:11.8px; background:#fff;}
+  .period-table th{background:#f7f4ed; color:#555; text-align:left; padding:7px 8px; font-size:10.5px; text-transform:uppercase; letter-spacing:.35px; white-space:nowrap;}
+  .period-table td{border-top:1px solid #efede7; padding:7px 8px; vertical-align:top;}
+  .period-table .period{font-weight:800; color:#333; white-space:nowrap;}
+  .period-table .muted-cell{color:#777;}
+  .formula-note{font-size:11.5px; color:#666; text-align:right; margin:8px 2px 14px auto; width:fit-content; max-width:calc(100% - 48px); overflow-x:auto; white-space:nowrap; background:#faf9f6; border:1px solid #ece8df; border-radius:8px; padding:8px 10px;}
+  .formula-note div+div{margin-top:3px;}
+  .formula-note b{color:#444;}
+  .age-hint{font-size:10.8px; color:#777; margin-top:4px;}
+  .report-info-page{font-size:12px;}
+  .report-info-page .prodhead{margin-top:10px;}
+  .report-info-page .rules-print{font-size:11.8px; margin-top:0;}
+  .report-info-page .rules-print h3{font-size:14px;}
+  .report-info-page .important-title{font-size:14px; font-weight:800; color:#333; margin:10px 0 6px;}
+  .report-info-page .rules-print p,.report-info-page .sources-print p{margin:4px 0;}
+  .reference-materials{margin:14px 0 12px; color:var(--ink);}
+  .reference-materials h3{font-size:18px; line-height:1.2; margin:0;}
+  .reference-materials .ref-sub{margin:3px 0 12px; color:#687080; font-size:13px;}
+  .source-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px;}
+  .source-block{background:#fff; border:1px solid var(--line); border-radius:8px; padding:11px;}
+  .source-block h4{font-size:13.5px; line-height:1.25; margin:0 0 8px; color:var(--ink);}
+  .source-block ul{margin:0; padding-left:17px;}
+  .source-block li{margin:5px 0; color:var(--ink);}
+  .source-block span{color:var(--red-dark); font-weight:700;}
+  .source-block a{color:var(--red-dark); font-weight:700; text-decoration:none;}
+  .source-block a:hover{text-decoration:underline;}
+  .important-copy{font-size:12px; color:#555; margin-top:12px;}
+  .important-copy p{margin:5px 0;}
+  .report-info-page .reference-materials{margin:10px 0 8px;}
+  .report-info-page .reference-materials h3{font-size:14px;}
+  .report-info-page .reference-materials .ref-sub{font-size:10.8px; margin:2px 0 7px;}
+  .report-info-page .source-grid{gap:7px;}
+  .report-info-page .source-block{border-radius:6px; padding:7px 8px;}
+  .report-info-page .source-block h4{font-size:10.8px; margin-bottom:3px;}
+  .report-info-page .source-block ul{padding-left:13px;}
+  .report-info-page .source-block li{font-size:10.2px; margin:2px 0;}
+  .report-info-page .important-copy{font-size:10.8px; margin-top:8px;}
+  footer{max-width:1180px; margin:8px auto 40px auto; padding:0 22px; color:var(--faint); font-size:11.5px;}
+  footer p{margin:5px 0;}
+  .cmp-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:14px;}
+  .cmp-card{background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px;}
+  .cmp-card h3{font-size:15px; border-bottom:2px solid var(--red); padding-bottom:6px; margin-bottom:8px;}
+  .cmp-card .row{display:flex; justify-content:space-between; font-size:13px; padding:4px 0; border-bottom:1px dashed #eee;}
+  .cmp-card .row b{font-variant-numeric:tabular-nums;}
+  .muted{color:var(--faint);}
+  .overview-note{background:#fff; border-top:1px solid #e4dfd2; border-bottom:1px solid #d8d6cf; color:#556176; font-size:14px; line-height:1.35;}
+  .overview-note .inner{max-width:1180px; margin:0 auto; padding:12px 22px; display:flex; align-items:flex-start; gap:10px;}
+  .overview-note .star{color:var(--red-dark); font-size:16px; line-height:1.2; flex:0 0 auto;}
+  #print-extra{display:none;}
+  @media print{
+    nav.tabs, .overview-note, .controls, .ctrl, .chips, .liq-tabs, .pill, .report-btn, .note-chip,
+    details.rules, footer, .copyline{display:none !important;}
+    body{background:#fff;}
+    header{border-bottom-width:3px; padding:8px 12px;}
+    main{padding:6px 0;}
+    .panel{border:none; padding:4px 0; border-radius:0;}
+    .tl-wrap{border:none; background:#fff; overflow:visible;}
+    .tl-wrap svg, .camp-card svg{max-width:100%; height:auto;}
+    #print-extra{display:block;}
+    .print-page{page-break-before:always;}
+    .table-print-page{page-break-before:always;}
+    .yrs tr{page-break-inside:avoid;}
+    *{-webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;}
+    .flow-row, .charge-flow{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img class="mascot" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAYAAAA5ZDbSAABdEElEQVR42qX9d5xcV5XuD3/3Pqli52611MpZVrItW87GOADGYGNyzmkIwzDc+d2BYeYSBrgMGWYGhoEhGowxjjhgjHOUZSvYyjl1t1qdu9JJe79/nFPVVdXVLXFffT6yrFbFs85e4VnPepZwOlZrQdUvUf6Prv9h7c806PjvAlH7EFH1J1OfWnlJXfMK07+d0KDrPpMQ5Q8x+YT69xOgde2Paz5Yw8+n40dUf6eGH77mBTQ6/puoe5f4/0Sj16n+RHWvJUT82Rtco+q313qKvao/mdnwc08xboML28iw9Rer+p1E7UUsG0agG3/j8s+FqLpAovZ1qm9NUfc/InoPMcMlrbyGqP2+FcPoxs+u/WJ66g1aY3pR9Z1Egzt96gkQ8V9F3Seach2neanqz2I2vCl1fGG1rjNutXGY7uo1fqeaG000eJ96FyCm+/5TD5CeYpr4PXTj96buxjvthz+dofX0jxENfqDrf3I6d9fAuKL+phG1nkREf5fTGkdPc7I001/4Ri5Wn+aD6jO9mDNf/7Iv0A2c5PTGbPAPou53w6foqf8udPmaNr5mVb9FwwtX/aCGlqz9fHomfzH5ACnO8NifxqvMfAPqSZc5vR319BdWn5l7Eg3/afJFBQIhBAhR6/YqXkXEbllMnrSG9178b7rqBtHiDC6drossp3PX07jKKQ5DT+tRzPK1n/Gk6L/C0NP9UIsGMVZUJVCi1t2KaieiKy6ncijFZPoBgshusQEBHT9ZaY3W0WtppoZ1Gf+l/PK68niNFqIS+ic/TAPXX8no4s89rWcTp/FaM5wAMU2eM5OL0vVJ1mkNO12s0bVx9bRxq+oNdO0Fahy7Rd3bR4Y04p+HSuMFisBXEKg4dZZgGGAZmKaBaUoMKUEIlFKEoSIIFSpQEASgwtjiIE2JbRkYMnofrTSqgfOsPf3T3OuiwQGrTzjrEiDdIGmrfTzT26F8R8bX1Txj91ufoDS6g/Rf49N1fRCtr8KmRCJhCKQQhKGm6PpoVwFgpBw625uZOyvDwllp5ndn6OlI09Vi05IxyTgSxwTLNBBSEAQhJU9R9GA073NqzOXkiMuxU0WOnCxwpG+c/sEc+VwRwhAsiWObmKYErVGqfDl0gxOqzyxv4EzuhOkOlTiDS6wblEmV96l6s0Z33RnE6erkeLIWFTN7gzpPVT68hiEJQ0Uh50KgMdIJli2axXlnzWbj6g7OXtzMku4k3S0GZlKACED50ckMAvADCEOUUrHr1tFpNgRIE6QDhg2hwPNgYAKOnPLYcTTP8/vG2LRzgD1HRsiP5UBqEkkL05AopVFaV5lHTy0NTxvOprpqMaMxxWnuj7pnJzpW6wq4UR+Q9ZnGYn36mHG6EFD3dymjuFhyfcK8j5lJcs7quVx76RJeceFcNixrItFmAB7kCwTDBfqGCxztz3GwP8+JU0X6h4ucGnOZKIYUSiGeHxnZlIKEY5BOStqzNrNaHea0J5jXkWBee4LZbRbtWQsj6YCwGc0Jdhz3ePSlUR7Y1MemHX0Ux3JIR5J0TLQGpVVjD6rPIAmd6XqJaWKDmOG9qovFRMdqPRlD9PQFueCvy7DP5HRPa1hBvuCCGzJv0SxuvGYVb7luFRev7YQWA0pFSscH2bZ3iGd39PPszkG27h/l4IlxSiMlCAAZxV+SDnbSwbEMLFMihECFCtcPIzdf8qHkQRiAAaRM5nUmWL0wy/nLm9m4rJm1izLMa3eQls14yWDLkZC7Nw1x26MHOXToFMiQdNJBE51ogYg8xWlK5Abht0FMFdNf9xlvmoqB1+jo1Iqq+ldUowczfAAaQ5Qzo3oNP5AQAikF+UIJPM269Yv40FvO463XLqNjSROELuMHBnjo2aP88fHD/HnTcY4eHAZXQVOGufM6WLOsh7OWzmHpvA7mz25lVkczzdk02ZRFwjYxDYkQoOKkrOgGTOSKDI/lOD4wxsFjA7y0v48X955g98F+/MFxIKSzJ8PL17fzynPauHhlhiXdKUwnyeERi7s3T/CL+w/wwovHQIRkUjah1milZ4BeZ4JyNWWAUswUh8/AuJGBO9fUAcyiFic7U/cwU6JdXfo0eKxpSFw3wM+5rF67kE+//xLeef0KnDlJGBzl6eeO8eu7d3DbXw7Qf2AIbIdFqxZw1UUruPLClZy7ah4LezpxskmwzOiFwxBCBUrFf+rJm1fEH0YKqMRiCYaMvn/BpW9ghO17j/PwM3u4/4kdbNt2CHIF2ualueHCWbzh4k4uWdVMSzbBQCHB3VtK/OAPu9m2/QhmQuDYJmE5GxO1sKz+q07xDB60YTZe95ApBuaveLPTxBUhpmLi1XC3lNEPCqMFurrb+V8fuYKPvX096TkOun+YOx7cxw9+s4WHHz0IvmTpOYt486s3cv2V6zl75Vyclkz0wn4Ink8YBChV1TDRGh3HRiFEhOoIEYF59WV6OVkSIiqPLAMcOyq18i4v7jvOXQ9v4+Z7NvHS5v1gaC4/v4v3XTWLV29opaujib5cgl89Osp3fred/uOnSGXtqBZXVXV8fDIrLYRqyPtMQ6CYCXuoNUpk4EbxQk/z1DOIK9V9gRpsuKq1YxgSt+QTuCFvf/1Gvvzpl7F4bSsMj/OHe3bwzZ+/wDNPHIBsEze++nw++JYruOrCFTgtafCiuBkEIZqodBIyBiVio0ppIGwLbCuKx2EYxVkdn1YA30cHQSUfEFXuUWuNUtGfpiGRqQQ4NsFEkUef28N//fZhfn/3JsgX2HheF5+4bi7Xnd9GSybJzqE0X/3dIX77x20YhiKZsAgCVQOpCnQNBD8lbp9JonUGrjNOsuqsd7rs9zSuuLqRUHs/RU8yDUluNM/sOR1883PX8vY3LAfp8/Qj+/niD5/lT/fvgeYsH3jbFXzyXVezft1iQEG+iO+HCAlSyPhQTCK7WikMy4JEAlUscehYPzv2HGbL9l0cOHQMLwjJZjN0drSyZtUyLjp/LfNmtWEKjQrDuphX2xItG9w0DUQ6CUKy7cXD/OCXD/DT3z4CRZdXXj6b/3XjXC4/qxnfyPKH50M+96NNnDh2kkxzgiDUdQdQT38k//8+zfUGpsER1Xpm16xnLs9EAyBfAIXRIq+6Zj3/+YVXsmhVmrHDA3zlR8/yjZ9vBTfkLW+9gs99/HrWrV0Evk+YL0YnVYqpjYTYBRqmAYkkw0OjPPbk8/zpL0+y7aX9nDw1RD5frECYYRhhUpZjs2LZIj74vrfy6ivOJesYqFAhpYxKHg2GLN9EtQZXKjpxRiYJlsWWrQf48g9u4/bbnkZkbT7zurl8/NrZzOvKsnMozT/+zz7u/ctLpDIWWohKOGgMaszUPz8DI9fF5SiLrum9nqajVN3mawQ9TfNpDGkQBAFuSfGPH7uSr33iPMhqHvnzHj7xtcfYsbWX9Ret4euffTuvvHI9BD5BrogQEmmIaes8pTRGMkEu7/Lgw09z+51/ZvvO/RRKHn6o8IOAUKkIlFCKMAwrX1UFikw2w2c+9X4+9eE3RjHX88A0ou+eLxB4PoYhY+vGPii+TkpFJ9vMpkCa3PmnzfzDV25i39aDrD+3k6+9ayFXrm2lZLbztTtO8fWfPoVta0zTRClVe52rCQxnWHnMWAOXc+UoBpcBjmkbuA0MWIXeNLyFJo1iGIJSycdxEvzoS9fzrhsXwtgoX/v5Vj73g02gJf/89zfy2Y/dQDLjEIzlK2VTY/BARMmTAJlKs2PHfm666TYef3orwxMlSp5PyXUJYvSqfBF1VZPC8/zISGFIR3sbH3jPGzhxoo/h4VFmdbVz2YXncO3VF5PtaEGNjYOOWBaTAXsSrio3NMyWDGMjef7lW7fw/R/dg0zbfPXdi/noK7pJZZv51bMBf/uNxygV8ySSduxNqKWdVPfIz8TADY08ef2rDHya5Knqbqt0bKYJ8OUqDh25zkKuRFdnG7/9xmt4+aXtDB4e5KP/9yn+cMdOlq5fwk/+7UO87PK1MJYjCFV8Ypham5f/qjTSlITS4r77HuaB+x9my+4jDI7lKXkepZKLHwQxzGlUOkZKKwI/IAhDDMPA8zxCpRBCUCgUEMLAsiL0NuE4rFqxmL/5wJt4z9teA4FHWPIib6IbX+UwVJi2CdkMd/7xGT7yuZ9y8tBJ3nH9Ar7+vqX09HTy552Sd/zLgwwODpNKOwSBqg0DDQ5VddZ9+mSr9mUMM9X1hVpaTe3FbAQOV7OHRFW6LKr7rzpKSPITJRbM7+Ke71/Phec47Nh8hBs/+wgPP3SYN77tSm7/8ac5a2UP/shE5I5lA+xViEp+oDVI26QQwC2/u5sDL27nxf29HBsYoej5FEslDClIJxOkk0kSiQSmETUZpIwMaBgGrusipESFIVprkskELc1NNGUzNGUztDRlCD2fO+5+iOe37+WyyzaSbcnERpY06u5LKdAKgkKBs85ewhtfuZHt+49z1x9388wxlwuXp7lwdZorLljJfc/0MTQ0RiJhoeKbrGFzvxELRDBNnTqVuGCY6a4vTCleaxILUdtzrWFRicmH13WVDNMgP1Fk8aI53PPdV7F2KTz+2BFu+NyT7Ns7wj9/7i388GsfIGUKgrwbZadi5vaLViAsSTEQ3PK7u0m5Y+w+eopNuw4xkS8S+D5dbVky6TTCMJCGged7TOQLFEslXM/DDwKkjFqHnu+BEIRBgG3bCCEJggAVKlIJh7ndnWgpeH7LTv788LO8/PKNdHR3EBZLyHKpVXflhYwMHeRLtLdleNuNlzNUKHL77Vv404vDXLyqhfPPaeOaC8/i3qd7OTU4SsKx0VHmViEPNOxDiAbcs+rkuOox5X+dauCaOCCmnqQGtZeoo2EYpqSYd5k3r4u7v30Nqxdo7v/LQd7w+WcYHPP56Xc+yt9/4gbC8Tx6iksWDbssWgOGIJQ2f7j1j8wyXI4P5/nDg5sYGS9gSsHKhbMpBZpSHF/HJ3Lk8gWkFBhSIg0DpRSlkhuzFjVhEIAQSCGxTBPLsjHNyK2XXJ98sYRhGvT1D/Dgw5t4xcsvor2rHeW6CFl31au6OdKQhF6AITSvec1FOCmLW+/YzD2bB7lgWRPnn9fJlRtXcNdjhxkdncC2zVp8XjANvUX8VcymSQM3YkCKRm+oq5iIU9tbUgp8N6C1rZnbv/EKzl0ccO/DR3jzFzbj+oJbfvQp3v7Wl+EPjSGlrDoJTGvcsiMxkinuuP0+1PBJAiW478ltHD05gmNKNqxayPHBcfIlF0NKRscnCMOQpmwmdtEyYjiYJlprXM/DNA3COB4nHAfbtjGkRGvobG2mrSnD8NgEJdfDcWwGBoZ5dvMObrz+KhzHAqXq6L6iBpeVMgpVYcnlZVefT3dnMzff/gz3PN3HJavaOW9DJ5etW8rvH9xHqeRWPttMx1dUu2xx+m7ipIFneqCYrsgVUxoGOgyRpsNNX7maK8+Ch546wZu/tAUvgNv++++54bUX4A+OYVpGHHf0VOZG3RsprTBSaZ548gUOv7iNQimgf3CUg72DDI5NcNn6pew6eopcoYRjW4yMTWAaBtlMBteNEK8gCKJsV6m466Miao7SESQtJFpHxDnTNGnJphEChifyKKXw/QDLNjl89AS9fae44fqrCT0XIWQNo7P2hIkKjSjIFbng0rUsmN3Bb257mnufPs6Vazs478I5rFs8j5vv34VEx17h/4HBKRqzgGqTLK2nXuQpgX6StFZ/wKWAoqv57v9+Oe+8yOa57X285SvbGRn3+f1/fZrXvmYj/uAopmk2uKEafzGlNUYiwY7dR3ngj/eTyxU51DtENpVg+/7jXLhmEfuPD9E3OEo2nSSXL4IQZNJJiiUPrVUUe30fz/cJwxAhBWGlhNKkkikymTS2ZWFZFo5lknRshBBM5Iu4ng9owlBh2zZbX9zLnK52zr34XMJ8IUq6ZmCqCEBKSZArsOGS1XS3N/O7PzzNQ9sGeO15XWy8oJuOpg7u/PMuHMdoiC9NwSvFDG666twYZqrzC5OENnH6Ru40fX3TkOTHXD7+ngv4/PVt7D80wDu+tYcDB0f5+fc+xlve/DK8UyNYplHNnJsm7opK3DUMg7G8yx/++CADBw/y1EuHWDC7nXzJI5uycSybzbsO0ZRJ4vsBJd+nJZum5HoEYUC+UKy4PWlIlFIEQYiMjWyZJpZtRYYXglBrWrMZFnS3MzyeI1d00UoTxrh0qBSmafDC9j287hWX0dLWFMOc04WZqipDCoJcgQsuXYdjm/z+d0+y+fAor79wDped103/uOTpZw/gpKzphiBmRroauuhU2UWLhhn3mcRyw5Dkx0tceslSfvSRxbjjg3zkvw7x1FO9fOX/vINP/M1r8AdHY+POlLTVYstCChSSB5/axkubnmPb/hMMjeVpb84yNDrOWYvncqR/hLF8kXTCZiyXJ51MoLXGDyLjuq5LqVSKT2+AbVoV8EMKMC0LKSWmaWJZFpZp0t3WRHtLlvFCiWJpMvMuo2BSSsbGJhjPFXjN9Vehi6UoxjdKZuorFykJCiVedsW59A2Pccetz9GXc7nhwk6uOHceD24b4fCRUziOFfWU6yua0/Xl67y4nAFEnkLJamQOKQS+69M5q53vfvgsmtQIX7+rn/sePMG73nsVn/v0G/CHx6aCF9Oy4qsAFSk5cGKQFzZvZe++Ixw9OUImleDgiZNk0ylAolRIT2cLfhBiWhaWaaC0wvN9CsUixVIpAjMQKKUpuS5SRvE2lbCxTBNDRhl0wrZozWaY393JyHiBE/2DEWAio4zbMs3olIchlmXyh7v+wrNPvIDRlI16v3U3aKNRIIHGEBBO5Pj+F9/L5a84l1/esofv/W4n2WSBH/7DxTQ1NxEEQQVQmlL7cJrTW/WnPN0xrS6B6vO7KIEAzxP8ywfWc263x+3PjfDN3x5m/QVL+I9//QCqUEJW8Y6n4NcNfJHWGmmZjI4X2b3vCAd37+XY0DhBEJArugRBSK5QolAs0tXWTEdLlkLJI51MkHQcTMOgUChSKpWimGrbUalkSEzDwPV9upuSZBNRnE04TuTGtWZOZwtDYxMMj+fwlcJ1vRiIqM0DlVbkCgW+/aObJ0tFMemVRAWB05Pfs5r4EAQ4luAX3/wo3Qs6+Px/buGJZ4+zYYXknz98IW4+nMTgG+Va4kyaPKI8ujK9hbWYnvBqSEF+3OX6V67kfZen2Xl4mM/+8ijJlMPPv/Fhshkb5fkRVKjPlEMaQaGBH9I7OMZLW7Zy5PhJRnNFLNNgIl9ASugdHOXUaA7bNGhrytDSlKKzJUM25SCA8Vwex7Yjmo6UmLaDYURsj6Vdzaya20bvSI7xokvJdWlKJZg/uxNpGJwcGqXv1DBGnAFHfeG4u0RUbimlsUyDBx95hqefeAEjmyZUKr5fRQOXV0vUNwyJnyuycNkcfviV91HIh/zdD7dz6tgpPvbqbl52+QryE6UqzzdtBTnluuoqP94Y6DgtyEmE+vghze1N/PhTa+kyx/nfvznOY4/38c0vvZMbbrgIf2QC0zJPQ5qvTbiUBmlb9J4c5uTQGLf+4R6O9Q9RcCPUyZaCUGn8MCK4zelsJWlHcXRORwv5QpEjfQOM5fKAoOT5pCzJ8s4M1569iNdesIIPXns+Zy/sYHlnGrdYYk//KK4fMqs1y8hEnuOnhlFK4Xl+lZukEn+jEiuKj4ViCT9U3HD9lWjXbQC1Tiaooq4qkYZBkC+x+pzlnBwa4+7bnsNoSnLt+jRL5ndxy6MnCHwfKWQd4+K0CGUlPpj/b71kgZRQLIb87YfWcO5sn1seH+Gm+05w9Ws28In3v4JgZDzq0erqOlfXGrRBo0oKgVfyyZc8du7YxeGj/UyUyx3Xo6k1y8hEgXQqRcl1Odo3SFdrEz0dLQyN5WjKZhibyKPCkFnNKd6wYQXXnDWH9auXMXt+D3ZrayUuvqZU5KNHjnDzo9v47v0v8fjWXSya0xWxLj0PyzTxfC/GyGUF/TJklI0rpXFskwcefpoDuw6xZOncCMasogzV0EgblKOGIVG5PF/7zJv48xMv8b2b9/HKtVmu2DCXD75+Pd/76RNkWibJAlNiZR0Bo6YBVN1sEGdA3qvAcBJKBZ/Vq3v49vsXMj46wkd/fITxAtz+w0/S1dmEcoMG7b7psssodmmtkbbF8b5BQi343S13c+BIL3nXQysdsyIFrhdgSE3CsRkZz5NMOAyOjDM4OoFlGmzefZDVs7N8+x0X887L1rL+vLNpXbQYmUgSBgqtRfTbtMm0d7JxeQ9zHcXBk6Ps7RvGjhM1pSLgI4wbEogy+zNK0sqZ/thYjtndXVxyxfmEhTJOrU/vCOMcJvQD0h3NzO9s5te/fYzjRckN56ZZs7idu18YZ2R4HNM0qqaCRA2UWc/TqIYupnaTmBkkKU/oeT589W/O4bIFAd/5Yz+/v/sYn/3M63jzGy8jGM1Fp7emGySmZ+pXux5pcKxviHy+wK9vvpuxfBHf99FAwjYplKITZZkmaJgolDANg1OjE4RKc2xgGDso8MuPXMU5i+aQmLsQp3NWVBpp4pMYxWUBKAQ4aZbPm8W8JPQPjbHzxAimGf97TH8NYiOXk7FyMqiBMAwYnyjwrhtfiVVJjGTdhRN1A3ST31tKSVjyOGvNYrbsO8b9f9rFwp4Er1iXIXRauf/xw9iOMUkMnI75KBph0alpoMoZat5i3uOSjQv48lvmsP/oKJ/40T66F8zm19/6CGYYVFipjfHUqXdxdLGimDQ+nqPghWzd+hL3PfAkXjwoVj4RQRiBFI5tUfS8yjRgrlACoPfUMH97xXJedfZiVEsXLfPmQxhGBi1fZCEnETkhQCtkKs38ubPoSQjCYpHtJ0YqiZWKe+AqVNEgWmxoHbtbw5D0nxziqss3Mn/pfMKSX+e9RF3WK6bc3FqDtEzWLunhf259jN0nS9ywoZm1S1q578U8/SdHsGyjxtOLMzCaPFPDTrbsNBgmH7t+Cc2ywH8/dIqhEwW+8InXkmnPEPpBXW9TT9PLrP2iGg2mwfBYjmTC4fmtuyh6PkEwOVNUcqPTq1SEKJU8nyAMyRdL+GFIwfNJW5LLV/QQmA6tc+ehwzBiVSLRQtaiceVZYWmgg4BEpplLrryUT7/l5Xz88mUINK7vR2VSOV5qFeHa8WfSRGhbsVDkvr88A6Zdx7miQvepgRrr1BOMGOVac/YS3vO2l7Fnxwi/fWqYOYk8H7puCSoUtdOnddW1mGYiUTZsLU5z4g0pKRZ8Np7dw6vWOGw9OM4v/nSCdRet4G2vuxg1novSelEHQwrqjN2IYxX9rOh65HJ5du0+AHH8ixKaOCbGjwuCMDpNoaLkebieR9H1SJqCpG2S7urGsK3JsmXKvSUqRNlQa5QG3/dJJByWn7uOD7/+cj511QqCUKGVwo0pQFFL0URrFZEFiNiWlm3y0GPPoHP5KF7qGTB2Xe2yq0BOKdGux/9+/3WkO5v47z/1crh/ghvPz7Bs+WxKxajkPI1frInBciaIs56IE/1M8t5XzKXVKvGrx0eYOFXknz58LVYmgQp1pU5srExTRQiri8kCHU0gSItDR07Q2zdAUDFsOeGZrCXDuFGgtMYPwmhG2I9OViqVItHShgrVZAho1MiIES4zncLsaMNqb8XIZsh2tLBy4wb+9l2v5r0XL6HgehF2HQS4nhfVwcJESxNJNG9s2za79hzkmc0vIVLJGA4VU+Ov1tPGSykEYaHE4rPm8/YbL2b/zmHufn6UBc0eb7tqAaEfs0amXFFdzT6v+a6y9pBPj2lLAcWiz9Il7bz2nCx7j0/w60f6Wb5hCTe84jzUeAFpGGfQrBB1KGVVKaEUSgt279lPsRQhVuXEpkxrKTcFlJ78WmHsLj0/oNkWpFtbItK7jsautNaIcnIUv7/WGqMpg7Btnn1hN1/+1q94599+g/d+5rt84z9+z1PP76Gtew4/+Md3c8nyORRLHkJAEASMT0zQ7ShmZyzcUGOZFqZpki+WuPnuR1CBjjLtGaHY6YKmQHsun3z7VVjNKX75+BADQxPcuLGFju5WXC+o4cTpuuECXds1bizCIhrWvQLlK268fB49zZp7towzeGSCj7/1CpzmFGGgGj6v3g3VcKxEHbHOkBQ8xc5dBym5LprJsczy1J4qU1v05LiJVvGoloDurI2TTMaJVAO5EK1ACmTC5qHHnufVH/w/vOmT/5cHnthCZ2uWS85ZyqLZrYyNj3P81CiJ1ha+87dvoC2bBiEJleK8RbN47Kvv4xfvvpRFWZOi6yIQOLbNjp17OXSkbwpAUvthqr6zrjWTIQQq77J23RKuuepsnt86yOO7Jlg9S3H1+T34pTAmEU6tczTxDR2HQq3BnCyQ9fSdKAF+oEi1pLjh/FZGxwr8+rEBmud38bbrLkAX3KmQWk05cHq6ZhnByo8MsG//AYKyToaKXamQFWNbhokX+JOlStyYkKFPVyaB3dwaDWbHDXxdN3+kheD22/7Mf998H+esX8VXP/lmzl63AtLJaMRFK3B99EQOdzTH+RtW8pqLVvLLB54HIbjh8nUURsdoIuBjV67hUzc/iSWjZG3P3oMcPnGK9qYULdnEZCtxBtdc39BXWmOYgg+98XLuveMZ7nhulBs2tvO6i7q55YE9tZzqRoSAKgOaM6KI8XGXUlAs+FxxzhzOWWDx1PZRtuwY4b3vuIrOeV0Eo+MYhjG1rXUao07RhhMSr5Dn5MAQfhgiiAAFpTWGJEaOrMibqMmkTWuNHypmpy3OXTqHpp5uMC2Ie8Gi6oRIy2R4cIQEAT/7xt/TvXBOTHKfYLy3D8910SqkszWDSKaxbBPte7ztmvP5zUPbyCRt1rSnSIQuc89ayoDZB0DJdUkkEvSdHGTbtpdYs2I+vhdglknzotqnNuCQV8VoQwp0rsg1F69h7qq53Lf5FPv653DZqhaWLuxk/4HeiI2pq1HnSZZ69S9Tz9jnr5LoUnDtxtmkLMUfNw9DIHj7q89Hq3DqFIQ4E1S8wfSr0jz/woukMlmC4XFMY3IQrOyeE45dAR2qOzx+ENDkJNg/OM5PbrqXFQvncN76FSQss/J8IUD7AU3ZDK++7uXRmxZLHDl4gm/88m4e3n4QpQHf48Jl3Vyx4SyuvvRcero7uGjFPM6a38EFizqYY4Y0L1hIIuWQzo5HzMxQxRl/yN33PcLrr7+GnNC0NqWq5p70DA13XYNMBX5AurOZ1191Nt//97t5fFeBj7za5+XndLN39wlkMp6IrR9AqJOrkoLTTaxF7jnTluKKtc2Mjrnct2WI2Uu7uWTDckSxGmDXpxmcmqazrMFwbAaOHmdgZIKm1maKxVJcJqnKTJCUEerjen6UJBlmnHRJbEPy7IE+bn1qD3c8+CwPP7aJfbv2TY6caDWpPCM0QZxx739pN9f9f//Br549yjAZdveNs2j1Ou7bPcSfn9tDa2sTftGlOWFx4bI5vOnis9ClIsd270UmEwyNFyoccN8PSKdTPPXsFh598nmkadVhANVAS51xNTVUHBHVgrzuqg1gmfxp6wiB53Ll+laEY1e0Qaq5rbVaUdFvc8oBq3PXhhTkCwHnnNXGmh6HzS8Ns+/AOB9494Wk2psIRiai+KtnUh+ZmYqvtEImkzzy5GYWLVvG5pf2V7SqlFIYMd01nUpFs0ZhGEkjGQalUgnbtpFo3nT2fN7/xqu58pWXQqlEUHJRnhdl91XJniqPvQjBbx96kYFCwCuueBmtbW385H9+wfJVq/jy+25gjttLynHwRsehOcvaxT3YiQQLOxdQKLggBC8cH45coWngxVm/HwTcfOt9XHf1RXEUbDBAJMSMyIM0BBRdNq5fwtyls3li5xhHBkqct7iVntnN9PUNYdsxfFmPllVFBDlVxLPOjQog0Fx4VgupJDy+p4B2Fa++fG087yNOg5DMDHSXkSBvPM+Le45ywbkrOXz0OLZtRdBgfKeahoHj2PhBVCbZlkUQBHHIl7QnJBcu6uCcBR0U+07gj49hZpNRPAuD2InpMgMO07I41XeKs87fyIff/WZuvf0u/udnvyCJpr+3j3mOormlBTVRQGrA9Vg2u5XOznZGRidIt7fjB5qbH9kSaW9pMA0Tz/PpaG9l6/adHNh/GBJOZY5qenSrnE+oyikUiMhNdzRxzYWrOHV8nC2Hcyzocjh7WQehF0ZtxNiwus576ql1sG7M49OAbXLByhaU6/P4jhGcrlYuXLcYSi6GrFZtFTQS25x+YDHqIIlkgm3bd9PW3kpTNsupU8PRBF7VdH46mYjhweiGcGyHkutiGgahUiSEYsfRAd7zpZ9y4Ue+xTnv/wqf/7df4Hku0nHQoaryMtFnNG2Ll7/8Et734Q9y7opFbOhp5uo1c3nzqnaapYdt2uB6iDAEP2DRrFaM/DjacuhavoBfPbiFXceHcGwn/lxRQmXbNhvOXcuDj20C24kSQl3FTNV1+ie6UQuwMpnMFRtXQAib9uUxzICNq9qisymY2p0TtUmVSV2hXPNOArxA0daaYP2CNAPDLs8fGGfdygXM7m5BVTfExZlV1FM8hgYMk2e37OCS886iv68Pz/dIJhN4XmTgdNKJcV+B0iFtTc0USyWCMCSZTKICn7FcgR89M8C5Zy1l+9H9vPq667j/0CCPf/oH3Pv9vyNpWjUxSoWKlpYWVOkkbZbLH7/1KXqPHmNVdwuphI0qemg/gLLaXajoyjjQlqVlbg8njvTyuZ/fH3WnYphRCIFlWYyOjnHxBevZ/uIevNGJuPOlpx07KSeM9fqYUgrwfM5fuxjZnOK5/TlCN2TDshZkwqlQiaIQLhqOo0rdwBiiolQq8L2QRbMzLOq02dNbZPBkgYvWL4akU0U0q3PxM5RI9eFeGpJgIk//wDDr161i78ETlVPrBwGp2LimZeH7PtlUCoCJQgHHthGAVypyYCjPNZeex4+/9o+YUtB77Ahjw6d4bNtBntoxgEw6qLjGrYbKReASDhxldpPJhnXLSKXSBG4w2VqkLNBikrBtWmZ3curUEG/6ws84OZrDkEaF6SHiUFIolJjd3YVlO+w/cAyRcFAzsmOq3ZuuHQlyfZbM62TJ4m62HR6nb9hl9fwUnW0pvCCsmRUTdeFdIJCiBjLUVZye+IGBYtm8LImUZOexAsJVnLdmQV1SdaZ8qwbMSdviRP8pEo6FM6uLw8f6KshVOumA1liWhSGjGJxKJhibyCE0pJNJiqUiEsU53Vku6Wlmw9Wv4OqrrmDr9pcYPHSQjUu6Wbp4HnhehZFR1vHQMfwp7SShgqBQjEEGE2HEWpemgTIMRMrhP+95hrf/03+z8f1f5+ndx7AtK7pJpUSK6EKbpolGkUomWLp0EXsOHAE7psDq+jBVHSnFFJ54BI2G2E1p1i+bw8hAgf19BXpaDRbOyRJ4YU2LWVcJQzRWfJ+mXl05PwNSsONYDu3YrF4yG4JqyOxMVdJqi3EdpZ/0nxykq7MTLUxO9PUDYFsmruthSoOWTBovDGlOZ+gbHMHzfVLJJH7gU3B9ZqdMfvyOC8mHcOiem/na372bHjHBmnntXHvNxSzKhig/rrvVZFzXQlaSGylEJMEkJmvscvUiDYPQ9/nJgy+w6/hQ3Bc3QMiIBhvPPoVhgGEYETZt2czv6WJ4dCJuVyoQBmiBEHXZtG6QqFT1iTEN1qyYx60Fnz3H81xxISzpaebZ53RdbivQddRds7HucPWLS5Z0JyHQ7DlRINWeZcGcjkj/sbpDImZggk1zvpVWICWj4wVasgmEgJGxAlJIJnJ5LNNk9dL5CCCZcDjUO4jvBzi2BWgmcnmEVqRDH0+YXHTh2eTy/bQXTvKTv38LpFMgDVQQgmmgfQ+NwLAdCOLpwLK0UkxcF2Ys0aBi9qTWGKkEu/YcZn9fNJkhhFEZHNda4zg2oVIEgca2LZyEQ258iLmzOunrDyMl2xoh17qZrHquTTXiFdFKOGtJDwjJgf4iiJAlPZmqU6+n1WmX0wERQkRfznQM5nclcV3N4ZMF5nW30NqSRleaC2LmkZcZx2HKxDTFnO5OJk6e5NDhY5VZn4vWL2fDygWsXtLDeL6I6/uVobV8oUiood2GG5d3smnHIcJiieZMM03NrYQlj2A8R5AvRMmGYeKNj6FLBYRhEeRyUfkUD51Jy0QmEmghIo0OK5Jg0kakqvO7R17ADyNMvOyWy7zwVDIZC7ZIpCjLFltkMk2kksnGM1/1rJZp9IPLgMfieR2QSnDoZAlCxaLudCzc1qipW98u1I3bDGGoySRNupotRiY8To64zOtuRTp21VT6THxMXVcXTdViR2uaMkn6h3McOtgXNdaDgOsu38B1l21gTnsLKlTkiyWCIIikgEvRdILrlhgt+Sye34lXLLLzUB9IQVDyEKHGQMRc5qgWlokko729FI/uJ3A9tIxOrkynGZ/Ic+xoLyKVQBsGmCZKSox0ktGBEX5y77NxP5oahqVpmPG1ivrTpmlgWRZJ22RiYpyujpZKXdtQRV5XDQBU8b0qBHohIFR0tTVjZRIcHyyCr5nTaiEsA6VrqbL1Ly9nUmsPlSabMmlJGYxMBOTyPj1dzVHiUW24skr6DM1OPYOvTiVTDAwMsGRuO2O5AtdecjZnL5/PS/uPEWjNSK5A/+AohWI8SCYEuXweHYZMlHw+/6fdzJnTxcTwYFS6lWUJpRFlwEKgVYjT0kLz4mVYbe0k58/HsB10McfIwDC33vogQUzv0VKCFChANmX42s/voW8kZqtULmUsmW9ZeH406FbmhyVsC8NyOHJikCXzZ0NNOSmmHoKGJEQqLE6UoiWbpLUpyeCYS8lVdDQncGyrQnzQdVjGZJI1Tf0qREQwzyRNskmLg70FtBvQ2dY0NTEQYlKFuEY1T0wJ/zVNjLi+PHisn3lze+g9NcI5i7s5b/Uy7n58O0LAwRMD7Dh4AiEFqWSSXL5AvlCokN8MQ3J8rMgn79jGxfNa0K1dXH7pBvyiG3VyhIhCnjQoTBRIpR30RInS4aO443nclk4OHh/isjVLWHTWMsKJXDTqGQRYLU088/gLfPfWR6LBcBW18epxZN8P4lCp8H2fVCLBwNAI+VyOOXM6UK5XOwtdBSQ23KdUzSEXURMmlXRobUoxPJwj74a0ZBwcx6SQc+OQphtOn8gZKQdKk06aJG3JeCGAQNHWkq4lN4kzXVPTYP4o4bBzxwHOO3s5vu/xi1/cwqz2Vn5539P0D48zOlHgme17SSccWpqyjI5PMD4xUWncl5dHGVIylHe5e/dJPvqT+8iVSljZFIHW0WkUEm2YPLX5RW762R0cGgjIdSzFuPR12C1zWOUPs+zcVRGnWUSkdstxKAwO8a0f3owXqipGpqiQCsuySkqpiuv2fB8E3HnXA7Q3ZxCpVC1eUGGW0Bj4qE6+dNwcUgrDMmnKpskXfYquIp20SNiRi55urdI0SVZVM09D0jGRpiDvhoAkm3aqTqeYhntVl3gJPQWelJbJ6OAYY/kS81YuZnzoFE89uZm/vLCXfKGI77mcHBqhq72NUCmOHDtBPp+vXFyldUX+IUpuBJYh2dU7zFu/+HNcrbCa0wQqWq4hVcjVL9/Ita+4hOxoP6n9L5J44o9kD26hec0KQmkgVYjWKhKQyRfYet8DGGUacNXoihTlUmdSe0sgMGSk3mMYBi/t2IuwEqBUAwZGXdxtNHIqJjHmcjWTStq4vsYNwbEEtmWglZ62VyTQ1QYWDRNf04ghSz8Kso4pG04nnPmwctzfNQz2Hu5l9dI5HN9zhFv+cD87jw0QBFEsK5ZckgmHolvieF8/rudhSAMpjQqhTVQnIgj8MBrxvOf5vVzzye+y++AJ7PYmDFPiBz6+G9C2sIfO1YtItDrQkoAlC1BNTQgVopVCmiZeoHjsrntJE9De1VFDBDUMiTRkxS5R78KILkdMiPM8H8dxUCqkOJbDqNbeqCffTWG/TLVFOcLapkTF3ERDRp2+mVZTIcQ0LrpBP1rH7kgw8wzZ6YAOjYhOyNgEoYbm7k5+9svfs+nFffh+UJFaMEyTQqHIwKnBeBrPjJkdsjKBWI2DV+KQjuDCx3ceYeP7vso//duvONZ7CrulCSudxM8V8E0b5i5Azp6NsG1QEaFd2iau5/HU3fdiTowyZ0FPlAVXE9lEpG5b4YbFrcJImUfG6jxRJfDgX55gYKxUNetby4OsLRfrjF/zO2ZclPmTWiHqmJQNnb2u6SZNOv5qVolSYdTQlpF390PdmNesT0cXLHslDZZF76kRerqaOHn0JLfc/udIlEyF+EGEBnmuSy6fR0g5SQcStUB8tesz4+Hs8h1oGJIJN+Srv/4zZ7/ry3zqSz9h20v7sNIOViaFDHy076PDEB2GGKkkuVyRx267CzE2TNfsWTTPmkVnW7ZiEkFZ2yP6LCqWdGhKp0glEhiGjAfWohv00Sc286e/PEneCytlVSUprYElq9uF01w5rQlCRZTgC5QWMU98+jMmpk+yJj+I60XK6Y4ZKaTnS36DHteZHOVaNa3RiQI9s9r53R/uRdgJujo7KJY8ZCxGViiWMAxzcltZFbW3PAAmyjJM8cmW8ZiJYZqR9K9hYJkGw3mX79/6KOe95195w6e/x4OPb6XkuxipVPQ7YXHswEGevP0uUqFLW0crnfN7sJuamN/VUuFQI8D3g4pigFa6Qsw3TZMwVPGNqiuSEd//j5+xZfdRPFWGP3VjcEjraUgBcU8+1BRLAZYhcCwDP9T4garU5jB1i940WHRVRSWg4Cr8ENJOdDuMTRSn0G70mXtoYh4OCIEfaP7y+HNcfOG53Hbn/ZV+aqFQiIwbC30bsXhKtB8w+sJlsMEwDMJQxQY18QN/Un8rKiGxTQMw8IKA2x7fzm2Pb+dfX7Oeqy87GyebZai3j/zxE3S3N5POZmjp6qRtzmxCLVja00XCsigpgYlCqZAwFFVToZqh0XHseJVA+VQXiiWSCYfjvSf5wle+z/e+/g+sXzqvTrClQTVSNx+qyyEhUIzniiQdk1TCpFAKcP2wwTxyrTXkJKe2riGgI82mfDGgUAppzdhgGQwOjzUkBkyfVTXQl1DR6Of+wycwbYd5c+cwODSMZVkx2Z3KB5dCVgRFDWlUuezol2VZlbJNGmWESU1CiTIeTQUMIUg6DkJA38gE+uhBTjyzCXP4FAt6Okll0jS1t9G1aFE08Ydg4dxZLJk7G2G0YGbmRj1pFU6uzlM6BjpCNBDEs0xBEERMy2SCrVte4l+//mMGx4tIw5g6u6T1NMtA47MoJSXXY3yiQHPaJp0wGMv5FEvBFAPXjy/ImfAmQwrGCz5jBY+2JgczYdB7agzCaoVUwfRLgkSDJEuDFCQdm72Helm9YjGODOM6UhCEQWW1jhEbTEqBNGRlLrcMD9bE4thtl/lbkSJ87WJKDSgVoDE5mtd0z+miZ+4suro7SaQSNLe30LVkCcKykKaJMgwSrU1cs34h2hvGTjRhNS2aHDyLk5UgCPH9AK10hIYRsTyV0uTyBTo62yi5Pt/+4U0Rxq2nDp9NF+J0PBAwni8xPFGkNeuQcEwGJ3xcz48YNVpPNyRUNnDjOSLDkOSKIYNjHs0pSVuTw/GTY+B6lRT9tCLGdQSAMvuvvbWZo739dM9qZ8GC+SSdBGF8eg3DjFmTRqwzacTGkxXPUi2BaJkRP8son25dtcI6Tm4iIrxCiQRYnQzmAgzTpKm1Cce2yDQ1MWvZcqxEInqeYSKlgQ41H33lGjrbOghEAsNKYzUtjEs1FfOxFJ7vVannRU2JYsnFtiyOHe9j1YrFHD7axxNPbUWmkzHUG18cKRtMgFRxpgzJ4Mg4hfEi3W0JRMKkd7iEivvBtblu7QiDnHp6q0caoVgKOTFYoill0NOZ4djJUfL5WBdKz7TrbvoliipUtLRlUWFANtvE0kVzaWnKYhpGzSk0qrQsyxJGMkavzLIhNVjWpLxRwrHjMaewZhOpCn0wUpipDmSQI0BiOg5SCpq7Z9G9YiVmIhHlykaEYQspwDQxmlqQ6e64aa8wnWactuVoYSO0QseZdVngOxJai/IG1400qTdt3s4N113Nr275I9iJBlqTog4UEpV2JYbBsf5hyJdYNDsNjsmxgTyEuq7ho6fAVXK6Wf7KnJavONRfwEyaLJuTYfDUBP2DY2AZ6OkyZzGDFlZcXgjT4Pz1qxno72PNqkVcc/XlhL5fkTsyDIMgDCPWRMzqKHOfdDxpWL7Dy1woz48EyxKJRM14h1IBSiaxsnNw3RJK5dnQk6Zr2VK6liylbf5CRMzOiIxrxJISIGzJ9+/dxcmCjSVDRBweDLsJu2khARZIizD08b0Sge+itCYIAmzLxvUiftmW7bvoaE7gBZoT+45gJOw6L10/S131j4Zk3+GTEIYs70mDNDjQm6PhCt+6po887UpvpdlzPAdCs6IngR7PR29mWXXbvUTtUBUNmtdxLSmFQBdLnL16CSPjeSzT4kPvfSMbzl2D50ZSv45t48U0GyM+2dXqtNUi2tUiZaWSi+PYJBMJwjAgDH0wm7DTXfieS5dd4vPXrODDL1uBkc6SaGqOK4b45MaxW2mwUgn2Hejjd0/1kk2Y0fyUMBCynOFLjGQXdutyrKbFGOnZaCON0hD4Hp5XQAgVSzxMcPj4KWZ3d/Lw489AecR0ykreuj3K8Ul+ce9xsA2Wz81CKeDA8XGQ1Hb1RH0EFjMnWcQY6M4j46i8x5r5GUCxZdcRqMkGZ0oa6iNADBj4AdnONpYsXMBzz7/IBWsX8s//+AmuvepSwiBAxqe45E5qOxumOQkVVg+TUY7LgiCMEp5UPGGorTYMpxklLDocn/95+9m885KVLFq5LF4CHblAjHJrsepS2wbfuWMrgzmJJIgMW77RhERII94vrJBmEis9m2T7KlJd60l2rcFuXoydngXSBjS9vSeY1Z5l3+H+ivbHTHzxKPwKdKHE9j3HcdpSLO9JMzHqc6hvAmkZjZdxVL2AbNwqrJrotCSH+ooMjHqsnJvEbHJ4ZtuhiJMl5XQf7TSd4KhRoPIF3njj1Tz2zBbGckXWrV3JN772Oc5evZzAD7GsSCTU8zzKK2HLYH9lEkSKioBB9HkErhfN8qbTWYQZIUxBscSHLupmzeIeMt3dZFtb4zhr1s4sC4kCzJTDjt3H+P3TJ8nEp1eUieZIkBIpTYQwMO00lpPBNG2kYWKYCexkO4mWBWRmraVpzgZa52/kzkf28bu7HkGIEGmZtR6w7tqVa2xhmfQPjLLzYD9L52ZZ0JVmT2+B3lN5bFNOHjJdhzDGIaxhs2FS2krjWAZ9wy47jk6wZHaa5QubefbFw+SGJzAqcVjTeIlS7R6Cmi3pkT4R2XSCd7zx1dz30CbGx06RFCVyhWI0ya41UkYzP2XsWQpRs/2kGvSQVSCI6wU4psbExyfJ0i7Ja1d2UvJDmrJpSCYnSXdl9xxlgBE6IuGbf9jMaEHEp9eoaRdG29aim8OwEgjDjE90jImrgNAv4ZUKlIpFNDYHT8KLx2x+/8AOXnh6K1ZzJqLyTlOBaDQ4Ftv3HCfXP8q5S1uxmhye3zeGl/MwjDr8ogozEbVJVmPdFh0LnnlFxXN7x0hnLS5e1crJIwNs33MMEnatVEGj0zytyk8006tKLt2zWnnTqy8nlczyxOY99PcPYNsWWilsK5pwKHOdRHUSSCyJJCaFtyO3ZuB6kfJ7OmESFvO8f2MXq9evZvaaNWjTxhsbi55rmOgwIMyNERZy+IUchgx5dtNObn8uEj8tSz1U3qss5S+MyQaMnlr/S2midRgRDoQkLI1gUmLP0QJv/cQPGOgfRNpWfApFgxpYgGnx+OY94AdcfFYrGAbP7hyCqiqhPnxXIxSShmetincRP/KpHcOgBZev7QTX5+Fnd0VMRTXTGlJqm9tiajxGCIKSSyLtEPoBv/7d3ViWjedHTYcItZqsZyeXUqnJqYKyRyiz+WVk6DBUhFqxuM3n9ecvweqYRaajg+zsOVjpzCRg4fsgLaSTxEhnEU1N/Ns9eyh4GuWNgzDLa7iQ0kAadlT/+kVQQRW0XN3ClIShF8VBaRP6RUKl8DyPTAL2HTjFT2+6H5FNEyrdsFQ1DIkqlHjwmV2YbUkuXtVKadRn084BhBW1Dk/XCZDV5fEUcQ8d8bIMW/LCgQmO9+e5ZGWGTHeGOx/ehiq4GMYkM7Jh3BW10/XVYSAyksBMpugdGOVr3/whx48eQ5cpM7ZdoeUIISrzSkpP0nUmkT5d00aUUpAr+qjQ57o1ncybNxcjlSYslaKmvpOIXT3IRBqZTKINAzOd4Hd3Ps4D20bIplJoJCp0YyjUQQUupfFecoP7KIz3Yqbaa3KXMgFAqQClQqRhE/ql2GAW0nQIwgAzYXP/EzvQuWLDpSRKaWTCZv/+E7yw/TDnrGznrIUZth4cZ9/RMRzHqErUpkZxUYtkMaV5UI2MOKakd6DE4y8NsqgnzWXrunj+hYPs2XciGgkpT8XV46rlkVUtkFVrc7SOcGMjm6bg+mzeupvvfO8nHNi1FwyL8Yk8qWQiEiELQ1KJREXKT2vwPT9awyOrkKp4MK18gqQAL9C0N2dZt2wuKt6mImSUIEUeNUaQ4s9voDjSN86/P3gcpR0CL480osQpcCfID+0nP3IEtzSBmWwn3b4EO5GtSXDKLOUg8JCGQ+CXIldpmPH8kgQkpiHZf3iAk2U3Te3skorYezzw9C78wXFesaEbsyXJX7YM4E2UJpUDGppX17toMWN5I4VGh3Dfc6cQBrzmgi5UrshtDz4Pjh3fSfVr3+KiWwhG8kWGRydw/SBiKjoO4xM5Hn/8Be577Hkee+RxjMIExVDQPzRKNpOK2m9xGy6dSmKZZoUMoGKyudZUONTVSjzlv5uWXWleJFpbozHO+v0KMfSpdUhfLuThXQPsOBFEe6YjkSRM0ySRzILyMZxW0m2LcZItSGnFSz6okA1AEAYehmFH7jsKxpPNzvgyGYZgLOdxon8gougqXYMXGFKiCy633L8ZoyXFq85pQxUUD2zuB0NMsxdUVCHv02DRUzh0QkQUEcfkoW1D9PXleO3GWbT0ZPnVXc/ijeVrhTLrAq0EmlMJQgVH+wY5eGKAh57extNb95JKCOY22cxKGAQKTg6PMautmWwqiev5qDCkOZsm4TgUShEzolgskU4lK4BJWaOjDP6bhokm2rFgGYK2jImWEjOVmvoZY/EWrUL2D5YwZy3kpvu3USx4COURKBjNKcZzPsO5kET7SmxLokMvfn5Yu8+w3MyIbzSlVJRZx3hSBXqIs/CSF3JyOFd300VhUaYTvLT7OE89u4tz1nRy/qoWtu4dZfOOUziJWvc8U1EqpwMkqpVpIiFQyYn+EvdsOsm8BVmuv2Qee7Ye5OGndyAyScJwmq5wLCrS2Zpl2dL5+KUiC7rbeeVrr6LDMdj82OMMDY6w52g/KcdizZL5WKZJKuEwv7uT5kyaoutSLLnk8oVoD5I5OdE3CXYQr8SJdiH5QUhz2qK7o5mmTBpMWVkLW5F0MyQq9Njdn2Pumg385cmtPPHSMKmkSclVNKUMPvTabj71pi4+cWMPzSmBsjsRYQ4VuJEEYlXiJ4QgDNyYNxZW6mZdN6FSPkhKweDwaHTCKySvOJA7Nr+66ynCsRJvvnQWTrPDHU8PUBgtYFXXv9PaTzcmvuuG4yXljFfy20dOoPyQ91w9D2EK/uO3j4CaXNfeiLSlY8B8z54jpNIplqyczxO338n3/vMmNu3p5ef3PcnmXYdoaW5iYGSctuY065fOZ9HcWRSKLkMjI5RKJdpbm7Ess6J6V3NywrBSD6uYALB4TjumYdKcdiJ8uaISq5CGxPc99g95zFp9Hjr0+M6vH8EwHUrFEh3NBv/w5lkc6x3mnicG2br7JB9/TRMdWYV2OkEVUYFbkUGGKLGKpvljA5S1OKpYHLpqAFwrzUSuOLl2Pv6Z4VgMnxji13c9Q9vCVl5/cTe5EZ/bHjuKtGXD5KraeppqXcIZx4pETYMgkTR58sURnnqhn8s3zOLSi+Zz7/3Ps2XLfmQ60TDd11ojTZPBoTG8IGTh8kU8cMef+OI3/ptndhzmoed2cqh3kFQyyYv7DnOs/xRKKSZKLs/t2M+JgVNkU0lmd3ZUSh8Rzy7reMw0cskKK97L6/oB7S1ZejqbaUonWb9iQTw+GmfuhoFbLHFoVNG+bB3t7U388tY/s+1QnoSpKZRC3nxFOzc/eIz7nxpj9zGP5qY0Jj5XrDIouSFWsgWvODxJiBMQBi5CWnGyJxENtOjqe7euF1Ql0JHQmsik+O0fn6Fvby+vv3wuSxY2ce9zQ+zcM0giYdZNldAw2SrfMDNi0ZH7mUShTAluCX587wHMtM0nrl9GWPT49i8fiOZp6wW6qt786Il+Vi2dy0ubtvLNH/yS3pECxwaGGc/lsC2T0fFcZfHUgWP9PPfiXkwJa5YuYGHPbFR5GpGoPCq7ZxHf9eXVOK7rEYaKdUt7yHsBr710HbYRkd+JBV1KhQKH84KuZWvJJmz6Dh3mR7c/j2kl8X2fpoyJCAoMFVN8/gML+cwbmlg22+LWp3M0JTSWoSmM9aIxKuCKCgNU6Ec95Fh6otK8k7Iq3OnaHEDUVi+GZVEYzvHvNz2E057m/Vd2EwaCn95/GB2GiGmVRxttjRX1/WDRwMiTd12oNE7K4s4n+tn1Yi83XL2IczbO43e3PsHWFw5gZlMV2aNJtRiDfK5AwnEQWvGt7/2EQ72DeCHk8oXoLo43m9iWybG+kxRLJVYvnc+C2V3M7+7ENiWGEFimRcJ2ME2rMi1QVgJwbItCoUigFD2z2iiUPFYs7OHCc1YRBGFF17lYKHC0aDJnxToMoXEM+O2fNrH7WAHbiDhOJR/CQHHVWYqndowzMOQiSyOs6gqYKAqKEyOEXgEn3YHWEdQYBm6MbFVH3bgur2aslokC8TV1bLNyzVWokE1pfnvnk+x+/iDXX7GAC9e08Ni2ER7Z1EsyZcW5Tr0iQHVVMIWy02j7WOMGgdZgmYLxCcV3fr8Lp9nis29dg1/w+NKP/hgPOk8yEXRcIozni7Q2p7nj7r9w7OQwrc1NDI6M4vtBZZrfMAwGR0ZJ2CbLFvQwXnBBSDpam2jKpEglHbKZVDRwFUbsDdOMljzblkWx5KLRJBMOQyPjzO5o5WNvfw2hMDGjJIFiocCxksXsleuRYYDQiv6hYX5y+2ZsOxHjwgKtDZ7ZU2TFLMXLVydYvSDLqvlJzl5o88DzJ5HBKE7TvJh8oGIDewhhoHRYN2Am6hZOVp1uAamEXSlfpWWSG5rg6z+9H6c1yd++Zj7CcvjBXQfxyqAS07Rop0yR6Ppukj79lL6IWAuJtMNv/nyM7c8c5vWvXs7LrlzG7bc9wZ//8gJmSyY6xVUtKcs0GC9qHnnyBZavWMrxk0OxgNkkkllyXTLpFN2dbRztG4xGRksuxweGaMmk6elsxYghwUwqSTLhEMQbyTzfxzAMkokExZLLJeuW8s8feT0dc3oIXJekZeDl85zwE8xZdTYy8KL3a27il3c+zt4TRSxDUd76kkkInj8kuGuzj5cbwi2MsOfYON+/r0hv/xCJbDuGlYxkILQiDFy0imaNqzunZTX5htOEcQ7WlM3E3jE6vT+86UH2vXCQN71yEZeubeHhF0a459EjJDNWVY7TiNNaB0TTsJt0mgmysoKp1OQL8OVfbsNISL703rMxLIP/71u3UpooIYyq8kUpWlubeOqZ57CTabo6OqLSIL4DwxhTtiyLtGPTd2oEISUlz2NsosCJgWGElHiej2lIsukUAhibmMDz/Fje0CFh20zk81y0dgnf+My7mLtwEcK0UV4J3y1xvGQxe+XZaK+IH/hksln6evv4+d1bSDoOOpzsWCkN2ZTBMwctvv5HzbfvVXznAZMDR46TyLRiOK1oFcQkPkXgFeLOEugoW2g461fWBWGSakVrcwqCEDuZ4Ni+E/zbj+6mZV4Ln3ndAvwQvv673XilmAOnq7zCTExWMVMdPOMJFpVYnMra3PFoLw/cs53LL+/h/W9ax9YndvGtn9yL0ZKpyAuHQYiRTZMfH6OrsxUZZ7zoyBs4thnVrkFAEIaR/qKORjLzxRJ+oNj00l7cIGTx3G7y+QIDw6MEQYhpmqRSyYgbrUKC0OBd115Ez7x5JJpaotNdLHI0L+haeTaqmCMMAgzLwUlY3HT3E+w5lo9QK1HV7I8nBzIJSSaVRNpNJNQpbNPATnchCGNvG6ICHxV6SMNCxGSGyulF15SNWqnKKVZak7AknW1NaD9EJmw++51bGTwyxMffsIyzl2e47YkBHnjyOKmMXbtWpyFE2fhQ/lUGFnXUeCUs/vG/NlMYHOOLH1jH/JVdfPV7t7Pt+f1YTUlCFVaK90TCoa2tjaZsOlJw1xrbNEgnk4znCqQSCTw/GgALw5BQRZvBh8bGKZQi4tq+o730D4+QcGzSqVSEaIkIGhwvSub2zOWCc1fjNLVEOxYEeMkmOtduRAaRJL+dSGIaksFTg/z87uex7VheqYGutdYapIk70YdbKuA0zYc4qRLx3kQVliIRFyPmZ+vo9E6SAybDn1JB5WehUmTSFi1NzYimJHfe8yw3/fZR1l0wj09eN4fBYY8v37SrSvOonv0sZvS8ojHpbubeU9XkEmGoSSUNtuwa599+sonZCzL834+eSyHn8Tf//DM8TyGMGMIMAmZ1dRKqkJ6erop0QzaTZmRsHMs04xMYZ6Txn6W45DEMk0PH+9l3+DgdbW20NmVZOKeLZCKBWypSCBwCWtmwYg5Lli6Okj0VEqqQ9q5Z2LaJWyySSKcJtSKZsLnjwefYdWSCpC3RDUn8CqSJVxrFzQ+SaF4QgznlxElFHaPQj8gAVTqYMu4TV7jTmpgsryrvEYSatuY0XbNaGDw2xKe+/CuspMPX3ruSWZ0O37rtEDteOkUqZRKq+mFAPYOafK0LlzNNmIiGnkBUTaAoEpkk37h5D88+uo+3Xb+c975pNU8/9CL/5zt/wGjORP1i1+PcdSvZtXs/56w/i66ONpLJKCHyggDLjBZGllXfiPcFltuJYxPjDI+O0dKUpVgsMruzldbmLGNjo+R8ByOzAAyL9cvnYieSlYE8KeI9C8UiTjodUf4UFAs5fnHXJgzTQeuwwtWuXtCFMAj9AsXRY9jZecgY4y6fnDDw0CpEq9g9C4EK/MrY5mQDImpG6HiIryKPESpmdzZhtzXzsX/5H47s6uNT71jFq89r4bGto3zvlv0kMuWyKFJyFw1P8MzMLjnj9KiYPpCXXbVhaIq+wSe/9ywTQ2P820fWsXbjfP7vd2/jtjufxu5owc0V6Fkyl+7ONrbvOsgnPvJOJiZylNyoxFGVMZBJ8dFowkFSKpUYG8+RTqfxYm2u4fE8+4/2MjThY6RmY1oWwghZtqAbpDnZcqtiXpZlGVIph0ee2c6mnSdJJS2UbrTI2UAAhdEjmKlZWHYycs168nTrMIgNHCDNBCr0UMqPkSxdOcFx8EWrMJrrKGtwuR4bz17Gz3/xF37/64d42dVL+Pwb5zE46vJ3//kSpaKPYVCDtddaQHP6Sd56Fy2maFk2UNLRNQWVCjXppMFzO3J87vtP0Nlp819/fy7NrWk++A//zbYtB3Bas3ij43zy4+9i89bd7Nl/hKTj4AdBZOB4K1m5SC+7aK0jLSzbsjCkJAwCPD9kdCLHiZNDyEQHhpWIlOAtk46WTOXUR82eKENXlUaADyrgN398Bi+UyDIQUSa5V9AlSX7kINLMYCdbYjBDVGgRKvTRKLTyK1Se0C/FcVhMyaIjrWpVORah0jiZJDv3H+XvvnITc5bN4vsfWUlzxuKff7mfLdtPkU6b0ekVTBVOrxOTm0mGTk4pg6oAEq0bNx/q05EwVKSbHP799iP87Hdbuej8Lr73dxsYGcnz1k/+O30nx7Adk4xj8ekPvZGT/X0VFkMZaiwzMnQZehSCQjGaZLRtC8/z4sm9kELRpRRITKepMt1hG5HchIrZ/tIwUGGAaZkEoSLwfRzTZN/+w/x500FSyUScBFZFNq0QhkVp/DgqVDiZWXFLMB46B3Qcd6Ob20UYdpw8ERm4ZsY3uojRDaFr2CdOwuLeJw9RKPn88H+dz7oVzfz4niP86LYDpJurEKtqcEo0HjObidkup0wu1oTbemUYwXTdJ61CnITDp/9jG48+so/3vHYhX/yb9ezefpQ3fvhbjBYCsA1ODQ7yd5/8AC0tzVEWWrUHUFW5Na01nufHkoER37ncTSuWPJSwQBgVb2JIjWUYBEE01C3i0RHbtnFLRTzXxZRw32NbOTkSxJTT6l6yRkgLvzSCVxjBaZpLtNlQVHV/wshYcTyNEiwTHfpI065rDZb3SYTxRL6YpBWhUVLiY/Ptj6/n+ks6eGTTST7zHy/iOEZMMNENp4p0nSc9jdJNZGA9HXlLT9VyENVaxlXTFkqBaWgmXJP3fG0TO148zr+8dRGfeM8annpsF6//0DcouD6GnWJWVxdrzloaIVFVKm/R4JaOKS9hpec7uUYu2lCmVViRSxCVU6EIwoDA9wl8r/KlbNOkkC+gfI/8xBh3PfoihpWoZLTxp48Su9ClOHocKzOnoiI7eQOr2LhBZd2PVkGsfCeQMj69NbWGntxpIagY10ymyOUCvvjeVXzi9QvZc2CE937tOYqexjRFzMGeSqIVM5Su1f8vqnALyTQDn1rUdaLKLrS8VlXXlY6RIBspR3DklOZtX36ag0cH+fb7FvGht6/k4Qde5Mb3foNMKkF+pI93vvFV0ZBZWXcjZkAoXbXZTEz2SCv1YxhimhKpSpW6UqtodLPk+nhuicDzCHwfpMQwRAQShAE7du1ny75BEo5ZNd0Xx0gExZHDSLsJ005Fcbc8kagiMEPpiK2B1ujQj06xLtNj1eRm0sq1UpOdJaUQEsxkiolcyGffu5Z/ee8KThwf5c3/5ymO9JdIJmQla9Z6OiBDTztmMFV3oSqL1g2kNsqndWqeNblgUeha+Ywg1GRSBi8e8nnbv27i+MlRvvfBJXzs3St54N4XeMvffp8JTzJvwUKuvebl5HL5qmROVxm0ao0rOgb2o6EuwzBI2RrpD6OVhxCaIAyYmMjhxwIooe8RhiGGEJFOZWGCx7fsYzQXYBmTrUytFUJauOMnCMMQO9UWgxXEta6PCoPI4KqcZglU6MXXRtYYuLJDQev4eVGCJaRA2AkmCorPf2AtX/3wKk72jfDGf36S7ftyZNImQaBorBIoTpM3N3bP0YLo9KwvTFcvi/L+o3ox2arFilNEqGNyQDIhOdQf8tSOfq5e38KbL+lEpRL85u59PL/vFCsXt3P2qh6e37ab8fGJqAVYGSyPFyeHqiIfqKvHOeKBNKGKCFUC5eO7ed545dnMmzsb3/cj3Walo03lJZfS+DA/vvM5Dp4KcKomMoRhEbpjuLmTWJnuSBJJK9BhfFpVVS93EnFQXg6tFFaytcLPpkqJR8cuHB2JmIWGhesLvvGJc/mn96+k79gQr/vcEzy7Y5xMkxUJnc6EEE+j+Tpt90CcDqps0D8WjfyCqKWKlH/5oSaTNnhuX8CbvrKFnYdH+OKbe/jB369h/8EjfPSzP8eTTdzyP19HmqmIB21O0nGiKYLJBc1KiUiDQxn4YTRwHZVCLjpw8ZVJyfWRggjX9iOxmKiBn+Rg7xBbDw5j22ZMGBcV914aP47htMSD52rS3VLFFq2K2dHm0QjgqDyn3knGxrUSNoVA4Dg2v/6XS/jMe1awf3c/1/6vR3h25wSZrEUQnMa4MFXXtYHnFQ2sZZjpWV+Ybt3CjDuVhEA00nuqomYprUk4kmODEd1zVY/JWy+dxfnLm3lyT56f37KZvcf66RsOKBVLCB2tR49OrlGRR7Ati1AJDFMihEExTEQlkzYIZRqZ6MD3A64+dy5rVi6j5EZJlmGa0RRjJsUdf36ae54+RiqVnmT3Ghal8aNoJIbTFJ3emj5rfBJ1WMNQ0aGP8vMYTjPSTNQsvYyETwMgxEwkmMgrzlrSzu+/dCmvurKHZ588yOs++yi7j3lkMlEJdzptbS3OTMeokY3k9AIOp3m1ehFwIepaY3FMDjSZpOToiMHbvrmH/7pnP9esy3LfF9Zw4xUdPPr4XnxpkWjuwtPZiNUgBL4f0V+idfI+tiVwfYEpFY6pCYWNtlox07MxrAQIGa9/F3GPNsAtlSKnGvocPlVAazmZV0iDwB0l9PIYTnZyRU3NHgUd64RNGlepMEruhMAwk7WgARqtQwwTAmkxUdC847rlPP6Dq7jgnFZu+s3zvPIzj3L4lIpiblgFUwgx7bUXdSMnuqFYy5kAHXW3jW5kx7o3quye1pMJWP1EY6A0SRuKoc3Hf3yUv//xS2RNj599bBHf+pvFtKQt8jpDon0uym7DD8vrYv24TAoJgwBLKtxAIpWHpUsQ5CIgIh4EG88X8X2vshHNK7mEvkeu5LJlbz/SdiqMC6183PETSLsl+gbSqIk9EZE+rKHfUMGUw2h01LCiOjeGI6UBhm0wUdS0t2b46T9dzK+/eBEtdsA/fOVh3vmVzRQDg1RCRCdXTCXjaaYuRJva0hec6Zk2Z3AM8YXTU5Cu+vqs3IDQU1h+onJzhkpjSjBTCf7j3lFeOLCNr7x7MZ+8tpvLVjXx9Tv6uPP5CXS6h0SqGW9iALx8fJebuKGBFJEwmouFtGyUN4YZ+gg7CQomckW8YgnDSeF7HloHGBIOnxxj/4lRbDsVlSsxWoW0o0ZBjF9XOM5xrY0KazKbyLhR8iSlPTlkLQXSNpkohYhQ8PbrVvK1D61j/rI0Lz51kE9+9zkefWGUVFMCtKJMeNExVFrerainlbWJWZINGJSNXHiNUtK0WXQ5aFdkXMSUJLoiDS2q4Mspq2RFrWK91iQSBgcHNHc+M4DrlrhyfStvv7SLlT0OR4Z8Dg9LRKIVO5GKBrK1CSpAOK1gJCJQocJzFlh2GrdY4JylrZx/1kIMJ4EKfMIwJOlYPPLsS9zx6H6SyWTUJXLH8IpDmMm2GNZ0qsAEEeHMWkX6nFU3sgq9iELs5THsFKaTRFoGxQBKnuKCtd388DMb+eyH19FseHzrv57mvV/bxJ5jPtkmu4K5C6Gj0dDT7jKZmjr9tb/MGV9e1O3Fq6f2Vu6+euC7Vr2tvkwPQ00mISiGNl+6eYD7t4zyv18/jxvPn83V61u5+YkB/ufhYbYdEohkhkSqgCoOxzJFkYShAEJpo/xCpRlQ8oJI16NUwjQiCq3Qmq17ToCWlQzYy53EsJvjOtas2d5Zk1RVjbhqFUa0Hilw0lmE00QuEOBpzl7VxSffuJL3v3I+pOGxh3byzz9+gce2jOKkHTJpCEJVdSlFAz2N6Tt3ekYy5IyEjkkDVy8DmTz2ooH6y9TgXu6TivoP0mB0uPyvodIYQpPJ2mw6oHjbdw7wuvMH+Ph1c/n4K2fxlos7uX3zGDc9eopN+ySek8GWHjYBKvAIAz9aGh160ayQYTKWK+CWSmg7RTabRYU5crkcLx4aQFjRTK+fO4lGxtlvGEONdaiWnrL8B2mAaWfxtEExsLCkzWXndvDB65bwzqsXIlsMdm8+xNd/tZ3f/KUXL5BkmqPh8bAaFRV6MumubwVNEWThNFIY01u4/FJmzetW73fWUwHtRvdQRUW1USofuyJB410U6Aj5SicEGptbnihw/5bdvP7CPt7/irl86Kou3nl5J4/uHOeWJ4d4eMcExwaKgI3pKGwRoC0BYQFBlJW2ZR2KQYmEmUE0peg9eYrDfWPYTorQdwncMWSiPXL5ZcmFuCkQXXkdy0BEHSktDbxQ4AcCQkFPd5ZXnNfFu1+1hCs2dEIC9mw9zg9+v4Nf//kYY2OKZNYmbU/qZjXinuspeEODolPQeAZpShScXkxSJDrX6ik30bR3FZWZIF098NxgaEI3WnkqavuXtW8jMA2BH0Kp4JNJa151TjPvvmoOV57TRTqb4siAz1+2j/GnLUM8t3ecY6eKBJ4CEWXSizpN3nT5SrqbHVYsX8TcWe08v+VFPvrt+7GTzbjjx9DCQpqpKAEzbQzTmVRsFYJQg68gCGW819hkbmeaC1a1c92F3Vy7cTadc5OQK/D4c8f5yT0HuOOJfsbHQ5y0g2VEhi1zP3RFS6QqnInGeuCaM8OfT8eyqjmUZQM3VOdvSOURU8thUdUiY+oKjuqnzSx8KMrbX/FDcEsBpqXZsDjBay/o5LUXdrNuWQc4DqcGXTbvn+Cp3eM8f2CCvScKHDs5gTdajCYMLBPT1hhS4wYCKUArf5JMJ2T0uPIkhjTAMkgnTLpbHZbNbWLD8hYuW9PG+ctbaOtOQBhw5MAQdz1xlFseOc4zeyYISuCkbCyT2LD1DNbKLV9zSqccpNMaTVN9zsVprmUFik10rp1p401Dl1x9h+mq2FLJ10Wt5ctfpjoUVKTqq55Tn6xFU5WSghuC79PcJDl/WYarz+ngyrM7Wbu0jURrBjDJjbocGfQ4NOCz9/g4h/om6B32GMn55Io+bihRYaR+Y0iBY5tkkwatGYtZbUkWdCVZPDvFsp4MS2enSbdaYGgYybP9wDAPbx3gT5sHeGbXKCMjIVgmqYSBlLrSnK+/DLXzWWKSNFCd60wDT+q6QQV9hqe4Dm6a3sCTMaCBgSvJlajdHz8t/2NyfreyMaYK7NaNPlwVFi5jkRU/BNcNIQxJpARLuh3OXdbMhuWtnL20mRXzWuluS0Xi1pYZXckgBC9EBYqyIJAhBUJqMADLmLwhCy6nhgoc6J1g24ExNu0Z4fm9o+zrLVLIRUx12zGxrbJshJ6SS2o9na9sjDid7hBPDWf6jN1zwxhc7T6EZkonp5GxG92RoqbVVeWkxFSKUH0WNuVCUb31JPpboMD1dLRDUYcYjqQ9a9LdZjG3M0VPR4LZrQ7tzQ7NaYukLbGMqMQKQkWx5DFR8Bkc9+kbLtE37NE7VOLEoMepcR+/pKLSyjJwbIllRt81bDBZP623q05Uz8gn114EoRukQtWq8Wdwqidj8EzuouEHi+NBnSiZ1lPvp/KIZT1TcwowUwvL1jynHiCblPafVKWJZO7jtSShrmTFk1QHUTsipKreWAowJJYlMSWVQS+ldK1et2hsUNGIBDclozzzZOn0p/vMXss83cO1bvyvFWPGNNDKvichaltt1a5lhgWNQk9ChZoG7M66RLCsVamrRjosg8oscPUuv9oGiKhB2+pVr8tk9TDUU2QXqi2oT0NZnQIh/nW2Pc1TzvzFzP9XCGw6jYjqn4uqSfNqwzXCUXVlXKS+mdG4jdmwiIj1lSeTlEYMQVXj/4SYrlJtfB2FqCcQC6bbmnDmRc4Zb72YocGg/4pu0l9t7KmlVAXHnm7pV90PphDGTvMVxDQucopUta4O9nr6a6qnM65uIOKqpwy66Gnoq7XbX8UZLL7/640rZjjk8kwPvDjDz1Guh6sXxqNrd1ZO6UyVGbkN9ndopteOF1MpSJO8qKpMR8zk5urhdl27Q6qahiYa1DGi7sRWSqVK+KqWWtYzok/TmvE0D9WNHij+yhOs/+o4ouNRjfIR1ZMXTze6zrrmBqjIE+rJn9f0meulMEU1ECOqGCmiqvAUta1Q3Rj107rxxkddJyQkpinvdE1fmUlClZjcuiq0ntb10yD0nN44jTfgmJVZmf/XppRuQDlolDRWWIzTEIpqivlaZFbrqa0zXXX0ar3DZBY02V8VNZ+hBhmqM2gjQUehdY2nn1TTO9Pkp7ZZ0yh/mUqTPROb6Cnhpv6l/3/XNoU59SGwoQAAAABJRU5ErkJggg==" alt="Finance with Kellie mascot">
+  <div>
+    <div class="brandline">Finance with Kellie</div>
+    <h1>Wealth Products <span>| Adviser Tool</span></h1>
+    <div class="subtle" id="subline">Adviser tool - Kellie Zheng - annual-step illustration</div>
+  </div>
+  <div class="ng-note" id="ngNote">&#9733; All Values Non-Guaranteed</div>
+  <div class="pill">
+    <div class="countdown" id="countdown"></div>
+    <div class="switch on" id="campSwitch" onclick="toggleCampaign()">
+      <span id="campLabel">Campaign rates</span><div class="track"></div>
+    </div>
+    <div class="langsw"><button id="langBtnEn" class="active" onclick="if(G.lang!=='en')toggleLang()">EN</button><button id="langBtnCn" onclick="if(G.lang!=='cn')toggleLang()">&#20013;&#25991;</button></div>
+  </div>
+</header>
+
+<div class="overview-note">
+  <div class="inner"><span class="star">&#9733;</span><span id="overviewNoteText">This is a simplified overview to help you compare options. Final details depend on the official product summary, policy illustration and underwriting outcome.</span></div>
+</div>
+
+<nav class="tabs" id="tabs"></nav>
+<main id="app"></main>
+
+<footer id="footx"></footer>
+
+<script>
+"use strict";
+/* ================= shared state ================= */
+const G = { campaign:true, tab:'wf1', lang:'en', liqProduct:'wf1', liqCharge:'withdrawals' };
+function tr(en, cn){ return G.lang==='cn' ? cn : en; }
+
+/* footer text - the deploy scrub swaps these for the client-facing wording */
+const FOOT = {
+  showSources: true,
+  srcEn: 'Adviser working aid. Rates from the official HSBC Life Product Summaries (Wealth Voyage and Wealth Abundance Dec 2025, Wealth Focus Flexi 1/3/5 Feb 2026, Wealth Invest Dec 2025), product brochures, public campaign T&Cs and the quarterly campaigns circular (internal). This illustration runs annual steps on the hand-sheet convention, so the official Benefit Illustration will differ slightly.',
+  srcCn: '顾问工作工具。数据来源：汇丰人寿官方产品摘要（Wealth Voyage 与 Wealth Abundance 2025年12月、Wealth Focus Flexi 1/3/5 2026年2月、Wealth Invest 2025年12月）、产品手册、公开活动条款及季度活动通告（内部）。本示意图按手稿方式逐年计算，与官方利益演示会略有差异。',
+  impEn: 'All values are illustrative and non-guaranteed. Not a Policy Illustration, not an offer or recommendation. The official Policy Illustration, Product Summary and General Provisions prevail.',
+  impCn: '所有数值仅供说明，均非保证。本页不是保单利益演示，也不构成要约或建议。一切以官方利益演示、产品摘要及保单条款为准。'
+};
+function referenceMaterialsHtml(){
+  const link = (label, href) => ({label, href});
+  const group = (label, links) => ({label, links});
+  const sourceItem = item => {
+    if(typeof item === 'string') return `<span>${item}</span>`;
+    if(item.links) return `<span>${item.label}: ${item.links.map(x=>`<a href="${x.href}" target="_blank" rel="noopener">${x.label}</a>`).join(' / ')}</span>`;
+    return `<a href="${item.href}" target="_blank" rel="noopener">${item.label}</a>`;
+  };
+  const cards = [
+    [tr('Wealth Focus Flexi 1 / 3 / 5','Wealth Focus Flexi 1 / 3 / 5'), [
+      group(tr('Product Summary','产品摘要'), [
+        link('Flexi 1', 'https://www.comparefirst.sg/wap/prodSummaryPdf/199903512M/WF%20PS%20v1.51_MIP10Flexi1.pdf'),
+        link('Flexi 3', 'https://www.comparefirst.sg/wap/prodSummaryPdf/199903512M/WF%20PS%20v1.51_MIP10Flexi3.pdf'),
+        link('Flexi 5', 'https://www.comparefirst.sg/wap/prodSummaryPdf/199903512M/WF%20PS%20v1.51_MIP10Flexi5.pdf')
+      ]),
+      link(tr('Product brochure','产品手册'), 'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/investments/products/hsbc-life-wealth-focus-brochure.pdf'),
+      link(tr('Q2 2026 campaign T&Cs','2026年第二季优惠条款'), 'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/investments/products/hsbc-life-wealth-focus-campaigns-tcs.pdf')
+    ]],
+    [tr('Wealth Voyage','Wealth Voyage'), [
+      link(tr('Product Summary','产品摘要'), 'https://www.comparefirst.sg/wap/prodSummaryPdf/199903512M/HSBC%20Life%20Wealth%20Voyage%20Product%20Summary.pdf'),
+      link(tr('Product brochure','产品手册'), 'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/investments/life-wealth-voyage-product-brochure.pdf'),
+      tr('Q2 2026 campaign T&Cs / circular','2026年第二季优惠条款 / 通告')
+    ]],
+    [tr('Wealth Abundance','Wealth Abundance'), [
+      link(tr('Product Summary','产品摘要'), 'https://www.comparefirst.sg/wap/prodSummaryPdf/199903512M/HSBC%20Life%20Wealth%20Abundance%20Product%20Summary.pdf'),
+      link(tr('Product brochure','产品手册'), 'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/savings-investments/hsbc-life-wealth-abundance-brochure.pdf')
+    ]],
+    [tr('Wealth Invest (Cash / SRS)','Wealth Invest（现金 / SRS）'), [
+      link(tr('Product Summary','产品摘要'), 'https://www.comparefirst.sg/wap/prodSummaryPdf/199903512M/HSBC%20Life%20Wealth%20Invest%20%28Cash_SRS%29%20PS.pdf'),
+      link(tr('Product brochure','产品手册'), 'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/savings-investments/hsbc-life-wealth-invest-brochure.pdf')
+    ]],
+    [tr('Wealth Invest (CPF)','Wealth Invest（CPF）'), [
+      link(tr('Product Summary','产品摘要'), 'https://www.comparefirst.sg/wap/prodSummaryPdf/199903512M/HSBC%20Life%20Wealth%20Invest%20%28CPF%29%20Product%20Summary.pdf'),
+      link(tr('Product brochure','产品手册'), 'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/savings-investments/hsbc-life-wealth-invest-brochure.pdf')
+    ]],
+    [tr('Campaign and internal references','优惠及内部资料'), [tr('Public campaign terms and conditions','公开优惠条款'), tr('Quarterly campaigns circular (internal)','季度优惠通告（内部）')]]
+  ];
+  return `<section class="reference-materials">
+    <h3>${tr('Reference Materials','参考资料')}</h3>
+    <p class="ref-sub">${tr('Official product summaries, brochures and campaign materials used for this guide.','本工具使用的官方产品摘要、产品手册及优惠资料。')}</p>
+    <div class="source-grid">${cards.map(([name, items])=>`<div class="source-block"><h4>${name}</h4><ul>${items.map(x=>`<li>${sourceItem(x)}</li>`).join('')}</ul></div>`).join('')}</div>
+  </section>`;
+}
+function importantInfoHtml(){
+  return `<div class="important-copy"><p><b>${tr('Important.','重要说明。')}</b> ${tr(FOOT.impEn, FOOT.impCn)}</p></div>`;
+}
+function renderFooter(){
+  document.getElementById('footx').innerHTML =
+    (FOOT.showSources ? referenceMaterialsHtml() : '') +
+    `${importantInfoHtml()}
+     <p class="foot-copy" style="margin-top:10px;">&copy; 2026 Kellie Zheng. All rights reserved.</p>`;
+}
+function renderOverviewNote(){
+  document.getElementById('overviewNoteText').textContent = tr(
+    'This is a simplified overview to help you compare options. Final details depend on the official product summary, policy illustration and underwriting outcome.',
+    '这是简化版概览，方便比较不同方案。最终细节以官方产品摘要、保单利益演示及核保结果为准。'
+  );
+}
+function toggleLang(){
+  G.lang = G.lang==='en' ? 'cn' : 'en';
+  document.getElementById('langBtnEn').classList.toggle('active', G.lang==='en');
+  document.getElementById('langBtnCn').classList.toggle('active', G.lang==='cn');
+  document.getElementById('ngNote').textContent = tr('★ All Values Non-Guaranteed','★ 所有数值均非保证');
+  document.getElementById('campLabel').textContent = tr('Campaign rates','优惠利率');
+  document.getElementById('subline').textContent = tr('Adviser tool - Kellie Zheng - annual-step illustration','顾问工具 - Kellie Zheng - 逐年示意');
+  refreshCountdown();
+  renderOverviewNote();
+  renderFooter();
+  render();
+}
+
+const fmt  = n => (n<0?'-':'') + 'S$' + Math.abs(Math.round(n)).toLocaleString('en-US');
+const fmt2 = n => 'S$' + (Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const pct  = n => (Math.round(n*10000)/100) + '%';
+
+/* =====================================================================
+   QUARTERLY CAMPAIGN SETTINGS - the ONLY block to edit each quarter.
+   Source: the quarter's Insurance Product Campaigns pack.
+   After editing: save, check one product in the browser with
+   the campaign toggle on, then replace index.html on GitHub
+   (repo > Add file > Upload files > Commit). Live in about a minute.
+   ===================================================================== */
+const CAMPAIGN = {
+  name: 'Q2 2026',
+  lastSubmission: '2026-06-30T23:59:59+08:00',   /* last submission datetime */
+  labelDate: '30 Jun 2026',                      /* as shown in the header   */
+  voyage: {
+    /* Start-up bonus DURING CAMPAIGN: [year 1, year 2] by band and MIP.
+       Bands: 1 = $3,600-11,999 | 2 = $12,000-23,999 | 3 = $24,000+    */
+    sub: {1:{15:[.15,.15],20:[.20,.25],25:[.25,.45]},
+          2:{15:[.40,.20],20:[.40,.40],25:[.50,.50]},
+          3:{15:[.50,.20],20:[.50,.40],25:[.60,.50]}},
+    loyaltyMult: 2      /* campaign loyalty = standard rate x this (1 = no uplift) */
+  },
+  focus: {
+    /* Campaign start-up bonus by Flexi Term: [low band, high band] */
+    ft1:[.05,.10],      /* Flexi 1: no campaign uplift              */
+    ft3:[.10,.20],
+    ft5:[.12,.30],
+    bandFloor:{ft1:50000, ft3:18000, ft5:12000},   /* high band starts at */
+    grab:[.015,.030]    /* Grab vouchers, % of first premium [low, high]  */
+  }
+};
+/* Standard (non-campaign) tables - product level, rarely change */
+const STANDARD = {
+  voyage: { sub: {1:{15:[.15,.15],20:[.20,.25],25:[.25,.45]},
+                  2:{15:[.20,.20],20:[.20,.40],25:[.30,.50]},
+                  3:{15:[.20,.20],20:[.20,.40],25:[.30,.50]}} },
+  focus:  { ft1:[.05,.10], ft3:[.06,.12], ft5:[.075,.15] }
+};
+/* ===================== end quarterly settings ====================== */
+
+/* ================= product configs ================= */
+function wfSub(ft, P, camp){
+  const key = 'ft'+ft;
+  const hi = P >= CAMPAIGN.focus.bandFloor[key];
+  const t = (camp ? CAMPAIGN : STANDARD).focus[key];
+  return hi ? t[1] : t[0];
+}
+const wfLoyalty = {1:.0070, 3:.0010, 5:.0035};   /* p.a. of RPA value, monthly after MIP - PS v1.51 Feb 2026 per Flexi Term */
+const PREMIUM_BANDS = {
+  wf1:[{label:'S$25k to <50k', cn:'S$2.5万至5万以下', value:25000, test:P=>P>=25000 && P<50000},
+       {label:'S$50k+', cn:'S$5万及以上', value:50000, test:P=>P>=50000}],
+  wf3:[{label:'S$9k to <18k', cn:'S$9千至1.8万以下', value:9000, test:P=>P>=9000 && P<18000},
+       {label:'S$18k+', cn:'S$1.8万及以上', value:18000, test:P=>P>=18000}],
+  wf5:[{label:'S$6k to <12k', cn:'S$6千至1.2万以下', value:6000, test:P=>P>=6000 && P<12000},
+       {label:'S$12k+', cn:'S$1.2万及以上', value:12000, test:P=>P>=12000}],
+  voyage:[{label:'S$3.6k to <12k', cn:'S$3,600至1.2万以下', value:3600, test:P=>P>=3600 && P<12000},
+          {label:'S$12k to <24k', cn:'S$1.2万至2.4万以下', value:12000, test:P=>P>=12000 && P<24000},
+          {label:'S$24k+', cn:'S$2.4万及以上', value:24000, test:P=>P>=24000}],
+  abundance:[{label:'S$6k to <24k', cn:'S$6千至2.4万以下', value:6000, test:P=>P>=6000 && P<24000},
+             {label:'S$24k to <42k', cn:'S$2.4万至4.2万以下', value:24000, test:P=>P>=24000 && P<42000},
+             {label:'S$42k+', cn:'S$4.2万及以上', value:42000, test:P=>P>=42000}]
+};
+
+function voySub(P, mip, camp){
+  const band = P>=24000 ? 3 : (P>=12000 ? 2 : 1);
+  return (camp ? CAMPAIGN.voyage.sub : STANDARD.voyage.sub)[band][mip];
+}
+/* Wealth Abundance start-up bonus bands - PS Dec 2025 */
+function abuSub(P){ return P>=42000 ? .12 : P>=24000 ? .10 : .08; }
+/* Voyage power-up bonus ladder (p.a. of RPA value, monthly, until end of MIP) - Product Summary Dec 2025 */
+function voyPower(y, mip){
+  if(mip===15) return (y>=6 && y<=15) ? .0020 : 0;
+  if(mip===20) return y<3?0 : y<=5?.0010 : y<=10?.0030 : y<=15?.0050 : y<=20?.0070 : 0;
+  if(mip===25) return y<3?0 : y<=5?.0010 : y<=10?.0040 : y<=15?.0070 : y<=20?.0080 : y<=25?.0100 : 0;
+  return 0;
+}
+const voyLoyalty = {15:.0100, 20:.0110, 25:.0120};   /* x2 during campaign window */
+const voyAmfRate = {15:.0230, 20:.0215, 25:.0215};
+const voyAmfCap  = {15:12, 20:16, 25:19};
+
+/* ================= engine (annual approximation, hand-sheet convention) ================= */
+function run(prodId, s){
+  const camp = G.campaign;
+  const rows = []; let val = 0, tpp = 0;
+  let totBonus = 0, totAMF = 0;
+  const r = s.ret/100, d = (s.divRate!==undefined ? s.divRate : s.ret)/100;
+  const mip = s.mip || 10;
+
+  const on = k => layerOn(s, k);
+  for(let y=1; y<=s.horizon; y++){
+    const paying = y <= s.payYears && on('prem');
+    const prem = paying ? s.P : 0;
+    let credits = 0; const parts = [];
+
+    if(prodId==='voyage'){
+      const [s1,s2] = voySub(s.P, mip, camp);
+      if(y===1 && prem>0 && on('sub1')){ credits += s1*prem; parts.push('Start-up Y1 '+pct(s1)+' = '+fmt(s1*prem)); }
+      if(y===2 && prem>0 && on('sub2')){ credits += s2*prem; parts.push('Start-up Y2 '+pct(s2)+' = '+fmt(s2*prem)); }
+      const pu = on('pu') ? voyPower(y, mip) : 0;
+      if(pu>0 && val>0){ credits += pu*val; parts.push('Power-up '+pct(pu)+' = '+fmt(pu*val)); }
+      if(y>mip && val>0 && on('loy')){ const lr = voyLoyalty[mip]*(camp?CAMPAIGN.voyage.loyaltyMult:1); credits += lr*val; parts.push('Loyalty '+pct(lr)+' = '+fmt(lr*val)); }
+    }
+    else if(prodId==='wf1'||prodId==='wf3'||prodId==='wf5'){
+      const ft = prodId==='wf1'?1:prodId==='wf3'?3:5;
+      if(y===1 && prem>0 && on('sub1')){ const sb = wfSub(ft, s.P, camp); credits += sb*prem; parts.push('Start-up '+pct(sb)+' = '+fmt(sb*prem)); }
+      if(ft===1 && y>=2 && y<=mip && paying && on('pcb')){ credits += .01*prem; parts.push('Premium contribution 1% = '+fmt(.01*prem)); }
+      const lr = wfLoyalty[ft];
+      if(y>mip && lr && val>0 && on('loy')){ credits += lr*val; parts.push('Loyalty '+pct(lr)+' = '+fmt(lr*val)); }
+    }
+    else if(prodId==='abundance'){
+      if(y===1 && prem>0 && on('sub1')){ const sb = abuSub(s.P); credits += sb*prem; parts.push('Start-up '+pct(sb)+' = '+fmt(sb*prem)); }
+      if(y>=5 && y<=mip && val>0 && on('pu')){ credits += .001*val; parts.push('Power-up 0.10% = '+fmt(.001*val)); }
+      if(y>mip && val>0 && on('loy')){ credits += .003*val; parts.push('Loyalty 0.30% = '+fmt(.003*val)); }
+    }
+    else if(prodId==='invest'){
+      /* single premium: year 1 only, premium charge deducted */
+      const pc = s.funding==='cpf' ? 0 : s.chargeRate;
+      if(y===1 && prem>0){ credits -= pc/100*prem; if(pc>0) parts.push('Premium charge '+pc+'% = -'+fmt(pc/100*prem)); }
+    }
+
+    const open = val + prem + credits;
+    tpp += prem; totBonus += Math.max(credits,0);
+
+    let growth = r, divOut = 0;
+    if(s.divMode==='payout'){ divOut = open*d; growth = r - d; }
+    const gross = open*(1+growth);
+
+    let amf = 0;
+    if(on('amf')){
+      if(prodId==='voyage'){
+        amf = y<=mip ? voyAmfRate[mip]*s.P*Math.min(y, voyAmfCap[mip])
+                     : .01*s.P*mip;
+      } else if(prodId==='wf1'||prodId==='wf3'||prodId==='wf5'){
+        const ft = prodId==='wf1'?1:prodId==='wf3'?3:5;
+        amf = (y<=mip ? .025 : .010)*s.P*Math.min(y, ft);
+      } else if(prodId==='abundance'){
+        amf = (y<=mip ? .021 : .006)*gross;
+      } /* invest: no policy-level AMF in this illustration; fund-level charges are disclosed separately */
+    }
+
+    val = gross - amf;
+    totAMF += amf;
+    rows.push({y, prem, credits, parts, amf, divOut,
+               mdiv: (s.divMode==='payout'? open*d/12 : val*d/12),
+               val, tpp});
+  }
+  const atMip = rows[Math.min(mip, rows.length)-1];
+  return {rows, tpp, totBonus, totAMF, mip,
+          valAtMip: atMip ? atMip.val : 0,
+          end: rows[rows.length-1]};
+}
+
+/* ================= timeline SVG ================= */
+function tlSVG(o){
+  /* o: {years, mip, payYears, startAge, subLabel, sub2Label, amfLabel, amfAfterLabel, puSegs, puLabel, loyLabel, premLabel, plTitle, plLabel, plPos} */
+  const ageRow = o.startAge!==null && o.startAge!==undefined && o.startAge!=='';
+  const N = Math.max(o.years, 2);
+  const W = Math.max(960, N*46+150), H = ageRow? 386:370, x0 = 70, x1 = W-118, yL = 206;
+  const X = yr => x0 + (x1-x0)*(yr-1)/(N-1);
+  let s = '';
+  const hand = "font-family:'LingWai TC','HanziPen TC','HanziPen SC','Kaiti TC','Kaiti SC','Marker Felt','Bradley Hand','PingFang TC','PingFang SC','Microsoft YaHei',cursive;font-weight:700;";
+  /* axis - starts at policy year 1, no S0 */
+  s += `<line x1="${x0}" y1="${yL}" x2="${x1+18}" y2="${yL}" stroke="#333" stroke-width="2"/>`;
+  for(let y=1; y<=N; y++){
+    const x=X(y);
+    const lab = (N<=20 || y%5===0 || y===1 || y===N);
+    s += `<line x1="${x}" y1="${yL-6}" x2="${x}" y2="${yL+6}" stroke="#333" stroke-width="1.6"/>`;
+    if(lab) s += `<text x="${x}" y="${yL+22}" text-anchor="middle" font-size="12" fill="#555">${y}</text>`;
+    if(ageRow && lab && y!==o.mip){
+      const age = o.startAge + y - 1;
+      s += `<text x="${x}" y="${yL+38}" text-anchor="middle" font-size="10.5" fill="#9a9a9a">${G.lang==='cn'? age+'岁' : (y===1? tr('age ','')+age : age)}</text>`;
+    }
+  }
+  /* premium arrows - one per paying year, on the tick */
+  for(let y=1; y<=o.payYears && y<=N; y++){
+    const x=X(y);
+    s += `<line x1="${x}" y1="${yL-52}" x2="${x}" y2="${yL-10}" stroke="#c9a14e" stroke-width="2"/>
+          <path d="M${x-4.5} ${yL-18} L${x} ${yL-9} L${x+4.5} ${yL-18} Z" fill="#c9a14e"/>`;
+  }
+  if(o.payYears>0 && o.premLabel){
+    const xm = (X(1)+X(Math.min(o.payYears,N)))/2;
+    s += `<text x="${xm}" y="${yL-60}" text-anchor="middle" font-size="13.5" fill="#c9a14e" style="${hand}">${o.premLabel}</text>`;
+  }
+  /* start-up bonus burst at year 1 */
+  if(o.subLabel){
+    const bx = X(1);
+    s += `<g>
+      <circle cx="${bx}" cy="${yL-96}" r="3" fill="#b8860b"/>
+      ${[0,45,90,135,180,225,270,315].map(a=>{const rd=a*Math.PI/180;return `<line x1="${bx+6*Math.cos(rd)}" y1="${yL-96+6*Math.sin(rd)}" x2="${bx+12*Math.cos(rd)}" y2="${yL-96+12*Math.sin(rd)}" stroke="#b8860b" stroke-width="1.6"/>`}).join('')}
+      <text x="${bx+18}" y="${yL-92}" font-size="13.5" fill="#8a6508" style="${hand}">${o.subLabel}</text></g>`;
+  }
+  if(o.sub2Label){
+    s += `<text x="${X(2)+14}" y="${yL-118}" font-size="13" fill="#8a6508" style="${hand}">${o.sub2Label}</text>`;
+  }
+  /* premium contribution bonus band (Flexi 1) */
+  if(o.pcbSeg && o.pcbSeg.to > o.pcbSeg.from){
+    const a=X(o.pcbSeg.from), b=X(Math.min(o.pcbSeg.to,N));
+    s += `<line x1="${a}" y1="${yL-122}" x2="${b}" y2="${yL-122}" stroke="#b8860b" stroke-width="1.8" stroke-dasharray="5 4"/>
+          <line x1="${a}" y1="${yL-117}" x2="${a}" y2="${yL-127}" stroke="#b8860b" stroke-width="1.4"/>
+          <line x1="${b}" y1="${yL-117}" x2="${b}" y2="${yL-127}" stroke="#b8860b" stroke-width="1.4"/>
+          <text x="${(a+b)/2}" y="${yL-130}" text-anchor="middle" font-size="12.5" fill="#8a6508" style="${hand}">${o.pcbSeg.label}</text>`;
+  }
+  /* AMF brace below 1..mip */
+  if(o.amfLabel){
+    const yB = ageRow? yL+52 : yL+36;
+    const ax0=X(1)-18, ax1=X(Math.min(o.mip,N));
+    s += `<path d="M${ax0} ${yB} Q${ax0} ${yB+10} ${ax0+10} ${yB+10} L${(ax0+ax1)/2-8} ${yB+10} Q${(ax0+ax1)/2} ${yB+10} ${(ax0+ax1)/2} ${yB+18} Q${(ax0+ax1)/2} ${yB+10} ${(ax0+ax1)/2+8} ${yB+10} L${ax1-10} ${yB+10} Q${ax1} ${yB+10} ${ax1} ${yB}" fill="none" stroke="#777" stroke-width="1.4"/>`;
+    s += `<text x="${(ax0+ax1)/2}" y="${yB+38}" text-anchor="middle" font-size="13.5" fill="#444" style="${hand}">${o.amfLabel}</text>`;
+    if(o.amfAfterLabel && o.years>o.mip){
+      s += `<text x="${(ax1+x1)/2}" y="${yB+38}" text-anchor="middle" font-size="13" fill="#777" style="${hand}">${o.amfAfterLabel}</text>`;
+    }
+  }
+  /* power-up bonus: segmented ladder, each band labelled with its rate */
+  if(o.puSegs && o.puSegs.length){
+    const yPU = yL-148;
+    let minX=Infinity, maxX=-Infinity;
+    o.puSegs.forEach(g=>{
+      const a=X(Math.max(g[0],1)), b=X(Math.min(g[1], o.mip, N));
+      if(b<=a) return;
+      minX=Math.min(minX,a); maxX=Math.max(maxX,b);
+      s += `<line x1="${a}" y1="${yPU}" x2="${b}" y2="${yPU}" stroke="#0a7a3d" stroke-width="1.8" stroke-dasharray="5 4"/>
+            <line x1="${a}" y1="${yPU-5}" x2="${a}" y2="${yPU+5}" stroke="#0a7a3d" stroke-width="1.4"/>
+            <line x1="${b}" y1="${yPU-5}" x2="${b}" y2="${yPU+5}" stroke="#0a7a3d" stroke-width="1.4"/>`;
+      const yrText = tr(`Yr ${g[0]}-${g[1]}`,`第${g[0]}-${g[1]}年`);
+      const rateText = `${(Math.round(g[2]*10000)/100)}%`;
+      if(b-a>=86) s += `<text x="${(a+b)/2}" y="${yPU-7}" text-anchor="middle" font-size="11.2" fill="#0a7a3d" style="${hand}">${yrText} · ${rateText}</text>`;
+      else if(b-a>=42) s += `<text x="${(a+b)/2}" y="${yPU-7}" text-anchor="middle" font-size="11.5" fill="#0a7a3d" style="${hand}">${rateText}</text>`;
+    });
+    if(isFinite(minX) && maxX>minX)
+      s += `<text x="${(minX+maxX)/2}" y="${yPU-26}" text-anchor="middle" font-size="12.5" fill="#0a7a3d" style="${hand}">${o.puLabel}</text>`;
+  }
+  /* MIP flag */
+  if(o.mip<=N){
+    const mx=X(o.mip);
+    const endMipAge = ageRow ? o.startAge + o.mip - 1 : null;
+    s += `<line x1="${mx}" y1="${yL-104}" x2="${mx}" y2="${yL}" stroke="#c9a14e" stroke-width="2" stroke-dasharray="6 4"/>
+          <circle cx="${mx}" cy="${yL-112}" r="13" fill="none" stroke="#c9a14e" stroke-width="2"/>
+          <text x="${mx}" y="${yL-108}" text-anchor="middle" font-size="11" fill="#c9a14e" font-weight="700">${o.mip}</text>
+          <text x="${mx}" y="${yL+38}" text-anchor="middle" font-size="11.5" fill="#c9a14e" font-weight="700">${tr('END MIP','投资期结束')}${ageRow? tr(' &#183; age '+endMipAge,' &#183; '+endMipAge+'岁'):''}</text>`;
+    /* loyalty stars after mip */
+    if(o.loyLabel && N>o.mip){
+      for(let y=o.mip+1; y<=N; y+= Math.max(1,Math.floor((N-o.mip)/5))){
+        const sx=X(y);
+        s += `<text x="${sx}" y="${yL-44}" text-anchor="middle" font-size="13" fill="#b8860b">&#9733;</text>`;
+      }
+      s += `<text x="${(X(o.mip)+x1)/2}" y="${yL-64}" text-anchor="middle" font-size="13" fill="#8a6508" style="${hand}">${o.loyLabel}</text>`;
+    }
+    /* exit branch */
+    const ex=X(N);
+    s += `<path d="M${X(o.mip)+6} ${yL-12} C ${X(o.mip)+60} ${yL-30}, ${ex-70} ${yL-30}, ${ex-6} ${yL-14}" fill="none" stroke="#23355c" stroke-width="1.4" stroke-dasharray="2 3"/>`;
+    s += `<g style="${hand}" font-size="12.5" fill="#23355c">
+      <text x="${ex+8}" y="${yL-46}">${tr('FULL W/D','全额提取')}</text>
+      <text x="${ex+8}" y="${yL-30}">${tr('or PARTIAL','或部分提取')}</text>
+      <text x="${ex+8}" y="${yL-14}">${tr('or DIV W/D','或派息提取')} &#10003;</text></g>`;
+  }
+  /* P/L chip - bottom right, clear of the timeline */
+  s += `<g><rect x="${W-232}" y="${H-54}" width="214" height="42" rx="9" fill="#fff" stroke="#c9a14e" stroke-width="1.6"/>
+        <text x="${W-125}" y="${H-37}" text-anchor="middle" font-size="11.5" fill="#777">${o.plTitle}</text>
+        <text x="${W-125}" y="${H-20}" text-anchor="middle" font-size="14.5" font-weight="700" fill="${o.plPos?'#0a7a3d':'#8a6508'}">${o.plLabel}</text></g>`;
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+}
+
+/* ================= product state ================= */
+/* defaults open at the published minimum premium where one is published:
+   Flexi 1 S$25,000 (PS Feb 2026), Voyage S$3,600 (PS Dec 2025), Invest S$10,000 (brochure).
+   Flexi 3 / 5 and Abundance minimums are not on the public site - defaults sit at the low band. */
+const MINP = {wf1:25000, wf3:9000, wf5:6000, voyage:3600, abundance:6000, invest:10000};   /* all per official Product Summaries (Dec 2025 / Feb 2026) */
+const S = {
+  wf1:{P:25000, ret:3.5, payYears:1, horizon:11, divMode:'reinvest'},
+  wf3:{P:9000, ret:6,   payYears:3, horizon:11, divMode:'reinvest'},
+  wf5:{P:6000, ret:8,   payYears:5, horizon:11, divMode:'reinvest'},
+  voyage:{P:3600, ret:6, mip:20, payYears:20, horizon:25, divMode:'reinvest'},
+  abundance:{P:6000, ret:6, payYears:10, horizon:15, divMode:'reinvest', mip:10},
+  invest:{P:10000, ret:4, payYears:1, horizon:10, divMode:'reinvest', chargeRate:0, funding:'cash'}
+};
+S.wf1.mip=10; S.wf3.mip=10; S.wf5.mip=10;
+
+/* build-up layers: reveal the timeline piece by piece, in pitch sequence */
+const LAYERSEQ = {wf1:['prem','sub1','pcb','loy','amf'], wf3:['prem','sub1','loy','amf'], wf5:['prem','sub1','loy','amf'],
+                  voyage:['prem','sub1','sub2','pu','loy','amf'], abundance:['prem','sub1','pu','loy','amf'], invest:['prem']};
+const LAYERLABEL = {prem:'Premiums', sub1:'Y1 start-up', sub2:'Y2 start-up', pcb:'Prem contribution', pu:'Power-up', loy:'Loyalty', amf:'AMF'};
+/* land on a bare timeline: premiums only, then Step reveals each piece in pitch order */
+Object.keys(LAYERSEQ).forEach(id=>{ if(S[id]){ S[id].layers={}; LAYERSEQ[id].forEach(k=>S[id].layers[k]=false); S[id].startAge=null; }});
+const VOY_PU_SEGS = {15:[[6,15,.0020]],
+                     20:[[3,5,.0010],[6,10,.0030],[11,15,.0050],[16,20,.0070]],
+                     25:[[3,5,.0010],[6,10,.0040],[11,15,.0070],[16,20,.0080],[21,25,.0100]]};
+function layerOn(s,k){ return !s.layers || s.layers[k]!==false; }
+function toggleLayer(id,k){ S[id].layers[k]=!S[id].layers[k]; render(); }
+function stepLayer(id){ const seq=LAYERSEQ[id]; for(const k of seq){ if(S[id].layers[k]===false){ S[id].layers[k]=true; render(); return; } } }
+function resetLayers(id){ LAYERSEQ[id].forEach(k=>S[id].layers[k]=false); render(); }
+function allLayers(id){ LAYERSEQ[id].forEach(k=>S[id].layers[k]=true); render(); }
+
+const PROD = {
+  wf1:{name:'Wealth Focus - MIP 10 Flexi 1', tag:'Pay 1 committed year. Min S$25,000 a year.', camp:false},
+  wf3:{name:'Wealth Focus - MIP 10 Flexi 3', tag:'Pay 3 committed years. Agency, Singpost and Direct channels only. Min S$9,000 a year.', camp:true},
+  wf5:{name:'Wealth Focus - MIP 10 Flexi 5', tag:'Pay 5 committed years. Min S$6,000 a year.', camp:true},
+  voyage:{name:'Wealth Voyage', tag:'Regular premium throughout, MIP 15 / 20 / 25. Min S$3,600 a year.', camp:true},
+  abundance:{name:'Wealth Abundance', tag:'MIP 10, premiums payable to age 99, AMF on account value. Min S$6,000 a year.', camp:false},
+  invest:{name:'Wealth Invest (Cash / SRS / CPF)', tag:'Single premium, no lock-in, no bonuses. Min S$10,000.', camp:false}
+};
+const PROD_TAG_CN = {
+  wf1:'承诺缴费1年。最低每年 S$25,000。',
+  wf3:'承诺缴费3年。仅限代理、Singpost 及直销渠道。最低每年 S$9,000。',
+  wf5:'承诺缴费5年。最低每年 S$6,000。',
+  voyage:'保费持续缴付，最低投资期 15 / 20 / 25 年。最低每年 S$3,600。',
+  abundance:'最低投资期10年，保费缴至99岁，管理费按账户价值收取。最低每年 S$6,000。',
+  invest:'趸缴，无锁定期，无花红。最低 S$10,000。'
+};
+
+/* ================= renderers ================= */
+function ctrlNum(id, key, label, step, min, max){
+  const v = S[id][key];
+  return `<div class="ctrl"><label>${label}</label>
+    <input type="number" step="${step}" min="${min}" max="${max}" value="${v}"
+      onchange="S['${id}']['${key}']=+this.value; render();"></div>`;
+}
+function investMode(){ return S.invest.funding || 'cash'; }
+function productName(id){
+  if(id==='invest'){
+    const m = investMode();
+    return m==='cpf' ? 'Wealth Invest (CPF)' : m==='srs' ? 'Wealth Invest (SRS)' : 'Wealth Invest (Cash)';
+  }
+  return PROD[id].name;
+}
+function productTag(id){
+  if(id==='invest'){
+    const m = investMode();
+    if(m==='cpf') return tr('CPF-OA / CPF-SA, entry age 21 to lower of 58 / CPF account closure age. No premium charge; CPFIS sub-fund management charge applies.','CPF-OA / CPF-SA，投保年龄21岁至58岁或CPF账户关闭年龄两者较低者。无保费费用；CPFIS 子基金管理费适用。');
+    if(m==='srs') return tr('SRS, entry age 21-58. Premium charge up to 5%. Proceeds return through SRS.','SRS，投保年龄21至58岁。保费费用最高5%。款项经SRS账户处理。');
+    return tr('Cash, life assured entry age 1 month-60. Premium charge up to 5%. Cash dividend payout option available.','现金，受保人投保年龄1个月至60岁。保费费用最高5%。可选择现金派息。');
+  }
+  return tr(PROD[id].tag, PROD_TAG_CN[id]);
+}
+function premiumBandCtrl(id){
+  const bands = PREMIUM_BANDS[id];
+  if(!bands) return '';
+  return `<div class="ctrl"><label>${tr('Annual premium tier','年缴保费档位')}</label><div class="chips" style="flex-wrap:wrap;">
+    ${bands.map(b=>`<button class="${b.test(S[id].P)?'active':''}" onclick="S['${id}'].P=${b.value};render();" title="${tr('Set annual premium to this tier','设为此保费档位')}">${tr(b.label,b.cn)}</button>`).join('')}
+  </div></div>`;
+}
+function investFundingCtrl(){
+  const f = investMode();
+  return `<div class="ctrl"><label>${tr('Funding source','资金来源')}</label><div class="chips">
+    <button class="${f==='cash'?'active':''}" onclick="S.invest.funding='cash';clampStartAge('invest');render();">${tr('Cash','现金')}</button>
+    <button class="${f==='srs'?'active':''}" onclick="S.invest.funding='srs';S.invest.divMode='reinvest';clampStartAge('invest');render();">${tr('SRS','SRS')}</button>
+    <button class="${f==='cpf'?'active':''}" onclick="S.invest.funding='cpf';S.invest.chargeRate=0;S.invest.divMode='reinvest';clampStartAge('invest');render();">${tr('CPF','CPF')}</button>
+  </div></div>`;
+}
+function setVoyageMip(m){
+  S.voyage.mip = +m;
+  S.voyage.payYears = +m;
+  S.voyage.horizon = Math.max(S.voyage.horizon, +m + 5);
+  render();
+}
+function voyageMipCtrl(){
+  return `<div class="ctrl"><label>${tr('MIP','最低投资期')}</label><div class="chips">
+    ${[15,20,25].map(m=>`<button class="${S.voyage.mip===m?'active':''}" onclick="setVoyageMip(${m});">${m} ${tr('yrs','年')}</button>`).join('')}
+  </div></div>`;
+}
+function retChips(id){
+  const cur = S[id].ret;
+  return `<div class="ctrl"><label>${tr('Assumed return % p.a.','假设回报率 % 每年')}</label><div class="chips">
+    ${[3.5,4,6,8].map(r=>`<button class="${cur===r?'active':''}" onclick="S['${id}'].ret=${r};render();">${r}%</button>`).join('')}
+    <input type="number" step="0.1" min="0" max="8" title="Capped at 8% p.a., the Benefit Illustration ceiling" style="width:74px;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:12.5px;" value="${cur}" onchange="S['${id}'].ret=Math.min(8,+this.value);render();">
+  </div></div>`;
+}
+function divModeCtrl(id){
+  if(id==='invest' && investMode()!=='cash'){
+    return `<div class="ctrl"><label>${tr('Dividend treatment','派息处理')}</label><div class="chips"><button class="active" disabled style="opacity:.72;cursor:default;">${tr('Reinvest only','仅再投资')}</button></div></div>`;
+  }
+  const m = S[id].divMode;
+  return `<div class="ctrl"><label>${tr('Dividend treatment','派息处理')}</label><div class="chips">
+    <button class="${m==='reinvest'?'active':''}" onclick="S['${id}'].divMode='reinvest';render();" title="${tr('Account compounds at the full return; the dividend column shows indicative yearly and monthly income if switched to a payout fund (the hand-sheet method)','账户按全额回报复利增长；派息栏显示若转入派息基金后的示意每年及每月入息（手稿算法）')}">${tr('Reinvest (show /yr + /mth)','再投资（显示每年+每月）')}</button>
+    <button class="${m==='payout'?'active':''}" onclick="S['${id}'].divMode='payout';render();" title="${tr('Dividends paid out at the full assumed rate; account grows at 0% net before AMF','按假设回报全额派出；扣管理费前账户净增长为0%')}">${tr('Take as income','领取月入息')}</button>
+  </div></div>`;
+}
+
+function ageBounds(id){
+  if(id==='invest'){
+    const m = investMode();
+    if(m==='cash') return {min:1, max:60, label:tr('Allowed: 1 month to age 60. Enter whole years here.','允许：1个月至60岁。此处请输入整岁。')};
+    if(m==='srs') return {min:21, max:58, label:tr('Allowed: age 21 to 58 for SRS.','SRS允许：21至58岁。')};
+    return {min:21, max:58, label:tr('Allowed: age 21 to the lower of 58 and CPF account closure age.','CPF允许：21岁至58岁或CPF账户关闭年龄两者较低者。')};
+  }
+  return {min:1, max:90, label:''};
+}
+function clampStartAge(id){
+  const b = ageBounds(id);
+  const v = S[id].startAge;
+  if(v===null || v===undefined || v==='') return;
+  S[id].startAge = Math.min(b.max, Math.max(b.min, +v));
+}
+function setStartAge(id, value){
+  if(value==='') S[id].startAge = null;
+  else {
+    S[id].startAge = +value;
+    clampStartAge(id);
+  }
+  render();
+}
+function ageCtrl(id){
+  clampStartAge(id);
+  const v = S[id].startAge;
+  const b = ageBounds(id);
+  return `<div class="ctrl"><label>${tr('Client age at policy start (optional)','客户投保时年龄（选填）')}</label>
+    <input type="number" min="${b.min}" max="${b.max}" placeholder="${tr('blank = off','留空=不显示')}" value="${v===null||v===undefined?'':v}"
+      oninput="if(this.value!=='' && +this.value>+this.max) this.value=this.max;"
+      onchange="setStartAge('${id}',this.value)"
+      onblur="setStartAge('${id}',this.value)"
+      onkeydown="if(event.key==='Enter') this.blur();">${b.label?`<div class="age-hint">${b.label}</div>`:''}</div>`;
+}
+function investFactStrip(){
+  const m = investMode();
+  if(m==='cpf'){
+    return `<div class="facts">
+      <div class="fact"><b>${tr('Entry age','投保年龄')}</b>${tr('Life assured: age 21 to lower of age 58 and the CPF account closure age prescribed by CPFB.','受保人：21岁至58岁或CPFB规定的CPF账户关闭年龄两者较低者。')}</div>
+      <div class="fact"><b>${tr('CPFIS scheme','CPFIS计划')}</b>${tr('Only CPFIS-included ILP sub-funds can be bought with CPF-OA / CPF-SA. CPF-OA requires S$20,000 set aside; CPF-SA requires S$40,000 set aside.','CPF-OA / CPF-SA 只可投资CPFIS涵盖的ILP子基金。CPF-OA须先保留S$20,000；CPF-SA须先保留S$40,000。')}</div>
+      <div class="fact"><b>${tr('Charges','费用')}</b>${tr('No premium charge. Management charge is deducted from ILP sub-fund NAV: up to 1.20% p.a. for fixed income funds, 1.60% p.a. for others; may be increased up to 2.5% p.a. with notice.','无保费费用。管理费从ILP子基金净值扣除：固定收益最高1.20%/年，其他最高1.60%/年；通知后最高可调至2.5%/年。')}</div>
+    </div>`;
+  }
+  if(m==='srs'){
+    return `<div class="facts">
+      <div class="fact"><b>${tr('Entry age','投保年龄')}</b>${tr('Life assured: age 21 to 58 for SRS monies.','受保人：SRS款项投保年龄21至58岁。')}</div>
+      <div class="fact"><b>${tr('Charges','费用')}</b>${tr('Premium charge up to 5% on initial single premium, recurring single premium and top-ups. Fund management and underlying fund charges still apply at fund level.','首期趸缴、定额单次保费及附加保费的保费费用最高5%。基金管理费及底层基金费用仍在基金层面适用。')}</div>
+      <div class="fact"><b>${tr('Liquidity','流动性')}</b>${tr('No redemption fee currently. Redemptions from SRS monies are paid back to the relevant SRS Operator.','目前无赎回费。SRS款项赎回后转回相关SRS运营机构。')}</div>
+    </div>`;
+  }
+  return `<div class="facts">
+    <div class="fact"><b>${tr('Entry age','投保年龄')}</b>${tr('Life assured: 1 month to age 60 for cash monies.','受保人：现金投保年龄1个月至60岁。')}</div>
+    <div class="fact"><b>${tr('Charges','费用')}</b>${tr('Premium charge up to 5% on initial single premium, recurring single premium and top-ups. Fund management and underlying fund charges still apply at fund level.','首期趸缴、定额单次保费及附加保费的保费费用最高5%。基金管理费及底层基金费用仍在基金层面适用。')}</div>
+    <div class="fact"><b>${tr('Dividend option','派息选择')}</b>${tr('Only cash purchased policies are entitled to the dividend cash payout option.','只有现金投保保单可选择现金派息。')}</div>
+  </div>`;
+}
+function protectionLine(id){
+  const regular = id==='wf1'||id==='wf3'||id==='wf5'||id==='voyage'||id==='abundance';
+  const lro = (id==='wf1'||id==='wf3'||id==='wf5')
+    ? tr('Up to 3 replacements, after first 12 months','最多更换3次；首12个月后')
+    : tr('Up to 3 replacements during policy term','保单期内最多更换3次');
+  if(regular){
+    return `<div class="benefit-strip">
+      <div class="benefit"><b>${tr('Death / TI','身故 / 末期疾病')}</b>${tr('Higher of 101% total Regular Premiums paid less withdrawals, or Regular Premium Account value; plus Top-up Account value. TI cap S$3m aggregate.','已缴定期保费总额101%（扣除提取）与定期保费账户价值取高者；另加附加保费账户价值。末期疾病累计上限 S$300万。')}</div>
+      <div class="benefit"><b>${tr('Accidental death','意外身故')}</b>${tr('Before age 75: higher of 200% total Regular Premiums paid (cap S$2m) less withdrawals, or Regular Premium Account value; plus Top-up Account value.','75岁前：已缴定期保费总额200%（上限 S$200万，扣除提取）与定期保费账户价值取高者；另加附加保费账户价值。')}</div>
+      <div class="benefit"><b>${tr('LRO','更换受保人')}</b>${lro}</div>
+    </div>`;
+  }
+  if(id==='invest'){
+    return `<div class="benefit-strip">
+      <div class="benefit"><b>${tr('Death / TI','身故 / 末期疾病')}</b>${tr('Higher of 101% total Premiums paid less partial withdrawals, or Policy Value. TI applies before age 99.','已缴总保费101%（扣除部分提取）与保单价值取高者。末期疾病适用于99岁前。')}</div>
+      <div class="benefit"><b>${tr('Accidental death / LRO','意外身故 / LRO')}</b>${tr('Not shown in the Wealth Invest Product Summary.','Wealth Invest 产品摘要未列明。')}</div>
+    </div>`;
+  }
+  return '';
+}
+function protectionRulePara(id){
+  const regular = id==='wf1'||id==='wf3'||id==='wf5'||id==='voyage'||id==='abundance';
+  if(regular){
+    const lro = (id==='wf1'||id==='wf3'||id==='wf5')
+      ? tr('LRO can replace the life assured up to 3 times, no earlier than 12 months from issue, subject to underwriting and conditions.',
+           'LRO 可最多更换受保人3次，须在签发满12个月后，并受核保及条件约束。')
+      : tr('LRO can replace the life assured up to 3 times during the policy term, subject to underwriting and conditions.',
+           'LRO 可在保单期内最多更换受保人3次，并受核保及条件约束。');
+    return `<p><b>${tr('Protection.','保障。')}</b> ${tr('Death / TI benefit is the higher of 101% of total Regular Premiums paid less regular-account withdrawals, or Regular Premium Account value, plus Top-up Account value; TI is capped at S$3m aggregate. Accidental death before age 75 uses 200% of total Regular Premiums paid, capped at S$2m, on the same higher-of basis. ','身故 / 末期疾病为已缴定期保费总额101%（扣除定期账户提取）与定期保费账户价值取高者，另加附加保费账户价值；末期疾病累计上限 S$300万。75岁前意外身故按同一取高结构，以已缴定期保费总额200%计算，上限 S$200万。')}${lro}</p>`;
+  }
+  if(id==='invest'){
+    return `<p><b>${tr('Protection.','保障。')}</b> ${tr('Death / TI benefit is the higher of 101% of total Premiums paid less partial withdrawals, or Policy Value. TI applies before age 99. Accidental death benefit and LRO are not stated in the Wealth Invest Product Summary.','身故 / 末期疾病为已缴总保费101%（扣除部分提取）与保单价值取高者。末期疾病适用于99岁前。Wealth Invest 产品摘要未列明意外身故保障及 LRO。')}</p>`;
+  }
+  return '';
+}
+const LAYERLABEL_CN = {prem:'保费', sub1:'首年起步花红', sub2:'次年起步花红', pcb:'保费贡献花红', pu:'加码花红', loy:'忠诚花红', amf:'账户管理费'};
+function layerBar(id){
+  const seq = LAYERSEQ[id]||[];
+  if(!seq.length) return '';
+  const s = S[id];
+  return `<div class="ctrl" style="margin:2px 0 10px 0;"><label>${tr('Build-up sequence - reveal piece by piece','逐步展示 - 按讲解顺序逐项揭示')}</label><div class="chips" style="flex-wrap:wrap;">
+    ${seq.map((k,i)=>`<button class="${s.layers[k]?'active':''}" onclick="toggleLayer('${id}','${k}')">${i+1}. ${tr(LAYERLABEL[k], LAYERLABEL_CN[k])}</button>`).join('')}
+    <button onclick="resetLayers('${id}')" style="border-style:dashed;" title="${tr('Hide everything, then Step through','先全部隐藏，再逐步展示')}">&#8634; ${tr('Reset','重置')}</button>
+    <button onclick="stepLayer('${id}')" style="border-color:#0a7a3d;color:#0a7a3d;" title="${tr('Reveal the next item in sequence','揭示下一项')}">${tr('Step','下一步')} &#9654;</button>
+    <button onclick="allLayers('${id}')" title="${tr('Show everything','全部显示')}">${tr('All','全部')}</button>
+  </div></div>`;
+}
+
+function yearTable(R, s, prodId){
+  let h = `<table class="yrs"><thead><tr>
+    <th>${tr('Yr','年')}</th><th>${tr('Premium in','缴入保费')}</th><th>${tr('Bonus in','花红')}</th><th>${tr('AMF out','管理费')}</th>
+    ${s.divMode==='payout'
+      ? `<th>${tr('Account value','账户价值')}</th><th>${tr('Income this year /yr (/mth)','本年入息（/每月）')}</th><th>${tr('Income received so far','累计已领入息')}</th><th>${tr('Total value','总价值')}</th><th>${tr('Gain / loss incl. income','含入息盈亏')}</th>`
+      : `<th>${tr('Dividend /yr (/mth) indicative','每年派息（/每月）示意')}</th><th>${tr('Account value','账户价值')}</th><th>${tr('Gain / loss','盈亏')}</th>`}</tr></thead><tbody>`;
+  R.rows.forEach(row=>{
+    const incomeSoFar = s.divMode==='payout'? R.rows.slice(0,row.y).reduce((a,x)=>a+x.divOut,0):0;
+    const totalValue = row.val + incomeSoFar;
+    const pl = totalValue - row.tpp;
+    const yearlyDividend = s.divMode==='payout' ? row.divOut : row.mdiv*12;
+    const incomeCell = yearlyDividend
+      ? `<span class="income-cell"><b>${fmt(yearlyDividend)}/yr</b><small>${fmt2(row.mdiv)}/mth</small></span>`
+      : '<span class="dim">-</span>';
+    h += `<tr class="${row.y===R.mip?'mipRow':''}">
+      <td>${row.y}${row.y===R.mip?' &#9873;':''}</td>
+      <td>${row.prem? fmt(row.prem):'<span class="dim">-</span>'}</td>
+      <td title="${row.parts.join('\n')}">${row.credits? (row.credits>0?'<span class="pos">+'+fmt(row.credits)+'</span>':'<span class="neg">'+fmt(row.credits)+'</span>'):'<span class="dim">-</span>'}</td>
+      <td>${row.amf? '<span class="neg">-'+fmt(row.amf).slice(0)+'</span>':'<span class="dim">-</span>'}</td>
+      ${s.divMode==='payout'
+        ? `<td><b>${fmt(row.val)}</b></td><td>${incomeCell}</td><td class="pos">+${fmt(incomeSoFar)}</td><td><b>${fmt(totalValue)}</b></td>`
+        : `<td>${incomeCell}</td><td><b>${fmt(row.val)}</b></td>`}
+      <td class="${pl>=0?'pos':'neg'}">${fmt(pl)}</td></tr>`;
+  });
+  h += `</tbody></table>`;
+  return h;
+}
+function plFormulaNote(s){
+  const accountFormula = s.divMode==='payout'
+    ? tr('= (last year account value + premium in + bonus in) x (1 + return kept in account) - AMF.',
+         '=（上一年账户价值 + 缴入保费 + 花红）x（1 + 留在账户内的回报率）- 管理费。')
+    : tr('= (last year account value + premium in + bonus in) x (1 + assumed return) - AMF.',
+         '=（上一年账户价值 + 缴入保费 + 花红）x（1 + 假设回报率）- 管理费。');
+  const gainFormula = s.divMode==='payout'
+    ? tr('= account value + income received so far - total premiums put in so far.',
+         '= 账户价值 + 已领取入息 - 已投入总保费。')
+    : tr('= account value - total premiums put in so far.',
+         '= 账户价值 - 已投入总保费。');
+  return `<div class="formula-note">
+    <div><b>${tr('Account value','账户价值')}</b> ${accountFormula}</div>
+    <div><b>${s.divMode==='payout'?tr('Income this year','本年入息'):tr('Indicative yearly dividend','示意每年派息')}</b> ${s.divMode==='payout'
+      ? tr('= account value after premium and bonus x assumed return; income received so far = sum of yearly income.','= 缴入保费及花红后的账户价值 x 假设回报率；累计已领入息 = 每年入息的总和。')
+      : tr('= account value x assumed return; indicative monthly dividend = yearly dividend / 12.','= 账户价值 x 假设回报率；示意每月派息 = 每年派息 / 12。')}</div>
+    ${s.divMode==='payout'? `<div><b>${tr('Total value','总价值')}</b> ${tr('= account value + income received so far.','= 账户价值 + 累计已领入息。')}</div>`:''}
+    <div><b>${tr('Gain / loss','盈亏')}</b> ${gainFormula}</div>
+  </div>`;
+}
+
+function productPanel(id){
+  const p = PROD[id], s = S[id];
+  const R = run(id, s);
+  const isMipProduct = id !== 'invest';
+  const summaryYear = isMipProduct ? Math.min(R.mip, s.horizon) : s.horizon;
+  const summaryRow = R.rows[summaryYear-1] || R.end;
+  const summaryIsMip = isMipProduct && s.horizon >= R.mip;
+  const paidToSummary = summaryRow.tpp;
+  const bonusToSummary = R.rows.slice(0, summaryYear).reduce((a,x)=>a+Math.max(x.credits,0),0);
+  const amfToSummary = R.rows.slice(0, summaryYear).reduce((a,x)=>a+x.amf,0);
+  const incomeToSummary = R.rows.slice(0, summaryYear).reduce((a,x)=>a+x.divOut,0);
+  const totalValueToSummary = summaryRow.val + (s.divMode==='payout'? incomeToSummary:0);
+  const acOnlyPl = summaryRow.val - paidToSummary;
+  const totalPl = totalValueToSummary - paidToSummary;
+  const periodLabel = summaryIsMip ? tr(`MIP (yr ${R.mip})`,`投资期末（第${R.mip}年）`) : tr(`year ${summaryYear}`,`第${summaryYear}年`);
+  const periodShort = summaryIsMip ? tr('MIP','投资期末') : tr(`yr ${summaryYear}`,`第${summaryYear}年`);
+
+  /* timeline labels - each element only drawn when its layer is on */
+  const on = k => layerOn(s, k);
+  let subLabel=null, sub2Label=null, amfLabel=null, amfAfter=null, puSegs=[], puLabel='', loyLabel=null, premLabel='', pcbSeg=null;
+  if(id==='wf1'||id==='wf3'||id==='wf5'){
+    const ft = id==='wf1'?1:id==='wf3'?3:5;
+    const sb = wfSub(ft, s.P, G.campaign);
+    if(on('sub1')) subLabel = `${fmt(s.P)} x ${pct(sb)} = ${fmt(sb*s.P)} ${tr('bonus','花红')}`;
+    if(id==='wf1' && on('pcb')) pcbSeg = {from:2, to:R.mip, label:tr('Premium contribution 1% x applicable regular premium payment (month 13 to MIP)','保费贡献花红 1% x 适用定期保费（第13个月至投资期末）')};
+    if(on('amf')){ amfLabel = tr(`AMF 2.5% x TPP (max ${ft} yr${ft>1?'s':''} of prem)`,`管理费 2.5% x 已缴总保费（最多${ft}年保费）`); amfAfter = tr('AMF 1% x TPP','管理费 1% x 已缴总保费'); }
+    const lr = wfLoyalty[ft];
+    if(on('loy')) loyLabel = tr(`Loyalty ${pct(lr)} x A/C`,`忠诚花红 ${pct(lr)} x 账户价值`);
+    if(on('prem')) premLabel = tr(`${fmt(s.P)}/yr x ${Math.min(s.payYears,s.horizon)}`,`每年 ${fmt(s.P)} x ${Math.min(s.payYears,s.horizon)}年`);
+  } else if(id==='voyage'){
+    const [s1,s2] = voySub(s.P, s.mip, G.campaign);
+    if(on('sub1')) subLabel = `${tr('Y1','首年')}: ${fmt(s.P)} x ${pct(s1)} = ${fmt(s1*s.P)}`;
+    if(on('sub2') && s.payYears>=2) sub2Label = `${tr('Y2','次年')}: x ${pct(s2)} = ${fmt(s2*s.P)}`;
+    if(on('amf')){ amfLabel = tr(`AMF ${pct(voyAmfRate[s.mip])} x TPP (cap ${voyAmfCap[s.mip]} yrs)`,`管理费 ${pct(voyAmfRate[s.mip])} x 已缴总保费（上限${voyAmfCap[s.mip]}年）`); amfAfter = tr(`AMF 1% x ${s.mip} yrs prem`,`管理费 1% x ${s.mip}年保费`); }
+    if(on('pu')){ puSegs = VOY_PU_SEGS[s.mip]; puLabel = tr('POWER-UP % p.a. x A/C, monthly, to end MIP','加码花红 % x 账户价值（每月，至投资期末）'); }
+    if(on('loy')){ const lr = voyLoyalty[s.mip]*(G.campaign?CAMPAIGN.voyage.loyaltyMult:1); loyLabel = tr(`Loyalty ${pct(lr)} x A/C${G.campaign&&CAMPAIGN.voyage.loyaltyMult>1?' ('+CAMPAIGN.voyage.loyaltyMult+'x campaign)':''}`,`忠诚花红 ${pct(lr)} x 账户价值${G.campaign&&CAMPAIGN.voyage.loyaltyMult>1?'（优惠'+CAMPAIGN.voyage.loyaltyMult+'倍）':''}`); }
+    if(on('prem')) premLabel = tr(`${fmt(s.P)}/yr`,`每年 ${fmt(s.P)}`);
+  } else if(id==='abundance'){
+    if(on('sub1')) subLabel = `${fmt(s.P)} x ${pct(abuSub(s.P))} = ${fmt(abuSub(s.P)*s.P)} ${tr('bonus','花红')}`;
+    if(on('amf')){ amfLabel = tr('AMF 2.1% x A/C value','管理费 2.1% x 账户价值'); amfAfter = tr('AMF 0.6% x A/C value','管理费 0.6% x 账户价值'); }
+    if(on('pu')){ puSegs = [[5,10,.0010]]; puLabel = tr('POWER-UP % p.a. x A/C (yr 5-10)','加码花红 % x 账户价值（第5-10年）'); }
+    if(on('loy')) loyLabel = tr('Loyalty 0.30% x A/C','忠诚花红 0.30% x 账户价值');
+    if(on('prem')) premLabel = tr(`${fmt(s.P)}/yr x ${Math.min(s.payYears,s.horizon)}`,`每年 ${fmt(s.P)} x ${Math.min(s.payYears,s.horizon)}年`);
+  } else if(id==='invest'){
+    const pc = s.funding==='cpf' ? 0 : s.chargeRate;
+    if(on('prem')){
+      subLabel = pc>0? tr(`Premium charge ${pc}% = -${fmt(pc/100*s.P)}`,`保费费用 ${pc}% = -${fmt(pc/100*s.P)}`) : tr('100% invested from day 1','首日起 100% 投入');
+      amfLabel = s.funding==='cpf' ? tr('No premium charge; CPF sub-fund management charge applies','无保费费用；CPF子基金管理费适用')
+                                   : tr('No policy-level AMF / policy fee; fund charges apply','无保单层面管理费/保单费；基金费用适用');
+      premLabel = tr(`${fmt(s.P)} single premium`,`趸缴 ${fmt(s.P)}`);
+    }
+  }
+
+  const svg = tlSVG({
+    years:s.horizon, mip:id==='invest'? s.horizon+1 : R.mip, payYears:on('prem')?Math.min(s.payYears,s.horizon):0,
+    startAge:s.startAge,
+    subLabel, sub2Label, amfLabel, amfAfterLabel:amfAfter, puSegs, puLabel, loyLabel, premLabel, pcbSeg,
+    plTitle:s.divMode==='payout' ? tr(`Total gain/loss at ${periodShort}`,`${periodShort}总盈亏`) : tr(`Gain/loss at ${periodShort}`,`${periodShort}盈亏`),
+    plLabel:(totalPl>=0?'+':'')+fmt(totalPl), plPos:totalPl>=0
+  });
+
+  let warn='';
+  if(id==='wf1' && s.P<25000) warn = `<div class="note-chip">${tr('Flexi 1 minimum regular premium is S$25,000 a year (Product Summary, Feb 2026). Below that, quote Flexi 3 or Flexi 5 instead.','Flexi 1 最低年缴保费为 S$25,000（产品摘要，2026年2月）。低于此数请改报 Flexi 3 或 Flexi 5。')}</div>`;
+  if(id==='voyage' && s.payYears<R.mip) warn = `<div class="note-chip">${tr('Paying fewer years than the MIP means a premium holiday: free up to 24 months after year 2, but power-up bonuses are forfeited while on holiday. This illustration does not deduct that pause.','缴费年数少于最低投资期即进入保费假期：第2年后累计24个月内免费，但假期期间加码花红会被没收。本示意图未扣减该暂停。')}</div>`;
+  if(id==='wf1' && s.payYears>1 && layerOn(s,'pcb')) warn = `<div class="note-chip">${tr('Premium contribution bonus (1% of each premium, months 13 to 120) is credited because premiums continue past year 1. The classic pay-once illustration earns no premium contribution bonus.','因保费在首年后继续缴付，本示意图计入保费贡献花红（每期保费的1%，第13至120个月）。经典的一次缴清方案不享有此花红。')}</div>`;
+
+  let extraCtrls='';
+  if(id==='voyage') extraCtrls = voyageMipCtrl();
+  if(id==='abundance') extraCtrls = `<div class="ctrl"><label>${tr('Start-up bonus band','起步花红档位')}</label><div class="chips">
+      <button class="active" disabled style="cursor:default;">${pct(abuSub(s.P))} ${tr('auto','自动')}</button>
+      <button disabled style="cursor:default;opacity:.7;">${tr('8% <24k · 10% 24-42k · 12% 42k+','8% <2.4万 · 10% 2.4-4.2万 · 12% 4.2万+')}</button>
+    </div></div>`;
+  if(id==='invest') extraCtrls = investFundingCtrl() + (s.funding==='cpf' ? '' : `<div class="ctrl"><label>${tr('Premium charge %','保费费用 %')}</label><input type="number" step="0.5" min="0" max="5" value="${s.chargeRate}" onchange="S.invest.chargeRate=+this.value;render();"></div>`);
+
+  const campBadge = PROD[id].camp ? (G.campaign? `<span class="badge">${CAMPAIGN.name} ${tr('campaign rates','优惠利率')}</span>`:`<span class="badge grey">${tr('standard rates','标准利率')}</span>`) : '';
+
+  return `<div class="panel">
+    <div class="prodhead"><h2>${productName(id)}</h2>${campBadge}<span class="tagline">${productTag(id)}</span><button class="report-btn" onclick="printReport()" title="${tr('Print or save this page as a PDF report','打印或另存为 PDF 报告')}">${tr('Generate report','生成报告')}</button></div>
+    ${warn}
+    ${protectionLine(id)}
+    ${id==='invest'? investFactStrip():''}
+    <div class="controls">
+      ${id==='invest'? ctrlNum(id,'P',tr('Single premium S$','趸缴保费 S$'),1000,10000,5000000) : ctrlNum(id,'P',tr('Annual premium S$','年缴保费 S$'),500,MINP[id]||0,5000000)}
+      ${premiumBandCtrl(id)}
+      ${extraCtrls}
+      ${retChips(id)}
+      ${id!=='invest'? ctrlNum(id,'payYears',tr('Years paying','缴费年数'),1,1,60):''}
+      ${ctrlNum(id,'horizon',tr('Show years','显示年数'),1,5,40)}
+      ${divModeCtrl(id)}
+      ${ageCtrl(id)}
+    </div>
+    ${layerBar(id)}
+    <div class="summary">
+      <div class="stat"><div class="k">${summaryIsMip?tr('Total paid to MIP','投资期末已缴保费'):tr('Total paid to '+periodLabel,periodLabel+'已缴保费')}</div><div class="v">${fmt(paidToSummary)}</div></div>
+      <div class="stat"><div class="k">${summaryIsMip?tr('Bonuses to MIP','投资期末已获花红'):tr('Bonuses to '+periodLabel,periodLabel+'已获花红')}</div><div class="v good">+${fmt(bonusToSummary)}</div></div>
+      <div class="stat"><div class="k">${summaryIsMip?tr('AMF to MIP','投资期末管理费'):tr('AMF to '+periodLabel,periodLabel+'管理费')}</div><div class="v red">-${fmt(amfToSummary)}</div></div>
+      <div class="stat"><div class="k">${summaryIsMip?tr('Account value at MIP (yr '+R.mip+')','投资期末账户价值（第'+R.mip+'年）'):tr('Account value at '+periodLabel,periodLabel+'账户价值')}</div><div class="v">${fmt(summaryRow.val)}</div></div>
+      ${s.divMode!=='payout'? `<div class="stat"><div class="k">${summaryIsMip?tr('Gain / loss at MIP','投资期末盈亏'):tr('Gain / loss at '+periodLabel,periodLabel+'盈亏')}</div><div class="v ${acOnlyPl>=0?'good':'red'}">${(acOnlyPl>=0?'+':'')+fmt(acOnlyPl)}</div></div>`:''}
+      ${s.divMode==='payout'? `<div class="stat"><div class="k">${summaryIsMip?tr('Income paid to MIP','投资期末已领入息'):tr('Income paid to '+periodLabel,periodLabel+'已领入息')}</div><div class="v good">+${fmt(incomeToSummary)}</div></div>
+      <div class="stat"><div class="k">${summaryIsMip?tr('Total value at MIP','投资期末总价值'):tr('Total value at '+periodLabel,periodLabel+'总价值')}</div><div class="v">${fmt(totalValueToSummary)}</div></div>
+      <div class="stat"><div class="k">${summaryIsMip?tr('Total gain / loss incl. income at MIP','投资期末总盈亏（含入息）'):tr('Total gain / loss incl. income at '+periodLabel,periodLabel+'总盈亏（含入息）')}</div><div class="v ${totalPl>=0?'good':'red'}">${(totalPl>=0?'+':'')+fmt(totalPl)}</div></div>`:''}
+    </div>
+    <div class="tl-wrap">${svg}</div>
+    <div class="table-print-page">
+    ${yearTable(R, s, id)}
+    ${plFormulaNote(s)}
+    </div>
+    ${rulesBlock(id)}
+    <div class="copyline">&copy; Kellie Zheng. All rights reserved.</div>
+  </div>`;
+}
+
+function rulesInner(id){
+  const blocks = {
+    wf1:`<p><b>Start-up bonus.</b> 5% of year-1 premiums (S$25,000 to below S$50,000) or 10% (S$50,000 and above). One-time, year 1, no campaign uplift for Flexi 1. No bonus recovery charge; the premium can only be reduced (max 25%) after the Flexi Term, subject to the minimum, and increases only restore a previous reduction, never above the original.</p>
+      <p><b>Premium contribution bonus.</b> 1% of each regular premium actually paid, from month 13 to the end of the MIP. Forfeited for missed premiums and during premium holiday. Exclusive to Flexi 1.</p>
+      <p><b>Loyalty bonus.</b> 0.70% p.a. of the regular premium account value, credited monthly from the first month after the MIP ends. Top-ups earn no bonuses.</p>
+      <p><b>AMF.</b> 2.5% p.a. x annualised premium x lower of (policy year, Flexi Term) during the MIP; 1.0% after. Payable throughout, including premium holiday.</p>
+      <p><b>Liquidity.</b> Partial withdrawal from month 4 (min S$250, keep at least 3 months of premium). Free partial withdrawal benefit in years 6-10 for marriage or divorce, birth, property purchase completion, retrenchment: up to 30% of the account value at the 5th anniversary. Regular withdrawal after MIP, min S$1,200 a year, free. Premium holiday from month 13 with no charge. EEC applies if the policy terminates during the MIP.</p>`,
+    wf3:`<p><b>Start-up bonus.</b> Standard ${pct(STANDARD.focus.ft3[0])} (S$9,000 to below S$18,000) or ${pct(STANDARD.focus.ft3[1])} (S$18,000 and above). Campaign to ${CAMPAIGN.labelDate}: ${pct(CAMPAIGN.focus.ft3[0])} / ${pct(CAMPAIGN.focus.ft3[1])}. Year-1 premiums only. Channel: Agency, Singpost, Direct. No bonus recovery charge.</p>
+      <p><b>Grab vouchers (campaign).</b> 1.5% of first premium (low band) or 3.0% (high band), rounded up to the nearest S$10, emailed within 60 days after the promotion ends. Clawback if the policy ends within 12 months.</p>
+      <p><b>Loyalty bonus.</b> 0.10% p.a. of the regular premium account value, monthly, after the MIP - the thinnest of the three Flexi Terms (Flexi 1 pays 0.70%, Flexi 5 pays 0.35%). AMF mirrors Flexi 1: 2.5% p.a. x premium x lower of (policy year, 3) during MIP, 1.0% after.</p>
+      <p><b>Liquidity.</b> Partial withdrawal effectively from month 25 (the charge is 100% in years 1-2); free partial withdrawal benefit years 6-10 for life events, up to 20% of the account value at the 5th anniversary; regular withdrawal after MIP free (min S$1,200 a year); premium holiday from month 25, charged only in year 3. Premium changes only after the Flexi Term: reduce up to 25%, increases only restore a previous cut, no bonus recovery charge.</p>`,
+    wf5:`<p><b>Start-up bonus.</b> Standard ${pct(STANDARD.focus.ft5[0])} (below S$12,000) or ${pct(STANDARD.focus.ft5[1])} (S$12,000 and above). Campaign to ${CAMPAIGN.labelDate}: ${pct(CAMPAIGN.focus.ft5[0])} / ${pct(CAMPAIGN.focus.ft5[1])}. Year-1 premiums only.</p>
+      <p><b>Grab vouchers (campaign).</b> 1.5% / 3.0% of first premium by band, same mechanics as Flexi 3.</p>
+      <p><b>Loyalty bonus.</b> 0.35% p.a. of the regular premium account value, monthly, after the MIP (PS v1.51, Feb 2026).</p>
+      <p><b>AMF.</b> 2.5% p.a. x premium x lower of (policy year, 5) during the MIP, so it steps up over the first five years to 2.5% of total premiums; 1.0% after the MIP.</p>
+      <p><b>Liquidity.</b> As Flexi 3: withdrawals effectively from month 25 (100% charge in years 1-2), life-event free withdrawals years 6-10 up to 20% of the 5th-anniversary account value, free regular withdrawals after MIP (min S$1,200 a year), premium holiday charged in years 3-5 only. No bonus recovery charge. Premium changes only after the Flexi Term: reduce up to 25%, increases only restore a previous cut.</p>`,
+    voyage:`<p><b>Start-up bonus.</b> Years 1 and 2, rate by premium band and MIP. Standard year 1 up to 30%; campaign to ${CAMPAIGN.labelDate} lifts year 1 to ${pct(CAMPAIGN.voyage.sub[2][15][0])}-${pct(CAMPAIGN.voyage.sub[3][25][0])} for premiums of S$12,000 and above. Year 2 rates unchanged by the campaign.</p>
+      <p><b>Power-up bonus.</b> Monthly on the regular premium account value until the end of MIP. MIP 15: 0.20% from year 6. MIP 20: 0.10% (yr 3-5), 0.30% (6-10), 0.50% (11-15), 0.70% (16-20). MIP 25: 0.10%, 0.40%, 0.70%, 0.80%, 1.00% (21-25). Paused 12 months after any partial withdrawal, premium holiday or premium reduction; forfeited during premium holiday.</p>
+      <p><b>Loyalty bonus.</b> Monthly after the MIP: 1.00% / 1.10% / 1.20% p.a. by MIP, doubled to 2.00% / 2.20% / 2.40% for policies bought in the campaign window. Paused 12 months after any withdrawal.</p>
+      <p><b>AMF.</b> 2.30% p.a. (MIP 15) or 2.15% (MIP 20/25) x annualised premium x lower of (policy year, cap of 12/16/19); after the MIP, 1.0% x premium x MIP. Payable throughout.</p>
+      <p><b>Liquidity.</b> Premiums payable to age 99; premium holiday from month 25, first 24 months free in total, no charge after MIP. Partial withdrawal from month 25 (min S$250, keep 18 months of premium; charge during MIP, plus extra EEC if surrendering within 24 months of a withdrawal). No free partial withdrawal benefit on this product. Regular withdrawal after MIP free (min S$1,200 a year). Top-ups from month 13 (insured below age 70): min S$5,000, 3% charge, capped at 2x annual premium, earn no bonuses, withdrawable free.</p>
+      <p><b>Premium changes.</b> Locked until policy year 5 / 8 / 10 (MIP 15 / 20 / 25). Reductions cap at 25% of the original premium; each reduction during the MIP triggers the bonus recovery charge and a 12-month power-up pause. Increases never earn back start-up bonus.</p>`,
+    abundance:`<p><b>Bonuses.</b> One-time start-up bonus on year-1 premiums: 8% (S$6,000 to below S$24,000), 10% (S$24,000 to below S$42,000), 12% (S$42,000 and above). Power-up 0.10% p.a. monthly from year 5 to the end of MIP. Loyalty 0.30% p.a. monthly after the MIP. Bonuses pause 12 months after any withdrawal, holiday or premium cut.</p>
+      <p><b>AMF.</b> Charged on account value, not premiums: 2.1% p.a. during the MIP, 0.6% after. 100% premium allocation, no premium charge on regular premiums.</p>
+      <p><b>Liquidity.</b> Two free partial withdrawals during the MIP, available after the first 2 policy years, each capped at 6% of the regular premium account value, and each use pauses power-up and loyalty bonuses for 12 months. Other partial withdrawals only from month 37, with charges. Premium holiday from month 37, currently free of charge (capped at 50% of premium if ever imposed); AMF keeps accruing. Regular withdrawal after MIP free (min S$1,200 a year). Top-ups and recurring single premium from month 13 to age 70, 3% charge, no bonuses, withdrawable free. Premium increases are never allowed on this product; reductions only from month 37, capped at 25% of the original, with a prorated bonus recovery charge and a 12-month bonus pause, and once reduced the premium cannot go back up.</p>`,
+    invest:`<p><b>Structure.</b> Single premium, whole of life to age 99. Minimum S$10,000. Cash entry age is 1 month to 60; SRS entry age is 21 to 58; CPF entry age is 21 to the lower of age 58 and the CPF account closure age prescribed by CPFB.</p>
+      <p><b>Charges.</b> Cash/SRS: premium charge up to 5% on initial single premium, recurring single premium and top-ups; no policy-level AMF or policy fee, but fund management and underlying fund charges apply at fund level. CPF: no premium charge, but CPF ILP sub-fund management charge applies, up to 1.20% p.a. for fixed income funds and 1.60% p.a. for other funds, with a stated cap of 2.5% p.a. after notice.</p>
+      <p><b>Liquidity.</b> Free fund switches currently (min S$1,000 switch / hold per fund) and no redemption fee currently. Partial redemption min S$1,000; below S$10,000 holding becomes full redemption. Cash/SRS regular withdrawal is available; only cash purchased policies have the dividend cash payout option. CPF investments are subject to CPFIS-OA / CPFIS-SA eligibility and CPFIS sub-fund restrictions.</p>`
+  };
+  const cnBlocks = {
+    wf1:`<p><b>起步花红。</b>首年保费的 5%（S$25,000 至 S$50,000 以下）或 10%（S$50,000 及以上）。一次性，仅首年，Flexi 1 无优惠加成。无花红追回费；缴费期后才可调低保费（最多25%），不得低于最低保费，加回仅限恢复原额、不可超过原保费。</p>
+      <p><b>保费贡献花红。</b>实际缴付的每期保费的 1%，从第13个月至投资期末。漏缴及保费假期期间不派发。Flexi 1 独有。</p>
+      <p><b>忠诚花红。</b>投资期结束后，按月以年率 0.70% 乘以定期保费账户价值派发。附加保费不享任何花红。</p>
+      <p><b>账户管理费。</b>投资期内每年 2.5% x 年缴保费 x（保单年度与缴费期取小者）；投资期后 1.0%。保费假期内照收。</p>
+      <p><b>流动性。</b>第4个月起可部分提取（最低 S$250，账户须留至少3个月保费）。第6至10年遇人生大事（结婚或离婚、生育、在新加坡完成购房、被裁员）可免费提取，上限为第5周年账户价值的 30%。投资期后定期提取每年最低 S$1,200，免费。第13个月起保费假期，无费用。投资期内退保须付提前退保费。</p>`,
+    wf3:`<p><b>起步花红。</b>标准 ${pct(STANDARD.focus.ft3[0])}（S$9,000 至 S$18,000 以下）或 ${pct(STANDARD.focus.ft3[1])}（S$18,000 及以上）。优惠至 ${CAMPAIGN.labelDate}：${pct(CAMPAIGN.focus.ft3[0])} / ${pct(CAMPAIGN.focus.ft3[1])}。仅计首年保费。渠道：代理、Singpost、直销。无花红追回费。</p>
+      <p><b>Grab 礼券（优惠）。</b>首期保费的 1.5%（低档）或 3.0%（高档），进位至最近 S$10，优惠期结束后60天内电邮发出。保单12个月内终止会被追回。</p>
+      <p><b>忠诚花红。</b>年率 0.10%，投资期后按月以账户价值计，三种缴费期中最低（Flexi 1 为0.70%，Flexi 5 为0.35%）。管理费同 Flexi 1 结构：投资期内 2.5% x 保费 x（保单年度与3取小者），之后 1.0%。</p>
+      <p><b>流动性。</b>部分提取实际上从第25个月起（首两年费率为100%）；第6至10年人生大事可免费提取，上限为第5周年账户价值的20%；投资期后定期提取免费（每年最低S$1,200）；第25个月起可保费假期，仅第3年收费。调整保费须待缴费期后：可调低至多25%，加回仅限恢复原额，无花红追回费。</p>`,
+    wf5:`<p><b>起步花红。</b>标准 ${pct(STANDARD.focus.ft5[0])}（S$12,000 以下）或 ${pct(STANDARD.focus.ft5[1])}（S$12,000 及以上）。优惠至 ${CAMPAIGN.labelDate}：${pct(CAMPAIGN.focus.ft5[0])} / ${pct(CAMPAIGN.focus.ft5[1])}。仅计首年保费。</p>
+      <p><b>Grab 礼券（优惠）。</b>按档位 1.5% / 3.0% 计于首期保费，机制同 Flexi 3。</p>
+      <p><b>忠诚花红。</b>年率 0.35%，投资期后按月以账户价值计（产品摘要 v1.51，2026年2月）。</p>
+      <p><b>账户管理费。</b>投资期内 2.5% x 保费 x（保单年度与5取小者），首五年逐步升至总保费的 2.5%；投资期后 1.0%。</p>
+      <p><b>流动性。</b>同 Flexi 3：提取实际上从第25个月起（首两年费率100%），第6至10年人生大事免费提取（上限为第5周年账户价值的20%），投资期后定期提取免费（每年最低S$1,200），保费假期仅第3至5年收费。无花红追回费。调整保费须待缴费期后：可调低至多25%，加回仅限恢复原额。</p>`,
+    voyage:`<p><b>起步花红。</b>首两年派发，按保费档与投资期定。标准首年最高 30%；优惠至 ${CAMPAIGN.labelDate}，S$12,000 及以上首年升至 ${pct(CAMPAIGN.voyage.sub[2][15][0])}-${pct(CAMPAIGN.voyage.sub[3][25][0])}。次年利率不受优惠影响。</p>
+      <p><b>加码花红。</b>按月以定期保费账户价值计，派至投资期末。MIP 15：第6年起 0.20%。MIP 20：0.10%（第3-5年）、0.30%（6-10）、0.50%（11-15）、0.70%（16-20）。MIP 25：0.10%、0.40%、0.70%、0.80%、1.00%（21-25）。部分提取、保费假期或调低保费后暂停12个月；假期期间直接没收。</p>
+      <p><b>忠诚花红。</b>投资期后按月派发：年率 1.00% / 1.10% / 1.20%（按投资期），优惠期内投保翻倍至 2.00% / 2.20% / 2.40%。任何提取后暂停12个月。</p>
+      <p><b>账户管理费。</b>2.30%（MIP 15）或 2.15%（MIP 20/25）x 年缴保费 x（保单年度，上限 12/16/19）；投资期后 1.0% x 保费 x 投资期年数。全程收取。</p>
+      <p><b>流动性。</b>保费缴至99岁；第25个月起可保费假期，累计首24个月免费，投资期后免费。第25个月起可部分提取（最低 S$250，账户留18个月保费；投资期内收费，且提取后24个月内退保另加提前退保费）。本产品没有人生大事免费提取。投资期后定期提取免费（每年最低S$1,200）。附加保费第13个月起（受保人未满70岁）：最低 S$5,000、收3%、上限两倍年缴保费、不享花红、可随时免费提取。</p>
+      <p><b>调整保费。</b>第5 / 8 / 10个保单年度前锁定（投资期15 / 20 / 25年）。调低上限为原保费的25%；投资期内每次调低均触发花红追回费及加码花红暂停12个月。加保不补发起步花红。</p>`,
+    abundance:`<p><b>花红。</b>一次性起步花红按首年保费：8%（S$6,000 至 S$24,000 以下）、10%（S$24,000 至 S$42,000 以下）、12%（S$42,000 及以上）。加码花红年率 0.10%，第5年至投资期末按月派发。忠诚花红年率 0.30%，投资期后按月派发。任何提取、假期或减保后花红暂停12个月。</p>
+      <p><b>账户管理费。</b>按账户价值收取：投资期内每年 2.1%，之后 0.6%。定期保费 100% 投入，无保费费用。</p>
+      <p><b>流动性。</b>投资期内两次免费部分提取：首两个保单年度之后可用，每次上限为定期保费账户价值的 6%，且每次使用后花红暂停12个月。其他部分提取须待第37个月起，并收费。第37个月起可保费假期，目前免费（若日后收取，上限为保费的50%）；管理费照常累计。投资期后定期提取免费（每年最低S$1,200）。第13个月起至70岁可附加保费及定额单次保费，收3%，不享花红，可免费提取。本产品永不可调高保费；第37个月起才可调低（上限为原保费的25%），按比例扣花红追回费并暂停花红12个月，调低后不可再加回。</p>`,
+    invest:`<p><b>结构。</b>趸缴，保障至99岁。最低 S$10,000。现金受保人投保年龄为1个月至60岁；SRS为21至58岁；CPF为21岁至58岁或CPFB规定的CPF账户关闭年龄两者较低者。</p>
+      <p><b>费用。</b>现金/SRS：首期趸缴、定额单次保费及附加保费的保费费用最高5%；无保单层面账户管理费或保单费，但基金管理费及底层基金费用在基金层面适用。CPF：无保费费用，但CPF ILP子基金管理费适用，固定收益基金最高1.20%/年，其他基金最高1.60%/年，通知后上限为2.5%/年。</p>
+      <p><b>流动性。</b>目前基金转换免费（每次转换/每只基金持有最低S$1,000），目前无赎回费。部分赎回最低S$1,000；低于S$10,000持有额视为全额赎回。现金/SRS可定期提取；只有现金投保保单可选择现金派息。CPF投资受CPFIS-OA / CPFIS-SA资格及CPFIS子基金限制。</p>`
+  };
+  /* exit-charge summary appended to every product's rules */
+  const chEn = {
+    wf1:'Partial withdrawal charge by policy year: 30 / 23 / 19 / 16 / 13 / 10 / 8 / 6 / 4 / 3% of the amount withdrawn during the MIP, zero after. Early encashment charge on surrender: the same 30%-to-3% scale, on account value, guaranteed. Premium holiday free. Top-up premiums carry a 3% charge going in; withdrawals from the top-up account are always free.',
+    wf3:'Partial withdrawal and early encashment charges by policy year: 100 / 100 / 80 / 65 / 50 / 47 / 44 / 21 / 16 / 8%, zero after the MIP. Premium holiday charge only in year 3, at 80% of the annual premium (monthly 1/12). Top-ups 3% in, free out.',
+    wf5:'Partial withdrawal and early encashment charges by policy year: 100 / 100 / 80 / 65 / 50 / 47 / 44 / 21 / 16 / 8%, zero after the MIP. Premium holiday charge in years 3-5 only: 80 / 65 / 50% of the annual premium (monthly 1/12). Top-ups 3% in, free out.',
+    voyage:'Partial withdrawal charge from 50% (year 3) tapering to 5% late in the MIP; premium holiday is free for 24 months in total, then charged on the missed premium at rates running from 74% / 85% / 98% in year 3 down to 45% / 50% / 50% for MIP 15 / 20 / 25, and the charge applies only up to policy year 8 / 10 / 13 respectively, with no PHC after that; early encashment from 100% of account value in years 1-2 down to single digits at MIP end, plus an extra EEC if you surrender within 24 months of a withdrawal; bonus recovery charge on any premium reduction during the MIP. Top-ups 3% in, free out.',
+    abundance:'Partial withdrawal charge by policy year: 100 / 100 / 80 / 60 / 40%, then 8% in years 6-10, zero after. Early encashment charge: 100 / 100 / 80 / 65 / 50 / 47 / 44 / 21 / 16 / 8%. Premium holiday currently free (capped at 50% of premium if ever imposed). Bonus recovery charge on premium cuts, prorated by months elapsed over 120. Recurring single premium and top-ups 3% in, free out.',
+    invest:'No redemption fee or switching fee currently. Cash/SRS may have premium charge up to 5% at entry/top-up/RSP, with fund-level charges still applying. CPF has no premium charge, but CPF ILP sub-fund management charge applies.'
+  };
+  const chCn = {
+    wf1:'部分提取费按保单年度：30 / 23 / 19 / 16 / 13 / 10 / 8 / 6 / 4 / 3%（按投资期内提取金额计），之后为零。退保的提前退保费：同一30%至3%档，按账户价值计，保证不变。保费假期免费。附加保费入场收3%；附加保费账户提取永远免费。',
+    wf3:'部分提取费与提前退保费按保单年度：100 / 100 / 80 / 65 / 50 / 47 / 44 / 21 / 16 / 8%，投资期后为零。保费假期费仅第3年收，为年缴保费的80%（按月1/12）。附加保费入场3%，提取免费。',
+    wf5:'部分提取费与提前退保费按保单年度：100 / 100 / 80 / 65 / 50 / 47 / 44 / 21 / 16 / 8%，投资期后为零。保费假期费仅第3至5年收：年缴保费的80 / 65 / 50%（按月1/12）。附加保费入场3%，提取免费。',
+    voyage:'部分提取费由第3年50%递减至投资期末5%；保费假期累计24个月免费，用尽后按漏缴保费收假期费，第3年起为74% / 85% / 98%（按投资期15 / 20 / 25年），递减至45% / 50% / 50%，且仅收至第8 / 10 / 13个保单年度，之后无假期费；提前退保费由首两年账户价值的100%递减至投资期末个位数，提取后24个月内退保另加一笔；投资期内任何减保均收花红追回费。附加保费入场3%，提取免费。',
+    abundance:'部分提取费按保单年度：100 / 100 / 80 / 60 / 40%，第6至10年为8%，之后为零。提前退保费：100 / 100 / 80 / 65 / 50 / 47 / 44 / 21 / 16 / 8%。保费假期目前免费（若日后收取，上限为保费的50%）。减保收按比例的花红追回费（按已过月数除以120折算）。定额单次保费及附加保费入场3%，提取免费。',
+    invest:'目前无赎回费及基金转换费。现金/SRS 入场、附加保费及定额单次保费的保费费用最高5%，基金层面费用仍适用。CPF 无保费费用，但CPF ILP子基金管理费适用。'
+  };
+  const base = (G.lang==='cn' ? cnBlocks[id] : blocks[id]) || '';
+  if(!base) return '';
+  return protectionRulePara(id) + base + `<p><b>${tr('PH & withdrawal charges.','保费假期与提取费用。')}</b> ${(G.lang==='cn'?chCn:chEn)[id]||''} ${tr('For all other terms and the full charge schedules, please refer to the official Policy Illustration and Product Summary.','其余条款及完整费率表，请以官方保单利益演示及产品摘要为准。')}</p>`;
+}
+function rulesBlock(id){
+  return `<details class="rules"><summary>${tr('Product rules that matter in the room','谈单时要紧的产品规则')}</summary><div class="inner">${rulesInner(id)}</div></details>`;
+}
+
+/* ================= compare tab ================= */
+const CMP = {budget:60000, ret:6, divMode:'reinvest'};
+function compareTab(){
+  const T = CMP.budget, r = CMP.ret;
+  /* minimum annual premiums per Flexi Term - official PS v1.51 Feb 2026 */
+  const CMPMIN = {wf1:25000, wf3:9000, wf5:6000};
+  const mkNote = (min, n) => tr(`Minimum annual premium is ${fmt(min)}, so this term needs a total budget of at least ${fmt(min*n)}.`,
+                                `最低年缴保费为 ${fmt(min)}，此缴费期的总预算需至少 ${fmt(min*n)}。`);
+  const cases = [
+    {id:'wf1', label:tr('Flexi 1 - pay once','Flexi 1 - 一次缴清'), P:T, pay:1, ok:T>=CMPMIN.wf1, note:mkNote(CMPMIN.wf1,1)},
+    {id:'wf3', label:tr('Flexi 3 - pay '+fmt(T/3)+' x 3','Flexi 3 - 每年 '+fmt(T/3)+' x 3年'), P:T/3, pay:3, ok:T/3>=CMPMIN.wf3, note:mkNote(CMPMIN.wf3,3)},
+    {id:'wf5', label:tr('Flexi 5 - pay '+fmt(T/5)+' x 5','Flexi 5 - 每年 '+fmt(T/5)+' x 5年'), P:T/5, pay:5, ok:T/5>=CMPMIN.wf5, note:mkNote(CMPMIN.wf5,5)}
+  ];
+  let cards = '';
+  cases.forEach(c=>{
+    if(!c.ok){
+      cards += `<div class="cmp-card"><h3>${c.label.split(' - ')[0]}</h3><p class="muted" style="font-size:13px">${c.note}</p></div>`;
+      return;
+    }
+    const saved = S[c.id]; S[c.id] = {...S[c.id], P:c.P, ret:r, payYears:c.pay, horizon:11, divMode:'reinvest', layers:undefined};
+    const R = run(c.id, S[c.id]);
+    const ft = c.id==='wf1'?1:c.id==='wf3'?3:5;
+    const sb = wfSub(ft, c.P, G.campaign);
+    const y10 = R.rows[9], y11 = R.rows[10];
+    cards += `<div class="cmp-card"><h3>${c.label}</h3>
+      <div class="row"><span>${tr('Start-up bonus','起步花红')}</span><b>${pct(sb)} = ${fmt(sb*c.P)}</b></div>
+      <div class="row"><span>${tr('Total AMF, 10 yrs','十年总管理费')}</span><b>-${fmt(R.rows.slice(0,10).reduce((a,x)=>a+x.amf,0))}</b></div>
+      <div class="row"><span>${tr('A/C at end of MIP','投资期末账户价值')}</span><b>${fmt(y10.val)}</b></div>
+      <div class="row"><span>${tr('P/L at year 10','第10年盈亏')}</span><b class="${y10.val-T>=0?'':''}" style="color:${y10.val-T>=0?'var(--good)':'var(--red-dark)'}">${(y10.val-T>=0?'+':'')+fmt(y10.val-T)}</b></div>
+      <div class="row"><span>${tr('Indicative dividend at yr 10','第10年示意派息')}</span><b>${fmt(y10.val*r/100)}/yr (${fmt2(y10.val*r/100/12)}/mth)</b></div>
+      <div class="row"><span>${tr('Loyalty into yr 11','第11年起忠诚花红')}</span><b>${y11 && y11.parts.length? y11.parts.filter(p=>p.indexOf('Loyalty')===0||p.indexOf('忠诚')===0).join('') || (ft===3?tr('per PS','见产品摘要'):'-') : (ft===3?tr('per PS','见产品摘要'):'-')}</b></div>
+      ${c.id==='wf3'||c.id==='wf5'? `<div class="row"><span>${tr('Grab voucher (campaign)','Grab 礼券（优惠）')}</span><b>${G.campaign? fmt(Math.ceil((c.P*CAMPAIGN.focus.grab[c.P>=CAMPAIGN.focus.bandFloor['ft'+ft]?1:0])/10)*10):'-'}</b></div>`:''}
+      </div>`;
+    S[c.id] = saved;
+  });
+  return `<div class="panel">
+    <div class="prodhead"><h2>${tr('Same budget, three Flexi Terms','同一笔预算，三种缴费期')}</h2><span class="tagline">${tr('Your Flexi 1 vs Flexi 5 comparison, generalised. Same total outlay, deployed once or spread over 3 or 5 years.','Flexi 1 对 Flexi 5 的对比推广版。同一笔总投入，一次过或分3年、5年投入。')}</span><button class="report-btn" onclick="printReport()" title="${tr('Print or save this page as a PDF report','打印或另存为 PDF 报告')}">${tr('Generate report','生成报告')}</button></div>
+    <div class="controls">
+      <div class="ctrl"><label>${tr('Total budget S$','总预算 S$')}</label><input type="number" step="5000" min="5000" value="${CMP.budget}" onchange="CMP.budget=+this.value;render();"></div>
+      <div class="ctrl"><label>${tr('Assumed return % p.a.','假设回报率 % 每年')}</label><div class="chips">${[3.5,6,8].map(x=>`<button class="${CMP.ret===x?'active':''}" onclick="CMP.ret=${x};render();">${x}%</button>`).join('')}</div></div>
+    </div>
+    <div class="cmp-grid">${cards}</div>
+    <p class="muted" style="margin-top:12px;font-size:12.5px">${tr('Lump sum in early beats staggered entry on pure arithmetic: the full capital compounds from day one and the AMF base is the same 2.5% of total premiums either way once fully paid. The staggered terms answer cash-flow reality and the campaign bonus differential (30% on Flexi 5 high band vs 5-10% on Flexi 1), not the maths of compounding. Dollar-cost averaging into volatile markets is the honest counter-argument.','纯算术上，整笔早投优于分期：全部资金从第一天起复利，而缴清后管理费基数同为总保费的2.5%。分期缴费期回应的是现金流现实与优惠花红差距（Flexi 5 高档30% 对 Flexi 1 的5-10%），不是复利数学。诚实的反方论点是波动市况下的定期定额。')}</p>
+    <div class="copyline">&copy; Kellie Zheng. All rights reserved.</div>
+  </div>`;
+}
+
+/* ================= liquidity tab: product charge views ================= */
+const LIQ_PRODUCTS = [['wf1','WF Flexi 1'],['wf3','WF Flexi 3'],['wf5','WF Flexi 5'],['voyage','Wealth Voyage'],['abundance','Wealth Abundance'],['invest','Wealth Invest']];
+const CHARGE_LABELS = {
+  all:['All charges','全部费用'], withdrawals:['Withdrawals','部分提取'], holiday:['Premium holiday','保费假期'],
+  regular:['Regular withdrawal','定期提取'], topups:['Top-ups','附加保费'], switching:['Switching funds','基金转换'],
+  premium:['Premium changes','调整保费'], brc:['Bonus recovery','花红追回费'], exit:['Surrender / EEC','退保 / 提前退保费']
+};
+function chargeLabel(k){ const a=CHARGE_LABELS[k]||[k,k]; return tr(a[0],a[1]); }
+function liqSVG(c){
+  const lanes=c.lanes.length ? c.lanes : [{name:tr('No lane','无项目'), bars:[]}];
+  const W=980, H=lanes.length*58+96, x0=178, x1=W-30, yAx=H-30;
+  const X=t=>x0+(x1-x0)*Math.min(Math.max(t,0),c.years)/c.years;
+  let s='';
+  s+=`<line x1="${x0}" y1="${yAx}" x2="${x1}" y2="${yAx}" stroke="#555" stroke-width="1.6"/>`;
+  const step=c.years>14?5:1;
+  for(let y=0;y<=c.years;y++){
+    if(y%step!==0 && y!==c.years) continue;
+    if(c.mip && y===c.mip) continue;
+    const x=X(y);
+    s+=`<line x1="${x}" y1="${yAx-4}" x2="${x}" y2="${yAx+4}" stroke="#666"/>
+        <text x="${x}" y="${yAx+18}" text-anchor="middle" font-size="10.5" fill="#777">${y===0?tr('Issue','签发'):y}</text>`;
+  }
+  if(c.mip){
+    const mx=X(c.mip);
+    s+=`<line x1="${mx}" y1="14" x2="${mx}" y2="${yAx}" stroke="#c9a14e" stroke-width="1.6" stroke-dasharray="5 4"/>
+        <text x="${mx}" y="${yAx+18}" text-anchor="middle" font-size="10.5" font-weight="700" fill="#c9a14e">MIP ${c.mip}</text>`;
+  }
+  const COL={blocked:'#b9b3a6',charged:'#b25000',free:'#0a7a3d',gold:'#b8860b'};
+  lanes.forEach((lane,i)=>{
+    const yC=58+i*58;
+    s+=`<text x="${x0-12}" y="${yC+4}" text-anchor="end" font-size="10.5" font-weight="800" fill="#777">${lane.name}</text>`;
+    lane.bars.forEach(b=>{
+      const a=X(b.from), e=X(b.to), col=COL[b.kind]||'#777';
+      const dy=b.thin?-20:0, h=b.thin?4:12;
+      s+=`<rect x="${a}" y="${yC-h/2+dy}" width="${Math.max(e-a,2)}" height="${h}" rx="${h/2}" fill="${col}" opacity="${b.thin?0.95:0.84}"/>`;
+      if(b.label && e-a>=82) s+=`<text x="${(a+e)/2}" y="${yC+dy-(b.thin?8:11)}" text-anchor="middle" font-size="10.7" fill="${col}" font-weight="700">${b.label}</text>`;
+    });
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+}
+function chargeTimelineHtml(c){
+  const lanes=c.lanes.length ? c.lanes : [{name:tr('No item','无项目'), bars:[]}];
+  const years=Math.max(c.years||10,1);
+  const left=t=>Math.max(0,Math.min(100,100*t/years));
+  const lab=k=>k==='blocked'?tr('Not available','不可用'):k==='charged'?tr('Charged','收费'):k==='gold'?tr('Special','特别'):tr('Free','免费');
+  const tickStep = years<=14 ? 1 : 5;
+  const tickVals = [0];
+  for(let t=tickStep; t<years; t+=tickStep) tickVals.push(t);
+  if(!tickVals.includes(years)) tickVals.push(years);
+  tickVals.sort((a,b)=>a-b);
+  const tickText = t => t===0 ? tr('Issue','签发') : t;
+  const ticks = tickVals.filter(t=>!(c.mip && t===c.mip)).map(t=>`<span class="flow-tick" style="left:${left(t)}%;"><span>${tickText(t)}</span></span>`).join('');
+  const marker = c.mip ? `<span class="flow-marker scale-mip" style="left:${left(c.mip)}%;"><b>MIP ${c.mip}</b></span>` : '';
+  const rowMarker = c.mip ? `<span class="flow-marker row-mip" style="left:${left(c.mip)}%;"></span>` : '';
+  const esc = t => (t||'').replace(/"/g,'&quot;');
+  return `<div class="charge-flow">
+    ${lanes.map(l=>{
+      const specials = l.bars.filter(b=>b.thin);
+      let mains = l.bars.filter(b=>!b.thin).slice().sort((a,b)=>a.from-b.from || a.to-b.to);
+      /* clip overlaps so the phases read as one clean left-to-right strip */
+      let cursor = 0;
+      mains = mains.map(b=>{
+        const f = Math.max(b.from, cursor);
+        cursor = Math.max(cursor, b.to);
+        return {...b, from:f};
+      }).filter(b=>b.to>b.from);
+      const specialRow = specials.length ? `<div class="flow-special">${specials.map(b=>{
+        const a=left(b.from), w=Math.max(1.2,left(b.to)-a);
+        return `<span class="flow-pill" style="left:${a}%;width:${w}%;" title="${esc(b.label||lab(b.kind))}"><em>${b.label||lab(b.kind)}</em></span>`;
+      }).join('')}</div>` : '';
+      const segs = mains.map(b=>{
+        const a=left(b.from), w=Math.max(1,left(b.to)-a);
+        const main = b.short||lab(b.kind);
+        const sub = (b.label && b.label!==main && w>=24) ? `<small>${b.label}</small>` : '';
+        return `<span class="flow-seg ${b.kind}" style="left:calc(${a}% + 1px);width:calc(${w}% - 2px);" title="${esc(b.label||lab(b.kind))}">${w>=7?`<b>${main}</b>${sub}`:''}</span>`;
+      }).join('');
+      return `<div class="flow-row"><div class="flow-name">${l.name}</div><div class="flow-lane">${specialRow}<div class="flow-bar">${segs}${rowMarker}</div></div></div>`;
+    }).join('')}
+    <div class="flow-scale"><div></div><div class="flow-track">${ticks}${marker}</div></div>
+  </div>`;
+}
+function focusChargeData(ft){
+  const id='wf'+ft;
+  const title = `Wealth Focus - Flexi ${ft} (MIP 10)`;
+  const phBars = ft===1
+    ? [{from:0,to:1.08,kind:'blocked'},{from:1.08,to:12,kind:'free',label:tr('from month 13 - no PHC, AMF still runs','第13个月起 - 无假期费，管理费照收')}]
+    : ft===3
+      ? [{from:0,to:2,kind:'blocked',label:tr('not allowed','不可')},{from:2,to:3,kind:'charged',label:tr('year 3: 80% x annual premium / 12 monthly','第3年：年缴保费80% / 12 按月')},{from:3,to:12,kind:'free',label:tr('free from year 4','第4年起免费')}]
+      : [{from:0,to:2,kind:'blocked',label:tr('not allowed','不可')},{from:2,to:5,kind:'charged',label:tr('years 3-5: 80 / 65 / 50% x annual premium / 12','第3至5年：80 / 65 / 50% x 年缴保费 / 12')},{from:5,to:12,kind:'free',label:tr('free from year 6','第6年起免费')}];
+  const pchg = ft===1 ? '30/23/19/16/13/10/8/6/4/3%' : '100/100/80/65/50/47/44/21/16/8%';
+  const freePct = ft===1 ? '30%' : '20%';
+  const minHold = ft===1 ? tr('Keep at least 3 months of premium','账户至少保留3个月保费') : tr('Keep at least 9 months of premium','账户至少保留9个月保费');
+  return {
+    title:tr(title,`Wealth Focus - Flexi ${ft}（投资期10年）`),
+    when: ft===1 ? tr('Partial withdrawal from month 4; premium holiday from month 13.','第4个月起可部分提取；第13个月起可保费假期。')
+                 : tr('Partial withdrawal and premium holiday effectively open from month 25.','部分提取及保费假期实际上第25个月起开放。'),
+    years:12, mip:10,
+    kpis:[
+      [tr('PWC / EEC','提取费 / 退保费'), tr('Expanded by policy year below','下方按保单年度展开')],
+      [tr('Life-event free withdrawal','人生大事免费提取'), tr(`Years 6-10, up to ${freePct} of year-5 A/C`,`第6至10年，最多第5年账户价值${freePct}`)],
+      [tr('Switching funds','基金转换'), tr('No switching fees currently','目前无转换费')]
+    ],
+    notes: tr(`${minHold}. Partial withdrawal minimum S$250. Top-up account withdrawals are always free. Regular withdrawal after MIP is free from S$1,200 a year. No bonus recovery charge for premium reductions on Wealth Focus.`,
+              `${minHold}。部分提取最低 S$250。附加保费账户提取永远免费。投资期后定期提取每年 S$1,200 起，免费。Wealth Focus 调低保费无花红追回费。`),
+    lanes:[
+      {group:'withdrawals', name:tr('PARTIAL W/D','部分提取'), bars:[
+        {from:0,to:ft===1?.25:2,kind:'blocked',label:ft===1?'':tr('PWC 100% before month 25','第25个月前费率100%')},
+        {from:ft===1?.25:2,to:10,kind:'charged',label:tr(`PWC ${pchg} by policy year`,`按保单年度提取费 ${pchg}`)},
+        {from:5,to:10,kind:'gold',thin:true,label:tr(`life events: free, up to ${freePct} of yr-5 A/C`,`人生大事免费，最多第5年账户价值${freePct}`)},
+        {from:10,to:12,kind:'free',label:tr('free','免费')}]},
+      {group:'regular', name:tr('REGULAR W/D','定期提取'), bars:[
+        {from:0,to:10,kind:'blocked',label:tr('available after MIP','投资期后可用')},{from:10,to:12,kind:'free',label:tr('free, min S$1,200/yr','免费，最低每年S$1,200')}]},
+      {group:'holiday', name:tr('PREM HOLIDAY','保费假期'), bars:phBars},
+      {group:'premium', name:tr('PREMIUM CHANGE','调整保费'), bars:[
+        {from:0,to:ft,kind:'blocked',label:tr('locked during Flexi Term','缴费期内锁定')},
+        {from:ft,to:12,kind:'free',label:tr('reduce up to 25%; increases only restore a past cut','可调低至多25%；加回仅限恢复原额')}]},
+      {group:'topups', name:tr('TOP-UPS','附加保费'), bars:[
+        {from:0,to:1.08,kind:'blocked'},{from:1.08,to:12,kind:'gold',label:tr('from month 13 to age 80 - 3% in, free out, no bonuses','第13个月至80岁 - 入场3%，提取免费，不享花红')}]},
+      {group:'switching', name:tr('FUND SWITCH','基金转换'), bars:[{from:0,to:12,kind:'free',label:tr('no switching fees currently; min S$1,000 switch / hold per fund','目前无转换费；每次/每只基金最低S$1,000')}]},
+      {group:'exit', name:tr('EXIT / EEC','退保费用'), bars:[{from:0,to:10,kind:'charged',label:tr(`EEC ${pchg} of A/C value during MIP`,`投资期内提前退保费为账户价值 ${pchg}`)},{from:10,to:12,kind:'free',label:tr('none','无')}]}
+    ]
+  };
+}
+function voyagePwcSummary(M){
+  return M===15 ? tr('50% yr3, 30% yr4, 20% yr5, 10% yrs6-8, then 5%','第3年50%、第4年30%、第5年20%、第6-8年10%，之后5%')
+       : M===20 ? tr('50% yr3, 30% yr4, 20% yr5, 10% yrs6-10, then 5%','第3年50%、第4年30%、第5年20%、第6-10年10%，之后5%')
+                : tr('50% yr3, 30% yr4, 20% yr5, 10% yrs6-13, then 5%','第3年50%、第4年30%、第5年20%、第6-13年10%，之后5%');
+}
+function voyagePhcSummary(M){
+  return M===15 ? tr('74% yr3, 57% yr4, 47% yr5, 45% yrs6-8','第3年74%、第4年57%、第5年47%、第6-8年45%')
+       : M===20 ? tr('85% yr3, 68% yr4, 56% yr5, 50% yrs6-10','第3年85%、第4年68%、第5年56%、第6-10年50%')
+                : tr('98% yr3, 80% yr4, 67% yr5, 58% yr6, 52% yr7, 50% yrs8-13','第3年98%、第4年80%、第5年67%、第6年58%、第7年52%、第8-13年50%');
+}
+function voyagePhcEnd(M){ return {15:8,20:10,25:13}[M]; }
+function brcFormulaText(){
+  return tr('BRC = (current start-up bonus amount - reduced start-up bonus amount) x (1 - months regular premium has been paid / committed MIP months).',
+            '花红追回费 =（当前起步花红金额 - 调低后起步花红金额）x（1 - 已缴定期保费月数 / 承诺投资期月数）。');
+}
+function chargeRows(id){
+  const commonSwitch = tr('Currently no switching fee. Minimum S$1,000 per switch and S$1,000 holding per fund.','目前无转换费。每次转换最低S$1,000，每只基金最低持有S$1,000。');
+  const row = (group,item,when,charge,after,notes)=>({group,item,when,charge,after,notes});
+  if(id==='wf1'||id==='wf3'||id==='wf5'){
+    const ft=id==='wf1'?1:id==='wf3'?3:5;
+    const pchg = ft===1 ? '30 / 23 / 19 / 16 / 13 / 10 / 8 / 6 / 4 / 3%' : '100 / 100 / 80 / 65 / 50 / 47 / 44 / 21 / 16 / 8%';
+    const freePct = ft===1 ? '30%' : '20%';
+    const hold = ft===1 ? tr('keep at least 3 months of premium','账户至少保留3个月保费') : tr('keep at least 9 months of premium','账户至少保留9个月保费');
+    const phc = ft===1 ? tr('No premium holiday charge from month 13. AMF continues.','第13个月起无保费假期费；账户管理费照收。')
+      : ft===3 ? tr('Year 3 PHC: 80% of annual premium / 12 monthly. Free from year 4.','第3年保费假期费：年缴保费80% / 12按月。第4年起免费。')
+      : tr('Years 3-5 PHC: 80 / 65 / 50% of annual premium / 12 monthly. Free from year 6.','第3至5年保费假期费：年缴保费80 / 65 / 50% / 12按月。第6年起免费。');
+    return [
+      row('withdrawals',tr('Partial withdrawal','部分提取'),ft===1?tr('From month 4','第4个月起'):tr('Effectively from month 25','实际上第25个月起'),tr(`PWC during MIP by policy year: ${pchg} of amount withdrawn.`,`投资期内按保单年度收部分提取费：提取金额的 ${pchg}。`),tr('Free after MIP','投资期后免费'),tr(`Minimum S$250; ${hold}. Top-up account withdrawals are free.`,`最低S$250；${hold}。附加保费账户提取免费。`)),
+      row('withdrawals',tr('Life-event free withdrawal','人生大事免费提取'),tr('Policy years 6-10','第6至10个保单年度'),tr(`Free up to ${freePct} of account value at 5th policy anniversary.`,`免费额度最高为第5个保单周年账户价值的${freePct}。`),'-',tr('Marriage/divorce, birth, completed Singapore property purchase, retrenchment; claim within proof window.','结婚/离婚、生育、完成新加坡购房、被裁员；须在证明期限内申请。')),
+      row('regular',tr('Regular withdrawal','定期提取'),tr('After MIP','投资期后'),tr('Free; minimum S$1,200 per year.','免费；最低每年S$1,200。'),tr('Free','免费'),tr('Uses regular premium account value.','从定期保费账户价值中提取。')),
+      row('holiday',tr('Premium holiday','保费假期'),ft===1?tr('From month 13','第13个月起'):tr('From month 25','第25个月起'),phc,ft===1?tr('Free','免费'):tr('Free after charge window','收费期后免费'),tr('AMF continues while premiums are paused.','保费暂停期间账户管理费照常收取。')),
+      row('premium',tr('Premium changes','调整保费'),tr(`After Flexi ${ft} term`,`Flexi ${ft}缴费期后`),tr('Premium can be reduced up to 25%; increases only restore a previous reduction.','保费可调低最多25%；加回仅限恢复过往调低部分。'),tr('No bonus recovery charge','无花红追回费'),tr('Cannot increase above original premium.','不可超过原保费。')),
+      row('topups',tr('Top-up premiums','附加保费'),tr('From month 13 to age 80','第13个月至80岁'),tr('3% charge on top-up premium; no bonuses.','附加保费入场收3%；不享花红。'),tr('Top-up withdrawals free','附加保费提取免费'),tr('Top-up account is separate from regular premium account.','附加保费账户与定期保费账户分开。')),
+      row('switching',tr('Switching funds','基金转换'),tr('Any time','随时'),commonSwitch,tr('No switching fee currently','目前无转换费'),tr('Current fee is nil but insurer reserves right to change with notice.','目前费用为零；保险公司保留通知后调整权利。')),
+      row('exit',tr('Surrender / EEC','退保 / 提前退保费'),tr('During MIP','投资期内'),tr(`EEC during MIP: ${pchg} of account value.`,`投资期内提前退保费：账户价值的 ${pchg}。`),tr('None after MIP','投资期后无'),tr('EEC scale is guaranteed for Wealth Focus.','Wealth Focus提前退保费率保证不变。'))
+    ];
+  }
+  if(id==='voyage'){
+    const M=S.voyage.mip;
+    return [
+      row('withdrawals',tr('Partial withdrawal','部分提取'),tr('From month 25','第25个月起'),voyagePwcSummary(M),tr('Free after MIP','投资期后免费'),tr('Minimum S$250; keep 18 months of premium. Extra EEC applies if full surrender is within 24 months of partial withdrawal.','最低S$250；账户须保留18个月保费。部分提取后24个月内全额退保会另收提前退保费。')),
+      row('regular',tr('Regular withdrawal','定期提取'),tr('After MIP','投资期后'),tr('Free; minimum S$1,200 per year.','免费；最低每年S$1,200。'),tr('Free','免费'),tr('No regular withdrawal during MIP.','投资期内不可定期提取。')),
+      row('holiday',tr('Premium holiday','保费假期'),tr('From month 25','第25个月起'),tr(`First 24 months free in total; beyond that, monthly PHC = rate x annualised premium / 12, rate ${voyagePhcSummary(M)}; no PHC from policy year ${voyagePhcEnd(M)+1} onwards.`,`累计首24个月免费；超出后每月假期费=费率x年缴保费/12，费率${voyagePhcSummary(M)}；第${voyagePhcEnd(M)+1}个保单年度起无假期费。`),tr('No charge after MIP','投资期后无费用'),tr('Power-up bonuses are forfeited during premium holiday.','保费假期期间加码花红没收。')),
+      row('premium',tr('Premium changes','调整保费'),tr('Locked until policy year 5 / 8 / 10 by MIP 15 / 20 / 25','按投资期15 / 20 / 25年分别锁定至第5 / 8 / 10个保单年度'),tr('Reduction up to 25%; BRC and 12-month bonus pause during MIP.','可调低最多25%；投资期内触发花红追回费及12个月花红暂停。'),tr('No BRC after MIP','投资期后无追回费'),tr('Increases do not restore start-up bonus.','加保不补发起步花红。')),
+      row('brc',tr('Bonus recovery charge','花红追回费'),tr('Each regular premium reduction during MIP','投资期内每次调低定期保费'),brcFormulaText(),tr('No BRC after MIP','投资期后无追回费'),tr('Deducted from the Regular Premium Account by cancellation of units; not guaranteed and may be revised with at least 30 days written notice.','通过取消单位从定期保费账户扣除；不保证，至少提前30天书面通知后可调整。')),
+      row('topups',tr('Top-up premiums','附加保费'),tr('From month 13 while insured below age 70','第13个月起且受保人未满70岁'),tr('Minimum S$5,000; 3% charge; cap 2x annual premium; no bonuses.','最低S$5,000；入场3%；上限两倍年缴保费；不享花红。'),tr('Top-up withdrawals free','附加保费提取免费'),tr('Top-up account excluded from EEC.','附加保费账户不适用提前退保费。')),
+      row('switching',tr('Switching funds','基金转换'),tr('Any time','随时'),commonSwitch,tr('No switching fee currently','目前无转换费'),tr('Minimum switch / hold applies by fund.','每次转换/每只基金最低金额适用。')),
+      row('exit',tr('Surrender / EEC / BRC','退保 / 提前退保费 / 追回'),tr('During MIP','投资期内'),tr('EEC starts at 100% in years 1-2 and tapers by selected MIP; BRC on premium reduction during MIP.','提前退保费首两年100%，按所选投资期递减；投资期内减保触发花红追回费。'),tr('None after MIP','投资期后无'),tr('Top-up account excluded from EEC.','附加保费账户不适用提前退保费。'))
+    ];
+  }
+  if(id==='abundance'){
+    return [
+      row('withdrawals',tr('Partial withdrawal','部分提取'),tr('Two free withdrawals after first 2 policy years; other withdrawals from month 37','首两个保单年度后有两次免费提取；其他提取第37个月起'),tr('Other PWC: 100 / 100 / 80 / 60 / 40%, then 8% in years 6-10.','其他部分提取费：100 / 100 / 80 / 60 / 40%，第6至10年8%。'),tr('Free after MIP','投资期后免费'),tr('Each free withdrawal max 6% of regular premium account value; use pauses bonuses 12 months.','每次免费提取最多为定期保费账户价值6%；使用后花红暂停12个月。')),
+      row('regular',tr('Regular withdrawal','定期提取'),tr('After MIP','投资期后'),tr('Free; minimum S$1,200 per year.','免费；最低每年S$1,200。'),tr('Free','免费'),tr('No regular withdrawal during MIP.','投资期内不可定期提取。')),
+      row('holiday',tr('Premium holiday','保费假期'),tr('From month 37','第37个月起'),tr('Currently nil; capped at 50% if imposed.','目前无；若日后收取上限50%。'),tr('Currently free','目前免费'),tr('AMF on account value continues.','按账户价值收取的管理费照常累计。')),
+      row('premium',tr('Premium changes','调整保费'),tr('From month 37','第37个月起'),tr('Reduction up to 25%; prorated BRC and 12-month bonus pause. Increases never allowed.','可调低最多25%；按比例花红追回费及12个月花红暂停。永不可加保费。'),tr('Reduce only','仅可调低'),tr('Once reduced, premium cannot be restored.','调低后不可加回。')),
+      row('brc',tr('Bonus recovery charge','花红追回费'),tr('Each regular premium reduction during MIP from month 37','第37个月起且在投资期内每次调低定期保费'),brcFormulaText(),tr('No BRC after MIP','投资期后无追回费'),tr('Deducted from the Regular Premium Account by cancellation of units; not guaranteed and may be revised with at least 30 days written notice.','通过取消单位从定期保费账户扣除；不保证，至少提前30天书面通知后可调整。')),
+      row('topups',tr('Top-up / recurring single premium','附加保费 / 定额单次保费'),tr('From month 13 to age 70','第13个月至70岁'),tr('3% charge; no bonuses.','入场3%；不享花红。'),tr('Withdrawals free','提取免费'),tr('Separate from regular premium account.','与定期保费账户分开。')),
+      row('switching',tr('Switching funds','基金转换'),tr('Any time','随时'),commonSwitch,tr('No switching fee currently','目前无转换费'),tr('Minimum switch / hold applies by fund.','每次转换/每只基金最低金额适用。')),
+      row('exit',tr('Surrender / EEC / BRC','退保 / 提前退保费 / 追回'),tr('During MIP','投资期内'),tr('EEC: 100 / 100 / 80 / 65 / 50 / 47 / 44 / 21 / 16 / 8% of account value.','提前退保费：账户价值的100 / 100 / 80 / 65 / 50 / 47 / 44 / 21 / 16 / 8%。'),tr('None after MIP','投资期后无'),tr('BRC applies to premium cuts during MIP.','投资期内减保须收花红追回费。'))
+    ];
+  }
+  if(id==='invest'){
+    const m=investMode(), cpf=m==='cpf', srs=m==='srs';
+    const dest = cpf ? tr('Redemption proceeds go through CPF Investment Account / CPF-SA channel.','赎回款经CPF投资账户 / CPF-SA渠道处理。')
+      : srs ? tr('SRS redemptions are paid back to the relevant SRS Operator.','SRS赎回款转回相关SRS运营机构。')
+            : tr('Cash redemptions can be paid to bank / cheque according to processing rules.','现金赎回按处理规则支付至银行/支票。');
+    const age = cpf ? tr('Entry age 21 to lower of 58 and CPF account closure age.','投保年龄21岁至58岁或CPF账户关闭年龄两者较低者。')
+      : srs ? tr('Entry age 21 to 58.','投保年龄21至58岁。')
+            : tr('Life assured entry age 1 month to 60.','受保人投保年龄1个月至60岁。');
+    return [
+      row('withdrawals',tr('Partial redemption','部分赎回'),tr('Any time','随时'),tr('Redemption fee currently nil; min partial redemption S$1,000.','目前无赎回费；部分赎回最低S$1,000。'),tr('No EEC','无提前退保费'),tr(`Minimum holding S$10,000, otherwise treated as full redemption. ${dest}`,`最低持有额S$10,000，否则视为全额赎回。${dest}`)),
+      ...(cpf?[]:[row('regular',tr('Regular withdrawal','定期提取'),tr('Cash/SRS policy facility','现金/SRS保单功能'),tr('Minimum S$100 monthly / S$300 quarterly / S$600 semi-annually / S$1,200 annually.','最低每月S$100 / 每季S$300 / 每半年S$600 / 每年S$1,200。'),tr('No redemption fee currently','目前无赎回费'),tr('Processed pro-rata across funds.','按基金比例处理。'))]),
+      row('topups',tr('Top-up / recurring single premium','附加保费 / 定额单次保费'),cpf?tr('To age 58, subject to CPF account rules','至58岁，受CPF账户规则限制'):srs?tr('To age 58','至58岁'):tr('To age 60','至60岁'),cpf?tr('No premium charge. Top-up min S$500; current RSP min S$1,200/yr, S$600 half-yearly, S$300 quarterly.','无保费费用。附加保费最低S$500；现行定额单次保费最低每年S$1,200、每半年S$600、每季S$300。'):tr('Premium charge up to 5%. Top-up min S$500; RSP min S$1,200/yr, S$600 half-yearly, S$300 quarterly.','保费费用最高5%。附加保费最低S$500；定额单次保费最低每年S$1,200、每半年S$600、每季S$300。'),'-',age),
+      row('switching',tr('Switching funds','基金转换'),tr('Any time','随时'),cpf?tr('Switching fee currently nil; switch only into CPFIS-included ILP sub-funds for the relevant CPF account.','目前无转换费；只可转入相应CPF账户可买的CPFIS ILP子基金。'):commonSwitch,tr('No switching fee currently','目前无转换费'),cpf?tr('CPF-OA and CPF-SA have separate CPFIS eligibility restrictions.','CPF-OA与CPF-SA有不同CPFIS资格限制。'):tr('Min S$1,000 switch / hold per fund.','每次转换/每只基金最低S$1,000。')),
+      row('exit',tr('Fees / fund charges','费用 / 基金费用'),tr('Ongoing','持续'),cpf?tr('No premium charge. Management charge deducted from ILP sub-fund NAV: up to 1.20% p.a. fixed income, 1.60% p.a. others; may increase up to 2.5% p.a. with notice.','无保费费用。管理费从ILP子基金净值扣除：固定收益最高1.20%/年，其他最高1.60%/年；通知后最高可调至2.5%/年。'):tr('Premium charge up to 5% at entry/top-up/RSP. Fund management and other underlying fund charges vary and are payable from ILP sub-fund assets.','入场/附加/RSP保费费用最高5%。基金管理费及其他底层基金费用视基金而定，并从ILP子基金资产中支付。'),tr('Redemption and switching fees currently nil','目前无赎回费及转换费'),tr('Wealth Invest has no regular-premium AMF schedule like the other ILPs.','Wealth Invest不像其他定期保费ILP那样有定期保费账户管理费表。'))
+    ];
+  }
+  return [];
+}
+const PERIOD_COLS = [
+  ['withdrawals','Partial W/D','部分提取'],
+  ['regular','Regular W/D','定期提取'],
+  ['holiday','Premium holiday','保费假期'],
+  ['premium','Premium changes','调整保费'],
+  ['topups','Top-ups / RSP','附加保费 / RSP'],
+  ['switching','Fund switch','基金转换'],
+  ['exit','Surrender / EEC','退保 / EEC']
+];
+function periodCols(filter){
+  return filter==='all' ? PERIOD_COLS : PERIOD_COLS.filter(c=>c[0]===filter);
+}
+function focusPeriodRows(id){
+  const ft = id==='wf1' ? 1 : id==='wf3' ? 3 : 5;
+  const rates = ft===1 ? [30,23,19,16,13,10,8,6,4,3] : [100,100,80,65,50,47,44,21,16,8];
+  const freePct = ft===1 ? '30%' : '20%';
+  const rows = [];
+  for(let y=1; y<=10; y++){
+    const rate = rates[y-1] + '%';
+    const life = y>=6 ? tr(`; life-event free withdrawal up to ${freePct} of yr-5 A/C`,`；人生大事免费提取最高第5年账户价值${freePct}`) : '';
+    let withdrawals = '';
+    if(ft===1) withdrawals = y===1 ? tr(`From month 4: PWC ${rate}${life}`,`第4个月起：部分提取费 ${rate}${life}`) : tr(`PWC ${rate}${life}`,`部分提取费 ${rate}${life}`);
+    else withdrawals = y<=2 ? tr(`Not available before month 25; EEC scale is ${rate}`,`第25个月前不可用；退保费率 ${rate}`) : tr(`PWC ${rate}${life}`,`部分提取费 ${rate}${life}`);
+
+    const regular = tr('Not available until after MIP','投资期后才可用');
+    let holiday = '';
+    if(ft===1) holiday = y===1 ? tr('Available from month 13; no PHC, AMF continues','第13个月起可用；无保费假期费，管理费照收') : tr('No PHC; AMF continues','无保费假期费；管理费照收');
+    else if(ft===3) holiday = y<=2 ? tr('Not available','不可用') : y===3 ? tr('PHC 80% x annual premium / 12 monthly','保费假期费为年缴保费80% / 12按月') : tr('No PHC','无保费假期费');
+    else holiday = y<=2 ? tr('Not available','不可用') : y===3 ? tr('PHC 80% x annual premium / 12 monthly','保费假期费为年缴保费80% / 12按月') : y===4 ? tr('PHC 65% x annual premium / 12 monthly','保费假期费为年缴保费65% / 12按月') : y===5 ? tr('PHC 50% x annual premium / 12 monthly','保费假期费为年缴保费50% / 12按月') : tr('No PHC','无保费假期费');
+
+    const premium = y<=ft ? tr(`Locked during Flexi ${ft} term`,`Flexi ${ft}缴费期内锁定`) : tr('Reduce up to 25%; increases only restore a past cut','可调低至多25%；加回仅限恢复原额');
+    const topups = y===1 ? tr('From month 13: 3% in, free out, no bonuses','第13个月起：入场3%，提取免费，不享花红') : tr('3% in, free out, no bonuses','入场3%，提取免费，不享花红');
+    rows.push({
+      period: tr(`Policy year ${y}`,`第${y}个保单年度`),
+      withdrawals, regular, holiday, premium, topups,
+      switching: tr('No switching fee currently','目前无转换费'),
+      exit: tr(`EEC ${rate} of A/C value during MIP`,`投资期内提前退保费为账户价值 ${rate}`)
+    });
+  }
+  rows.push({
+    period: tr('After MIP','投资期后'),
+    withdrawals: tr('Free','免费'),
+    regular: tr('Free; minimum S$1,200 per year','免费；最低每年S$1,200'),
+    holiday: tr('No PHC; AMF continues if applicable','无保费假期费；适用的管理费照收'),
+    premium: tr('Reduce up to 25%; no bonus recovery charge','可调低至多25%；无花红追回费'),
+    topups: tr('3% in; top-up withdrawals free','入场3%；附加保费提取免费'),
+    switching: tr('No switching fee currently','目前无转换费'),
+    exit: tr('None','无')
+  });
+  return rows;
+}
+function pointLabel(v){
+  if(v===0) return tr('Issue','签发');
+  if(Math.abs(v-0.25)<0.01) return tr('Month 4','第4个月');
+  if(Math.abs(v-1.08)<0.02) return tr('Month 13','第13个月');
+  if(Number.isInteger(v)) return tr(`Year ${v}`,`第${v}年`);
+  return tr(`Year ${Math.round(v*10)/10}`,`第${Math.round(v*10)/10}年`);
+}
+function rangeLabel(from,to){
+  if(Number.isInteger(from) && Number.isInteger(to) && to>from){
+    if(to===from+1) return tr(`Policy year ${to}`,`第${to}个保单年度`);
+    return tr(`Policy years ${from+1}-${to}`,`第${from+1}至${to}个保单年度`);
+  }
+  return `${pointLabel(from)} - ${pointLabel(to)}`;
+}
+function chargePeriodHtml(id, filter, cfg){
+  if(id==='wf1'||id==='wf3'||id==='wf5'){
+    const cols = periodCols(filter);
+    if(!cols.length) return '';
+    const rows = focusPeriodRows(id);
+    return `<h4 class="period-title">${tr('Period-by-period schedule','逐期费用表')}</h4>
+      <div class="period-scroll"><table class="period-table"><thead><tr><th>${tr('Period','期间')}</th>${cols.map(c=>`<th>${tr(c[1],c[2])}</th>`).join('')}</tr></thead><tbody>
+        ${rows.map(r=>`<tr><td class="period">${r.period}</td>${cols.map(c=>`<td>${r[c[0]]||'<span class="muted-cell">-</span>'}</td>`).join('')}</tr>`).join('')}
+      </tbody></table></div>`;
+  }
+  const lanes = (filter==='all' ? cfg.lanes : cfg.lanes.filter(l=>l.group===filter));
+  if(!lanes.length) return '';
+  const status = k=>k==='blocked'?tr('Not available','不可用'):k==='charged'?tr('Available with charge','可用但收费'):k==='gold'?tr('Special allowance / entry charge','特别额度 / 入场费'):tr('Free','免费');
+  const rows = lanes.flatMap(l=>l.bars.map(b=>({item:l.name, period:rangeLabel(b.from,b.to), status:status(b.kind), rule:b.label||status(b.kind)})));
+  return `<h4 class="period-title">${tr('Period-by-period schedule','逐期费用表')}</h4>
+    <div class="period-scroll"><table class="period-table"><thead><tr><th>${tr('Item','项目')}</th><th>${tr('Period','期间')}</th><th>${tr('Status','状态')}</th><th>${tr('Rule','规则')}</th></tr></thead><tbody>
+      ${rows.map(r=>`<tr><td class="period">${r.item}</td><td>${r.period}</td><td>${r.status}</td><td>${r.rule}</td></tr>`).join('')}
+    </tbody></table></div>`;
+}
+function chargeTableHtml(id, filter='all'){
+  const rows = chargeRows(id).filter(r=>filter==='all'||r.group===filter);
+  if(!rows.length) return '';
+  return `<table class="charge-table"><thead><tr><th>${tr('Item','项目')}</th><th>${tr('When available','何时可用')}</th><th>${tr('Charge / rule','费用 / 规则')}</th><th>${tr('After MIP / later','投资期后 / 之后')}</th><th>${tr('Notes','备注')}</th></tr></thead><tbody>
+    ${rows.map(r=>`<tr><td>${r.item}</td><td>${r.when}</td><td>${r.charge}</td><td>${r.after}</td><td>${r.notes}</td></tr>`).join('')}
+  </tbody></table>`;
+}
+function chargeData(id){
+  if(id==='wf1') return focusChargeData(1);
+  if(id==='wf3') return focusChargeData(3);
+  if(id==='wf5') return focusChargeData(5);
+  if(id==='voyage'){
+    const M=S.voyage.mip, lock={15:4,20:7,25:9}[M], py={15:5,20:8,25:10}[M];
+    return {
+      title:tr(`Wealth Voyage (MIP ${M})`,`Wealth Voyage（投资期${M}年）`),
+      when:tr('Partial withdrawal and premium holiday from month 25; no life-event free withdrawal benefit.','第25个月起可部分提取及保费假期；无人生大事免费提取。'),
+      years:M+4, mip:M,
+      kpis:[[tr('PWC','部分提取费'), voyagePwcSummary(M)],[tr('PHC','保费假期费'), tr(`First 24 months free in total; PHC applies up to policy year ${voyagePhcEnd(M)} only`,`累计首24个月免费；假期费仅收至第${voyagePhcEnd(M)}个保单年度`)],[tr('BRC','花红追回费'), tr('On each premium reduction during MIP','投资期内每次减保适用')],[tr('Switching funds','基金转换'), tr('No switching fees currently','目前无转换费')]],
+      notes:tr('PWC is charged on the amount withdrawn; keep 18 months of premium in the account. Additional EEC applies if full surrender occurs within 24 months of a partial withdrawal. Power-up bonuses are forfeited during premium holiday and pause after withdrawal, holiday or premium reduction.',
+               '提取费按提取金额计；账户须保留18个月保费。部分提取后24个月内全额退保会另收提前退保费。保费假期期间加码花红没收；提取、假期或减保后加码花红暂停。'),
+      lanes:[
+        {group:'withdrawals', name:tr('PARTIAL W/D','部分提取'), bars:[{from:0,to:2,kind:'blocked',label:tr('not allowed first 24 months','首24个月不可')},{from:2,to:M,kind:'charged',label:voyagePwcSummary(M)},{from:M,to:M+4,kind:'free',label:tr('free after MIP','投资期后免费')}]},
+        {group:'regular', name:tr('REGULAR W/D','定期提取'), bars:[{from:0,to:M,kind:'blocked',label:tr('available after MIP','投资期后可用')},{from:M,to:M+4,kind:'free',label:tr('free, min S$1,200/yr','免费，最低每年S$1,200')}]},
+        {group:'holiday', name:tr('PREM HOLIDAY','保费假期'), bars:[{from:0,to:2,kind:'blocked',label:tr('not allowed first 24 months','首24个月不可')},{from:2,to:voyagePhcEnd(M),kind:'gold',label:tr(`24 months free in total; beyond that PHC on missed premium: ${voyagePhcSummary(M)}`,`累计24个月免费；超出后按漏缴保费收假期费：${voyagePhcSummary(M)}`)},{from:voyagePhcEnd(M),to:M,kind:'free',short:tr('No PHC','无假期费'),label:tr(`no PHC from policy year ${voyagePhcEnd(M)+1}; AMF continues`,`第${voyagePhcEnd(M)+1}个保单年度起无假期费；管理费照收`)},{from:M,to:M+4,kind:'free',label:tr('no charge after MIP','投资期后免费')}]},
+        {group:'premium', name:tr('PREMIUM CHANGE','调整保费'), bars:[{from:0,to:lock,kind:'blocked',label:tr(`locked until policy year ${py}`,`第${py}个保单年度前锁定`)},{from:lock,to:M,kind:'gold',label:tr('reduce up to 25% - BRC + bonus pause','可调低至多25% - 花红追回费 + 花红暂停')},{from:M,to:M+4,kind:'free',label:tr('reduce up to 25%, no BRC','可调低至多25%，无追回费')}]},
+        {group:'brc', name:tr('BONUS RECOVERY','花红追回费'), bars:[{from:0,to:lock,kind:'blocked',label:tr('no premium reduction yet','尚不可调低保费')},{from:lock,to:M,kind:'gold',label:tr('BRC on each premium reduction during MIP','投资期内每次减保收花红追回费')},{from:M,to:M+4,kind:'free',label:tr('none after MIP','投资期后无')}]},
+        {group:'topups', name:tr('TOP-UPS','附加保费'), bars:[{from:0,to:1.08,kind:'blocked'},{from:1.08,to:M+4,kind:'gold',label:tr('from month 13 to age 70 - min S$5,000, 3% in, cap 2x annual premium, free out','第13个月至70岁 - 最低S$5,000，入场3%，上限两倍年缴保费，提取免费')}]},
+        {group:'switching', name:tr('FUND SWITCH','基金转换'), bars:[{from:0,to:M+4,kind:'free',label:tr('no switching fees currently; min S$1,000 switch / hold per fund','目前无转换费；每次/每只基金最低S$1,000')}]},
+        {group:'exit', name:tr('EXIT / EEC / BRC','退保与追回'), bars:[{from:0,to:M,kind:'charged',label:tr('EEC 100% in yrs 1-2, tapering by selected MIP; top-up account excluded','提前退保费首两年100%，按投资期递减；附加保费账户不适用')},{from:M,to:M+4,kind:'free',label:tr('none','无')}]}
+      ]
+    };
+  }
+  if(id==='abundance'){
+    return {
+      title:tr('Wealth Abundance (MIP 10)','Wealth Abundance（投资期10年）'),
+      when:tr('Two free partial withdrawals after year 2; other withdrawals and premium holiday from month 37.','第2年后可用两次免费部分提取；其他提取及保费假期第37个月起。'),
+      years:13, mip:10,
+      kpis:[[tr('PWC','部分提取费'), '100/100/80/60/40%, then 8%'],[tr('PHC','保费假期费'), tr('Currently nil; capped at 50% if imposed','目前无；若日后收取上限50%')],[tr('BRC','花红追回费'), tr('On each premium reduction during MIP','投资期内每次减保适用')],[tr('Switching funds','基金转换'), tr('No switching fees currently','目前无转换费')]],
+      notes:tr('Free partial withdrawals are capped at 6% of regular premium account value each, unused portions do not roll over, and each use pauses bonuses for 12 months. AMF on account value continues during premium holiday.',
+               '每次免费部分提取最多为定期保费账户价值6%，未用不累计；每次使用后花红暂停12个月。保费假期内按账户价值的管理费照常收取。'),
+      lanes:[
+        {group:'withdrawals', name:tr('PARTIAL W/D','部分提取'), bars:[{from:2,to:10,kind:'gold',thin:true,label:tr('2 free withdrawals, each max 6% of A/C','两次免费提取，各限账户价值6%')},{from:0,to:3,kind:'blocked',label:tr('first 36 months effectively locked','首36个月实际上锁定')},{from:3,to:10,kind:'charged',label:tr('PWC 60/40% yrs4-5, then 8% yrs6-10','第4-5年60/40%，第6-10年8%')},{from:10,to:13,kind:'free',label:tr('free after MIP','投资期后免费')}]},
+        {group:'regular', name:tr('REGULAR W/D','定期提取'), bars:[{from:0,to:10,kind:'blocked',label:tr('available after MIP','投资期后可用')},{from:10,to:13,kind:'free',label:tr('free, min S$1,200/yr','免费，最低每年S$1,200')}]},
+        {group:'holiday', name:tr('PREM HOLIDAY','保费假期'), bars:[{from:0,to:3,kind:'blocked',label:tr('not allowed first 36 months','首36个月不可')},{from:3,to:13,kind:'free',label:tr('currently no PHC; AMF on value continues','目前无假期费；按价值管理费照收')}]},
+        {group:'premium', name:tr('PREMIUM CHANGE','调整保费'), bars:[{from:0,to:3,kind:'blocked',label:tr('no changes; increases never allowed','不可调整；永不可加保费')},{from:3,to:10,kind:'gold',label:tr('reduce up to 25% - prorated BRC + 12-month bonus pause','可调低至多25% - 按比例追回费 + 花红暂停12个月')},{from:10,to:13,kind:'free',label:tr('reduce only','仅可调低')}]},
+        {group:'brc', name:tr('BONUS RECOVERY','花红追回费'), bars:[{from:0,to:3,kind:'blocked',label:tr('no premium reduction yet','尚不可调低保费')},{from:3,to:10,kind:'gold',label:tr('BRC on each premium reduction during MIP','投资期内每次减保收花红追回费')},{from:10,to:13,kind:'free',label:tr('none after MIP','投资期后无')}]},
+        {group:'topups', name:tr('TOP-UPS / RSP','附加保费'), bars:[{from:0,to:1.08,kind:'blocked'},{from:1.08,to:13,kind:'gold',label:tr('from month 13 to age 70 - 3% in, free out, no bonuses','第13个月至70岁 - 入场3%，提取免费，不享花红')}]},
+        {group:'switching', name:tr('FUND SWITCH','基金转换'), bars:[{from:0,to:13,kind:'free',label:tr('no switching fees currently; min S$1,000 switch / hold per fund','目前无转换费；每次/每只基金最低S$1,000')}]},
+        {group:'exit', name:tr('EXIT / EEC / BRC','退保与追回'), bars:[{from:0,to:10,kind:'charged',label:tr('EEC 100/100/80/65/50/47/44/21/16/8% of A/C','提前退保费为账户价值100/100/80/65/50/47/44/21/16/8%')},{from:10,to:13,kind:'free',label:tr('none','无')}]}
+      ]
+    };
+  }
+  if(id==='invest'){
+    const mode = investMode(), cpf = mode==='cpf', srs = mode==='srs';
+    return {
+      title:productName('invest'),
+      when: cpf ? tr('CPF-OA / CPF-SA version: no premium charge, but CPFIS sub-fund restrictions and management charge apply.','CPF-OA / CPF-SA 版本：无保费费用，但受 CPFIS 子基金限制并收取管理费。')
+                : srs ? tr('SRS version: premium charge up to 5%; proceeds return through SRS channels.','SRS 版本：保费费用最高5%；款项经SRS渠道处理。')
+                      : tr('Cash version: premium charge up to 5%; only cash policies may choose dividend cash payout.','现金版本：保费费用最高5%；只有现金保单可选择现金派息。'),
+      years:10, mip:null,
+      kpis: cpf ? [[tr('Premium allocation','保费配置'),tr('100% allocated','100%投入')],[tr('Management charge','管理费'),tr('Up to 1.20% fixed income / 1.60% others; cap 2.5% with notice','固定收益最高1.20% / 其他最高1.60%；通知后上限2.5%')],[tr('CPFIS','CPFIS'),tr('CPF-OA / CPF-SA eligible sub-funds only','仅限CPF-OA / CPF-SA合资格子基金')]]
+                : srs ? [[tr('Premium charge','保费费用'),tr('Up to 5%','最高5%')],[tr('Entry age','投保年龄'),tr('21-58','21至58岁')],[tr('Redemption / switching fee','赎回 / 转换费'),tr('Currently nil','目前无')]]
+                      : [[tr('Premium charge','保费费用'),tr('Up to 5%','最高5%')],[tr('Entry age','投保年龄'),tr('1 month-60','1个月至60岁')],[tr('Dividend payout','现金派息'),tr('Cash policies only','仅现金保单')]],
+      notes: cpf ? tr('CPF-OA members can invest only after setting aside S$20,000 in OA; CPF-SA after S$40,000 in SA. Partial redemption minimum S$1,000; minimum holding S$10,000, otherwise full redemption. Switching is currently free but only into CPFIS-included sub-funds for the relevant CPF account.',
+                      'CPF-OA会员须先在OA保留S$20,000；CPF-SA须先在SA保留S$40,000。部分赎回最低S$1,000；最低持有S$10,000，否则视为全额赎回。目前转换免费，但只可转入相应CPF账户合资格的CPFIS子基金。')
+                 : srs ? tr('Partial redemption minimum S$1,000; minimum holding S$10,000, otherwise full redemption. SRS redemption proceeds return to the relevant SRS Operator. Regular withdrawals are processed pro-rata across funds.',
+                            '部分赎回最低S$1,000；最低持有S$10,000，否则视为全额赎回。SRS赎回款转回相关SRS运营机构。定期提取按基金比例处理。')
+                       : tr('Partial redemption minimum S$1,000; minimum holding S$10,000, otherwise full redemption. Regular withdrawals are processed pro-rata across funds. Only cash purchased policies are entitled to dividend cash payout.',
+                            '部分赎回最低S$1,000；最低持有S$10,000，否则视为全额赎回。定期提取按基金比例处理。只有现金投保保单可选择现金派息。'),
+      lanes:[
+        {group:'withdrawals', name:tr('WITHDRAWALS','提取'), bars:[{from:0,to:10,kind:'free',label:tr('anytime - min S$1,000; no redemption fee currently','随时 - 最低S$1,000；目前无赎回费')}]},
+        ...(cpf?[]:[{group:'regular', name:tr('REGULAR W/D','定期提取'), bars:[{from:0,to:10,kind:'free',label:tr('monthly / quarterly / semi-annual / annual; min S$100 monthly','每月/每季/每半年/每年；每月最低S$100')}]}]),
+        {group:'topups', name:tr('TOP-UPS / RSP','附加保费'), bars:[{from:0,to:10,kind:cpf?'free':'gold',label:cpf?tr('100% allocated; top-up min S$500; RSP to age 58','100%投入；附加保费最低S$500；定额单次保费至58岁'):srs?tr('premium charge up to 5%; top-ups/RSP to age 58','保费费用最高5%；附加/RSP至58岁'):tr('premium charge up to 5%; top-ups/RSP to age 60','保费费用最高5%；附加/RSP至60岁')}]},
+        {group:'switching', name:tr('FUND SWITCH','基金转换'), bars:[{from:0,to:10,kind:'free',label:cpf?tr('no switching fee currently; CPFIS fund restrictions apply','目前无转换费；受 CPFIS 基金限制'):tr('no switching fee currently; min S$1,000 switch / hold per fund','目前无转换费；每次/每只基金最低S$1,000')}]},
+        {group:'exit', name:tr('FEES / EXIT','费用 / 退出'), bars:[{from:0,to:10,kind:cpf?'gold':'free',label:cpf?tr('management charge applies at sub-fund level; no redemption fee currently','子基金层面管理费适用；目前无赎回费'):tr('fund-level charges apply; no redemption fee currently','基金层面费用适用；目前无赎回费')}]}
+      ]
+    };
+  }
+  return null;
+}
+function chargeCardHtml(id, filter='all'){
+  const cfg = chargeData(id);
+  if(!cfg) return '';
+  const lanes = filter==='all' ? cfg.lanes : cfg.lanes.filter(l=>l.group===filter);
+  const view = {...cfg, lanes};
+  return `<div class="charge-panel">
+    <h3>${cfg.title}</h3><div class="when">${cfg.when}</div>
+    <div class="charge-kpis">${cfg.kpis.map(x=>`<div class="charge-kpi"><b>${x[0]}</b>${x[1]}</div>`).join('')}</div>
+    ${chargeTimelineHtml(view)}
+    <div class="legend"><span style="--dot:#b9b3a6">${tr('Not available','不可用')}</span><span style="--dot:#b25000">${tr('Available with charge','可用但收费')}</span><span style="--dot:#b8860b">${tr('Special allowance / entry charge','特别额度 / 入场费')}</span><span style="--dot:#0a7a3d">${tr('Free','免费')}</span></div>
+    ${chargePeriodHtml(id, filter, view)}
+    ${chargeTableHtml(id, filter)}
+    <p style="font-size:12px;color:#555;margin-top:6px;">${cfg.notes}</p>
+  </div>`;
+}
+function liqCardFor(id){
+  if(id==='compare') return chargeCardHtml('wf1','all')+chargeCardHtml('wf3','all')+chargeCardHtml('wf5','all');
+  return chargeCardHtml(id,'all');
+}
+function liquidityTab(){
+  const cfg = chargeData(G.liqProduct) || chargeData('wf1');
+  const groups = Array.from(new Set(cfg.lanes.map(l=>l.group)));
+  if(!groups.includes(G.liqCharge)) G.liqCharge='withdrawals';
+  return `<div class="panel">
+    <div class="prodhead"><h2>${tr('Premium holiday and withdrawal charges','保费假期与提取费用')}</h2><span class="tagline">${tr('Choose one product, then the charge door you want to explain.','先选择产品，再选择要说明的费用项目。')}</span><button class="report-btn" onclick="printReport()" title="${tr('Print or save this page as a PDF report','打印或另存为 PDF 报告')}">${tr('Generate report','生成报告')}</button></div>
+    <div class="liq-tabs">${LIQ_PRODUCTS.map(([id,label])=>`<button class="${G.liqProduct===id?'active':''}" onclick="G.liqProduct='${id}';G.liqCharge='withdrawals';render();">${label}</button>`).join('')}</div>
+    ${G.liqProduct==='invest'? `<div class="controls" style="margin-top:6px;">${investFundingCtrl()}</div>` : ''}
+    ${G.liqProduct==='voyage'? `<div class="controls" style="margin-top:6px;">${voyageMipCtrl()}</div>` : ''}
+    <div class="liq-tabs">${groups.map(k=>`<button class="${G.liqCharge===k?'active':''}" onclick="G.liqCharge='${k}';render();">${chargeLabel(k)}</button>`).join('')}</div>
+    ${chargeCardHtml(G.liqProduct,G.liqCharge)}
+    <p class="muted" style="font-size:12px;margin-top:12px;">${tr('Every schedule on this page is taken from the official Product Summaries: Wealth Voyage and Wealth Abundance (Dec 2025), Wealth Focus Flexi 1 / 3 / 5 v1.51 (Feb 2026), Wealth Invest Cash/SRS and CPF (Dec 2025).','本页所有费率均取自官方产品摘要：Wealth Voyage 与 Wealth Abundance（2025年12月）、Wealth Focus Flexi 1 / 3 / 5 v1.51（2026年2月）、Wealth Invest 现金/SRS 与 CPF（2025年12月）。')}</p>
+    <div class="copyline">&copy; Kellie Zheng. All rights reserved.</div>
+  </div>`;
+}
+
+/* ================= Q2 campaigns tab ================= */
+function campaignsTab(){
+  return `<div class="panel">
+  <div class="prodhead"><h2>Q2 2026 campaign window</h2><span class="tagline">1 April - 30 June 2026. Last submission 30 June 2026. Issuance by 31 July (ILPs) or 30 September (legacy plans).</span></div>
+  <div class="camp-grid">
+
+    <div class="camp-card"><h3>Wealth Voyage - extra start-up + 2x loyalty</h3>
+      <div class="when">Submit by 30 Jun 2026, issue by 31 Jul 2026</div>
+      <table><tr><th>Annual premium</th><th>MIP 15 Y1</th><th>MIP 20 Y1</th><th>MIP 25 Y1</th></tr>
+      <tr><td>S$3,600-11,999</td><td>15%</td><td>20%</td><td>25%</td></tr>
+      <tr><td>S$12,000-23,999</td><td class="hl">40%</td><td class="hl">40%</td><td class="hl">50%</td></tr>
+      <tr><td>S$24,000+</td><td class="hl">50%</td><td class="hl">50%</td><td class="hl">60%</td></tr></table>
+      <p style="font-size:12.5px">Year 2 unchanged: up to 20% / 40% / 50% by MIP for S$12,000+. Loyalty bonus doubles to <b>2.0 / 2.2 / 2.4% p.a.</b> after MIP for campaign policies. Customer letter and sales-tool update by Oct 2026; no acknowledgement form needed (EASE attestation).</p></div>
+
+    <div class="camp-card"><h3>Wealth Focus - extra start-up + Grab vouchers</h3>
+      <div class="when">9 Feb - 30 Jun 2026, issue by 31 Jul 2026. Flexi 3: Agency / Singpost / Direct only</div>
+      <table><tr><th>Term</th><th>Band</th><th>Standard</th><th>Campaign</th></tr>
+      <tr><td>Flexi 1</td><td>&lt;50k / 50k+</td><td>5% / 10%</td><td>unchanged</td></tr>
+      <tr><td>Flexi 3</td><td>&lt;18k / 18k+</td><td>6% / 12%</td><td class="hl">10% / 20%</td></tr>
+      <tr><td>Flexi 5</td><td>&lt;12k / 12k+</td><td>7.5% / 15%</td><td class="hl">12% / 30%</td></tr></table>
+      <p style="font-size:12.5px">Plus Grab vouchers on Flexi 3 / 5: <b>1.5%</b> (low band) or <b>3.0%</b> (high band) of first premium, rounded up to S$10, emailed within 60 days after the window. 12-month clawback on early termination.</p></div>
+
+    <div class="camp-card"><h3>Jade / Jade Ultra Legacy UL - GCR update</h3>
+      <div class="when">Submit by 30 Jun 2026, issue by 30 Sep 2026</div>
+      <table><tr><th></th><th>Jade</th><th>Jade Ultra</th></tr>
+      <tr><td>Promo GCR</td><td>4.70%</td><td>4.75%</td></tr>
+      <tr><td>1-yr lock</td><td class="hl">4.75%</td><td class="hl">4.80%</td></tr>
+      <tr><td>3-yr lock</td><td>4.70%</td><td>4.75%</td></tr>
+      <tr><td>5-yr lock</td><td>-</td><td>4.70%</td></tr></table>
+      <p style="font-size:12.5px">Single and regular premium. Country class upgrade A to A+ extended for Malaysia, Indonesia, Philippines, Thailand, Taiwan (also Diamond Prestige IUL II; not substandard policies).</p></div>
+
+    <div class="camp-card"><h3>Premium discounts - quick reference</h3>
+      <div class="when">All: submit by 30 Jun 2026</div>
+      <table>
+      <tr><th>Plan</th><th>Discount</th></tr>
+      <tr><td>Emerald Legacy Life III (single premium)</td><td class="hl">3.5%</td></tr>
+      <tr><td>Term Protector / Prime, to age 50-85 + eligible rider</td><td class="hl">35% perpetual</td></tr>
+      <tr><td>Term Protector / Prime, to age 99 + eligible rider</td><td class="hl">20% perpetual</td></tr>
+      <tr><td>Diamond Prestige IUL II, single pay</td><td>2.3% (cap US$50k)</td></tr>
+      <tr><td>Diamond Prestige IUL II, multi-pay 2-15+</td><td>5% - 23% first premium</td></tr>
+      <tr><td>Indexed Flexi Income, single pay / 5-pay</td><td>1% / <span class="hl">10%</span> first premium</td></tr></table>
+      <p style="font-size:12.5px">Discounts apply on the lower of planned or first premium, once at inception only; no extension to later premiums. 2026Q2 campaign calculator and acknowledgement form needed for Emerald III, Diamond Prestige IUL II and Indexed Flexi Income.</p></div>
+
+  </div>
+  <p class="muted" style="margin-top:12px;font-size:12px">Bonus tables for Voyage and Focus mirror the public campaign T&amp;Cs; the discount cards summarise the internal Q2 2026 circular (not for external dissemination - keep this tab off-screen with clients).</p>
+  <div class="copyline">&copy; Kellie Zheng. All rights reserved.</div>
+  </div>`;
+}
+
+/* ================= shell ================= */
+const TABS = [
+  ['wf1','WF Flexi 1'], ['wf3','WF Flexi 3'], ['wf5','WF Flexi 5'],
+  ['voyage','Wealth Voyage'], ['abundance','Wealth Abundance'], ['invest','Wealth Invest'],
+  ['liquidity','PH & Withdrawals'], ['compare','Compare 1·3·5'], ['campaigns','Q2 Campaigns']
+];
+function render(){
+  document.getElementById('tabs').innerHTML = TABS.map(([id,label])=>{
+    if(id==='liquidity') label = tr('PH & Withdrawals','保费假期与提取');
+    if(id==='compare')   label = tr('Compare 1·3·5','对比 1·3·5');
+    return `<button class="${G.tab===id?'active':''}" onclick="G.tab='${id}';render();">${label}</button>`;}).join('');
+  const app = document.getElementById('app');
+  if(G.tab==='compare') app.innerHTML = compareTab();
+  else if(G.tab==='liquidity') app.innerHTML = liquidityTab();
+  else if(G.tab==='campaigns') app.innerHTML = campaignsTab();
+  else app.innerHTML = productPanel(G.tab);
+}
+function toggleCampaign(){
+  G.campaign = !G.campaign;
+  document.getElementById('campSwitch').classList.toggle('on', G.campaign);
+  render();
+}
+function printReport(){
+  /* Report layout: current tab first; product reports add one rules/important page.
+     PH & Withdrawals prints as its own sheet from that tab. */
+  let extra = document.getElementById('print-extra');
+  if(!extra){
+    extra = document.createElement('div');
+    extra.id = 'print-extra';
+    document.getElementById('app').appendChild(extra);
+  }
+  const productRules = (G.tab !== 'liquidity' && PROD[G.tab])
+    ? `<div class="rules-print"><h3>${tr('Product rules that matter in the room','谈单时要紧的产品规则')}</h3>${rulesInner(G.tab)}</div>`
+    : '';
+  const refs = FOOT.showSources ? referenceMaterialsHtml() : '';
+  const p3 = `<div class="print-page panel report-info-page">
+      ${productRules}
+      <div class="sources-print">${refs}</div>
+      <div class="important-title">${tr('Important information','重要说明')}</div>
+      <div class="sources-print">${importantInfoHtml()}</div>
+      <p class="report-copy">&copy; Kellie Zheng. All rights reserved.</p>
+    </div>`;
+  extra.innerHTML = p3;
+  window.print();
+}
+window.addEventListener('afterprint', ()=>{
+  const e = document.getElementById('print-extra');
+  if(e) e.innerHTML = '';
+});
+function refreshCountdown(){
+  const end = new Date(CAMPAIGN.lastSubmission);
+  const days = Math.max(0, Math.ceil((end - Date.now())/86400000));
+  document.getElementById('countdown').textContent =
+    days>0 ? tr(`${CAMPAIGN.name} campaign: last submission ${CAMPAIGN.labelDate} - ${days} day${days===1?'':'s'} left`,
+                `${CAMPAIGN.name} 优惠：最迟 ${CAMPAIGN.labelDate} 递交 - 还剩 ${days} 天`)
+           : tr(`${CAMPAIGN.name} campaign window closed - check current rates`,
+                `${CAMPAIGN.name} 优惠已截止 - 请查看最新利率`);
+}
+refreshCountdown();
+renderOverviewNote();
+renderFooter();
+render();
+
+/* ================= self-test (console) ================= */
+(function selfTest(){
+  const t1 = run('wf1', {P:30000, ret:3.5, payYears:1, horizon:10, divMode:'reinvest', mip:10});
+  console.assert(Math.abs(t1.rows[0].val-31852.5)<1, 'WF1 y1 expect ~31,852', t1.rows[0].val);
+  console.assert(Math.abs(t1.rows[9].val-35635)<3,  'WF1 y10 expect ~35,635', t1.rows[9].val);
+  const t2 = run('wf1', {P:25000, ret:6, payYears:1, horizon:11, divMode:'reinvest', mip:10});
+  console.assert(Math.abs(t2.rows[0].val-27200)<1, 'WF1 6% y1 expect 27,200', t2.rows[0].val);
+  const t3 = run('wf5', {P:6000, ret:6, payYears:5, horizon:10, divMode:'reinvest', mip:10});
+  console.assert(Math.abs(t3.rows[0].val-6973.2)<1, 'WF5 y1 expect ~6,973', t3.rows[0].val);
+  console.assert(Math.abs(t3.rows[9].val-41777)<3, 'WF5 y10 expect ~41,777', t3.rows[9].val);
+})();
+</script>
+</body>
+</html>
