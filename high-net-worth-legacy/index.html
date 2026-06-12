@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="Kellie Zheng">
+<title>Finance with Kellie - HNW Legacy Products</title>
+<style>
+
+:root{--red:#db0011;--navy:#17243b;--ink:#1d2430;--muted:#637083;--line:#d9e0e8;--bg:#f4f6f8;--teal:#006b68;--gold:#a87319;--green:#197447}
+*{box-sizing:border-box;letter-spacing:0}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.45}
+button{font:inherit;cursor:pointer}
+a{color:var(--red);text-decoration:none}
+a:hover{text-decoration:underline}
+.top{background:var(--navy);color:#fff;border-bottom:4px solid var(--red)}
+.topin{max-width:1180px;margin:auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:14px}
+.mascot{width:54px;height:54px;border-radius:50%;background:#fff;border:2px solid #fff;box-shadow:0 0 0 2px var(--red),0 0 0 5px rgba(255,255,255,.16)}
+.eyebrow{font-size:12px;text-transform:uppercase;color:#c8d3e5;font-weight:800}
+.brand h1{margin:1px 0 0;font-size:24px;line-height:1.15}
+.lang{display:flex;border:1px solid rgba(255,255,255,.3);border-radius:999px;overflow:hidden}
+.lang button{border:0;background:transparent;color:#cbd5e1;padding:8px 13px;font-size:12px;font-weight:800}
+.lang button.on{background:#fff;color:var(--navy)}
+.notice{background:#fff;border-bottom:1px solid var(--line)}
+.noticein{max-width:1180px;margin:auto;padding:12px 20px;display:grid;gap:8px}
+.notice b{display:block}
+.starline{display:flex;gap:8px;color:var(--muted);font-size:13px}
+.star{width:16px;flex:0 0 auto;color:var(--red);margin-top:2px}
+main{padding:18px 0 34px}
+.band{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:18px}
+.band.alt{background:#f8fafc}
+.inner{max-width:1180px;margin:auto;padding:18px 20px}
+.head{margin-bottom:12px}
+.head h2{margin:0;font-size:22px}
+.head p{margin:4px 0 0;color:var(--muted)}
+.shelf{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.card{min-height:126px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px;text-align:left;display:grid;grid-template-columns:70px 1fr;gap:12px;align-items:center}
+.card.active{border-color:var(--red);box-shadow:0 0 0 2px rgba(219,0,17,.13)}
+.card b{display:block;font-size:14px;line-height:1.2}
+.card span{display:block;color:var(--muted);font-size:12px;line-height:1.25;margin-top:5px}
+.ico{width:70px;height:70px;border:1px solid #dfe6ee;border-radius:18px;background:linear-gradient(145deg,#fff,#f7fbff);display:grid;place-items:center}
+.ico svg{width:54px;height:54px;overflow:visible}
+.ico .line{fill:none;stroke:var(--c,var(--red));stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.ico .thin{fill:none;stroke:#8997aa;stroke-width:2;stroke-linecap:round}
+.ico .fill{fill:#fff;stroke:#d2dbe6;stroke-width:2}
+.ico text{font-weight:900;fill:var(--c,var(--red));font-size:17px}
+.layout{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px}
+.detail h2{margin:0 0 4px;font-size:30px;line-height:1.1}
+.sub{color:var(--muted);font-size:17px;margin:0 0 12px}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.tag{border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-weight:800;font-size:12px}
+.tag.red{color:#a50010;background:#fff3f4;border-color:#f2bec3}
+.tag.teal{color:#005d5a;background:#eefafa;border-color:#add8d6}
+.tag.gold{color:#765315;background:#fff8e8;border-color:#e2c68b}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.metric{border:1px solid var(--line);border-radius:8px;padding:11px;min-height:82px}
+.metric b{display:block;color:var(--muted);text-transform:uppercase;font-size:11px;margin-bottom:5px}
+.metric span{font-weight:800}
+.list h3,.match h3{margin:0 0 8px}
+.list ul{margin:0;padding-left:20px}
+.list li{margin:7px 0}
+.match .pill{display:block;width:100%;border:1px solid var(--line);border-radius:8px;background:#fff;margin:7px 0;padding:9px 10px;text-align:left;font-weight:800}
+.match .pill.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.pick{border-left:4px solid var(--red);background:#f8fafc;padding:10px;margin-top:8px}
+.pick b{display:block}
+.pick span{display:block;color:var(--muted);font-size:13px}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:8px;background:#fff}
+table{border-collapse:collapse;min-width:900px;width:100%;font-size:13px}
+th{background:var(--navy);color:#fff;text-align:left;padding:10px}
+td{border-top:1px solid #e6edf3;padding:10px;vertical-align:top}
+td:first-child{font-weight:900;background:#f8fafc}
+.sources{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.source{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px}
+.source h3{margin:0 0 8px;font-size:14px}
+.source a{display:block;margin-top:6px;font-weight:800;font-size:13px}
+.foot{max-width:1180px;margin:auto;padding:0 20px 30px;color:var(--muted);font-size:12px}
+@media(max-width:1000px){.shelf{grid-template-columns:repeat(2,1fr)}
+.layout{grid-template-columns:1fr}
+.sources{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){.topin{display:block}
+.lang{width:max-content;margin-top:12px}
+.shelf,.sources,.grid{grid-template-columns:1fr}
+.detail h2{font-size:24px}
+}
+
+</style>
+</head>
+<body>
+<header class="top"><div class="topin"><div class="brand"><img class="mascot" alt="Finance with Kellie mascot"><div><div class="eyebrow">Finance with Kellie</div><h1 data-i="title">High Net Worth / Legacy Products</h1></div></div><div class="lang"><button class="on" data-lang="en">EN</button><button data-lang="cn">CN</button></div></div></header>
+<section class="notice"><div class="noticein"><b data-i="guide">Legacy planning guide.</b><div class="starline"><svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.8l2.6 5.3 5.9.9-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9l5.9-.9L12 2.8z"/></svg><span data-i="notice">This is a simplified overview to help you compare options. Final details depend on the official product summary, policy illustration and underwriting outcome.</span></div></div></section>
+<main>
+<section class="band"><div class="inner"><div class="head"><h2 data-i="shelf">HNW Legacy Shelf</h2><p data-i="shelfSub">Diamond Prestige plus the Emerald and Jade legacy products.</p></div><div class="shelf" id="shelf"></div></div></section>
+<section class="band alt"><div class="inner layout"><div class="panel detail" id="detail"></div><aside class="panel match"><h3 data-i="priority">Your Planning Priority</h3><div id="scenarios"></div><div id="picks"></div></aside></div></section>
+<section class="band"><div class="inner"><div class="head"><h2 data-i="compare">Comparison Table</h2><p data-i="compareSub">A side-by-side view of key features, trade-offs and planning fit.</p></div><div class="tablewrap"><table id="table"></table></div></div></section>
+<section class="band alt"><div class="inner"><div class="head"><h2 data-i="refs">Reference Materials</h2><p data-i="refsSub">Official product pages and brochures used for this guide.</p></div><div class="sources" id="sources"></div></div></section>
+</main>
+<footer class="foot"><p data-i="foot1">© Kellie Zheng. Prepared for client discussion.</p><p data-i="foot2">This guide summarises selected product mechanics. It is not a product summary, policy illustration, contract, suitability analysis, tax advice or legal advice.</p></footer>
+<script>
+
+const mascotParts = [
+  "/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAA",
+  "A6ABAAMAAAABAAEAAKACAAQAAAABAAAAQKADAAQAAAABAAAAQAAAAAD/wAARCABAAEADASIAAhEB",
+  "AxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9",
+  "AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6",
+  "Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ip",
+  "qrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEB",
+  "AQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJB",
+  "UQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RV",
+  "VldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6",
+  "wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9sAQwACAgICAgIEAgIEBgQEBAYI",
+  "BgYGBggKCAgICAgKDAoKCgoKCgwMDAwMDAwMDg4ODg4OEBAQEBASEhISEhISEhIS/9sAQwEDAwMF",
+  "BAUIBAQIEw0LDRMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMT",
+  "ExMT/90ABAAE/9oADAMBAAIRAxEAPwD8TORRzTsV9nfso/sy6p8ZvEVre3tmLq3kZjbW0pZIZFiY",
+  "LJcXLLhltYmIUhCHmk/doRh2X3cTiYYeDqVNv6/r8djzqVGVWXLA8D8CfBjx/wDEK1GraNapbab5",
+  "nlG/vZFt7Uyf3Ed+ZX/6ZxB3/wBmvr7w3/wTv+Iut2q3G7UrncM5tNLeOP8AB9QmsmYe4TFft5Ye",
+  "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",
+  "zd2f/9k="
+];
+document.querySelector('.mascot').src = 'data:image/jpeg;base64,' + mascotParts.join('');
+const copy = {
+  "en": {
+    "title": "High Net Worth / Legacy Products",
+    "guide": "Legacy planning guide.",
+    "notice": "This is a simplified overview to help you compare options. Final details depend on the official product summary, policy illustration and underwriting outcome.",
+    "shelf": "HNW Legacy Shelf",
+    "shelfSub": "Diamond Prestige plus the Emerald and Jade legacy products.",
+    "priority": "Your Planning Priority",
+    "compare": "Comparison Table",
+    "compareSub": "A side-by-side view of key features, trade-offs and planning fit.",
+    "refs": "Reference Materials",
+    "refsSub": "Official product pages and brochures used for this guide.",
+    "foot1": "© Kellie Zheng. Prepared for client discussion.",
+    "foot2": "This guide summarises selected product mechanics. It is not a product summary, policy illustration, contract, suitability analysis, tax advice or legal advice.",
+    "type": "Product type",
+    "currency": "Currency",
+    "premium": "Premium",
+    "fit": "Best fit",
+    "mechanics": "Legacy mechanics",
+    "watch": "Watch-outs",
+    "page": "Official page",
+    "brochure": "Brochure",
+    "jadeb": "Jade brochure",
+    "jadeub": "Jade Ultra brochure",
+    "lens": "Lens"
+  },
+  "cn": {
+    "title": "高净值 / 传承产品",
+    "guide": "传承规划指南。",
+    "notice": "这是一个简化概览，帮助您比较不同选项。最终细节须以官方产品摘要、利益说明及核保结果为准。",
+    "shelf": "高净值传承产品架",
+    "shelfSub": "Diamond Prestige 加上 Emerald 与 Jade 传承产品。",
+    "priority": "您的规划重点",
+    "compare": "比较表",
+    "compareSub": "并排比较主要特点、取舍及规划适配。",
+    "refs": "参考资料",
+    "refsSub": "本指南参考的官方产品页面及产品手册。",
+    "foot1": "© Kellie Zheng。供客户讨论使用。",
+    "foot2": "本指南只概述部分产品机制，并非产品摘要、利益说明、合约、适配分析、税务或法律意见。",
+    "type": "产品类型",
+    "currency": "币种",
+    "premium": "保费",
+    "fit": "适合情况",
+    "mechanics": "传承机制",
+    "watch": "注意点",
+    "page": "官方产品页面",
+    "brochure": "产品手册",
+    "jadeb": "Jade 产品手册",
+    "jadeub": "Jade Ultra 产品手册",
+    "lens": "维度"
+  }
+};
+const products = [
+  {
+    "id": "diamond",
+    "tone": "red",
+    "icon": "chart",
+    "name": {
+      "en": "Diamond Prestige IUL II",
+      "cn": "Diamond Prestige IUL II"
+    },
+    "short": {
+      "en": "Indexed universal life for USD legacy planning.",
+      "cn": "美元传承规划的指数万能寿险。"
+    },
+    "tags": [
+      "USD",
+      "Indexed UL",
+      "Legacy liquidity"
+    ],
+    "type": {
+      "en": "Non-participating indexed universal life",
+      "cn": "非分红指数万能寿险"
+    },
+    "currency": "USD",
+    "premium": {
+      "en": "Single pay or multi-pay",
+      "cn": "单缴或多缴"
+    },
+    "fit": {
+      "en": "USD estate liquidity with market-linked upside potential.",
+      "cn": "美元遗产流动性，并具市场挂钩上行潜力。"
+    },
+    "mechanics": {
+      "en": [
+        "Death benefit is the higher of Sum Insured and Policy Value.",
+        "General Account minimum crediting and index account participation support upside planning.",
+        "Policy loans may support liquidity after the first policy anniversary."
+      ],
+      "cn": [
+        "身故利益为保额与保单价值两者中的较高者。",
+        "一般账户最低计息及指数账户参与机制支持上行规划。",
+        "首个保单周年后，保单贷款可支持流动性。"
+      ]
+    },
+    "watch": {
+      "en": [
+        "Charges, index terms and loans can affect sustainability.",
+        "USD exposure should match the client’s assets or liabilities."
+      ],
+      "cn": [
+        "费用、指数条款及贷款可能影响保单持续性。",
+        "美元风险应与客户资产或负债相匹配。"
+      ]
+    },
+    "sources": [
+      [
+        "page",
+        "https://www.insurance.hsbc.com.sg/legacy/products/diamond-prestige-iul/"
+      ],
+      [
+        "brochure",
+        "https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/legacy/hsbc-life-diamond-prestige-iul-product-brochure.pdf"
+      ]
+    ]
+  },
+  {
+    "id": "emeraldLtd",
+    "tone": "teal",
+    "icon": "calendar",
+    "name": {
+      "en": "Emerald Legacy Life III (Limited Pay)",
+      "cn": "Emerald Legacy Life III（限期缴费）"
+    },
+    "short": {
+      "en": "USD participating whole life with 5, 10 or 15-year premium terms.",
+      "cn": "美元分红终身寿险，可选5、10或15年缴费。"
+    },
+    "tags": [
+      "USD",
+      "Participating",
+      "5/10/15-pay",
+      "Age 120"
+    ],
+    "type": {
+      "en": "Participating whole life",
+      "cn": "分红终身寿险"
+    },
+    "currency": "USD",
+    "premium": {
+      "en": "5, 10 or 15-year limited pay",
+      "cn": "5、10或15年限期缴费"
+    },
+    "fit": {
+      "en": "Premium certainty and long-dated USD legacy cover.",
+      "cn": "保费确定性及长期美元传承保障。"
+    },
+    "mechanics": {
+      "en": [
+        "Minimum Protection Cover plus Life Advantage Booster and bonuses.",
+        "Coverage can extend to age 120 subject to product rules.",
+        "Death benefit instalment option may spread payout over 2 to 10 years."
+      ],
+      "cn": [
+        "最低保障额，加 Life Advantage Booster 及红利。",
+        "保障可按产品规则延长至120岁。",
+        "身故利益可选择2至10年分期支付。"
+      ]
+    },
+    "watch": {
+      "en": [
+        "Bonuses are non-guaranteed until declared.",
+        "Early surrender may be costly."
+      ],
+      "cn": [
+        "红利在宣告前并不保证。",
+        "提早退保成本可能较高。"
+      ]
+    },
+    "sources": [
+      [
+        "page",
+        "https://www.insurance.hsbc.com.sg/legacy/products/emerald-legacy-life/"
+      ],
+      [
+        "brochure",
+        "https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/legacy/emerald-life-plan-iii/product-brochure.pdf"
+      ]
+    ]
+  },
+  {
+    "id": "emeraldUsd",
+    "tone": "gold",
+    "icon": "usd",
+    "name": {
+      "en": "Emerald Legacy Life III (USD)",
+      "cn": "Emerald Legacy Life III（美元）"
+    },
+    "short": {
+      "en": "Single premium participating whole life in USD.",
+      "cn": "美元单缴分红终身寿险。"
+    },
+    "tags": [
+      "USD",
+      "Single premium",
+      "Participating",
+      "Age 99"
+    ],
+    "type": {
+      "en": "Single premium participating whole life",
+      "cn": "单缴分红终身寿险"
+    },
+    "currency": "USD",
+    "premium": {
+      "en": "Guaranteed single premium",
+      "cn": "保证单缴保费"
+    },
+    "fit": {
+      "en": "USD lump-sum legacy planning with par-fund participation.",
+      "cn": "美元一次性传承规划，参与分红基金。"
+    },
+    "mechanics": {
+      "en": [
+        "High protection through Minimum Protection Cover and Life Advantage Booster.",
+        "Surrender value begins from policy year 1.",
+        "Maturity at age 99 is GSV plus non-guaranteed bonuses, less amounts owing."
+      ],
+      "cn": [
+        "通过最低保障额及 Life Advantage Booster 提供较高保障。",
+        "退保价值自第1年开始。",
+        "99岁期满利益为保证退保价值加非保证红利，并扣除欠款。"
+      ]
+    },
+    "watch": {
+      "en": [
+        "Bonuses are non-guaranteed.",
+        "FX risk remains if needs are in SGD."
+      ],
+      "cn": [
+        "红利并不保证。",
+        "若需求以新元计价，仍有汇率风险。"
+      ]
+    },
+    "sources": [
+      [
+        "page",
+        "https://www.insurance.hsbc.com.sg/legacy/products/emerald-legacy-life/"
+      ],
+      [
+        "brochure",
+        "https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/legacy/emerald-life-plan-iii/product-brochure.pdf"
+      ]
+    ]
+  },
+  {
+    "id": "emeraldSgd",
+    "tone": "green",
+    "icon": "sgd",
+    "name": {
+      "en": "Emerald Legacy Life III (SGD)",
+      "cn": "Emerald Legacy Life III（新元）"
+    },
+    "short": {
+      "en": "Single premium participating whole life in SGD.",
+      "cn": "新元单缴分红终身寿险。"
+    },
+    "tags": [
+      "SGD",
+      "Single premium",
+      "Participating",
+      "Age 99"
+    ],
+    "type": {
+      "en": "Single premium participating whole life",
+      "cn": "单缴分红终身寿险"
+    },
+    "currency": "SGD",
+    "premium": {
+      "en": "Guaranteed single premium",
+      "cn": "保证单缴保费"
+    },
+    "fit": {
+      "en": "SGD estate needs without USD currency mismatch.",
+      "cn": "适合新元传承需求，避免美元错配。"
+    },
+    "mechanics": {
+      "en": [
+        "High protection through Minimum Protection Cover and Life Advantage Booster.",
+        "Surrender value begins from policy year 1.",
+        "One Change of Life Insured may be requested, subject to acceptance."
+      ],
+      "cn": [
+        "通过最低保障额及 Life Advantage Booster 提供较高保障。",
+        "退保价值自第1年开始。",
+        "可申请一次更换受保人，须获接受。"
+      ]
+    },
+    "watch": {
+      "en": [
+        "Bonuses are non-guaranteed.",
+        "Early surrender may return less than premium paid."
+      ],
+      "cn": [
+        "红利并不保证。",
+        "提早退保可能低于已缴保费。"
+      ]
+    },
+    "sources": [
+      [
+        "page",
+        "https://www.insurance.hsbc.com.sg/legacy/products/emerald-legacy-life/"
+      ],
+      [
+        "brochure",
+        "https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/legacy/emerald-life-plan-iii/product-brochure.pdf"
+      ]
+    ]
+  },
+  {
+    "id": "jade",
+    "tone": "jade",
+    "icon": "jade",
+    "name": {
+      "en": "Jade Legacy UL / Jade Ultra Legacy UL",
+      "cn": "Jade Legacy UL / Jade Ultra Legacy UL"
+    },
+    "short": {
+      "en": "Universal life family for large HNW legacy cases.",
+      "cn": "适合大型高净值传承个案的万能寿险系列。"
+    },
+    "tags": [
+      "USD/AUD/GBP",
+      "Universal life",
+      "Large cases"
+    ],
+    "type": {
+      "en": "Non-participating universal life",
+      "cn": "非分红万能寿险"
+    },
+    "currency": "USD, AUD, GBP",
+    "premium": {
+      "en": "Single, annual and unscheduled premiums",
+      "cn": "单缴、年缴及追加保费"
+    },
+    "fit": {
+      "en": "Large flexible HNW legacy and estate liquidity cases.",
+      "cn": "大型高净值传承及遗产流动性个案。"
+    },
+    "mechanics": {
+      "en": [
+        "Death benefit is the higher of Sum Insured and Account Value.",
+        "Guaranteed minimum crediting rates vary by currency and product variant.",
+        "Loans and partial surrender rules can support planning flexibility."
+      ],
+      "cn": [
+        "身故利益为保额与账户价值两者中的较高者。",
+        "保证最低计息率按币种及产品版本而异。",
+        "贷款及部分退保规则可支持规划弹性。"
+      ]
+    },
+    "watch": {
+      "en": [
+        "Policy charges and crediting-rate changes affect sustainability.",
+        "Loans can reduce policy value and benefits."
+      ],
+      "cn": [
+        "保单费用及计息率变化会影响保单持续性。",
+        "贷款可能减少保单价值及保障。"
+      ]
+    },
+    "sources": [
+      [
+        "page",
+        "https://www.insurance.hsbc.com.sg/legacy/jade/"
+      ],
+      [
+        "jadeb",
+        "https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/legacy/jade/non-ultra-product-brochure.pdf"
+      ],
+      [
+        "jadeub",
+        "https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/legacy/jade/ultra-product-brochure.pdf"
+      ]
+    ]
+  }
+];
+const scenarios = [
+  {
+    "id": "liq",
+    "label": {
+      "en": "Estate Liquidity",
+      "cn": "遗产流动性"
+    },
+    "picks": [
+      [
+        "diamond",
+        {
+          "en": "USD death cover with indexed account design and policy loans.",
+          "cn": "美元身故保障，配合指数账户及保单贷款。"
+        }
+      ],
+      [
+        "jade",
+        {
+          "en": "Large UL structure with account value and post-year-10 liquidity rules.",
+          "cn": "大型万能寿险结构，含账户价值及第10年后流动性规则。"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "cert",
+    "label": {
+      "en": "Premium Certainty",
+      "cn": "保费确定性"
+    },
+    "picks": [
+      [
+        "emeraldLtd",
+        {
+          "en": "Guaranteed basic premiums over 5, 10 or 15 years.",
+          "cn": "基本保费保证，可选5、10或15年。"
+        }
+      ],
+      [
+        "emeraldUsd",
+        {
+          "en": "Guaranteed single premium for USD lump-sum planning.",
+          "cn": "美元一次性规划，单缴保费保证。"
+        }
+      ],
+      [
+        "emeraldSgd",
+        {
+          "en": "Guaranteed single premium for SGD lump-sum planning.",
+          "cn": "新元一次性规划，单缴保费保证。"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "sgd",
+    "label": {
+      "en": "SGD Legacy",
+      "cn": "新元传承"
+    },
+    "picks": [
+      [
+        "emeraldSgd",
+        {
+          "en": "SGD policy currency aligns with SGD estate needs.",
+          "cn": "新元保单币种配合新元传承需求。"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "biz",
+    "label": {
+      "en": "Business Succession",
+      "cn": "企业传承"
+    },
+    "picks": [
+      [
+        "jade",
+        {
+          "en": "Flexible sum insured and policy ownership mechanics.",
+          "cn": "保额及保单持有人安排较具弹性。"
+        }
+      ],
+      [
+        "emeraldLtd",
+        {
+          "en": "Long-dated cover with Change of Life Insured options.",
+          "cn": "长期保障并可按条件更换受保人。"
+        }
+      ]
+    ]
+  }
+];
+let lang = 'en';
+let active = 'diamond';
+let scenario = 'liq';
+const by = id => document.getElementById(id);
+const txt = value => typeof value === 'string' ? value : value[lang] || value.en;
+function icon(product) {
+  const color = { red:'var(--red)', teal:'var(--teal)', gold:'var(--gold)', green:'var(--green)', jade:'#16805f' }[product.tone];
+  if (product.icon === 'chart') return '<div class="ico" style="--c:'+color+'"><svg viewBox="0 0 80 80"><rect class="fill" x="16" y="13" width="48" height="54" rx="10"/><path class="thin" d="M25 24h30M25 59h30"/><path class="line" d="M22 51l13-12 10 6 15-25"/></svg></div>';
+  if (product.icon === 'calendar') return '<div class="ico" style="--c:'+color+'"><svg viewBox="0 0 80 80"><rect class="fill" x="14" y="18" width="52" height="48" rx="10"/><path class="thin" d="M14 32h52M27 13v13M53 13v13"/><text x="40" y="51" text-anchor="middle">5 10</text></svg></div>';
+  if (product.icon === 'usd' || product.icon === 'sgd') return '<div class="ico" style="--c:'+color+'"><svg viewBox="0 0 80 80"><circle class="fill" cx="40" cy="40" r="27"/><text x="40" y="47" text-anchor="middle">'+product.icon.toUpperCase()+'</text></svg></div>';
+  return '<div class="ico" style="--c:'+color+'"><svg viewBox="0 0 80 80"><path class="fill" d="M40 12l24 12v18c0 17-10 28-24 35-14-7-24-18-24-35V24z"/><circle cx="40" cy="42" r="18" fill="#e5f7ef"/><path class="line" d="M51 42h13m-5-7v14"/></svg></div>';
+}
+function translateChrome() {
+  document.documentElement.lang = lang === 'cn' ? 'zh-Hans' : 'en';
+  document.querySelectorAll('[data-i]').forEach(el => { el.textContent = copy[lang][el.dataset.i]; });
+  document.querySelectorAll('[data-lang]').forEach(button => { button.classList.toggle('on', button.dataset.lang === lang); });
+}
+function tagClass(tag) {
+  if (/SGD|USD/.test(tag)) return 'red';
+  if (/Universal|Indexed/.test(tag)) return 'teal';
+  if (/Age|pay|Large/.test(tag)) return 'gold';
+  return '';
+}
+function renderShelf() {
+  by('shelf').innerHTML = products.map(product => '<button class="card '+(product.id===active?'active':'')+'" data-p="'+product.id+'">'+icon(product)+'<span><b>'+txt(product.name)+'</b><span>'+txt(product.short)+'</span></span></button>').join('');
+}
+function renderDetail() {
+  const product = products.find(item => item.id === active);
+  by('detail').innerHTML = '<h2>'+txt(product.name)+'</h2><p class="sub">'+txt(product.fit)+'</p><div class="tags">'+product.tags.map(tag => '<span class="tag '+tagClass(tag)+'">'+tag+'</span>').join('')+'</div><div class="grid"><div class="metric"><b>'+copy[lang].type+'</b><span>'+txt(product.type)+'</span></div><div class="metric"><b>'+copy[lang].currency+'</b><span>'+product.currency+'</span></div><div class="metric"><b>'+copy[lang].premium+'</b><span>'+txt(product.premium)+'</span></div><div class="metric"><b>'+copy[lang].fit+'</b><span>'+txt(product.fit)+'</span></div></div><div class="grid" style="margin-top:12px"><div class="list"><h3>'+copy[lang].mechanics+'</h3><ul>'+product.mechanics[lang].map(item => '<li>'+item+'</li>').join('')+'</ul></div><div class="list"><h3>'+copy[lang].watch+'</h3><ul>'+product.watch[lang].map(item => '<li>'+item+'</li>').join('')+'</ul></div></div>';
+}
+function renderScenarios() {
+  by('scenarios').innerHTML = scenarios.map(item => '<button class="pill '+(item.id===scenario?'on':'')+'" data-s="'+item.id+'">'+txt(item.label)+'</button>').join('');
+  const selected = scenarios.find(item => item.id === scenario);
+  by('picks').innerHTML = selected.picks.map(([id, reason]) => { const product = products.find(item => item.id === id); return '<div class="pick"><b>'+txt(product.name)+'</b><span>'+txt(reason)+'</span></div>'; }).join('');
+}
+function renderTable() {
+  const rows = ['type', 'currency', 'premium', 'fit'];
+  by('table').innerHTML = '<thead><tr><th>'+copy[lang].lens+'</th>'+products.map(product => '<th>'+txt(product.name)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(row => '<tr><td>'+copy[lang][row]+'</td>'+products.map(product => '<td>'+txt(product[row])+'</td>').join('')+'</tr>').join('')+'</tbody>';
+}
+function renderSources() {
+  by('sources').innerHTML = products.map(product => '<div class="source"><h3>'+txt(product.name)+'</h3>'+product.sources.map(([label, href]) => '<a href="'+href+'" target="_blank" rel="noopener">'+copy[lang][label]+'</a>').join('')+'</div>').join('');
+}
+function render() {
+  translateChrome();
+  renderShelf();
+  renderDetail();
+  renderScenarios();
+  renderTable();
+  renderSources();
+}
+document.addEventListener('click', event => {
+  const languageButton = event.target.closest('[data-lang]');
+  if (languageButton) { lang = languageButton.dataset.lang; render(); }
+  const productButton = event.target.closest('[data-p]');
+  if (productButton) { active = productButton.dataset.p; render(); by('detail').scrollIntoView({block:'nearest'}); }
+  const scenarioButton = event.target.closest('[data-s]');
+  if (scenarioButton) { scenario = scenarioButton.dataset.s; renderScenarios(); }
+});
+render();
+</script>
+</body>
+</html>
