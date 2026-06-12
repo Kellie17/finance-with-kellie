@@ -4018,6 +4018,126 @@
       font-weight: 950;
     }
 
+    .assumptions-panel {
+      display: grid;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1.5px solid rgba(183, 121, 31, 0.40);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(255, 247, 230, 0.97), rgba(255, 253, 246, 0.92)),
+        #ffffff;
+      color: var(--navy);
+      box-shadow: 0 12px 24px rgba(183, 121, 31, 0.08);
+    }
+
+    .screen-assumptions {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 238px;
+      z-index: 5;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 7px 10px;
+      padding: 8px 10px;
+    }
+
+    .screen-assumptions > strong {
+      font-size: 0.66rem;
+      white-space: nowrap;
+    }
+
+    .screen-assumptions .assumptions-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .screen-assumptions .assumption-chip {
+      min-height: 42px;
+      padding: 5px 7px;
+    }
+
+    .screen-assumptions .assumption-chip span {
+      font-size: 0.46rem;
+      line-height: 1.05;
+    }
+
+    .screen-assumptions .assumption-chip strong {
+      margin-top: 2px;
+      font-size: 0.62rem;
+      line-height: 1.08;
+    }
+
+    .screen-assumptions p {
+      grid-column: 1 / -1;
+      font-size: 0.56rem;
+      line-height: 1.12;
+    }
+
+    .assumptions-panel > strong {
+      color: var(--amber);
+      font-size: 0.86rem;
+      font-weight: 950;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .assumptions-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .assumption-chip {
+      min-height: 58px;
+      padding: 8px 10px;
+      border: 1px solid rgba(183, 121, 31, 0.22);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .assumption-chip span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.62rem;
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .assumption-chip strong {
+      display: block;
+      margin-top: 4px;
+      color: var(--navy);
+      font-size: 0.88rem;
+      line-height: 1.15;
+      font-weight: 900;
+    }
+
+    .assumptions-panel p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.75rem;
+      line-height: 1.3;
+      font-weight: 720;
+    }
+
+    .report-assumptions {
+      margin: 0 0 18px;
+      box-shadow: none;
+      break-inside: avoid;
+    }
+
+    .report-assumptions .assumptions-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .report-assumptions .assumption-chip {
+      min-height: 52px;
+    }
+
     .report-disclaimer {
       margin-top: 22px;
       padding-top: 12px;
@@ -4378,6 +4498,41 @@
         font-size: 1.3rem;
       }
 
+      .report-assumptions {
+        margin-bottom: 14px;
+        padding: 7px;
+        gap: 6px;
+      }
+
+      .report-assumptions > strong {
+        font-size: 0.52rem;
+      }
+
+      .report-assumptions .assumptions-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 5px;
+      }
+
+      .report-assumptions .assumption-chip {
+        min-height: 38px;
+        padding: 5px 6px;
+      }
+
+      .report-assumptions .assumption-chip span {
+        font-size: 0.42rem;
+      }
+
+      .report-assumptions .assumption-chip strong {
+        margin-top: 2px;
+        font-size: 0.58rem;
+        line-height: 1.08;
+      }
+
+      .report-assumptions p {
+        font-size: 0.5rem;
+        line-height: 1.14;
+      }
+
       .report-disclaimer {
         margin-top: 10px;
         padding-top: 6px;
@@ -4401,8 +4556,123 @@
     }
 
     @media (max-width: 1180px) {
+      .app-header {
+        gap: 12px;
+        padding: 12px 14px;
+      }
+
+      .brand img {
+        width: 44px;
+        height: 44px;
+      }
+
+      .header-actions {
+        gap: 8px;
+      }
+
+      .progress-pill,
+      .control-button {
+        min-height: 34px;
+        padding: 7px 10px;
+        font-size: 0.82rem;
+      }
+
       .app-shell {
-        grid-template-columns: 190px minmax(0, 1fr);
+        grid-template-columns: 166px minmax(0, 1fr);
+        gap: 12px;
+        padding: 12px;
+      }
+
+      .step-rail {
+        padding: 10px;
+      }
+
+      .step-button {
+        grid-template-columns: 28px minmax(0, 1fr);
+        gap: 8px;
+        min-height: 46px;
+        padding: 6px;
+      }
+
+      .step-number {
+        width: 28px;
+        height: 28px;
+        font-size: 0.78rem;
+      }
+
+      .step-text strong {
+        font-size: 0.78rem;
+      }
+
+      .step-text span {
+        display: none;
+      }
+
+      .stage-head {
+        padding: 14px 14px 10px;
+      }
+
+      .canvas-wrap {
+        padding: 12px;
+      }
+
+      .canvas {
+        min-height: 650px;
+      }
+
+      .canvas.funds-canvas,
+      .canvas.checkin-canvas,
+      .timeline-canvas {
+        min-height: 780px;
+      }
+
+      .dca-board,
+      .variables-board,
+      .downtrend-board,
+      .funds-board,
+      .equation-board,
+      .timeline-board,
+      .retire-board,
+      .retirement-board,
+      .lifestyle-board,
+      .math-board,
+      .methods-board,
+      .secret-board {
+        inset: 64px 22px 28px;
+      }
+
+      .lifestyle-grid {
+        gap: 10px;
+      }
+
+      .lifestyle-card {
+        min-height: 250px;
+        padding: 16px 14px;
+      }
+
+      .lifestyle-card .cost {
+        right: 14px;
+        width: 76px;
+        min-width: 76px;
+        height: 76px;
+        font-size: 1rem;
+      }
+
+      .lifestyle-card h3,
+      .lifestyle-card p {
+        max-width: calc(100% - 88px);
+      }
+
+      .assumptions-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .screen-assumptions {
+        top: 238px;
+      }
+
+      .screen-assumptions .assumptions-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
     }
@@ -4453,6 +4723,13 @@
 
       .canvas {
         min-width: 720px;
+        min-height: 640px;
+      }
+
+      .canvas.funds-canvas,
+      .canvas.checkin-canvas,
+      .timeline-canvas {
+        min-height: 760px;
       }
 
       .calc-strip {
@@ -4479,6 +4756,21 @@
 
       .report-readiness-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .report-assumptions .assumptions-grid,
+      .assumptions-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .screen-assumptions {
+        position: absolute;
+        top: 238px;
+        margin-top: 0;
+      }
+
+      .screen-assumptions .assumptions-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
     }
   </style>
@@ -5605,7 +5897,12 @@
       "Show sections": "显示章节",
       "Your check-in": "你的现状检查",
       "Funding projection": "资金预测",
-      "Consultant notes": "顾问备注"
+      "Consultant notes": "顾问备注",
+      "Planning assumptions": "规划假设",
+      "Investment return assumption": "投资回报假设",
+      "Funding rates shown": "展示的累积利率",
+      "Illustration only; actual returns and income are not guaranteed.": "仅作示意；实际回报和收入不保证。",
+      "This assumptions box explains the rules behind the numbers; review current rates, product details, risks and suitability before implementation.": "此假设框说明数字背后的规则；执行前应复核当前利率、产品细节、风险和适合度。"
     });
 
     Object.assign(CN_TEXT, {
@@ -6547,6 +6844,56 @@
       `;
     }
 
+    function assumptionRows(values) {
+      return [
+        {
+          label: "Inflation assumption",
+          value: pairText(`${Number(state.calc.inflation) || 0}% p.a.`, `年化 ${Number(state.calc.inflation) || 0}%`)
+        },
+        {
+          label: "Life expectancy used",
+          value: pairText(`Age ${values.expectancyAge}`, `${values.expectancyAge} 岁`)
+        },
+        {
+          label: "Investment return assumption",
+          value: pairText(`${values.dividendRatePct}% p.a.`, `年化 ${values.dividendRatePct}%`)
+        },
+        {
+          label: "Funding rates shown",
+          value: pairText("0.05%, 3%, 6%, 8% p.a.", "年化 0.05%、3%、6%、8%")
+        }
+      ];
+    }
+
+    function assumptionsPanelHtml(values, className = "") {
+      const isScreenPanel = String(className).includes("screen-assumptions");
+      const note = isScreenPanel
+        ? translatedHtml("Illustration only; actual returns and income are not guaranteed.")
+        : `${translatedHtml("Illustration only; actual returns and income are not guaranteed.")} ${translatedHtml("This assumptions box explains the rules behind the numbers; review current rates, product details, risks and suitability before implementation.")}`;
+      return `
+        <aside class="assumptions-panel ${escapeHtml(className)}">
+          <strong>${translatedHtml("Planning assumptions")}</strong>
+          <div class="assumptions-grid">
+            ${assumptionRows(values).map((item) => `
+              <div class="assumption-chip">
+                <span>${translatedHtml(item.label)}</span>
+                <strong>${escapeHtml(item.value)}</strong>
+              </div>
+            `).join("")}
+          </div>
+          <p>${note}</p>
+        </aside>
+      `;
+    }
+
+    function assumptionsTextLines(values) {
+      return [
+        ...assumptionRows(values).map((item) => `${translatedText(item.label)}: ${item.value}.`),
+        translatedText("Illustration only; actual returns and income are not guaranteed."),
+        translatedText("This assumptions box explains the rules behind the numbers; review current rates, product details, risks and suitability before implementation.")
+      ];
+    }
+
     function retirementTimelineHtml(values, visible, className = "") {
       const pct = (age) => agePercent(age, values.currentAge, Math.max(values.expectancyAge + 10, values.retirementAge + 5));
       const buildLeft = pct(values.currentAge);
@@ -6869,6 +7216,7 @@
             ${mathNode("period", has("period"), `${values.incomeYears} years`, "Retirement to expectancy")}
             ${mathNode("targetPool", has("targetPool"), formatCurrency(values.targetPool), "Money consumed over period")}
           </div>
+          ${has("futureValue") || has("targetPool") ? assumptionsPanelHtml(values, "screen-assumptions") : ""}
           ${retirementTimelineHtml(values, {
             buildYears: true,
             expectancy: true,
@@ -7836,6 +8184,8 @@
           <div class="report-kpi"><span>${translatedHtml("Period to build wealth")}</span><strong>${pairText(`${values.yearsToRetire} years`, `${values.yearsToRetire} 年`)}</strong><small>${pairText(`Age ${values.currentAge} to ${values.retirementAge}`, `${values.currentAge} 岁到 ${values.retirementAge} 岁`)}</small></div>
         </div>
 
+        ${assumptionsPanelHtml(values, "report-assumptions")}
+
         ${sections.join("")}
 
         <div class="report-disclaimer">
@@ -7857,6 +8207,7 @@
         `${translatedText("Contact")}: ${BRAND.whatsappLabel} ${BRAND.whatsappUrl} | ${BRAND.bookingUrl}`,
         ""
       ];
+      lines.push(translatedText("Planning assumptions"), ...assumptionsTextLines(values), "");
       if (reportSectionEnabled("notes") && state.report.notes.trim()) {
         lines.push(translatedText("Wealth Consultant's Notes:"), state.report.notes.trim(), "");
       }
