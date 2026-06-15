@@ -3,6 +3,7 @@
 function rOver(){
   const items=[
     {id:'shield', en:'Hospital bills, as charged, for life', cn:'住院账单按实际费用终身保障', span:tr('age 1 to lifetime','1岁起，终身'), bar:[1,100]},
+    {id:'happy', en:'Prenatal cover plus newborn and family protection bridge', cn:'孕期保障加新生儿及家庭保障衔接', span:tr('week 13 to year 3, then bundled continuation','孕13周至第3年，其后由搭配计划延续'), bar:[1,3]},
     {id:'scc', en:'Repeated CI payouts, up to 600% of SA', cn:'重疾多次赔付，累计至保额600%', span:tr('to age 75, renewable to 99','保至75岁，可续保至99'), bar:[30,99]},
     {id:'pc', en:'Hospital cash on top of insurance', cn:'保险之外的住院现金', span:tr('renewable to 85','续保至85岁'), bar:[30,85]},
     {id:'lt3', en:'Whole life + multiplier for the working years', cn:'终身寿险+工作年期保障倍数', span:tr('to age 99','至99岁'), bar:[30,99]},
@@ -23,7 +24,7 @@ function rOver(){
   }).join('');
   return head(tr('Comparison tab','对比标签页'),
       tr('Choose by client need first, then open the product tab for timeline details','先按客户需求筛选，再打开产品标签页看时间轴细节'),
-      tr('7 products','7个产品'),'navy')
+      tr('8 products','8个产品'),'navy')
     +`<div class="compare-wrap"><table class="compare">
       <tr>
         <th>${tr('Product','产品')}</th>
@@ -47,11 +48,11 @@ function rOver(){
         <p class="muted" style="font-size:12px;margin-top:6px;">${it.span}</p>
       </div>`;
     }).join('')+`</div>
-    <p class="muted" style="margin-top:14px;font-size:12.5px;">${tr('Coverage bars are indicative spans from a typical entry age of 30 (Shield from age 1).','保障条为示意区间，按典型30岁投保（Shield自1岁起）。')}</p>`;
+    <p class="muted" style="margin-top:14px;font-size:12.5px;">${tr('Coverage bars are indicative spans from a typical entry age of 30, except Shield from age 1 and HappyMummy / HappyFamily from pregnancy week 13.','保障条为示意区间，通常按30岁投保；Shield自1岁起，HappyMummy / HappyFamily自怀孕第13周起。')}</p>`;
 }
 
 /* ================= render ================= */
-const RENDER = {over:rOver, shield:rShield, scc:rScc, pc:rPc, lt3:rLt3, tpa:rTpa, tpp:rTpp, tl:rTl};
+const RENDER = {over:rOver, shield:rShield, happy:rHappy, scc:rScc, pc:rPc, lt3:rLt3, tpa:rTpa, tpp:rTpp, tl:rTl};
 function render(){
   document.getElementById('tabs').innerHTML = Object.keys(PROD).map(id=>
     `<button class="${G.tab===id?'active':''}" onclick="openTab('${id}')">${PROD[id]()}</button>`).join('');
