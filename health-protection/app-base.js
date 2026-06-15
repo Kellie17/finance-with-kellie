@@ -289,4 +289,5 @@ function head(name,tag,badge,badgeCls,id){
     (meta ? `<div class="best-for">${tr('Best for: ','适合：')}${tr(meta.bestEn, meta.bestCn)}</div>` : '');
 }
 function row(l,v){ return `<div class="row"><span>${l}</span><b>${v}</b></div>`; }
+function star(l,kind){ return `<span class="star-inline ${kind==='important'?'important':''}">${l}</span>`; }
 function timelineNotes(items){ return `<div class="timeline-notes">${items.map(i=>`<span>${i}</span>`).join('')}</div>`; }
