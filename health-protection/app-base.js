@@ -25,7 +25,11 @@ const SOURCE_PACK = [
     {en:'Product page', cn:'产品页面', href:'https://www.insurance.hsbc.com.sg/health/products/shield/'},
     {en:'Product Summary Ver 7.1', cn:'产品摘要 Ver 7.1', href:'https://isomer-user-content.by.gov.sg/3/9eec199f-c122-4cbd-b6e1-41c398685c20/ShieldPlanAB_GP_20260401_v7.1.pdf'},
     {en:'Brochure', cn:'产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/health/hsbc-life-shield-brochure.pdf'},
-    {en:'Premium tables (1 Apr 2026)', cn:'保费表（2026年4月1日）', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/health/hsbc-life-shield-premium-tables.pdf'}
+    {en:'Premium tables (1 Apr 2026)', cn:'保费表（2026年4月1日）', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/health/hsbc-life-shield-premium-tables.pdf'},
+    {en:'Cancer drug changes / FAQ', cn:'癌症药物变更/常见问题', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/health/cancer-drug-changes-hsbclife-shield-enhanced-care.pdf'},
+    {en:'Cancer drug FAQ', cn:'癌症药物常见问题', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/health/hsbc-life-shield-faq.pdf'},
+    {en:'Claims recovery process', cn:'理赔追偿流程', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/health/claims-recovery-process.pdf'},
+    {en:'Dental panel list', cn:'牙科网络名单', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/health/dentallist.pdf'}
   ]},
   {en:'Super CritiCare', cn:'Super CritiCare', docs:[
     {en:'Product page', cn:'产品页面', href:'https://www.insurance.hsbc.com.sg/life-and-critical-illness/products/super-criticare/'},
