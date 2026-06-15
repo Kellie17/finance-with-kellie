@@ -70,7 +70,8 @@ function rTpp(){
     </div>`
     +`<div class="tl-wrap">${tl}</div>
     ${timelineNotes([
-      tr('Renewable terms are repriced at renewal age','可续保期限按续保年龄重新定价'),
+      tr('Renewable terms renew automatically and are not dependent on health condition','可续保期限自动续保，且不取决于健康状况'),
+      tr('Renewal premiums are repriced at attained age','续保保费按届时年龄重新定价'),
       tr('To-age form can add yearly indexation','保至指定年龄形式可选择每年指数化')
     ])}`
     +`<div class="cmp-grid">
@@ -79,12 +80,21 @@ function rTpp(){
         ${row(tr('Renewal','续保'),tr('automatic, same term, no underwriting','自动按原期限续保，免核保'))}
         ${row(tr('Last renewal age','最后续保年龄'),'75 / 75 / 74 / 69')}
         ${row(tr('Renewal premium','续保保费'),tr('repriced at attained age','按届时年龄重新定价'))}
+        ${row(tr('Maximum expiry','最高满期年龄'),'99')}
       </div>
       <div class="cmp-card"><h3>${tr('To-age form','保至指定年龄形式')}</h3>
         ${row(tr('Cover to','保障至'),tr('age 50-75, 85 or 99','50至75、85或99岁'))}
         ${row(tr('Premiums','保费'),tr('guaranteed within the term','期限内保证不变'))}
         ${row(tr('Indexation option','指数化选择'),tr('+5% or CPI, whichever higher','每年+5%或按通胀，取高者'))}
+        ${row(tr('Indexation stops','指数化终止'),tr('age 60 or 5 years before expiry, earlier of both','60岁或期满前5年，以较早者为准'))}
         ${row(tr('Cash value','现金价值'),tr('none - pure protection','无 - 纯保障'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Conversion & riders','转换权与附加险')}</h3>
+        ${row(tr('Convertibility','转换权'),tr('from 1st policy anniversary, age 60 or younger','第1保单周年后且60岁或以下'))}
+        ${row(tr('Conversion limits','转换限制'),tr('same or lower SA, no partial conversion, no admitted claim','相同或较低保额，不可部分转换，无已获批理赔'))}
+        ${row(tr('Currency','币种'),tr('SGD or USD','新元或美元'))}
+        ${row(tr('CI / TPD riders','重疾/全残附加险'),tr('Advance CI, CI Plus, Early CI II, Advance TPD II','预支重疾、重疾Plus、早期重疾II、预支全残II'))}
+        ${row(tr('Waiver / survival riders','豁免/生存给付'),tr('Premium Waiver, Payer PremiumEraser, Survival Payout to-age 99','保费豁免、投保人豁免、99岁期满生存给付'))}
       </div>
     </div>`;
 }
@@ -137,4 +147,92 @@ function rTl(){
         ${row(tr('Early CI / payer waiver','早期重疾/投保人豁免'),tr('not on direct channel - see adviser','直销渠道不提供 - 需经顾问'))}
       </div>
     </div>`;
+}
+
+/* ================= HAPPYMUMMY / HAPPYFAMILY ================= */
+function rHappy(){
+  const stages=[
+    {hEn:'From week 13', hCn:'怀孕第13周起', bEn:'EmpoweredMum covers mother for death, pregnancy complications, hospital care and early delivery by caesarean section.', bCn:'EmpoweredMum开始保障母亲：身故、妊娠并发症、住院护理及早产剖腹产。'},
+    {hEn:'Birth of child', hCn:'宝宝出生', bEn:'Newborn cover starts for death, congenital illnesses, hospital care and developmental delay.', bCn:'新生儿保障开始：身故、先天性疾病、住院护理及发育迟缓。'},
+    {hEn:'Within 60 days', hCn:'出生后60天内', bEn:'Apply for free first-year Shield Plan B and use transfer or newborn purchase options without underwriting.', bCn:'申请首年免费Shield B计划，并可免核保行使转移或新生儿投保选择。'},
+    {hEn:'End of year 3', hCn:'第3保单年度末', bEn:'EmpoweredMum ends; Flexi Protector or Life Treasure III can continue for mother or child.', bCn:'EmpoweredMum终止；Flexi Protector或Life Treasure III可继续保障母亲或孩子。'}
+  ];
+  const pregnancy=[
+    'Abruptio placentae','Amniotic fluid embolism','Choriocarcinoma and malignant hydatidiform mole',
+    'Disseminated intravascular coagulation','Fatty liver of pregnancy',
+    'Gestational diabetes mellitus resulting in foetal macrosomia and neonatal hypoglycaemia',
+    'HELLP syndrome','Incompetent cervix leading to preterm birth','Miscarriage due to accident',
+    'Placenta increta or percreta','Postpartum haemorrhage requiring hysterectomy',
+    'Pre-eclampsia with severe features or eclampsia','Still birth','Uterine rupture','Vasa previa'
+  ];
+  const congenital=[
+    'Absence of 2 limbs','Anal atresia','Atrial septal defect','Biliary atresia','Cerebral palsy',
+    'Cleft palate or cleft lip','Club foot','Coarctation of the aorta',
+    'Congenital Abnormalities of the Kidney and Urinary Tract (CAKUT)','Congenital blindness',
+    'Congenital cataract','Congenital deafness','Congenital diaphragmatic hernia',
+    'Congenital dislocation of hip','Congenital hypertrophic pyloric stenosis',
+    'Development dysplasia of the hip','Down syndrome','Infantile hydrocephalus',
+    'Patent ductus arteriosus','Retinopathy of prematurity','Spina bifida','Tetralogy of Fallot',
+    'Tracheo-esophageal fistula or esophageal atresia','Transposition of great vessel',
+    'Truncus arteriosis','Ventricular septal defect'
+  ];
+  const motherHospital=[
+    'Any covered pregnancy complication','Complications of lactational mastitis','Inpatient psychiatric treatment',
+    'Post-natal anaemia','Puerperal pyrexia','Pulmonary embolism','Repair of 4th degree perineal tear',
+    'Septic pelvic thrombophlebitis','Surgical site infection following caesarean section',
+    'Uterine infection or transfusion due to retained placenta following childbirth'
+  ];
+  const childHospital=[
+    'Admission into ICU or HDU','Avian influenza A (H7N9) and (H5N1)','Chikungunya fever',
+    'Creutzfeldt-Jakob disease','Dengue haemorrhagic fever','Ebola',
+    'Hospitalisation as an inpatient due to hand, foot and mouth disease',
+    'Incubation of the newborn child for more than 3 consecutive days immediately following birth',
+    'Japanese encephalitis','Malaria','Nipah virus encephalitis',
+    'Phototherapy or blood transfusion for severe neonatal jaundice',
+    'Premature birth requiring neo-natal ICU or HDU','Rabies','Severe measles','Typhoid fever','Zika virus'
+  ];
+  const list=items=>`<ol>${items.map(x=>`<li>${x}</li>`).join('')}</ol>`;
+  return head('HSBC Life HappyMummy / HappyFamily',
+      tr('EmpoweredMum prenatal cover bundled with Flexi Protector or Life Treasure III','EmpoweredMum孕期保障，搭配Flexi Protector或Life Treasure III'),
+      tr('Prenatal + family','孕期+家庭'),'','happy')
+    +`<div class="stage-flow">${stages.map(s=>`
+      <div class="stage-card"><b>${tr(s.hEn,s.hCn)}</b><span>${tr(s.bEn,s.bCn)}</span></div>`).join('')}</div>
+    ${timelineNotes([
+      tr('EmpoweredMum is a 3-year single premium prenatal plan','EmpoweredMum为3年期趸缴孕期计划'),
+      tr('Mother is covered from the 13th week of pregnancy','母亲自怀孕第13周起受保'),
+      tr('Free first-year Shield Plan B must be applied for within 60 days from birth','首年免费Shield B计划须在宝宝出生后60天内申请')
+    ])}`
+    +`<div class="cmp-grid">
+      <div class="cmp-card"><h3>${tr('Mother benefits','母亲保障')}</h3>
+        ${row(tr('Early C-section','早产剖腹产'),tr('15% SA, medically necessary, before 36 weeks, singleton only','保额15%，须医学需要，36周前，仅单胎'))}
+        ${row(tr('Pregnancy complications','妊娠并发症'),tr('100% SA for any of 15 conditions','15种疾病之一给付保额100%'))}
+        ${row(tr('Hospital care','住院护理'),tr('2% SA per day, up to 30 days, 10 events','每日保额2%，最多30天，10类事件'))}
+        ${row(tr('Death benefit','身故给付'),tr('100% SA','保额100%'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Baby benefits','宝宝保障')}</h3>
+        ${row(tr('Congenital illnesses','先天性疾病'),tr('100% SA for any of 26 conditions','26种疾病之一给付保额100%'))}
+        ${row(tr('Hospital care','住院护理'),tr('2% SA per day, up to 30 days, 17 events','每日保额2%，最多30天，17类事件'))}
+        ${row(tr('Developmental delay','发育迟缓'),tr('15% SA, capped S$3,000, from attained age 28 months','保额15%，上限3,000新元，自28个月起'))}
+        ${row(tr('Death benefit','身故给付'),tr('100% SA','保额100%'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Bundle options','搭配方式')}</h3>
+        ${row('HappyMummy',tr('EmpoweredMum + Flexi Protector or Life Treasure III for mother or newborn','EmpoweredMum + 母亲或新生儿的Flexi Protector或Life Treasure III'))}
+        ${row(tr('Transfer option','转移选择'),tr('transfer Flexi Protector or Life Treasure III cover from mother to child within 60 days, no underwriting','60天内可将Flexi Protector或Life Treasure III保障由母亲转至孩子，免核保'))}
+        ${row('HappyFamily',tr('parents may buy Flexi Protector or Life Treasure III for newborn within 60 days, no underwriting','父母可在60天内为新生儿投保Flexi Protector或Life Treasure III，免核保'))}
+        ${row(tr('Shield Plan B','Shield B计划'),tr('free 1st-year basic premium; MediShield Life/rider premiums still payable','首年基本计划保费免费；仍须缴付终身健保及附加险保费'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Important limits','重要限制')}</h3>
+        ${row(tr('Benefit termination','保障终止'),tr('pregnancy complication / congenital illness benefit terminates once paid','妊娠并发症/先天性疾病给付后该项终止'))}
+        ${row(tr('Shield exclusions','Shield除外'),tr('known pre-existing or congenital conditions are not covered under the free Shield offer','免费Shield优惠不保障已知既往或先天状况'))}
+        ${row(tr('Definitions','定义'),tr('full definitions are in the EmpoweredMum product summary','完整定义以EmpoweredMum产品摘要为准'))}
+      </div>
+    </div>
+    <details class="rules"><summary>${tr('Covered condition lists from the brochure','产品手册列明的受保疾病清单')}</summary>
+      <div class="condition-grid">
+        <div><h4>${tr('Pregnancy complications (15)','妊娠并发症（15）')}</h4>${list(pregnancy)}</div>
+        <div><h4>${tr('Congenital illnesses (26)','先天性疾病（26）')}</h4>${list(congenital)}</div>
+        <div><h4>${tr('Mother hospital care events (10)','母亲住院护理事件（10）')}</h4>${list(motherHospital)}</div>
+        <div><h4>${tr('Child hospital care events (17)','宝宝住院护理事件（17）')}</h4>${list(childHospital)}</div>
+      </div>
+    </details>`;
 }
