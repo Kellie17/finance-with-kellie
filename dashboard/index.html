@@ -977,20 +977,33 @@ window.addEventListener('dragleave',e=>{if(e.relatedTarget===null)ov.classList.r
 window.addEventListener('drop',e=>{e.preventDefault();ov.classList.remove('show');if(e.dataTransfer&&e.dataTransfer.files.length)filesLoaded(e.dataTransfer.files);});
 
 /* ---- boot ---- */
-(function boot(){const s=generateSampleData();STATE.dm=s.dm;STATE.channel=s.channel;STATE.group=s.group;STATE.posts=s.posts;STATE.views=s.views;
+(function boot(){
+  const HOSTED = location.protocol==='http:'||location.protocol==='https:';
   if(typeof Chart==='undefined')document.getElementById('statusText').textContent='Charts need internet (Chart.js CDN) — tables still work';
-  renderAll();
-  // When hosted, a dashboard_data.json sits alongside this page — load it automatically.
-  // (On a local file:// open this fetch fails harmlessly and the sample data stays.)
-  fetch('dashboard_data.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(d=>{
-    if(!d)return; const got=ingest(d,'dashboard_data.json'); if(!got)return;
+  if(HOSTED){
+    // Hosted/public: never render the realistic sample (it contains names). Force the
+    // public-safe view and wait for the live, anonymized data file before rendering.
+    STATE.public=true; isSample=false;
+    document.getElementById('statusDot').classList.add('live');
+    document.getElementById('statusText').textContent='Loading…';
+    document.getElementById('subline').innerHTML='<span class="spark"></span> Public view · client names hidden · refreshed daily';
+  } else {
+    const s=generateSampleData();STATE.dm=s.dm;STATE.channel=s.channel;STATE.group=s.group;STATE.posts=s.posts;STATE.views=s.views;
+    renderAll();
+  }
+  fetch('dashboard_data.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('not found');return r.json();}).then(d=>{
+    const got=ingest(d,'dashboard_data.json'); if(!got)throw new Error('bad shape');
     isSample=false; const dot=document.getElementById('statusDot'); if(dot)dot.classList.add('live');
     document.getElementById('statusText').textContent = STATE.public ? 'Live · public view' : 'Live data';
     if(STATE.public)document.getElementById('subline').innerHTML='<span class="spark"></span> Public view · client names hidden · refreshed daily';
-    const upd=d.generated_at?(' · updated '+d.generated_at):''; const note=document.getElementById('overviewNote');
     renderAll();
+    const upd=d.generated_at?(' · updated '+d.generated_at):''; const note=document.getElementById('overviewNote');
     if(note&&STATE.public)note.innerHTML='Showing your live, anonymized numbers'+upd+'. Individual client names and IDs are kept off this public page; open the dashboard on your Mac for full names.';
-  }).catch(()=>{});
+  }).catch(()=>{
+    if(HOSTED){document.getElementById('statusText').textContent='Could not load data';
+      const note=document.getElementById('overviewNote');
+      if(note)note.innerHTML='Could not load <code>dashboard_data.json</code> yet. If you just published, it may still be deploying — refresh in a minute.';}
+  });
 })();
 </script>
 </body>
