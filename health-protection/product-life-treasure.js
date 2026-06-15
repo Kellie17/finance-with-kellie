@@ -26,25 +26,34 @@ function rLt3(){
     +`<div class="tl-wrap">${tl}</div>
     ${timelineNotes([
       tr('Multiplier benefit steps down after the chosen multiplier age','保障倍数在所选倍数年龄后逐步递减'),
-      tr('Bonuses and future values are Non-Guaranteed unless stated','红利及未来价值除非说明均非保证')
+      tr('All values are Non-Guaranteed unless stated','所有数值除非注明均为非保证'),
+      tr('Multiplier can apply to basic benefits, accidental death and eligible CI riders','保障倍数可适用于基本保障、意外身故及合资格重疾附加险')
     ])}`
     +`<div class="cmp-grid">
+      <div class="cmp-card"><h3>${tr('Base plan','基本计划')}</h3>
+        ${row(tr('Core benefits','核心保障'),tr('death, TPD and terminal illness to age 99','身故、全残及末期疾病至99岁'))}
+        ${row(tr('Family Support Benefit','家庭支援给付'),tr('2 years of premiums on spouse or parent death','配偶或父母身故时给付2年保费'))}
+        ${row(tr('Premium terms','缴费年期'),tr('10 / 15 / 20 / 25 / 30 years','10/15/20/25/30年'))}
+        ${row(tr('Premium frequency','缴费频率'),tr('monthly, quarterly, semi-annual or annual','每月、每季、每半年或每年'))}
+      </div>
       <div class="cmp-card"><h3>${tr('How the cover moves','保障如何变化')}</h3>
         ${row(tr('To age '+s.mca,'至'+s.mca+'岁'),fmt(s.sa*s.mult))}
         ${steps.slice(1).map((f,k)=>row(tr('Age '+(s.mca+k+1)+(k===4?' to 99':''),(s.mca+k+1)+'岁'+(k===4?'至99岁':'')),fmt(s.sa*s.mult*f))).join('')}
+        ${row(tr('Accidental death','意外身故'),tr('extra basic SA or multiplier benefit to age 80','至80岁额外给付基本保额或倍数保障'))}
         <p class="muted" style="font-size:12px;margin-top:6px;">${tr('Death benefit is the higher of the multiplier benefit or sum assured plus accumulated bonuses.','身故保险金为倍数保障与保额加累积红利两者中的较高者。')}</p>
       </div>
       <div class="cmp-card"><h3>${tr('Cash value & options','现金价值与选择权')}</h3>
         ${row(tr('Surrender value','退保价值'),tr('from policy year 3','自第3保单年度起'))}
         ${row(tr('Bonuses','红利'),tr('reversionary + terminal (non-gtd)','复归红利+终期红利（非保证）'))}
-        ${row(tr('Payout option','现金领取选择'),tr('up to 80% of SV over 10 yrs, after multiplier age','倍数期后10年内领取至多80%退保价值'))}
-        ${row(tr('Guaranteed insurability','保证可保权'),tr('3 life events before 55, up to S$300k','55岁前人生事件可加保3次，上限30万'))}
+        ${row(tr('Payout option','现金领取选择'),tr('selected portion of SV over 10 yrs after multiplier age','倍数年龄后可将所选退保价值分10年领取'))}
+        ${row(tr('Guaranteed insurability','保证可保权'),tr('marriage, child, property; no extra health questions','结婚、生育、置业；无需额外健康问题'))}
       </div>
       <div class="cmp-card"><h3>${tr('Riders','附加险')}</h3>
         ${row(tr('Early CI Benefit III','早期重疾III'),tr('170 conditions','170种疾病'))}
         ${row(tr('CI Benefit III','重疾III'),tr('56 advanced CIs','56种晚期重疾'))}
         ${row(tr('Top 5 CIs extra','五大重疾额外赔付'),tr('+50% of rider SA','附加保额的+50%'))}
-        ${row(tr('Payer PremiumEraser','投保人豁免'),tr('waives premiums on death/TPD/CI','身故/全残/重疾豁免保费'))}
+        ${row(tr('Special / juvenile conditions','特别/少儿疾病'),tr('14 + 14 conditions, +20% rider SA, max S$25k each','14+14种，另加附加保额20%，每项上限2.5万'))}
+        ${row(tr('Payer PremiumEraser','投保人豁免'),tr('death, TPD, early-to-advanced CI, involuntary unemployment','身故、全残、早至晚期重疾、非自愿失业'))}
       </div>
     </div>`;
 }
