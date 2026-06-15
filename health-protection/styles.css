@@ -113,7 +113,7 @@ table.sched th{background:var(--navy); color:#f8fbf7; padding:6px 8px; text-alig
 table.sched td{border-bottom:1px solid #dce7df; padding:6px 8px; font-variant-numeric:tabular-nums;}
 table.sched tr td:not(:first-child){text-align:right;}
 table.sched tr.hl td{background:#eef7ef; font-weight:700;}
-@media (min-width:900px){
+@media (min-width:1000px){
   .top-notice{white-space:nowrap;}
 }
 @media (max-width:900px){
