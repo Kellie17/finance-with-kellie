@@ -46,8 +46,10 @@ function rScc(){
     </div>`
     +`<div class="tl-wrap">${tl}</div>
     ${timelineNotes([
+      tr('Can be a standalone basic plan or a rider attached to selected HSBC Life plans','可作为独立基本计划，或作为附加险附加于指定汇丰人寿计划'),
       tr('Each eligible CI claim pays 100% of sum assured','每次合资格重疾理赔为保额100%'),
-      tr('Overall policy cap is 600% of sum assured','整张保单累计上限为保额600%')
+      tr('Overall policy cap is 600% of sum assured','整张保单累计上限为保额600%'),
+      tr('Diabetes Care renews yearly while diabetes is confirmed by appointed doctors','如指定医生确认仍患糖尿病，糖尿病关护计划每年续期')
     ])}`
     +`<h3 style="margin-top:16px;font-size:15px;">${tr('Claim stack - walk a client through repeated claims','理赔叠加演示 - 向客户展示多次理赔')}</h3>
      <div class="stackbar">${segsHtml||`<div style="width:100%;background:transparent;color:${C.faint}">${tr('press Add claim','点击 添加理赔')}</div>`}</div>
@@ -66,10 +68,11 @@ function rScc(){
         ${row(tr('Cancer/heart/stroke recurrence','癌症/心脏病/中风复发'),tr('24-month wait','等待24个月'))}
       </div>
       <div class="cmp-card"><h3>${tr('Extras that do not reduce SA','不扣减保额的额外保障')}</h3>
-        ${row(tr('Special conditions (x5)','特别疾病（最多5次）'),tr('10% of SA, max S$25k each','保额10%，每次上限2.5万'))}
-        ${row(tr('Juvenile, below 18 (x3)','未满18岁少儿疾病（最多3次）'),tr('10% of SA, max S$25k each','保额10%，每次上限2.5万'))}
-        ${row(tr('Diabetes Care Programme','糖尿病关护计划'),tr('worth S$2,500 p.a.','价值每年2,500新元'))}
-        ${row(tr('Death benefit','身故给付'),'S$10,000')}
+        ${row(tr('Special conditions','特别疾病'),tr('11 conditions, +10% SA, max S$25k each','11种疾病，另加保额10%，每项上限2.5万'))}
+        ${row(tr('Juvenile, below 18','未满18岁少儿疾病'),tr('10 conditions, +10% SA, max S$25k each','10种疾病，另加保额10%，每项上限2.5万'))}
+        ${row(tr('Diabetes Care Programme','糖尿病关护计划'),tr('worth S$2,500 p.a., no SA reduction','价值每年2,500新元，不扣减保额'))}
+        ${row(tr('Death benefit','身故给付'),tr('S$10,000, basic plan only','1万新元，仅适用于基本计划'))}
+        ${row(tr('Optional premium waivers','可选保费豁免'),tr('ECIUN, payer eraser, involuntary income cover','ECIUN、投保人豁免、非自愿失业保障'))}
       </div>
       <div class="cmp-card"><h3>${tr('Timing rules','时间规则')}</h3>
         ${row(tr('Initial waiting period','初始等待期'),tr('90 days (early/intermediate, heart & cancer)','90天（早中期及心脏/癌症类）'))}
