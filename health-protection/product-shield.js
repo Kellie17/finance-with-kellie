@@ -32,50 +32,50 @@ function rShield(){
       tr('Enhanced Care II can reduce co-insurance to 5% and cap it for panel or restructured hospital care','Enhanced Care II可将共同承担降至5%，合作医生或公立医院可封顶')
     ])}`
     +`<div class="cmp-grid">
-      <div class="cmp-card"><h3>${tr('Annual premium at age','该年龄的年缴保费')} ${s.age}</h3>
+      <div class="cmp-card highlight-important"><h3>${tr('Annual premium at age','该年龄的年缴保费')} ${s.age}</h3>
         ${row(tr('MediShield Life (MediSave)','终身健保（公积金全额）'),fmt2(pr[0]))}
         ${row(tr('Shield Plan '+p+' private portion','Shield '+p+' 私人部分'),fmt2(pr[1]))}
         ${row(tr('MediSave-payable (AWL)','公积金可付（额度）'),fmt2(Math.min(pr[1],pr[2])))}
         ${row(tr('Cash outlay','现金支出'),'<span style="color:var(--primary-dark)">'+fmt2(cash)+'</span>')}
       </div>
-      <div class="cmp-card"><h3>${tr('One hospital bill, in order','一张住院账单的赔付顺序')}</h3>
+      <div class="cmp-card highlight-important"><h3>${tr('One hospital bill, in order','一张住院账单的赔付顺序')}</h3>
         ${row(tr('1. Deductible (per policy year)','1. 自付额（每保单年度）'),fmt(ded))}
         ${row(tr('2. Co-insurance','2. 共同承担'),'10%')}
         ${row(tr('3. Insurer pays the rest','3. 其余由保险公司承担'),tr('as charged','按实际费用'))}
-        ${row(tr('Policy year limit','保单年度限额'),p==='A'?tr('S$2.5m panel / S$1m non-panel','合作医生250万/非合作100万'):'S$1,000,000')}
+        ${row(star(tr('Policy year limit','保单年度限额')),p==='A'?tr('S$2.5m panel / S$1m non-panel','合作医生250万/非合作100万'):'S$1,000,000')}
         <span class="note-chip">${proration}</span>
       </div>
-      <div class="cmp-card"><h3>${tr('Around the hospital stay','住院前后保障')}</h3>
+      <div class="cmp-card highlight-attractive"><h3>${tr('Around the hospital stay','住院前后保障')}</h3>
         ${row(tr('Pre-hospitalisation','住院前'),tr('90 / 180 days','90 / 180 天'))}
         ${row(tr('Post-hospitalisation','住院后'),tr('180 / 365 days','180 / 365 天'))}
-        ${row(tr('Longer windows when','较长窗口适用于'),tr('panel or restructured hosp.','合作医生或公立医院'))}
-        ${row(tr('Enhanced Care II rider','Enhanced Care II 附加险'),tr('co-ins capped S$6,000/yr (5%, panel)','共担封顶每年6,000（5%，合作网络）'))}
+        ${row(star(tr('Longer windows when','较长窗口适用于')),tr('panel or restructured hosp.','合作医生或公立医院'))}
+        ${row(star(tr('Enhanced Care II rider','Enhanced Care II 附加险')),tr('co-ins capped S$6,000/yr (5%, panel)','共担封顶每年6,000（5%，合作网络）'))}
       </div>
-      <div class="cmp-card"><h3>${tr('Panel & LOG','合作网络与担保信')}</h3>
-        ${row(tr('Private hospital LOG','私立医院担保信'),tr('call 6342 5292 at least 3 days before planned admission','计划住院前至少3天致电6342 5292'))}
+      <div class="cmp-card highlight-attractive"><h3>${tr('Panel & LOG','合作网络与担保信')}</h3>
+        ${row(star(tr('Private hospital LOG','私立医院担保信')),tr('call 6342 5292 at least 3 days before planned admission','计划住院前至少3天致电6342 5292'))}
         ${row(tr('Restructured hospital LOG','公立医院担保信'),tr('deposit waiver up to S$120k or bill amount, lower of both','押金豁免最高12万或账单金额，以较低者为准'))}
-        ${row(tr('Panel GP / specialist','合作全科/专科'),tr('GP S$10; specialist S$130 first, S$100 follow-up','全科10；专科首诊130，复诊100'))}
+        ${row(star(tr('Panel GP / specialist','合作全科/专科')),tr('GP S$10; specialist S$130 first, S$100 follow-up','全科10；专科首诊130，复诊100'))}
         ${row(tr('Dental panel','牙科网络'),tr('preferential fees; Shield covers dental only for accident during hospitalisation','优惠收费；Shield只保障住院期间意外牙科治疗'))}
       </div>
-      <div class="cmp-card"><h3>${tr('Enhanced Care II','Enhanced Care II')}</h3>
-        ${row(tr('Co-insurance','共同承担'),tr('5%; cap S$6,000/yr for panel or restructured care','5%；合作医生或公立医院每年封顶6,000'))}
-        ${row(tr('Planned overseas treatment','计划海外治疗'),tr('A/B up to S$50k p.a.; Standard S$25k, 90-day wait','A/B每年最高5万；标准计划2.5万，等待90天'))}
-        ${row(tr('Emergency outpatient accident','紧急门诊意外'),tr('A S$3k / B S$1.5k / Standard S$750 p.a.','A 3,000 / B 1,500 / 标准750 每年'))}
+      <div class="cmp-card highlight-attractive"><h3>${tr('Enhanced Care II','Enhanced Care II')}</h3>
+        ${row(star(tr('Co-insurance','共同承担')),tr('5%; cap S$6,000/yr for panel or restructured care','5%；合作医生或公立医院每年封顶6,000'))}
+        ${row(star(tr('Planned overseas treatment','计划海外治疗')),tr('A/B up to S$50k p.a.; Standard S$25k, 90-day wait','A/B每年最高5万；标准计划2.5万，等待90天'))}
+        ${row(star(tr('Emergency outpatient accident','紧急门诊意外')),tr('A S$3k / B S$1.5k / Standard S$750 p.a.','A 3,000 / B 1,500 / 标准750 每年'))}
         ${row(tr('Dementia cover','失智症保障'),tr('up to S$500 for consultation and prescribed medication','诊症及处方药最高500'))}
         ${row(tr('TCM after hospitalisation','住院后中医'),tr('S$50/visit, up to 365 days after discharge','每次50，出院后最长365天'))}
       </div>
-      <div class="cmp-card"><h3>${tr('Cancer drugs','癌症药物')}</h3>
+      <div class="cmp-card highlight-important"><h3>${tr('Cancer drugs','癌症药物')}</h3>
         ${row(tr('Treatment vs services','治疗与服务'),tr('CDL drug-indication pairs vs consultations, scans, labs and administration','CDL药物-适应症组合；另含诊症、扫描、化验及给药服务'))}
         ${row(tr('Shield Plan A/B','Shield A/B计划'),tr('CDL: 5x MediShield Life limits','CDL：终身健保限额5倍'))}
         ${row(tr('Standard Plan','标准计划'),tr('CDL treatment 3x; services 2x','CDL治疗3倍；服务2倍'))}
-        ${row(tr('Enhanced Care II','Enhanced Care II'),tr('CDL 18x treatment + 15x services; non-CDL S$30k/mo A/B, S$5k/mo Standard','CDL治疗18倍+服务15倍；非CDL A/B每月3万，标准每月5,000'))}
-        ${row(tr('Non-CDL note','非CDL说明'),tr('classes A-E only; no co-insurance cap','仅A-E类别；无共同承担封顶'))}
+        ${row(star(tr('Enhanced Care II','Enhanced Care II')),tr('CDL 18x treatment + 15x services; non-CDL S$30k/mo A/B, S$5k/mo Standard','CDL治疗18倍+服务15倍；非CDL A/B每月3万，标准每月5,000'))}
+        ${row(star(tr('Non-CDL note','非CDL说明'),'important'),tr('classes A-E only; no co-insurance cap','仅A-E类别；无共同承担封顶'))}
       </div>
-      <div class="cmp-card"><h3>${tr('SavvyClaim & recovery','SavvyClaim与追偿')}</h3>
-        ${row(tr('Reward levels','折扣等级'),tr('10%, 12%, 15%, 18%, 20%','10%、12%、15%、18%、20%'))}
+      <div class="cmp-card highlight-attractive"><h3>${tr('SavvyClaim & recovery','SavvyClaim与追偿')}</h3>
+        ${row(star(tr('Reward levels','折扣等级')),tr('10%, 12%, 15%, 18%, 20%','10%、12%、15%、18%、20%'))}
         ${row(tr('Applies to','适用于'),tr('Enhanced Care II Plan A','Enhanced Care II A计划'))}
         ${row(tr('Can retain/improve','可保留或提高'),tr('no claim, restructured care, or company-insurance recovery','无理赔、公立医院治疗或公司保险追偿'))}
-        ${row(tr('Claims recovery','理赔追偿'),tr('claim other insurer, complete notice, email docs, HSBC follows up','先向其他保险索赔，填通知书，电邮文件，HSBC跟进'))}
+        ${row(star(tr('Claims recovery','理赔追偿'),'important'),tr('claim other insurer, complete notice, email docs, HSBC follows up','先向其他保险索赔，填通知书，电邮文件，HSBC跟进'))}
         ${row(tr('Recovery email','追偿电邮'),'cc.life@mail.life.hsbc.com.sg')}
       </div>
     </div>
