@@ -51,6 +51,14 @@
   .tl-wrap{border:1px solid var(--line); border-radius:10px; background:#f9fbf6; padding:8px; overflow-x:auto; margin-top:10px;}
   .timeline-notes{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 2px 0;}
   .timeline-notes span{background:#eef7ef; border:1px solid #c6ded0; color:var(--primary-dark); border-radius:7px; padding:4px 8px; font-size:12px; font-weight:650;}
+  .stage-flow{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; margin-top:10px;}
+  .stage-card{background:#f9fbf6; border:1px solid var(--line); border-radius:8px; padding:11px;}
+  .stage-card b{display:block; color:var(--primary-dark); font-size:13px; margin-bottom:4px;}
+  .stage-card span{display:block; color:var(--grey); font-size:12.5px;}
+  .condition-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:10px;}
+  .condition-grid h4{font-size:13px; color:var(--navy); margin-bottom:6px;}
+  .condition-grid ol{padding-left:18px; font-size:12.4px; color:var(--grey);}
+  .condition-grid li{margin:2px 0;}
   .cmp-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:14px;}
   .cmp-card{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px;}
   .cmp-card h3{font-size:15px; border-bottom:2px solid var(--primary); padding-bottom:6px; margin-bottom:8px;}
