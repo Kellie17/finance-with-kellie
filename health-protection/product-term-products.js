@@ -20,7 +20,8 @@ function rTpa(){
     +`<div class="tl-wrap">${tl}</div>
     ${timelineNotes([
       tr('Guaranteed cash value starts from policy year 3','保证现金价值自第3保单年度起'),
-      tr('Conversion option is available before age 65','65岁前可行使转换权')
+      tr('Conversion option is available before age 65','65岁前可行使转换权'),
+      tr('Limited-pay term cover with no maturity value at the end of the policy term','限期缴费定期保障；保单期满时无期满价值')
     ])}`
     +`<div class="cmp-grid">
       <div class="cmp-card"><h3>${tr('Brochure reference case','手册参考案例')}</h3>
@@ -32,8 +33,9 @@ function rTpa(){
       </div>
       <div class="cmp-card"><h3>${tr('Flexibility','灵活性')}</h3>
         ${row(tr('Convertibility','转换权'),tr('to whole life/endowment before 65','65岁前转终身/储蓄险'))}
-        ${row(tr('Guaranteed insurability','保证可保权'),tr('marriage, child, property, first job','结婚、生育、置业、首份工作'))}
-        ${row(tr('Unemployment support','失业支援'),tr('defer premiums up to 365 days','保费最长可延付365天'))}
+        ${row(tr('Guaranteed insurability','保证可保权'),tr('marriage/divorce, child, school entry, age 21, property, first full-time job','结婚/离婚、添丁、升学、21岁、置业、首份全职工作'))}
+        ${row(tr('Unemployment support','失业支援'),tr('if unemployed at least 30 days, defer premiums up to 365 days','失业至少30天，可延付保费最多365天'))}
+        ${row(tr('Limited-pay advantage','限期缴费优势'),tr('complete base premium commitment earlier; rider premiums may still change','较早完成主约缴费承诺；附加险保费仍可能调整'))}
         ${row(tr('Riders','附加险'),tr('disability, advanced CI cover/waiver','失能、晚期重疾保障/豁免'))}
       </div>
     </div>`;
@@ -132,6 +134,7 @@ function rTl(){
     +`<div class="tl-wrap">${tl}</div>
     ${timelineNotes([
       tr('Direct-purchase term with simpler choices','直接投保定期，选项较简单'),
+      tr('5-year term renews every 5 years regardless of health condition, up to last renewal age 80','5年期每5年续保，不受健康状况影响，最后续保年龄80岁'),
       tr('TPD and Termcare rider coverage ends at age 65','全残及Termcare附加险保障至65岁')
     ])}`
     +`<div class="cmp-grid">
@@ -141,10 +144,18 @@ function rTl(){
         ${row(tr('Termcare rider','Termcare附加险'),tr('30 CIs, to age 65','30种重疾，至65岁'))}
       </div>
       <div class="cmp-card"><h3>${tr('Eligibility','投保资格')}</h3>
-        ${row(tr('Entry age, 5-yr & 20-yr','投保年龄（5年/20年期）'),'18-65')}
+        ${row(tr('Entry age, 5-yr renewable','投保年龄（5年可续保）'),'18-65')}
+        ${row(tr('Entry age, 20-yr','投保年龄（20年期）'),'18-60')}
         ${row(tr('Entry age, to 65','投保年龄（保至65岁）'),'18-60')}
         ${row(tr('Coverage','保额范围'),'S$50,000-400,000')}
         ${row(tr('Early CI / payer waiver','早期重疾/投保人豁免'),tr('not on direct channel - see adviser','直销渠道不提供 - 需经顾问'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Simple purchase flow','简易投保流程')}</h3>
+        ${row('1',tr('Choose cover amount and policy term','选择保障额及保单期限'))}
+        ${row('2',tr('Choose payment frequency and optional cover','选择缴费频率及可选保障'))}
+        ${row('3',tr('Fill in personal details','填写个人资料'))}
+        ${row('4',tr('Prepare required documents','准备相关文件'))}
+        ${row('5',tr('Make payment and wait for approval','付款并等待批核'))}
       </div>
     </div>`;
 }
