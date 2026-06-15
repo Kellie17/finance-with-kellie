@@ -26,7 +26,7 @@ function rLt3(){
     +`<div class="tl-wrap">${tl}</div>
     ${timelineNotes([
       tr('Multiplier benefit steps down after the chosen multiplier age','保障倍数在所选倍数年龄后逐步递减'),
-      tr('All values are Non-Guaranteed unless stated','所有数值除非注明均为非保证'),
+      tr('All Values Non-Guaranteed','所有数值均非保证'),
       tr('Multiplier can apply to basic benefits, accidental death and eligible CI riders','保障倍数可适用于基本保障、意外身故及合资格重疾附加险')
     ])}`
     +`<div class="cmp-grid">
