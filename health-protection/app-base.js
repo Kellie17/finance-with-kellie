@@ -39,9 +39,14 @@ const SOURCE_PACK = [
     {en:'Product page', cn:'产品页面', href:'https://www.insurance.hsbc.com.sg/life-and-critical-illness/products/life-treasure-iii/'},
     {en:'Brochure', cn:'产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/life/life-treasure-iii-product-brochure.pdf'}
   ]},
-  {en:'Term Protector Prime', cn:'Term Protector Prime', docs:[
+  {en:'Term Protector / Term Protector Prime', cn:'Term Protector / Term Protector Prime', docs:[
     {en:'Product page', cn:'产品页面', href:'https://www.insurance.hsbc.com.sg/life-and-critical-illness/products/term-protector/'},
-    {en:'Brochure', cn:'产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/life/term-protector-prime-brochure.pdf'}
+    {en:'Term Protector brochure', cn:'Term Protector 产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/life/term-protector-brochure.pdf'},
+    {en:'Term Protector Prime brochure', cn:'Term Protector Prime 产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/life/term-protector-prime-brochure.pdf'}
+  ]},
+  {en:'HappyMummy / HappyFamily', cn:'HappyMummy / HappyFamily', docs:[
+    {en:'Product page', cn:'产品页面', href:'https://www.insurance.hsbc.com.sg/life-and-critical-illness/products/happy-mummy/'},
+    {en:'EmpoweredMum brochure', cn:'EmpoweredMum 产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/life/hsbclife-happymummy-happyfamily-brochure.pdf'}
   ]},
   {en:'Term Protect Advantage / Term Lite', cn:'Term Protect Advantage / Term Lite', docs:[
     {en:'Term Protect Advantage product page', cn:'Term Protect Advantage 产品页面', href:'https://www.insurance.hsbc.com.sg/life-and-critical-illness/products/term-protect-advantage/'},
@@ -145,12 +150,14 @@ const S = {
   lt3:{sa:100000, mult:6, mca:65, pay:20, age:35},
   tpa:{age:35, covTo:70, pay:15, sa:1000000},
   tpp:{form:'ren', term:20, toAge:65, age:35},
-  tl:{term:'5yr', age:35, sa:400000}
+  tl:{term:'5yr', age:35, sa:400000},
+  happy:{}
 };
 
 const PROD = {
   over:  ()=>tr('Comparison','对比'),
   shield:()=>'HSBC Life Shield',
+  happy: ()=>'HappyMummy / HappyFamily',
   scc:   ()=>'Super CritiCare',
   pc:    ()=>'Prime Care',
   lt3:   ()=>'Life Treasure III',
@@ -243,6 +250,18 @@ const PRODUCT_META = {
     coverCn:'可续保至80岁或固定期限',
     claimEn:'Death / terminal illness / TPD, with optional CI rider',
     claimCn:'身故/末期疾病/全残，可加重疾附加险'
+  },
+  happy:{
+    bestEn:'expecting parents who want prenatal, newborn and family continuity',
+    bestCn:'希望衔接孕期、新生儿及家庭保障的准父母',
+    purposeEn:'Prenatal cover plus newborn/family protection bridge',
+    purposeCn:'孕期保障加新生儿/家庭保障衔接',
+    premiumEn:'EmpoweredMum single premium plus bundled plan premium',
+    premiumCn:'EmpoweredMum趸缴，加搭配计划保费',
+    coverEn:'From week 13 of pregnancy to policy year 3, with bundled continuation',
+    coverCn:'怀孕第13周至第3保单年度，另由搭配计划延续',
+    claimEn:'Fixed percentage of SA for pregnancy, newborn and hospital benefits',
+    claimCn:'孕期、新生儿及住院保障按保额比例给付'
   }
 };
 
