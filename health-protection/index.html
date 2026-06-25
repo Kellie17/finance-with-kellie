@@ -5,9 +5,258 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Kellie Zheng">
 <title>Finance with Kellie - Health &amp; Protection</title>
-<link rel="stylesheet" href="styles.css?v=delivery-gap-20260616-1">
+<style>
+  :root{
+    --primary:#2f7d72; --primary-dark:#1e5d55; --secondary:#486581; --accent:#c3a15f;
+    --ink:#172524; --grey:#53615e; --faint:#7c8b86;
+    --paper:#edf5f1; --card:#fbfcf7; --surface:#f5faf6; --line:#cbd9d1;
+    --good:#39745b; --warn:#a36a2d; --note-bg:#f7efe3; --note-line:#dbc193;
+    --hand-ink:#315d6a; --navy:#1d414b; --gold:#c3a15f;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif;
+       background:var(--paper); color:var(--ink); font-size:15px; line-height:1.45;}
+  .top-notice{background:#fff; border-bottom:1px solid #d4dde4; color:#5b6677; font-size:13px; line-height:1.35; padding:10px 22px;}
+  .top-notice::before{content:"★"; margin-right:8px; color:var(--gold); font-size:12px;}
+  .hand{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif; color:var(--hand-ink);}
+  .mascot{width:52px;height:52px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 0 2px var(--navy),0 0 0 4px var(--gold);}
+  header{background:var(--navy); border-bottom:3px solid var(--gold); padding:14px 22px; display:flex; flex-wrap:wrap; align-items:center; gap:16px;
+         -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  .brandline{font-size:11.5px; font-weight:700; letter-spacing:2.6px; color:var(--gold); text-transform:uppercase;}
+  header h1{font-size:20px; font-weight:800; letter-spacing:.2px; color:#f8fbf7; margin-top:1px;}
+  header h1 span{color:var(--gold); font-weight:600;}
+  .subtle{color:#c6d7d0; font-size:12px;}
+  .ng-note{margin-left:auto; font-size:11px; font-weight:600; color:#e2cc8a; border:1px solid rgba(226,204,138,.35);
+           background:rgba(255,255,255,.07); padding:4px 11px; border-radius:999px; letter-spacing:.4px; white-space:nowrap;}
+  .ng-note::before{content:"★"; margin-right:6px; color:var(--gold);}
+  .pill{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .langsw{display:flex; border:1px solid rgba(226,204,138,.35); border-radius:999px; overflow:hidden;}
+  .langsw button{background:transparent; border:none; color:#c6d7d0; padding:5px 13px; font-size:12px; font-weight:700; cursor:pointer;}
+  .langsw button.active{background:var(--gold); color:#18363f;}
+  nav.tabs{display:flex; flex-wrap:wrap; gap:6px; padding:12px 22px 0 22px;}
+  nav.tabs button{border:1px solid var(--line); background:var(--surface); padding:8px 14px; border-radius:9px 9px 0 0; font-size:13.5px; font-weight:600; color:var(--grey); cursor:pointer;}
+  nav.tabs button.active{background:var(--primary-dark); color:#f8fbf7; border-color:var(--primary-dark);}
+  .page-actions{display:flex; justify-content:flex-end; gap:8px; max-width:1180px; margin:10px auto 0 auto; padding:0 22px;}
+  .page-actions button{border:1px solid var(--line); background:var(--card); color:var(--primary-dark); border-radius:8px; padding:7px 12px; font-size:13px; font-weight:700; cursor:pointer;}
+  .page-actions button.primary{background:var(--primary-dark); color:#f8fbf7; border-color:var(--primary-dark);}
+  main{padding:16px 22px 30px 22px; max-width:1180px; margin:0 auto;}
+  .panel{background:var(--card); border:1px solid var(--line); border-radius:0 12px 12px 12px; padding:18px;}
+  .prodhead{display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; margin-bottom:6px;}
+  .prodhead h2{font-size:20px;}
+  .prodhead .tagline{color:var(--grey); font-size:13px;}
+  .best-for{display:inline-block; color:var(--primary-dark); background:#eef7ef; border:1px solid #c6ded0; border-radius:8px; padding:5px 10px; margin:4px 0 10px 0; font-size:13px; font-weight:700;}
+  .best-for::before{content:"★"; color:var(--gold); margin-right:6px;}
+  .badge{font-size:11px; font-weight:700; color:#f8fbf7; background:var(--primary); padding:2px 8px; border-radius:5px;}
+  .badge.grey{background:var(--secondary);}
+  .badge.navy{background:var(--navy);}
+  .controls{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0 8px 0; align-items:flex-end;}
+  .ctrl{display:flex; flex-direction:column; gap:4px;}
+  .ctrl label{font-size:11.5px; font-weight:700; color:var(--grey); text-transform:uppercase; letter-spacing:.6px;}
+  .ctrl select,.ctrl input{border:1px solid var(--line); border-radius:7px; padding:7px 9px; font-size:14px; background:var(--card); min-width:110px;}
+  .seg{display:flex; border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+  .seg button{border:none; background:var(--card); padding:7px 13px; font-size:13px; font-weight:600; color:var(--grey); cursor:pointer; border-right:1px solid var(--line);}
+  .seg button:last-child{border-right:none;}
+  .seg button.active{background:var(--primary-dark); color:#f8fbf7;}
+  .tl-wrap{border:1px solid var(--line); border-radius:10px; background:#f9fbf6; padding:8px; overflow-x:auto; margin-top:10px;}
+  .timeline-notes{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 2px 0;}
+  .timeline-notes span{background:#eef7ef; border:1px solid #c6ded0; color:var(--primary-dark); border-radius:7px; padding:4px 8px; font-size:12px; font-weight:650;}
+  .timeline-notes span::before{content:"★"; color:var(--gold); margin-right:5px;}
+  .stage-flow{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; margin-top:10px;}
+  .stage-card{background:#f9fbf6; border:1px solid var(--line); border-radius:8px; padding:11px;}
+  .stage-card b{display:block; color:var(--primary-dark); font-size:13px; margin-bottom:4px;}
+  .stage-card span{display:block; color:var(--grey); font-size:12.5px;}
+  .pitch-panel{margin-top:14px; background:#fffdf7; border:1px solid var(--line); border-radius:10px; padding:14px;}
+  .pitch-panel h3{font-size:16px; color:var(--navy); line-height:1.25; margin-bottom:4px;}
+  .pitch-panel p{font-size:12.5px; color:var(--grey);}
+  .pitch-step b{display:flex; align-items:center; gap:7px;}
+  .pitch-step b::before{content:attr(data-step); display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; background:var(--primary-dark); color:#f8fbf7; font-size:11px; flex:0 0 auto;}
+  .pitch-equation{display:inline-block; color:var(--primary-dark); background:#eef7ef; border:1px solid #c6ded0; border-radius:7px; padding:3px 7px; font-weight:850; margin-top:4px;}
+  .premium-selector{margin-top:14px; background:#fffdf7; border:1px solid var(--line); border-radius:10px; padding:14px;}
+  .premium-selector h3{font-size:16px; color:var(--navy); line-height:1.25; margin-bottom:4px;}
+  .premium-selector p{font-size:12.5px; color:var(--grey);}
+  .premium-band-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:9px; background:var(--card); margin-top:10px;}
+  table.premium-band-table{width:100%; min-width:900px; border-collapse:separate; border-spacing:0; font-size:12.2px;}
+  table.premium-band-table th{background:var(--navy); color:#f8fbf7; text-align:left; padding:7px 8px; border-right:1px solid rgba(255,255,255,.18);}
+  table.premium-band-table th.center{text-align:center;}
+  table.premium-band-table td{padding:7px 8px; border-top:1px solid #dce7df; border-right:1px solid #edf2ee; color:var(--grey); font-variant-numeric:tabular-nums; white-space:nowrap;}
+  table.premium-band-table td:first-child,table.premium-band-table th:first-child{position:sticky; left:0; z-index:1;}
+  table.premium-band-table td:first-child{background:var(--card); font-weight:850; color:var(--ink);}
+  table.premium-band-table th:first-child{z-index:2;}
+  table.premium-band-table tr.active td{background:#fff8e8;}
+  table.premium-band-table tr.active td:first-child{background:#fff1d4;}
+  table.premium-band-table button{border:none; background:transparent; color:var(--primary-dark); font:inherit; font-weight:850; cursor:pointer; padding:0; text-align:left;}
+  table.premium-band-table small{display:block; color:var(--faint); font-size:10.5px; font-weight:700; margin-top:1px;}
+  .condition-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:10px;}
+  .condition-grid h4{font-size:13px; color:var(--navy); margin-bottom:6px;}
+  .condition-grid ol{padding-left:18px; font-size:12.4px; color:var(--grey);}
+  .condition-grid li{margin:2px 0;}
+  .cmp-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:14px;}
+  .cmp-card{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px;}
+  .cmp-card h3{font-size:15px; border-bottom:2px solid var(--primary); padding-bottom:6px; margin-bottom:8px;}
+  .cmp-card.highlight-attractive{border-color:#dcc78f; box-shadow:inset 0 0 0 1px rgba(195,161,95,.18);}
+  .cmp-card.highlight-important{border-color:#d7b783; background:#fffdf7;}
+  .cmp-card.highlight-attractive h3::before,.cmp-card.highlight-important h3::before{content:"★"; margin-right:6px;}
+  .cmp-card.highlight-attractive h3::before{color:var(--gold);}
+  .cmp-card.highlight-important h3::before{color:var(--warn);}
+  .cmp-card .row{display:flex; justify-content:space-between; gap:10px; font-size:13px; padding:4px 0; border-bottom:1px dashed #dce7df;}
+  .cmp-card .row b{font-variant-numeric:tabular-nums; text-align:right;}
+  .value-section{display:grid; gap:14px; margin-top:12px;}
+  .value-hero{display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:14px; align-items:stretch; background:#fffdf7; border:1px solid var(--line); border-radius:10px; padding:14px;}
+  .value-hero h3{font-size:17px; line-height:1.25; color:var(--navy); margin-bottom:5px;}
+  .value-hero p{font-size:13px; color:var(--grey); max-width:760px;}
+  .value-question{background:var(--card); border:1px solid #d7b783; border-radius:8px; padding:12px; font-size:12.5px; color:var(--grey);}
+  .value-question b{display:block; color:var(--primary-dark); margin-bottom:5px;}
+  .value-lenses{margin-top:0;}
+  .value-kicker{display:block; color:var(--faint); font-size:10.5px; font-weight:850; text-transform:uppercase; letter-spacing:.7px; margin-bottom:4px;}
+  .value-card-list{padding-left:18px; margin:8px 0 0 0; color:var(--grey); font-size:12.5px;}
+  .value-card-list li{margin:3px 0;}
+  .persona-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--card);}
+  table.persona-table{width:100%; min-width:940px; border-collapse:collapse; font-size:13px;}
+  table.persona-table th{background:var(--navy); color:#f8fbf7; padding:9px 10px; text-align:left; font-size:12px; letter-spacing:.2px;}
+  table.persona-table td{border-bottom:1px solid #dce7df; padding:10px; vertical-align:top;}
+  table.persona-table tr:last-child td{border-bottom:none;}
+  table.persona-table td:first-child{font-weight:850; color:var(--ink); width:190px;}
+  table.persona-table td:nth-child(4){width:260px;}
+  .value-tabs{display:flex; flex-wrap:wrap; gap:6px;}
+  .value-tabs button{border:1px solid #c6ded0; background:#eef7ef; color:var(--primary-dark); border-radius:7px; padding:5px 8px; font-size:11.5px; font-weight:800; cursor:pointer; text-align:left;}
+  .value-tabs button:hover{border-color:var(--gold); background:#fffdf7;}
+  .star-inline{display:inline-flex; align-items:baseline; gap:5px;}
+  .star-inline::before{content:"★"; color:var(--gold); font-size:.9em; line-height:1;}
+  .star-inline.important::before{color:var(--warn);}
+  .compare-wrap{overflow-x:auto; margin-top:14px; border:1px solid var(--line); border-radius:10px; background:var(--card);}
+  table.compare{width:100%; min-width:850px; border-collapse:collapse; font-size:13px;}
+  table.compare th{background:var(--navy); color:#f8fbf7; padding:9px 10px; text-align:left; font-size:12px; letter-spacing:.2px;}
+  table.compare td{border-bottom:1px solid #dce7df; padding:9px 10px; vertical-align:top;}
+  table.compare tr:last-child td{border-bottom:none;}
+  table.compare button{border:1px solid var(--line); background:var(--surface); color:var(--primary-dark); border-radius:7px; padding:5px 9px; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap;}
+  .cost-kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-top:12px;}
+  .cost-kpi{background:#f9fbf6; border:1px solid var(--line); border-radius:8px; padding:12px;}
+  .cost-kpi h3{font-size:13px; color:var(--navy); margin-bottom:5px;}
+  .cost-kpi .amt{display:block; color:var(--primary-dark); font-size:20px; line-height:1.15; font-weight:850; margin-bottom:4px;}
+  .cost-kpi p{font-size:12.5px; color:var(--grey);}
+  .visit-rhythm{margin-top:14px; border:1px solid var(--line); border-radius:10px; background:#f9fbf6; overflow:hidden;}
+  .visit-title{padding:13px 14px; border-bottom:1px solid var(--line); background:#fffdf7;}
+  .visit-title h3{font-size:16px; color:var(--navy); line-height:1.25;}
+  .visit-title p{font-size:12.5px; color:var(--grey); margin-top:3px;}
+  .visit-grid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; padding:12px;}
+  .visit-card{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:12px;}
+  .visit-card h4{font-size:13px; color:var(--navy); margin-bottom:2px;}
+  .visit-weeks{display:block; color:var(--faint); font-size:11.5px; margin-bottom:8px;}
+  .visit-count{display:block; color:var(--primary-dark); font-size:18px; font-weight:900; line-height:1.15; margin-bottom:8px;}
+  .visit-costs{display:grid; gap:5px; font-size:12px;}
+  .visit-costs div{display:flex; justify-content:space-between; gap:8px; border-top:1px dashed #dce7df; padding-top:5px;}
+  .visit-costs span{color:var(--faint);}
+  .visit-costs b{color:var(--primary-dark); text-align:right; font-variant-numeric:tabular-nums;}
+  .visit-card p{font-size:12.2px; color:var(--grey); margin-top:8px;}
+  .visit-note{border-top:1px solid var(--line); padding:10px 14px; color:var(--grey); font-size:12.3px;}
+  .visit-note b{color:var(--primary-dark);}
+  .preprimary-snapshot{margin-top:14px; border:1px solid var(--line); border-radius:10px; background:#f9fbf6; overflow:hidden;}
+  .pp-title{padding:13px 14px; border-bottom:1px solid var(--line); background:#fffdf7;}
+  .pp-title h3{font-size:16px; color:var(--navy); line-height:1.25;}
+  .pp-title p{font-size:12.5px; color:var(--grey); margin-top:3px;}
+  .pp-scenario-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; padding:12px;}
+  .pp-card{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:12px;}
+  .pp-card.highlight{border-color:#d7b783; box-shadow:inset 0 0 0 1px rgba(195,161,95,.16);}
+  .pp-tier{display:flex; justify-content:space-between; gap:8px; align-items:center; color:var(--navy); font-size:13px; font-weight:850; margin-bottom:6px;}
+  .pp-tier::before{content:"★"; color:var(--gold); font-size:12px;}
+  .pp-total{display:block; color:var(--primary-dark); font-size:22px; font-weight:900; line-height:1.12; margin-bottom:4px;}
+  .pp-card p{font-size:12.3px; color:var(--grey); margin-bottom:8px;}
+  .pp-mini{display:grid; gap:5px; font-size:12px;}
+  .pp-mini div{display:flex; justify-content:space-between; gap:8px; border-top:1px dashed #dce7df; padding-top:5px;}
+  .pp-mini span{color:var(--faint);}
+  .pp-mini b{color:var(--primary-dark); text-align:right; font-variant-numeric:tabular-nums;}
+  .pp-groups{display:grid; gap:10px; padding:0 12px 12px 12px;}
+  .pp-group{background:var(--card); border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+  .pp-group h4{font-size:13px; color:#f8fbf7; background:var(--navy); padding:8px 10px;}
+  .pp-line{display:grid; grid-template-columns:1.05fr repeat(3,minmax(150px,1fr)); gap:10px; padding:10px; border-top:1px solid #dce7df;}
+  .pp-line:first-of-type{border-top:none;}
+  .pp-line-label{font-size:13px; font-weight:800; color:var(--ink);}
+  .pp-cell{font-size:12.4px;}
+  .pp-cell em{display:block; font-style:normal; font-size:10.5px; font-weight:800; color:var(--faint); text-transform:uppercase; letter-spacing:.5px; margin-bottom:2px;}
+  .pp-cell b{color:var(--primary-dark); font-size:14px; font-variant-numeric:tabular-nums;}
+  table.cost{min-width:1020px;}
+  table.cost td:first-child,table.cost th:first-child{width:160px;}
+  table.cost td b{color:var(--primary-dark);}
+  .cost-note{margin-top:10px; font-size:12.5px; color:var(--grey);}
+  .mini-source{font-size:11.5px; color:var(--faint); margin-top:8px;}
+  .muted{color:var(--faint);}
+  .note-chip{display:inline-block; font-size:12px; background:var(--note-bg); border:1px solid var(--note-line); color:#72511d; border-radius:8px; padding:4px 10px; margin:4px 6px 0 0;}
+  .ok-chip{display:inline-block; font-size:12px; background:#edf8f0; border:1px solid #bbddc6; color:var(--good); border-radius:8px; padding:4px 10px; margin:4px 6px 0 0;}
+  .note-chip::before,.ok-chip::before{content:"★"; margin-right:5px;}
+  .note-chip::before{color:var(--warn);}
+  .ok-chip::before{color:var(--gold);}
+  .stackbar{display:flex; height:34px; border:1px solid var(--line); border-radius:8px; overflow:hidden; margin-top:8px; background:#e7efe9;}
+  .stackbar div{display:flex; align-items:center; justify-content:center; font-size:11.5px; font-weight:700; color:#f8fbf7; white-space:nowrap;}
+  .claimbtns{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;}
+  .claimbtns button{border:1px solid var(--line); background:var(--card); border-radius:8px; padding:7px 13px; font-size:13px; font-weight:600; cursor:pointer;}
+  .claimbtns button.primary{background:var(--primary); border-color:var(--primary); color:#f8fbf7;}
+  details.rules{margin-top:14px; font-size:13.5px;}
+  details.rules summary{cursor:pointer; font-weight:700; color:var(--navy);}
+  details.rules summary::before{content:"★"; color:var(--warn); margin-right:6px;}
+  details.rules p{margin:6px 0 6px 2px;}
+  footer{max-width:1180px; margin:12px auto 40px auto; padding:0 22px; color:var(--grey);}
+  .source-pack{border-top:1px solid var(--line); padding-top:20px;}
+  .source-pack h2{font-size:20px; line-height:1.2; color:var(--ink); margin-bottom:4px;}
+  .source-pack .source-sub{color:var(--faint); font-size:13px; margin-bottom:14px;}
+  .source-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px;}
+  .source-card{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px;}
+  .source-card h3{font-size:15px; line-height:1.25; margin-bottom:8px; color:var(--ink);}
+  .source-card ul{padding-left:18px; margin:0;}
+  .source-card li{margin:5px 0; color:var(--primary-dark); font-size:14px; font-weight:650;}
+  .source-card a{color:var(--primary-dark); text-decoration:none; border-bottom:1px solid rgba(30,93,85,.35);}
+  .source-card a:hover{color:var(--warn); border-bottom-color:var(--warn);}
+  .source-important{margin-top:14px; font-size:11.5px; color:var(--faint);}
+  .source-copy{margin-top:8px; font-size:11px; color:var(--faint);}
+  table.sched{width:100%; border-collapse:collapse; font-size:13px; margin-top:8px;}
+  table.sched th{background:var(--navy); color:#f8fbf7; padding:6px 8px; text-align:left; font-size:12px;}
+  table.sched td{border-bottom:1px solid #dce7df; padding:6px 8px; font-variant-numeric:tabular-nums;}
+  table.sched tr td:not(:first-child){text-align:right;}
+  table.sched tr.hl td{background:#eef7ef; font-weight:700;}
+  @media (min-width:1000px){
+    .top-notice{white-space:nowrap;}
+  }
+  @media (max-width:1100px){
+    .visit-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
+  @media (max-width:900px){
+    header{gap:12px;}
+    .ng-note{order:3; margin-left:0;}
+    .pill{margin-left:auto;}
+    nav.tabs{flex-wrap:nowrap; overflow-x:auto; padding-bottom:2px;}
+    nav.tabs button{white-space:nowrap;}
+    main{padding-left:14px; padding-right:14px;}
+    .panel{padding:14px;}
+    .prodhead{align-items:flex-start;}
+    .cmp-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px;}
+    .value-hero{grid-template-columns:1fr;}
+    table.persona-table{min-width:780px; font-size:12.5px;}
+    table.persona-table td:first-child{width:150px;}
+    .pp-scenario-grid{grid-template-columns:1fr;}
+    .pp-line{grid-template-columns:1fr;}
+    .pp-cell{display:grid; grid-template-columns:92px 1fr; gap:8px; align-items:baseline;}
+    .pp-cell em{margin-bottom:0;}
+  }
+  @media (max-width:640px){
+    header{padding:12px 14px;}
+    .mascot{width:44px; height:44px;}
+    header h1{font-size:18px;}
+    .brandline{font-size:10.5px; letter-spacing:2px;}
+    .subtle{font-size:11.5px;}
+    .top-notice,.page-actions,nav.tabs{padding-left:14px; padding-right:14px;}
+    .page-actions{justify-content:flex-start; flex-wrap:wrap;}
+    .visit-grid{grid-template-columns:1fr;}
+  }
+  @media print{
+    nav.tabs,.controls,.claimbtns,.pill,footer,.page-actions{display:none !important;}
+    body{background:#fff;}
+    .panel{border:none; padding:4px 0; border-radius:0;}
+    .tl-wrap{border:none; background:#fff; overflow:visible;}
+    .tl-wrap svg{max-width:100%; height:auto;}
+  }
+</style>
 </head>
 <body>
+
 <header>
   <img class="mascot" id="mascot" alt="Finance with Kellie mascot">
   <div>
@@ -31,13 +280,1744 @@
 <nav class="tabs" id="tabs"></nav>
 <main id="app"></main>
 <footer id="footx"></footer>
-<script src="avatar.js?v=delivery-gap-20260616-1"></script>
-<script src="app-base.js?v=delivery-gap-20260616-1"></script>
-<script src="product-shield.js?v=delivery-gap-20260616-1"></script>
-<script src="product-super-criticare.js?v=delivery-gap-20260616-1"></script>
-<script src="product-prime-care.js?v=delivery-gap-20260616-1"></script>
-<script src="product-life-treasure.js?v=delivery-gap-20260616-1"></script>
-<script src="product-term-products.js?v=delivery-gap-20260616-1"></script>
-<script src="app-overview.js?v=delivery-gap-20260616-1"></script>
+
+<script>
+"use strict";
+const mascotParts = [
+  "/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAA",
+  "A6ABAAMAAAABAAEAAKACAAQAAAABAAAAQKADAAQAAAABAAAAQAAAAAD/wAARCABAAEADASIAAhEB",
+  "AxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9",
+  "AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6",
+  "Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ip",
+  "qrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEB",
+  "AQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJB",
+  "UQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RV",
+  "VldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6",
+  "wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9sAQwACAgICAgIEAgIEBgQEBAYI",
+  "BgYGBggKCAgICAgKDAoKCgoKCgwMDAwMDAwMDg4ODg4OEBAQEBASEhISEhISEhIS/9sAQwEDAwMF",
+  "BAUIBAQIEw0LDRMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMT",
+  "ExMT/90ABAAE/9oADAMBAAIRAxEAPwD8TORRzTsV9nfso/sy6p8ZvEVre3tmLq3kZjbW0pZIZFiY",
+  "LJcXLLhltYmIUhCHmk/doRh2X3cTiYYeDqVNv6/r8djzqVGVWXLA8D8CfBjx/wDEK1GraNapbab5",
+  "nlG/vZFt7Uyf3Ed+ZX/6ZxB3/wBmvr7w3/wTv+Iut2q3G7UrncM5tNLeOP8AB9QmsmYe4TFft5Ye",
+  "CfhT+zZ4KuPiD4iZJptKtsSajMiK6oOFgtY1AjtoiSAkMIUd23Nlj+Fn7X37VfxW+JHiq6il1i50",
+  "vQUI+y2NrK0MZRhlWkKEGRm68nAr5n+18RiZ2ovlX9d1r+B7H9n06Ub1NWanif8A4J4fEnQrRrlR",
+  "qcO0ZzcaYZE/FrCe8YD32V8deNPhJ438CQNqGrWyz2Cv5X221cTW4f8AuOy8xP8A7Eqo3tXvnwJ/",
+  "bV/aS+FNh5Wja4+paLp7GX7FqCidHDEAp5rDzlU/whXGDkgda/cjwvafB/8AbW+E9p8VtChGm6jf",
+  "RNbzToqPPDMnElrdIRsuYgf+WcoIZSGXaSCG80xWFadZ80f67LT8QWCo1lamrP8Arv8A8A/lxIxR",
+  "X2j+1X+zDqnwa1q51GxtRb28Lp9rtYyzxQiUkRXNszZZrSZgVG4l4ZAYnJ+Rm+LyOa+lw2JhiIKp",
+  "T/r+v+GPHq0pUpckj//Q/HnwP4Xk8aeLbDwyknkpdS4ll7RQqC8sh9kjVm/Cv6nv2XPhZYfDj4ZW",
+  "l2toLW91aGGZ4yPmgt1XFra/9sYj83rK0jdWNfzy/sd+GIPE/wAU2tLgZV4oLT8L69trST84pZB+",
+  "Nf1XEDOFGB2Arh4jruVVUlsvz3/yOzKaSUHN9f6/zPx//wCCtXxNutC8IeGPhnYyFf7VuHvZ1B+8",
+  "lvhUB9i7Z/CvlL9hbwB4N+OXjS7X4p2sGqQeHLZGs7W4KlXkkYgsydZAirxnIGa6z/gqTqWiax8Y",
+  "9PttQ1CKM6Pp8knkg7pHeVkCJgfdGELZbHXjOazf+Cbtv4c8QXs9zo3iW70/WbC6a5utLjIEV3ab",
+  "CihkYHeA3JZcsvA4zmvNxP7vAvl0ffX+vI9LAL2mMV7NdtP1+/5Hr37V37Ofwr8f3k+h/DG3g8Ne",
+  "K7WB5oLZXt7aHUhEpOwWokEpbAISURBSeCSvIwv+CX/iXxR8LfiXe/Bjx0v2WLxjpUWu6dEzc+ZE",
+  "WRuP4XeMHcvX92K+6PiXJ8L/AALZat+0JrthHDfaVpzLJeBSJZYxllhXnliQFyVyAQM4HH40/ssf",
+  "ErxL8Yv22vC/jrxbLFBevN5VtFApSKJUjIjijUknBy2cnJyxPWuTLKlWvRnTfwJbve/ZeR25vRpU",
+  "Jxqfbb2W1u78z94/2q/hjp/j/wCF15qrWv2q70aGabywPmuLNl/0y2/7aRDcnpMkbDla/lo8b+GJ",
+  "fBfizUPC8snnCzmKxyjpLEcNFIPZ4yrD61/ZlsjkJjkG5G4IPQg9Qa/lE/ay8NQ+GviRb2sIwFtX",
+  "tT7/ANn3dxYqf+/dule7w5XaqOk9n/w6/U+fzeknFTX9f1of/9H4A/Y58TQeGfio13cnCpHb3R/3",
+  "bG+trqT8oopD+Ff1W/KG9R7V/Gf4C8UnwV4wsPEzRefFbSfv4enmwODHNH/wONmX8a/po+Hfx9tJ",
+  "P2cbzxZHIdVv/DNkivsbDXUWwG0uQecC4j2ljztkEinlCK4+IcNL2qqLZ/nt/l951ZVWXI4Pp/w/",
+  "+Z+I3/BRz4QeI/BH7QE3ibXLhZ4fEytcQfN+8UwkRkMvUJjbsPTGR1UivhbwzaeJk8SWH/CEyzwa",
+  "s8yJatau0cwkdtq7GQhgST2Ne8fEj4va9+0L4uvfG3jqaKG/lQ+SQX2pGv3Yl3McDGcE/wD169z/",
+  "AGCfghrnxA+NEPjpYiuleEpoppXPVp3JEMYB7nlj6AZPanKo6FByqK7S/pDp0lWrKMXo2fov8Q9F",
+  "1Dwn+yLqF1+0Vq0uq6mdFayfLgn7VcKY0CEgbpCxGWIzgE9M1+Cvh658VeD9attf8LXDQXenzJcQ",
+  "TI210kQhgQfYgV+qP7evxh0DxN8U7X4P39yRpHh1TLfNGGZWvpFGFIUgkRRnbx/GxzwMV+YU72f2",
+  "qWHT1KQb2MYb7wQk7d3vjrW/DeVKFBvEJ80/e8knsl08/uNOIMy9tXSov3Ye6u/qf1pfs+fFvSPj",
+  "T8JtJ+INjdRztNGY7tkwNlxEdsoZf4T/ABY9CMcYr+bH9rfxFD4i+JNvcwnIe1kuz7DULy5vk/8A",
+  "Ic6H8a+1P2PPiVF4C/ZD8X2M139kl1rWJ7aGTPNvbraRG+uvpDCfl9ZWjXqwr8tfHvit/HHjLUfF",
+  "TReQl3MTDD/zyhUBIYx7JGqr+FVleB9ji6nL8Mf6X6/cceMxPtKEL7v+v8j/0vxPr6//AGbf2kr/",
+  "AOF848N63Ip06WOS3VpgzRCGc5kt5wuW8hm+dHUF4Jf3ighnVvkCnA8172Jw0MRB06n/AAx51KrK",
+  "lLmibXxM8HX/AIE8VTWawyrp87mWymfDJLC3KlJELRyAZxuViCRnjoP1f/4J3/ES18C/s/8Aj/xT",
+  "e4J0y5+3sWPLmK23gE/7RUj6mvy98NfEPxP4Xs30mzljudOkbdJY3ka3Fqx9fKkBCt/tJtb3r1jQ",
+  "fjr4d0fwrqvg2Lw49hYa4FF/Dpd+8Ec23p8lxHdFf+AMvHHSvFxWX1ZU3R5b3tqrbJ66N6fe/U9P",
+  "DYynCftL233/AOB/wDwvX/E2peJ9cvPEWsSGa5vZ5Lidyc75pWLsfzNaXgnwd4o8e30tr4ct/OKA",
+  "vPM5EcFvEODJPMxCRoO7MR7ZPFdbH4v+E+lpu0XwZ9okH3TqeozXCA+8cCW2fxbFYnin4m+LvFmn",
+  "Jod7NHaaXE2+PT7KJLa0VuzeTEAGb/bfc3vXsKrWl7sIcvrb8Em7/No85xgtZSv6f8H/AIJ0/i7x",
+  "dpPh/wAJj4VeBLx72zL+ZqOoHcq3coIPlwI2ClsjANyA0rgOwAVFHi9FFaUqSpqy66t933/r0InN",
+  "zd2f/9k="
+];
+document.getElementById('mascot').src = 'data:image/jpeg;base64,' + mascotParts.join('');
+/* ================= shared state ================= */
+const G = { tab:'over', lang:'en' };
+function tr(en, cn){ return G.lang==='cn' ? cn : en; }
+const fmt  = n => (n<0?'-':'') + 'S$' + Math.abs(Math.round(n)).toLocaleString('en-US');
+const fmt2 = n => 'S$' + (Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const C = {
+  primary:'#2f7d72',
+  primaryDark:'#1e5d55',
+  secondary:'#486581',
+  accent:'#b8893a',
+  good:'#39745b',
+  warn:'#a36a2d',
+  axis:'#315d6a',
+  faint:'#7c8b86',
+  textLight:'#f8fbf7'
+};
+
+const FOOT = {
+  impEn: 'Illustrative only, not a Policy Illustration, not an offer or recommendation. Benefits are subject to policy terms, waiting periods, survival periods and exclusions. The official Product Summary, Policy Illustration and General Provisions prevail.',
+  impCn: '本页仅供说明，不是保单利益演示，也不构成要约或建议。所有给付须符合保单条款、等待期、生存期及除外责任。一切以官方产品摘要、利益演示及保单条款为准。'
+};
+const SOURCE_PACK = [
+  {en:'HSBC Life Shield', cn:'HSBC Life Shield', docs:[
+    {en:'Product page', cn:'产品页面', href:'https://www.insurance.hsbc.com.sg/health/products/shield/'},
+    {en:'Product Summary Ver 7.1', cn:'产品摘要 Ver 7.1', href:'https://isomer-user-content.by.gov.sg/3/9eec199f-c122-4cbd-b6e1-41c398685c20/ShieldPlanAB_GP_20260401_v7.1.pdf'},
+    {en:'Brochure', cn:'产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/health/hsbc-life-shield-brochure.pdf'},
+    {en:'Premium tables (1 Apr 2026)', cn:'保费表（2026年4月1日）', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/health/hsbc-life-shield-premium-tables.pdf'},
+    {en:'Cancer drug changes / FAQ', cn:'癌症药物变更/常见问题', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/health/cancer-drug-changes-hsbclife-shield-enhanced-care.pdf'},
+    {en:'Cancer drug FAQ', cn:'癌症药物常见问题', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/health/hsbc-life-shield-faq.pdf'},
+    {en:'Claims recovery process', cn:'理赔追偿流程', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/health/claims-recovery-process.pdf'},
+    {en:'Dental panel list', cn:'牙科网络名单', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/health/dentallist.pdf'}
+  ]},
+  {en:'Super CritiCare', cn:'Super CritiCare', docs:[
+    {en:'Product page', cn:'产品页面', href:'https://www.insurance.hsbc.com.sg/life-and-critical-illness/products/super-criticare/'},
+    {en:'Brochure', cn:'产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/life/super-criticare-brochure-english.pdf'}
+  ]},
+  {en:'Prime Care', cn:'Prime Care', docs:[
+    {en:'Product page', cn:'产品页面', href:'https://www.insurance.hsbc.com.sg/health/products/prime-care/'},
+    {en:'Brochure', cn:'产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/health/prime-care-brochure.pdf'}
+  ]},
+  {en:'Life Treasure III', cn:'Life Treasure III', docs:[
+    {en:'Product page', cn:'产品页面', href:'https://www.insurance.hsbc.com.sg/life-and-critical-illness/products/life-treasure-iii/'},
+    {en:'Brochure', cn:'产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/life/life-treasure-iii-product-brochure.pdf'}
+  ]},
+  {en:'Term Protector / Term Protector Prime', cn:'Term Protector / Term Protector Prime', docs:[
+    {en:'Product page', cn:'产品页面', href:'https://www.insurance.hsbc.com.sg/life-and-critical-illness/products/term-protector/'},
+    {en:'Term Protector brochure', cn:'Term Protector 产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/life/term-protector-brochure.pdf'},
+    {en:'Term Protector Prime brochure', cn:'Term Protector Prime 产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/life/term-protector-prime-brochure.pdf'}
+  ]},
+  {en:'HappyMummy / HappyFamily', cn:'HappyMummy / HappyFamily', docs:[
+    {en:'Product page', cn:'产品页面', href:'https://www.insurance.hsbc.com.sg/life-and-critical-illness/products/happy-mummy/'},
+    {en:'EmpoweredMum brochure', cn:'EmpoweredMum 产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/life/hsbclife-happymummy-happyfamily-brochure.pdf'}
+  ]},
+  {en:'Singapore child-cost research', cn:'新加坡育儿成本资料', docs:[
+    {en:'MOH vaginal delivery bill information', cn:'MOH自然分娩账单资料', href:'https://www.moh.gov.sg/managing-expenses/bills-and-fee-benchmarks/cost-financing/tosp-si836u-bill-information/'},
+    {en:'MOH caesarean section bill information', cn:'MOH剖腹产账单资料', href:'https://www.moh.gov.sg/managing-expenses/bills-and-fee-benchmarks/cost-financing/tosp-si834u-bill-information/'},
+    {en:'KKH pregnancy guide and routine antenatal visit count', cn:'KKH孕期指南及常规产检次数', href:'https://www.kkh.com.sg/ward-stay/giving-birth/about-your-pregnancy'},
+    {en:'KKH outpatient charges for women', cn:'KKH妇科门诊收费', href:'https://www.kkh.com.sg/clinic-visit/charges-and-payments/outpatient-charges-women'},
+    {en:'KKH antenatal package and delivery charges', cn:'KKH产检配套及分娩费用', href:'https://www.kkh.com.sg/ward-stay/giving-birth/antenatal-package-and-delivery-charges'},
+    {en:'Gleneagles prenatal visit rhythm', cn:'Gleneagles产前复诊节奏', href:'https://www.gleneagles.com.sg/explore-maternity/prenatal-care'},
+    {en:'SGH outpatient private specialist charges', cn:'SGH私人专科门诊收费', href:'https://www.sgh.com.sg/clinic-visit/charges-and-payments/outpatient-charges'},
+    {en:'Raffles Womens Centre consultation fees', cn:'Raffles Womens Centre门诊收费', href:'https://www.rafflesmedicalgroup.com/services/specialist-centres/women/consultation-fees/'},
+    {en:'Thomson private gynae and scan cost guide', cn:'Thomson私人妇产科及扫描费用指南', href:'https://www.thomsonmedical.com/blog/switching-from-public-to-private-gynae'},
+    {en:'MediSave Maternity Package', cn:'保健储蓄产妇配套', href:'https://supportgowhere.life.gov.sg/schemes/myy0wYU5/medisave-maternity-package'},
+    {en:'MOH childhood vaccination and developmental screening subsidies', cn:'MOH儿童疫苗及发育筛查津贴', href:'https://www.moh.gov.sg/managing-expenses/schemes-and-subsidies/childhood-developmental-screening-and-childhood-vaccinations/'},
+    {en:'CDA National Childhood Immunisation Schedule', cn:'CDA国家儿童免疫接种时间表', href:'https://www.cda.gov.sg/public/vaccinations/'},
+    {en:'ECDA preschool subsidies', cn:'ECDA学前教育津贴', href:'https://www.ecda.gov.sg/parents/preschool-subsidies/infant-and-childcare-subsidy-scheme/overview'},
+    {en:'ECDA Anchor Operator fee caps', cn:'ECDA Anchor Operator收费上限', href:'https://www.ecda.gov.sg/parents/choosing-a-preschool/aop'},
+    {en:'ECDA Partner Operator 2026 fee caps', cn:'ECDA Partner Operator 2026收费上限', href:'https://ask.gov.sg/ecda/questions/cm4mgs6tz00nsptnrkf8ziwsp'},
+    {en:'MOE school fees', cn:'MOE学校费用', href:'https://www.moe.gov.sg/financial-matters/fees'},
+    {en:'Singapore Polytechnic diploma fees', cn:'新加坡理工学院文凭课程费用', href:'https://www.sp.edu.sg/admissions/course-fees/full-time-diploma'},
+    {en:'NUS undergraduate fees AY2026/2027', cn:'NUS本科费用 AY2026/2027', href:'https://www.nus.edu.sg/registrar/docs/default-source/administrative-policies-procedures/ugtuitioncurrent.pdf'},
+    {en:'FairPrice S-26 Stage 1 price', cn:'FairPrice S-26一段奶粉价格', href:'https://www.fairprice.com.sg/product/wyeth-s26-gold-pro-infant-milk-formula-stage-1-900g-13050949'},
+    {en:'Doctor Anywhere home phototherapy price', cn:'Doctor Anywhere居家黄疸光疗价格', href:'https://doctoranywhere.com/home-treatment-jaundice/'},
+    {en:'PEM confinement nanny cost guide', cn:'PEM月嫂费用指南', href:'https://pemconfinement.com/blog/confinement-nanny-cost-in-singapore-guide/'},
+    {en:'Singapore confinement centre price guide', cn:'新加坡月子中心价格参考', href:'https://www.hatchery.com.sg/blogs/baby-guides-singapore/best-confinement-centre-singapore'}
+  ]},
+  {en:'Term Protect Advantage / Term Lite', cn:'Term Protect Advantage / Term Lite', docs:[
+    {en:'Term Protect Advantage product page', cn:'Term Protect Advantage 产品页面', href:'https://www.insurance.hsbc.com.sg/life-and-critical-illness/products/term-protect-advantage/'},
+    {en:'Term Protect Advantage brochure', cn:'Term Protect Advantage 产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/protection/term-protect-advantage/product-brochure.pdf'},
+    {en:'Term Lite product page', cn:'Term Lite 产品页面', href:'https://www.insurance.hsbc.com.sg/life-and-critical-illness/products/direct-term-lite/'},
+    {en:'Term Lite brochure', cn:'Term Lite 产品手册', href:'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/life/direct-hsbclife-term-lite-brochure-english.pdf'}
+  ]}
+];
+const sourceLink = doc => `<a href="${encodeURI(doc.href)}" target="_blank" rel="noopener">${tr(doc.en, doc.cn)}</a>`;
+function renderFooter(){
+  document.getElementById('footx').innerHTML =
+    `<section class="source-pack">
+      <h2>${tr('Source Pack','资料包')}</h2>
+      <p class="source-sub">${tr('Official product pages, documents and cost sources used for this page.','本页使用的官方产品页面、文件及费用资料。')}</p>
+      <div class="source-grid">${SOURCE_PACK.map(src=>`
+        <div class="source-card">
+          <h3>${tr(src.en, src.cn)}</h3>
+          <ul>${src.docs.map(doc=>`<li>${sourceLink(doc)}</li>`).join('')}</ul>
+        </div>`).join('')}</div>
+      <p class="source-important"><b>${tr('Important.','重要说明。')}</b> ${tr(FOOT.impEn, FOOT.impCn)}</p>
+      <p class="source-copy">&copy; 2026 Kellie Zheng. All rights reserved.</p>
+    </section>`;
+}
+function toggleLang(){
+  G.lang = G.lang==='en' ? 'cn' : 'en';
+  document.getElementById('langBtnEn').classList.toggle('active', G.lang==='en');
+  document.getElementById('langBtnCn').classList.toggle('active', G.lang==='cn');
+  document.getElementById('ngNote').textContent = tr('All Values Non-Guaranteed','所有数值均非保证');
+  document.getElementById('overviewNotice').textContent = tr('This is a simplified overview to help you compare options. Final details depend on the official product summary, policy illustration and underwriting outcome.','本页为简化概览，帮助您比较不同选项。最终细节以官方产品摘要、保单利益演示及核保结果为准。');
+  document.getElementById('subline').textContent = tr('Adviser tool - Kellie Zheng - coverage-and-payout view of the hand-timeline method','顾问工具 - Kellie Zheng - 手绘时间轴的保障与给付视图');
+  document.getElementById('h1t').innerHTML = tr('Health &amp; Protection','健康与保障');
+  renderFooter(); render();
+}
+
+/* ================= generic age timeline SVG =================
+   o = { a0, a1, segs:[{from,to,label,color,lane,dash}], payTo, payLabel,
+         markers:[{age,label,color}], note }
+   lanes: 0 nearest axis, 1 above, 2 top.                       */
+function ageline(o){
+  const span = Math.max(o.a1 - o.a0, 4);
+  const W = Math.max(980, span*30 + 190), x0 = 70, x1 = W - 100;
+  const yAx = 250, laneY = l => yAx - 44 - l*46;
+  const H = o.payTo ? 338 : 302;
+  const X = a => x0 + (x1-x0)*(a-o.a0)/span;
+  const labelFont = 'font-family:-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Roboto,Helvetica,Arial,sans-serif;letter-spacing:0;';
+  const markerYs = [24,62,100];
+  const laneRight = markerYs.map(()=>-Infinity);
+  const markerWidth = m => Math.max(46, Math.min(150, String(m.label||'').length*6.4 + 28));
+  function markerLane(x, width, fallback){
+    for(let i=0;i<markerYs.length;i++){
+      if(x - width/2 > laneRight[i] + 10){
+        laneRight[i] = x + width/2;
+        return i;
+      }
+    }
+    const lane = fallback % markerYs.length;
+    laneRight[lane] = Math.max(laneRight[lane], x + width/2);
+    return lane;
+  }
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" xmlns="http://www.w3.org/2000/svg">`;
+  /* axis */
+  s += `<line x1="${x0-14}" y1="${yAx}" x2="${x1+30}" y2="${yAx}" stroke="${C.axis}" stroke-width="2.2"/>
+        <path d="M ${x1+30} ${yAx} l -10 -5 v 10 z" fill="${C.axis}"/>`;
+  const step = span>50 ? 10 : 5;
+  for(let a=o.a0; a<=o.a1; a++){
+    const x=X(a), major = (a===o.a0 || a===o.a1 || a%step===0);
+    s += `<line x1="${x}" y1="${yAx-(major?7:4)}" x2="${x}" y2="${yAx+(major?7:4)}" stroke="${C.axis}" stroke-width="${major?1.8:0.8}"/>`;
+    if(major) s += `<text x="${x}" y="${yAx+24}" text-anchor="middle" font-size="12.5" font-weight="600" style="${labelFont}" fill="${C.axis}">${a}</text>`;
+  }
+  s += `<text x="${x1+34}" y="${yAx+24}" font-size="12" font-weight="600" style="${labelFont}" fill="${C.faint}">${tr('age','年龄')}</text>`;
+  /* coverage segments */
+  (o.segs||[]).forEach(g=>{
+    const a=X(Math.max(g.from,o.a0)), b=X(Math.min(g.to,o.a1)), y=laneY(g.lane||0);
+    s += `<rect x="${a}" y="${y-13}" width="${Math.max(b-a,3)}" height="26" rx="8" fill="${g.color}" opacity="${g.dash?0.45:0.85}" ${g.dash?'stroke-dasharray="6 4" stroke="'+g.color+'" stroke-width="2" fill-opacity="0.15"':''}/>`;
+    s += `<text x="${(a+b)/2}" y="${y+4}" text-anchor="middle" font-size="13" font-weight="700" style="${labelFont}" fill="${g.dash?g.color:C.textLight}">${g.label}</text>`;
+  });
+  /* markers */
+  (o.markers||[]).forEach((m,i)=>{
+    if(m.age<o.a0||m.age>o.a1) return;
+    const x=X(m.age), w=markerWidth(m), yTop=markerYs[markerLane(x,w,i)];
+    s += `<line x1="${x}" y1="${yTop+22}" x2="${x}" y2="${yAx-4}" stroke="${m.color||C.primaryDark}" stroke-width="1.4" stroke-dasharray="4 4"/>
+          <text x="${x}" y="${yTop}" text-anchor="middle" font-size="11.8" font-weight="700" style="${labelFont}" fill="${m.color||C.primaryDark}">${m.label}</text>
+          <text x="${x}" y="${yTop+14}" text-anchor="middle" font-size="10.8" font-weight="700" style="${labelFont}" fill="${m.color||C.primaryDark}">@${m.age}</text>`;
+  });
+  /* premium bracket below axis */
+  if(o.payTo){
+    const ax0=X(o.a0), ax1=X(Math.min(o.payTo,o.a1)), yB=yAx+44;
+    s += `<path d="M ${ax0} ${yB} h ${ax1-ax0}" stroke="${C.accent}" stroke-width="2" fill="none"/>
+          <path d="M ${ax0} ${yB-7} v 14 M ${ax1} ${yB-7} v 14" stroke="${C.accent}" stroke-width="2"/>
+          <text x="${(ax0+ax1)/2}" y="${yB+22}" text-anchor="middle" font-size="13" font-weight="700" style="${labelFont}" fill="${C.accent}">${o.payLabel||tr('premiums payable','缴费期')}</text>`;
+  }
+  if(o.note) s += `<text x="${x0}" y="${H-8}" font-size="11.5" style="${labelFont}" fill="${C.faint}">${o.note}</text>`;
+  return s + `</svg>`;
+}
+
+/* ================= per-product state ================= */
+const S = {
+  shield:{plan:'A', band:'31-40'},
+  scc:{mode:'toage', toAge:75, term:20, age:35, sa:100000, claims:0},
+  pc:{plan:3, age:35},
+  lt3:{sa:100000, mult:3.5, mca:70, pay:20, age:30, target:350000, budget:3600, combo:'B', tpd:true, earlyCi:true, advCi:true},
+  tpa:{age:35, covTo:70, pay:15, sa:1000000},
+  tpp:{form:'ren', term:20, toAge:65, age:35},
+  tl:{term:'5yr', age:35, sa:400000},
+  happy:{view:'cover'}
+};
+
+const PROD = {
+  over:  ()=>tr('Comparison','对比'),
+  shield:()=>'HSBC Life Shield',
+  happy: ()=>'HappyMummy / HappyFamily',
+  scc:   ()=>'Super CritiCare',
+  pc:    ()=>'Prime Care',
+  lt3:   ()=>'Life Treasure III',
+  tpa:   ()=>'Term Protect Advantage',
+  tpp:   ()=>'Term Protector Prime',
+  tl:    ()=>'Term Lite (Direct)'
+};
+
+const PRODUCT_META = {
+  shield:{
+    bestEn:'hospitalisation foundation and large medical bills',
+    bestCn:'住院医疗基础及大额医疗账单',
+    purposeEn:'Medical bill reimbursement',
+    purposeCn:'医疗账单报销',
+    premiumEn:'Yearly, age-banded',
+    premiumCn:'每年缴费，按年龄段调整',
+    coverEn:'Lifetime renewal',
+    coverCn:'终身续保',
+    claimEn:'Pays eligible hospital bills, as charged',
+    claimCn:'按合资格住院账单赔付'
+  },
+  scc:{
+    bestEn:'repeated critical illness payouts',
+    bestCn:'重疾多次赔付',
+    purposeEn:'Multi-claim CI protection',
+    purposeCn:'多次赔付重疾保障',
+    premiumEn:'Term-based',
+    premiumCn:'按保障期缴费',
+    coverEn:'To age 75 or renewable to 99',
+    coverCn:'保至75岁或可续保至99岁',
+    claimEn:'Each CI claim pays 100% of SA, up to 600%',
+    claimCn:'每次重疾赔保额100%，累计最高600%'
+  },
+  pc:{
+    bestEn:'hospital cash and recovery support',
+    bestCn:'住院现金及康复支持',
+    purposeEn:'Cash benefits on top of medical insurance',
+    purposeCn:'医疗保险之外的现金给付',
+    premiumEn:'Yearly, age-banded',
+    premiumCn:'每年缴费，按年龄段调整',
+    coverEn:'Renewable to age 85',
+    coverCn:'可续保至85岁',
+    claimEn:'Fixed cash amounts by benefit type',
+    claimCn:'按保障项目给固定现金额'
+  },
+  lt3:{
+    bestEn:'legacy protection with higher working-years cover',
+    bestCn:'传承保障及工作年期较高保障',
+    purposeEn:'Whole life protection and legacy planning',
+    purposeCn:'终身保障及传承规划',
+    premiumEn:'Limited pay',
+    premiumCn:'限期缴费',
+    coverEn:'To age 99',
+    coverCn:'保障至99岁',
+    claimEn:'Death benefit, multiplier, bonuses and riders',
+    claimCn:'身故保障、保障倍数、红利及附加险'
+  },
+  tpa:{
+    bestEn:'term cover with limited-pay cash value',
+    bestCn:'含现金价值的限期缴费定期保障',
+    purposeEn:'Term protection with guaranteed cash value',
+    purposeCn:'带保证现金价值的定期保障',
+    premiumEn:'Limited pay',
+    premiumCn:'限期缴费',
+    coverEn:'To chosen age',
+    coverCn:'保至指定年龄',
+    claimEn:'Death / terminal illness sum insured',
+    claimCn:'身故/末期疾病保额'
+  },
+  tpp:{
+    bestEn:'pure term protection in SGD or USD',
+    bestCn:'新元或美元纯定期保障',
+    purposeEn:'Pure term protection',
+    purposeCn:'纯定期保障',
+    premiumEn:'Renewable or level to-age',
+    premiumCn:'可续保或保至指定年龄水平保费',
+    coverEn:'To age 99 max',
+    coverCn:'最长保至99岁',
+    claimEn:'Death / terminal illness protection',
+    claimCn:'身故/末期疾病保障'
+  },
+  tl:{
+    bestEn:'simple direct-purchase term cover',
+    bestCn:'简易直接投保定期保障',
+    purposeEn:'Basic term protection',
+    purposeCn:'基础定期保障',
+    premiumEn:'5-year reset, 20-year, or to age 65',
+    premiumCn:'5年重设、20年或保至65岁',
+    coverEn:'Renewable to 80, or fixed term',
+    coverCn:'可续保至80岁或固定期限',
+    claimEn:'Death / terminal illness / TPD, with optional CI rider',
+    claimCn:'身故/末期疾病/全残，可加重疾附加险'
+  },
+  happy:{
+    bestEn:'expecting parents who want prenatal, newborn and family continuity',
+    bestCn:'希望衔接孕期、新生儿及家庭保障的准父母',
+    purposeEn:'Prenatal cover plus newborn/family protection bridge',
+    purposeCn:'孕期保障加新生儿/家庭保障衔接',
+    premiumEn:'EmpoweredMum single premium plus bundled plan premium',
+    premiumCn:'EmpoweredMum趸缴，加搭配计划保费',
+    coverEn:'From week 13 of pregnancy to policy year 3, with bundled continuation',
+    coverCn:'怀孕第13周至第3保单年度，另由搭配计划延续',
+    claimEn:'Fixed percentage of SA for pregnancy, newborn and hospital benefits',
+    claimCn:'孕期、新生儿及住院保障按保额比例给付'
+  }
+};
+
+function set(id,k,v){
+  S[id][k]=v;
+  if(id==='lt3' && k==='target' && S.lt3.combo !== 'custom'){
+    const active = LT3_COMBOS.find(c=>c.k===S.lt3.combo);
+    if(active) S.lt3.sa = lt3ComboSa(active, S.lt3.target);
+  }
+  if(id==='lt3' && (k==='sa' || k==='mult')){
+    const match = LT3_COMBOS.find(c=>Number(lt3ComboSa(c,S.lt3.target))===Number(S.lt3.sa) && Number(c.mult)===Number(S.lt3.mult));
+    S.lt3.combo = match ? match.k : 'custom';
+  }
+  render();
+}
+function openTab(id){ G.tab=id; render(); window.scrollTo({top:0, behavior:'smooth'}); }
+function ctrlSel(id,k,label,opts){
+  return `<div class="ctrl"><label>${label}</label><select onchange="set('${id}','${k}',isNaN(this.value)?this.value:+this.value)">`+
+    opts.map(o=>`<option value="${o.v}" ${String(S[id][k])===String(o.v)?'selected':''}>${o.t}</option>`).join('')+`</select></div>`;
+}
+function ctrlNum(id,k,label,step,min,max){
+  return `<div class="ctrl"><label>${label}</label><input type="number" value="${S[id][k]}" step="${step}" min="${min}" max="${max}"
+    onchange="set('${id}','${k}',Math.min(${max},Math.max(${min},+this.value||${min})))"
+    onblur="set('${id}','${k}',Math.min(${max},Math.max(${min},+this.value||${min})))"
+    onkeydown="if(event.key==='Enter')this.blur()"></div>`;
+}
+function segBtns(id,k,opts){
+  return `<div class="ctrl"><label>&nbsp;</label><div class="seg">`+opts.map(o=>
+    `<button class="${String(S[id][k])===String(o.v)?'active':''}" onclick="set('${id}','${k}',${typeof o.v==='string'?`'${o.v}'`:o.v})">${o.t}</button>`).join('')+`</div></div>`;
+}
+function head(name,tag,badge,badgeCls,id){
+  const meta = id ? PRODUCT_META[id] : null;
+  return `<div class="prodhead"><h2>${name}</h2><span class="badge ${badgeCls||''}">${badge}</span><span class="tagline">${tag}</span></div>`+
+    (meta ? `<div class="best-for">${tr('Best for: ','适合：')}${tr(meta.bestEn, meta.bestCn)}</div>` : '');
+}
+function row(l,v){ return `<div class="row"><span>${l}</span><b>${v}</b></div>`; }
+function star(l,kind){ return `<span class="star-inline ${kind==='important'?'important':''}">${l}</span>`; }
+function timelineNotes(items){ return `<div class="timeline-notes">${items.map(i=>`<span>${i}</span>`).join('')}</div>`; }
+
+/* ================= SHIELD ================= */
+const SHIELD_ROWS = [ /* annual rates incl 9% GST, Non-Guaranteed, premium tables 1 Apr 2026 */
+  {k:'1-3',label:'1 to 3',start:1,end:3,msl:200,awl:300,A:300,B:91.40,STD:40.70,ECA:735.60,ECB:333.80,ECSTD:135.10},
+  {k:'4-10',label:'4 to 10',start:4,end:10,msl:200,awl:300,A:300,B:91.40,STD:40.70,ECA:735.60,ECB:188.30,ECSTD:101.30},
+  {k:'11-18',label:'11 to 18',start:11,end:18,msl:200,awl:300,A:300,B:91.40,STD:40.70,ECA:735.60,ECB:183.60,ECSTD:99.30},
+  {k:'19-20',label:'19 to 20',start:19,end:20,msl:200,awl:300,A:300,B:91.40,STD:40.70,ECA:745.80,ECB:183.60,ECSTD:99.30},
+  {k:'21-25',label:'21 to 25',start:21,end:25,msl:295,awl:300,A:300,B:100.70,STD:50.90,ECA:786.20,ECB:203.60,ECSTD:99.30},
+  {k:'26-30',label:'26 to 30',start:26,end:30,msl:295,awl:300,A:300,B:100.70,STD:50.90,ECA:794.80,ECB:203.60,ECSTD:99.30},
+  {k:'31-35',label:'31 to 35',start:31,end:35,msl:503,awl:300,A:510,B:169.60,STD:63.20,ECA:995.40,ECB:208.90,ECSTD:116.60},
+  {k:'36-40',label:'36 to 40',start:36,end:40,msl:503,awl:300,A:510,B:169.60,STD:63.20,ECA:1009.80,ECB:214.00,ECSTD:119.20},
+  {k:'41-45',label:'41 to 45',start:41,end:45,msl:637,awl:600,A:1075,B:245.40,STD:109.00,ECA:1360.80,ECB:250.60,ECSTD:143.00},
+  {k:'46-50',label:'46 to 50',start:46,end:50,msl:637,awl:600,A:1215,B:365.50,STD:109.00,ECA:1659.30,ECB:302.80,ECSTD:158.90},
+  {k:'51-55',label:'51 to 55',start:51,end:55,msl:903,awl:600,A:1935,B:481.50,STD:144.70,ECA:2019.40,ECB:344.70,ECSTD:192.00},
+  {k:'56-60',label:'56 to 60',start:56,end:60,msl:903,awl:600,A:2426,B:548.20,STD:164.00,ECA:2968.90,ECB:469.90,ECSTD:238.40},
+  {k:'61-65',label:'61 to 65',start:61,end:65,msl:1131,awl:600,A:3271.10,B:771.20,STD:284.20,ECA:3960.50,ECB:917.90,ECSTD:324.50},
+  {k:'66-68',label:'66 to 68',start:66,end:68,msl:1326,awl:600,A:4105.60,B:1061.20,STD:426.80,ECA:5309.70,ECB:1148.70,ECSTD:599.20},
+  {k:'69-70',label:'69 to 70',start:69,end:70,msl:1326,awl:600,A:4200.70,B:1061.20,STD:426.80,ECA:5983.80,ECB:1148.70,ECSTD:599.20},
+  {k:'71-73',label:'71 to 73',start:71,end:73,msl:1643,awl:900,A:5353.30,B:1361.80,STD:665.20,ECA:6668.90,ECB:1305.40,ECSTD:717.80},
+  {k:'74-75',label:'74 to 75',start:74,end:75,msl:1816,awl:900,A:6118.80,B:1748.10,STD:809.90,ECA:7299.60,ECB:1357.50,ECSTD:773.40},
+  {k:'76-78',label:'76 to 78',start:76,end:78,msl:2027,awl:900,A:6729.30,B:1954.10,STD:1128.70,ECA:7578.20,ECB:1576.80,ECSTD:867.40,renewal:true},
+  {k:'79-80',label:'79 to 80',start:79,end:80,msl:2187,awl:900,A:7589.10,B:2193.00,STD:1207.20,ECA:7614.20,ECB:1879.60,ECSTD:917.10,renewal:true},
+  {k:'81-83',label:'81 to 83',start:81,end:83,msl:2303,awl:900,A:7969.00,B:2343.50,STD:1244.90,ECA:9243.50,ECB:1984.00,ECSTD:1018.40,renewal:true},
+  {k:'84-85',label:'84 to 85',start:84,end:85,msl:2616,awl:900,A:9050.50,B:2674.90,STD:1398.70,ECA:9702.00,ECB:2088.40,ECSTD:1111.10,renewal:true},
+  {k:'86-88',label:'86 to 88',start:86,end:88,msl:2785,awl:900,A:9922.80,B:3080.40,STD:1571.90,ECA:9866.00,ECB:2119.90,ECSTD:1190.50,renewal:true},
+  {k:'89-90',label:'89 to 90',start:89,end:90,msl:2785,awl:900,A:10895.40,B:3295.40,STD:1774.60,ECA:9968.20,ECB:2193.00,ECSTD:1330.90,renewal:true},
+  {k:'91-93',label:'91 to 93',start:91,end:93,msl:2826,awl:900,A:11605.50,B:4682.10,STD:2604.80,ECA:10888.40,ECB:2297.20,ECSTD:1442.20,renewal:true},
+  {k:'94-95',label:'94 to 95',start:94,end:95,msl:2826,awl:900,A:12525.60,B:4682.10,STD:2845.20,ECA:11761.70,ECB:2715.00,ECSTD:1525.60,renewal:true},
+  {k:'96-98',label:'96 to 98',start:96,end:98,msl:2826,awl:900,A:12955.70,B:4773.70,STD:2981.70,ECA:13278.90,ECB:2923.80,ECSTD:1614.30,renewal:true},
+  {k:'99-100',label:'99 to 100',start:99,end:100,msl:2826,awl:900,A:13146.60,B:5106.20,STD:3252.70,ECA:13820.00,ECB:3132.70,ECSTD:1652.00,renewal:true},
+  {k:'above-100',label:'Above 100',start:101,end:101,msl:2826,awl:900,A:13146.60,B:5106.20,STD:3252.70,ECA:13820.00,ECB:3132.70,ECSTD:1652.00,renewal:true}
+];
+const SHIELD_BANDS = [
+  {k:'1-30',label:'1-30',cn:'1至30岁',start:1,end:30},
+  {k:'31-40',label:'31-40',cn:'31至40岁',start:31,end:40},
+  {k:'41-50',label:'41-50',cn:'41至50岁',start:41,end:50},
+  {k:'51-60',label:'51-60',cn:'51至60岁',start:51,end:60},
+  {k:'61-70',label:'61-70',cn:'61至70岁',start:61,end:70},
+  {k:'71-75',label:'71-75',cn:'71至75岁',start:71,end:75},
+  {k:'76-80',label:'76-80',cn:'76至80岁',start:76,end:80,renewal:true},
+  {k:'81-85',label:'81-85',cn:'81至85岁',start:81,end:85,renewal:true},
+  {k:'86-90',label:'86-90',cn:'86至90岁',start:86,end:90,renewal:true},
+  {k:'91-95',label:'91-95',cn:'91至95岁',start:91,end:95,renewal:true},
+  {k:'96-100',label:'96-100',cn:'96至100岁',start:96,end:100,renewal:true},
+  {k:'above-100',label:'Above 100',cn:'100岁以上',start:101,end:101,renewal:true}
+];
+function shieldRowsForBand(b){
+  return SHIELD_ROWS.filter(r => b.k==='above-100' ? r.k==='above-100' : r.start>=b.start && r.end<=b.end);
+}
+function shieldPlanField(p){ return p==='STD' ? 'STD' : p; }
+function shieldRiderField(p){ return p==='A' ? 'ECA' : p==='B' ? 'ECB' : 'ECSTD'; }
+function shieldPlanLabel(p){ return p==='STD' ? tr('Standard Plan','标准计划') : tr('Plan','计划')+' '+p; }
+function moneyRange(vals){
+  const clean = vals.filter(v => typeof v === 'number');
+  const min = Math.min(...clean), max = Math.max(...clean);
+  return Math.abs(min-max)<0.01 ? fmt2(min) : fmt2(min)+' - '+fmt2(max);
+}
+function compactMoney(n){
+  if(n>=1000) return 'S$'+(Math.round(n/100)/10).toFixed(1).replace('.0','')+'k';
+  return fmt2(n);
+}
+function compactMoneyRange(vals){
+  const clean = vals.filter(v => typeof v === 'number');
+  const min = Math.min(...clean), max = Math.max(...clean);
+  return Math.abs(min-max)<0.01 ? compactMoney(min) : compactMoney(min)+'-'+compactMoney(max);
+}
+function bandMoney(b,key){ return moneyRange(shieldRowsForBand(b).map(r=>r[key])); }
+function bandMoneyShort(b,key){ return compactMoneyRange(shieldRowsForBand(b).map(r=>r[key])); }
+function bandSumMoney(rows,...keys){ return moneyRange(rows.map(r=>keys.reduce((sum,k)=>sum+r[k],0))); }
+function bandCashMoney(rows,key){ return moneyRange(rows.map(r=>Math.max(0,r[key]-r.awl))); }
+function rShield(){
+  const s=S.shield, p=s.plan, band=SHIELD_BANDS.find(b=>b.k===s.band) || SHIELD_BANDS[1];
+  const selectedRows = shieldRowsForBand(band), planKey = shieldPlanField(p), riderKey = shieldRiderField(p);
+  const selectedBandLabel = tr(band.label,band.cn);
+  const premiumMarker = `${selectedBandLabel}: ${shieldPlanLabel(p)} ${bandMoneyShort(band,planKey)}`;
+  const ded = band.start>=81 ? 5250 : 3500;
+  const tl = ageline({a0:1, a1:100,
+    segs:[
+      {from:1,to:100,label:tr('Renewable for life','终身续保'),color:C.good,lane:1},
+      {from:1,to:75,label:tr('New entry window','可投保窗口'),color:C.axis,lane:2,dash:1}
+    ],
+    markers:[
+      {age:Math.min(band.end||100,100),label:premiumMarker,color:C.warn},
+      {age:41,label:tr('AWL S$600','医保额度600'),color:C.warn},
+      {age:71,label:tr('AWL S$900','医保额度900'),color:C.warn},
+      {age:76,label:tr('renewal only','仅限续保'),color:C.primaryDark},
+      {age:81,label:tr('deductible up','自付额上调'),color:C.primaryDark}
+    ],
+    payTo:100, payLabel:tr('yearly age-banded premiums','按年龄段年缴保费')});
+  const proration = p==='A' ? tr('Full cover in private hospital on Plan A','A计划私立医院全额保障')
+    : p==='B' ? tr('Private hospital claims pro-rated to 50% on Plan B','B计划在私立医院按50%比例赔付')
+    : tr('Standard Plan premiums shown for lower-cost IP comparison; check the Standard Plan benefit schedule before positioning.','标准计划保费用作较低成本IP对比；定位前请核对标准计划保障表。');
+  const policyLimit = p==='A' ? tr('S$2.5m panel / S$1m non-panel','合作医生250万/非合作100万')
+    : p==='B' ? 'S$1,000,000'
+    : tr('Standard Plan limits apply','按标准计划限额');
+  return head('HSBC Life Shield '+shieldPlanLabel(p),
+      tr('MediSave-approved Integrated Shield Plan on top of MediShield Life','公积金认可的综合健保双全计划，叠加于终身健保之上'),
+      p==='A'?tr('Private hospital','私立医院'):p==='B'?tr('Public A ward','公立A级病房'):tr('Standard IP','标准计划'),'navy','shield')
+    +`<div class="controls">${segBtns('shield','plan',[{v:'A',t:'Plan A'},{v:'B',t:'Plan B'},{v:'STD',t:'Standard Plan'}])}
+      ${ctrlSel('shield','band',tr('Age band','年龄段'),SHIELD_BANDS.map(b=>({v:b.k,t:tr(b.label,b.cn)})))}</div>`
+    +`<div class="tl-wrap">${tl}</div>
+    ${timelineNotes([
+      tr(`Selected band ${band.label}: ${shieldPlanLabel(p)} base private portion ${bandMoney(band,planKey)}; Enhanced Care II add-on ${bandMoney(band,riderKey)}`,`已选${band.cn}：${shieldPlanLabel(p)}基本私人部分${bandMoney(band,planKey)}；Enhanced Care II附加险${bandMoney(band,riderKey)}`),
+      tr('Guaranteed renewable for life; no lifetime claim limit','终身保证续保；无终身理赔上限'),
+      tr('Private portion uses MediSave AWL first, then cash if needed','私人保障部分先用医保储蓄限额，超出部分现金支付'),
+      tr('Enhanced Care II can reduce co-insurance to 5% and cap it for panel or restructured hospital care','Enhanced Care II可将共同承担降至5%，合作医生或公立医院可封顶')
+    ])}`
+    +`<section class="premium-selector">
+      <h3>${tr('Premium table by age band','按年龄段保费表')}</h3>
+      <p>${tr('Tap an age band to update the timeline marker and selected breakdown. Base plan columns show the additional private insurance coverage premium only. Enhanced Care II columns show the optional add-on rider premium. Where the official table has smaller sub-bands inside one decade band, the amount is shown as a range.','点击年龄段即可更新时间轴及已选明细。基本计划栏只显示额外私人保险保障保费。Enhanced Care II栏显示可选附加险保费。若官方表在同一十年段内再细分年龄，金额会以范围显示。')}</p>
+      <div class="premium-band-wrap"><table class="premium-band-table">
+        <thead>
+          <tr>
+            <th rowspan="2">${tr('Age next birthday','下次生日年龄')}</th>
+            <th class="center" colspan="3">${tr('Shield base plan private portion','Shield基本计划私人部分')}</th>
+            <th class="center" colspan="3">${tr('Enhanced Care II add-on','Enhanced Care II附加险')}</th>
+          </tr>
+          <tr>
+            <th>Plan A</th><th>Plan B</th><th>${tr('Standard Plan','标准计划')}</th>
+            <th>Plan A</th><th>Plan B</th><th>${tr('Standard Plan','标准计划')}</th>
+          </tr>
+        </thead>
+        <tbody>${SHIELD_BANDS.map(b=>{
+          return `<tr class="${band.k===b.k?'active':''}">
+            <td><button type="button" onclick="set('shield','band','${b.k}')">${tr(b.label,b.cn)}</button>${b.renewal?`<small>${tr('Renewal only','仅限续保')}</small>`:''}</td>
+            <td>${bandMoney(b,'A')}</td><td>${bandMoney(b,'B')}</td><td>${bandMoney(b,'STD')}</td>
+            <td>${bandMoney(b,'ECA')}</td><td>${bandMoney(b,'ECB')}</td><td>${bandMoney(b,'ECSTD')}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table></div>
+      <p class="mini-source">${tr('Source: HSBC Life Shield premium tables, 1 Apr 2026. Premium rates include 9% GST, apply to Singapore Citizens/PRs, and are Non-Guaranteed.','来源：HSBC Life Shield保费表，2026年4月1日。保费含9%消费税，适用于新加坡公民/永久居民，且为非保证。')}</p>
+    </section>`
+    +`<div class="cmp-grid">
+      <div class="cmp-card highlight-important"><h3>${tr('Selected band premium breakdown','已选年龄段保费明细')} ${selectedBandLabel}</h3>
+        ${row(tr('MediShield Life (MediSave)','终身健保（公积金全额）'),moneyRange(selectedRows.map(r=>r.msl)))}
+        ${row(`${shieldPlanLabel(p)} ${tr('base private portion','基本私人部分')}`,bandMoney(band,planKey))}
+        ${row(tr('Base total annual premium','基本计划总年缴保费'),bandSumMoney(selectedRows,'msl',planKey))}
+        ${row(tr('Estimated total MediSave-payable','预计总医保储蓄可付'),moneyRange(selectedRows.map(r=>r.msl+Math.min(r[planKey],r.awl))))}
+        ${row(tr('Estimated cash outlay for base plan','基本计划预计现金支出'),'<span style="color:var(--primary-dark)">'+bandCashMoney(selectedRows,planKey)+'</span>')}
+        ${row(tr('Enhanced Care II add-on for selected plan','已选计划Enhanced Care II附加险'),bandMoney(band,riderKey))}
+        ${row(tr('Base plan + Enhanced Care II before subsidies','基本计划加Enhanced Care II，未扣补贴'),bandSumMoney(selectedRows,'msl',planKey,riderKey))}
+      </div>
+      <div class="cmp-card highlight-important"><h3>${tr('One hospital bill, in order','一张住院账单的赔付顺序')}</h3>
+        ${row(tr('1. Deductible (per policy year)','1. 自付额（每保单年度）'),fmt(ded))}
+        ${row(tr('2. Co-insurance','2. 共同承担'),'10%')}
+        ${row(tr('3. Insurer pays the rest','3. 其余由保险公司承担'),tr('as charged','按实际费用'))}
+        ${row(star(tr('Policy year limit','保单年度限额')),policyLimit)}
+        <span class="note-chip">${proration}</span>
+      </div>
+      <div class="cmp-card highlight-attractive"><h3>${tr('Around the hospital stay','住院前后保障')}</h3>
+        ${row(tr('Pre-hospitalisation','住院前'),tr('90 / 180 days','90 / 180 天'))}
+        ${row(tr('Post-hospitalisation','住院后'),tr('180 / 365 days','180 / 365 天'))}
+        ${row(star(tr('Longer windows when','较长窗口适用于')),tr('panel or restructured hosp.','合作医生或公立医院'))}
+        ${row(star(tr('Enhanced Care II rider','Enhanced Care II 附加险')),tr('co-ins capped S$6,000/yr (5%, panel)','共担封顶每年6,000（5%，合作网络）'))}
+      </div>
+      <div class="cmp-card highlight-attractive"><h3>${tr('Panel & LOG','合作网络与担保信')}</h3>
+        ${row(star(tr('Private hospital LOG','私立医院担保信')),tr('call 6342 5292 at least 3 days before planned admission','计划住院前至少3天致电6342 5292'))}
+        ${row(tr('Restructured hospital LOG','公立医院担保信'),tr('deposit waiver up to S$120k or bill amount, lower of both','押金豁免最高12万或账单金额，以较低者为准'))}
+        ${row(star(tr('Panel GP / specialist','合作全科/专科')),tr('GP S$10; specialist S$130 first, S$100 follow-up','全科10；专科首诊130，复诊100'))}
+        ${row(tr('Dental panel','牙科网络'),tr('preferential fees; Shield covers dental only for accident during hospitalisation','优惠收费；Shield只保障住院期间意外牙科治疗'))}
+      </div>
+      <div class="cmp-card highlight-attractive"><h3>${tr('Enhanced Care II','Enhanced Care II')}</h3>
+        ${row(star(tr('Co-insurance','共同承担')),tr('5%; cap S$6,000/yr for panel or restructured care','5%；合作医生或公立医院每年封顶6,000'))}
+        ${row(star(tr('Planned overseas treatment','计划海外治疗')),tr('A/B up to S$50k p.a.; Standard S$25k, 90-day wait','A/B每年最高5万；标准计划2.5万，等待90天'))}
+        ${row(star(tr('Emergency outpatient accident','紧急门诊意外')),tr('A S$3k / B S$1.5k / Standard S$750 p.a.','A 3,000 / B 1,500 / 标准750 每年'))}
+        ${row(tr('Dementia cover','失智症保障'),tr('up to S$500 for consultation and prescribed medication','诊症及处方药最高500'))}
+        ${row(tr('TCM after hospitalisation','住院后中医'),tr('S$50/visit, up to 365 days after discharge','每次50，出院后最长365天'))}
+      </div>
+      <div class="cmp-card highlight-important"><h3>${tr('Cancer drugs','癌症药物')}</h3>
+        ${row(tr('Treatment vs services','治疗与服务'),tr('CDL drug-indication pairs vs consultations, scans, labs and administration','CDL药物-适应症组合；另含诊症、扫描、化验及给药服务'))}
+        ${row(tr('Shield Plan A/B','Shield A/B计划'),tr('CDL: 5x MediShield Life limits','CDL：终身健保限额5倍'))}
+        ${row(tr('Standard Plan','标准计划'),tr('CDL treatment 3x; services 2x','CDL治疗3倍；服务2倍'))}
+        ${row(star(tr('Enhanced Care II','Enhanced Care II')),tr('CDL 18x treatment + 15x services; non-CDL S$30k/mo A/B, S$5k/mo Standard','CDL治疗18倍+服务15倍；非CDL A/B每月3万，标准每月5,000'))}
+        ${row(star(tr('Non-CDL note','非CDL说明'),'important'),tr('classes A-E only; no co-insurance cap','仅A-E类别；无共同承担封顶'))}
+      </div>
+      <div class="cmp-card highlight-attractive"><h3>${tr('SavvyClaim & recovery','SavvyClaim与追偿')}</h3>
+        ${row(star(tr('Reward levels','折扣等级')),tr('10%, 12%, 15%, 18%, 20%','10%、12%、15%、18%、20%'))}
+        ${row(tr('Applies to','适用于'),tr('Enhanced Care II Plan A','Enhanced Care II A计划'))}
+        ${row(tr('Can retain/improve','可保留或提高'),tr('no claim, restructured care, or company-insurance recovery','无理赔、公立医院治疗或公司保险追偿'))}
+        ${row(star(tr('Claims recovery','理赔追偿'),'important'),tr('claim other insurer, complete notice, email docs, HSBC follows up','先向其他保险索赔，填通知书，电邮文件，HSBC跟进'))}
+        ${row(tr('Recovery email','追偿电邮'),'cc.life@mail.life.hsbc.com.sg')}
+      </div>
+    </div>
+    <details class="rules"><summary>${tr('Key rules','主要规则')}</summary>
+      <p>${tr('Singapore Citizens and PRs only. Two parts: MediShield Life (CPF Board) plus HSBC Life private coverage. Waiting periods: 300 days pregnancy complications, 365 days congenital and high-cost drugs, 730 days living donor transplant.','仅限新加坡公民及永久居民。保单由两部分组成：终身健保（公积金局）加汇丰人寿私人保障。等待期：妊娠并发症300天，先天性疾病及高价药物365天，活体器官捐赠移植730天。')}</p>
+      <p>${tr('Estimated total premiums age 1 to 100: Plan A S$366,688 (cash S$309,688), Plan B S$115,882 (cash S$70,148). Source: PS Ver 7.1 p9.','1至100岁估算总保费：A计划366,688新元（现金309,688），B计划115,882新元（现金70,148）。来源：产品摘要7.1版第9页。')}</p>
+      <p>${tr('Premium table notes: premium rates include 9% GST, are for Singapore Citizens/PRs and are Non-Guaranteed. Age bands 76 and above are renewal only. MediShield Life premiums may differ due to subsidies, rebates or additional premiums.','保费表说明：保费含9%消费税，适用于新加坡公民/永久居民，且为非保证。76岁及以上年龄段仅限续保。终身健保保费会因补贴、回扣或额外保费而不同。')}</p>
+      <p>${tr('Claims recovery process: submit the claim to the other insurer first, complete the HSBC Life Shield Claims Recovery Notice, then email the notice and supporting documents to cc.life@mail.life.hsbc.com.sg.','理赔追偿流程：先向其他保险公司提交理赔，填写HSBC Life Shield Claims Recovery Notice，再把通知书及证明文件电邮至cc.life@mail.life.hsbc.com.sg。')}</p>
+    </details>`;
+}
+
+/* ================= SUPER CRITICARE ================= */
+const SCC_CLAIMS = [
+  {y:2, en:'Early stage cancer', cn:'早期癌症', pct:100},
+  {y:4, en:'Re-diagnosed cancer (24-mth wait met)', cn:'癌症复发（已满24个月等待期）', pct:100},
+  {y:6, en:'Heart attack (different CI, 12-mth wait met)', cn:'心脏病（不同重疾，已满12个月等待期）', pct:100},
+  {y:8, en:'Recurrent heart attack (24-mth wait met)', cn:'心脏病复发（已满24个月）', pct:0, capped:'300'},
+  {y:9, en:'Advanced kidney failure', cn:'晚期肾衰竭', pct:100},
+  {y:11,en:'Advanced stage stroke', cn:'晚期中风', pct:0, capped:'300'},
+  {y:12,en:'Major organ transplant', cn:'重大器官移植', pct:100},
+  {y:14,en:'Advanced Parkinson’s disease', cn:'晚期帕金森病', pct:100},
+  {y:16,en:'Severe rheumatoid arthritis (Special, +10%)', cn:'严重类风湿关节炎（特别保障，另加10%）', pct:10, special:1}
+];
+function rScc(){
+  const s=S.scc;
+  const endAge = s.mode==='toage' ? s.toAge : Math.min(99, s.age + Math.ceil((76-s.age)/s.term)*s.term);
+  const lastRen = {5:75,10:75,15:75,20:75,25:74,30:69}[s.term];
+  const segs=[{from:s.age,to:endAge,label:tr('CI cover up to 600%','重疾最高600%'),color:C.primaryDark,lane:1}];
+  const markers=[{age:Math.min(85,endAge),label:tr('Alzheimer’s ends','阿尔茨海默终止'),color:C.warn}];
+  if(s.mode==='ren'){
+    for(let a=s.age+s.term; a<endAge; a+=s.term) markers.push({age:a,label:tr('renews','续保'),color:C.axis});
+    markers.push({age:Math.min(lastRen,endAge),label:tr('last renewal','最后续保'),color:C.primaryDark});
+  }
+  const tl = ageline({a0:s.age, a1:endAge, segs, markers, payTo:endAge,
+    payLabel:tr('term premiums','定期保费')});
+  /* claim stack */
+  let cum=0, segsHtml='';
+  const shown = SCC_CLAIMS.slice(0, s.claims);
+  shown.forEach(c=>{
+    if(c.special){ segsHtml += `<div style="width:5%;background:${C.accent}" title="+10% special conditions">+10%</div>`; return; }
+    if(c.capped){ return; }
+    cum += c.pct;
+    segsHtml += `<div style="width:${100/6}%;background:${cum<=300?C.primaryDark:C.secondary}">${cum}%</div>`;
+  });
+  const capHit = shown.some(c=>c.capped);
+  return head('HSBC Life Super CritiCare',
+      tr('Multi-claim critical illness, early to advanced stage','多重赔付重疾险，覆盖早期至晚期'),
+      tr('Pays up to 600% of SA','累计最高赔付保额600%'),'','scc')
+    +`<div class="controls">
+      ${segBtns('scc','mode',[{v:'toage',t:tr('To age','保至指定年龄')},{v:'ren',t:tr('Renewable','可续保定期')}])}
+      ${s.mode==='toage'
+        ? ctrlSel('scc','toAge',tr('Cover to age','保障至'),[50,55,60,65,70,75].map(a=>({v:a,t:a})))
+        : ctrlSel('scc','term',tr('Term (years)','保障期（年）'),[5,10,15,20,25,30].map(t=>({v:t,t:t})))}
+      ${ctrlNum('scc','age',tr('Entry age','投保年龄'),1,1,74)}
+      ${ctrlNum('scc','sa',tr('Sum assured S$','保额（新元）'),10000,50000,350000)}
+    </div>`
+    +`<div class="tl-wrap">${tl}</div>
+    ${timelineNotes([
+      tr('Can be a standalone basic plan or a rider attached to selected HSBC Life plans','可作为独立基本计划，或作为附加险附加于指定汇丰人寿计划'),
+      tr('Each eligible CI claim pays 100% of sum assured','每次合资格重疾理赔为保额100%'),
+      tr('Overall policy cap is 600% of sum assured','整张保单累计上限为保额600%'),
+      tr('Diabetes Care renews yearly while diabetes is confirmed by appointed doctors','如指定医生确认仍患糖尿病，糖尿病关护计划每年续期')
+    ])}`
+    +`<h3 style="margin-top:16px;font-size:15px;">${tr('Claim stack - walk a client through repeated claims','理赔叠加演示 - 向客户展示多次理赔')}</h3>
+     <div class="stackbar">${segsHtml||`<div style="width:100%;background:transparent;color:${C.faint}">${tr('press Add claim','点击 添加理赔')}</div>`}</div>
+     <div class="claimbtns">
+       <button class="primary" onclick="set('scc','claims',Math.min(${SCC_CLAIMS.length},S.scc.claims+1))">${tr('Add claim','添加理赔')}</button>
+       <button onclick="set('scc','claims',0)">${tr('Reset','重置')}</button>
+     </div>
+     <div>${shown.map(c=>`<span class="${c.capped?'note-chip':'ok-chip'}">${tr('Yr','第')} ${c.y}${tr('',' 年')}: ${tr(c.en,c.cn)} ${c.capped?tr('- not paid, cancer/heart/stroke 300% cap reached','- 不予赔付，癌症/心脏病/中风合计已达300%上限'):(c.special?'+'+fmt(Math.min(.1*S.scc.sa,25000)):'+'+fmt(S.scc.sa))}</span>`).join('')}</div>
+     ${capHit?`<p class="muted" style="margin-top:6px;font-size:12.5px;">${tr('Cancers, heart attacks and strokes share a combined 300% cap; the overall policy cap is 600% of SA.','癌症、心脏病与中风合计上限为保额的300%；整张保单的总上限为保额的600%。')}</p>`:''}
+    <div class="cmp-grid">
+      <div class="cmp-card"><h3>${tr('Per-claim mechanics','单次理赔规则')}</h3>
+        ${row(tr('Each CI claim','每次重疾理赔'),tr('100% of SA','保额的100%'))}
+        ${row(tr('Early/intermediate cap','早期/中期单项上限'),'S$350,000')}
+        ${row(tr('Same CI to advanced','同一重疾进展至晚期'),tr('no wait, remaining SA','无等待期，赔余额'))}
+        ${row(tr('Different CI','不同重疾'),tr('12-month wait','等待12个月'))}
+        ${row(tr('Cancer/heart/stroke recurrence','癌症/心脏病/中风复发'),tr('24-month wait','等待24个月'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Extras that do not reduce SA','不扣减保额的额外保障')}</h3>
+        ${row(tr('Special conditions','特别疾病'),tr('11 conditions, +10% SA, max S$25k each','11种疾病，另加保额10%，每项上限2.5万'))}
+        ${row(tr('Juvenile, below 18','未满18岁少儿疾病'),tr('10 conditions, +10% SA, max S$25k each','10种疾病，另加保额10%，每项上限2.5万'))}
+        ${row(tr('Diabetes Care Programme','糖尿病关护计划'),tr('worth S$2,500 p.a., no SA reduction','价值每年2,500新元，不扣减保额'))}
+        ${row(tr('Death benefit','身故给付'),tr('S$10,000, basic plan only','1万新元，仅适用于基本计划'))}
+        ${row(tr('Optional premium waivers','可选保费豁免'),tr('ECIUN, payer eraser, involuntary income cover','ECIUN、投保人豁免、非自愿失业保障'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Timing rules','时间规则')}</h3>
+        ${row(tr('Initial waiting period','初始等待期'),tr('90 days (early/intermediate, heart & cancer)','90天（早中期及心脏/癌症类）'))}
+        ${row(tr('Survival period','生存期'),tr('7 days','7天'))}
+        ${row(tr('Last renewal age','最后续保年龄'),tr('75 (5-20y) / 74 (25y) / 69 (30y)','75（5-20年）/74（25年）/69（30年）'))}
+        ${row(tr('Max expiry age','最高满期年龄'),'99')}
+      </div>
+    </div>`;
+}
+
+/* ================= PRIME CARE ================= */
+const PC = {
+  cancer:[5000,10000,15000], death:[1000,2000,3000], rb:[80,150,250], icu:[160,300,500],
+  surg:{cx:[1600,3000,5000], mj:[800,1500,2500], it:[400,750,1250], mn:[160,300,500]},
+  ann:[16000,30000,50000], life:[80000,150000,250000], addAnn:[10000,15000,20000], addLife:[50000,75000,100000]
+};
+function rPc(){
+  const s=S.pc, i=s.plan-1;
+  const tl = ageline({a0:s.age, a1:86,
+    segs:[{from:s.age,to:85,label:tr('Renewable to age 85','续保至85岁'),color:C.good,lane:1}],
+    markers:[
+      {age:65,label:tr('last entry band','最后投保年龄段'),color:C.warn},
+      {age:85,label:tr('last renewal','最后续保'),color:C.primaryDark},
+      {age:86,label:tr('ends','终止'),color:C.primaryDark}
+    ],
+    payTo:85, payLabel:tr('yearly age-banded premiums','按年龄段年缴保费')});
+  return head('HSBC Life Prime Care '+tr('Plan','计划')+' '+s.plan,
+      tr('Hospital cash and surgical plan that pays on top of your medical insurance','住院现金及手术计划，在医疗保险之外另行给付'),
+      tr('Cash benefits','现金给付'),'','pc')
+    +`<div class="controls">${segBtns('pc','plan',[{v:1,t:'Plan 1'},{v:2,t:'Plan 2'},{v:3,t:'Plan 3'}])}
+      ${ctrlNum('pc','age',tr('Entry age','投保年龄'),1,1,65)}</div>`
+    +`<div class="tl-wrap">${tl}</div>
+    ${timelineNotes([
+      tr('24-hour worldwide coverage','24小时全球保障'),
+      tr('Yearly renewal is available to age 85, regardless of health condition or claims made','每年可续保至85岁，不受健康状况或理赔次数影响'),
+      tr('No-claim discount can step from 10% to 30%','无理赔折扣可由10%递增至30%')
+    ])}`
+    +`<table class="sched"><tr><th>${tr('Benefit','保障项目')}</th><th>Plan 1</th><th>Plan 2</th><th>Plan 3</th></tr>
+      ${[['cancer',tr('First major cancer diagnosis (lump sum, once)','首次确诊重大癌症（一次性给付）'),PC.cancer],
+         ['rb',tr('Daily room & board (max 90 days/condition)','每日住院津贴（每病况最多90天）'),PC.rb],
+         ['icu',tr('Daily ICU (max 45 days/condition)','每日重症监护（每病况最多45天）'),PC.icu],
+         ['cx',tr('Surgical - complex','手术 - 复杂'),PC.surg.cx],
+         ['mj',tr('Surgical - major','手术 - 大型'),PC.surg.mj],
+         ['ann',tr('Annual in-patient limit','住院年度限额'),PC.ann],
+         ['life',tr('Lifetime in-patient limit','住院终身限额'),PC.life],
+         ['addAnn',tr('Dialysis / cancer treatment / transplant (each, annual)','透析/癌症治疗/器官移植（每项年度）'),PC.addAnn],
+         ['addLife',tr('Lifetime limit for additional benefits','额外保障终身限额'),PC.addLife],
+         ['death',tr('Death benefit','身故给付'),PC.death]]
+        .map(rw=>`<tr class="${false?'hl':''}"><td>${rw[1]}</td>${rw[2].map((v,j)=>`<td style="${j===i?'background:#eef7ef;font-weight:700':''}">${fmt(v)}</td>`).join('')}</tr>`).join('')}
+    </table>
+    <div class="cmp-grid">
+      <div class="cmp-card"><h3>${tr('How surgical payout works','手术给付规则')}</h3>
+        ${row(tr('Trigger','触发条件'),tr('surgical operation by physician with local or general anaesthetic','由医生进行并涉及局部或全身麻醉的手术'))}
+        ${row(tr('Same incision','同一切口'),tr('pays the highest complexity procedure only','按最高复杂程度的手术给付'))}
+        ${row(tr('Different incisions','不同切口'),tr('100% of highest complexity + 50% of each other procedure','最高复杂程度给100%，其他每项给50%'))}
+        ${row(tr('Unlisted procedure','未列明手术'),tr('matched to nearest appropriate procedure at HSBC Life discretion','由HSBC Life酌情匹配最接近的合适手术'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Premium & occupation notes','保费与职业等级')}</h3>
+        ${row(tr('Age basis','年龄基础'),tr('age nearest birthday; premium rises at next age band','按最接近生日年龄；进入下一年龄段时保费上调'))}
+        ${row(tr('Premium rates','保费率'),tr('Non-Guaranteed; may be reviewed from time to time','非保证；可不时检讨'))}
+        ${row(tr('Class 1 / 2','职业1/2类'),tr('rates shown in table','适用表中费率'))}
+        ${row(tr('Class 3','职业3类'),tr('1.25x before discounts and GST','折扣及消费税前为1.25倍'))}
+        ${row(tr('Class 4','职业4类'),tr('1.5x before discounts and GST','折扣及消费税前为1.5倍'))}
+      </div>
+    </div>
+    <div style="margin-top:10px;">
+      <span class="ok-chip">${tr('No-claim discount: 10% after 1 year, 20% after 2, 30% after 3+','无理赔折扣：1年10%，2年20%，3年及以上30%')}</span>
+      <span class="note-chip">${tr('90-day waiting period for the cancer benefit','癌症给付设90天等待期')}</span>
+      <span class="note-chip">${tr('Reimbursement items coordinate with Shield/other policies','报销项目与健保计划及其他保单协调，不超过实际费用')}</span>
+    </div>
+    <details class="rules"><summary>${tr('Sample premiums (Plan 3, male, incl GST)','保费示例（计划3，男性，含消费税）')}</summary>
+      <p>${tr('Up to 18: S$219.61 - 31-35: S$362.51 - 61-65: S$1,013.83 - 84-85 (renewal only): S$3,560.44 per year. Bands 66 and above are renewal only. Source: PS Dec 2025 s3.','18岁以下：219.61 - 31至35岁：362.51 - 61至65岁：1,013.83 - 84至85岁（仅续保）：3,560.44新元/年。66岁及以上年龄段仅限续保。来源：2025年12月产品摘要第3节。')}</p>
+    </details>`;
+}
+
+/* ================= LIFE TREASURE III ================= */
+const LT3_COMBOS = [
+  {k:'A',sa:140000,mult:2.5,dirEn:'Stronger long-term base coverage',dirCn:'长期基础保障较强'},
+  {k:'B',sa:100000,mult:3.5,dirEn:'Balanced whiteboard example',dirCn:'平衡型白板例子'},
+  {k:'C',sa:78000,mult:4.5,dirEn:'Higher multiplier, lower basic SA',dirCn:'较高倍数，较低基本保额'},
+  {k:'D',sa:59000,mult:6,dirEn:'Lowest basic SA, strongest multiplier direction',dirCn:'最低基本保额，最高倍数方向'}
+];
+function lt3ComboSa(c,target){ return Math.ceil((target/c.mult)/1000)*1000; }
+function setLt3Combo(k){
+  const c = LT3_COMBOS.find(x=>x.k===k);
+  if(!c) return;
+  S.lt3.combo = k;
+  S.lt3.sa = lt3ComboSa(c,S.lt3.target);
+  S.lt3.mult = c.mult;
+  render();
+}
+function rLt3(){
+  const s=S.lt3, end=99;
+  const steps=[1,.9,.8,.7,.6,.5];
+  const multCover = s.sa*s.mult;
+  const floorAge = Math.min(s.mca+5,end);
+  const floorCover = multCover*.5;
+  const payEndAge = Math.min(s.age+s.pay,end);
+  const activeCombo = LT3_COMBOS.find(c=>c.k===s.combo && Number(lt3ComboSa(c,s.target))===Number(s.sa) && Number(c.mult)===Number(s.mult))
+    || LT3_COMBOS.find(c=>Number(lt3ComboSa(c,s.target))===Number(s.sa) && Number(c.mult)===Number(s.mult));
+  const comboLabel = activeCombo ? activeCombo.k : tr('Custom','自定义');
+  const comboDirection = activeCombo ? tr(activeCombo.dirEn,activeCombo.dirCn) : tr('Manual custom structure','手动自定义结构');
+  const coverageGap = multCover - s.target;
+  const needLabels = [tr('Death','身故')];
+  if(s.tpd) needLabels.push('TPD');
+  if(s.earlyCi) needLabels.push(tr('Early CI','早期重疾'));
+  if(s.advCi) needLabels.push(tr('Advanced CI','晚期重疾'));
+  const segs=[
+    {from:s.age,to:s.mca,label:tr(`${fmt(multCover)} working-years cover`,`${fmt(multCover)}工作年期保障`),color:C.primaryDark,lane:1},
+    {from:s.mca,to:floorAge,label:tr('10% yearly step-down','每年递减10%'),color:C.warn,lane:1,dash:1},
+    {from:s.mca+5,to:end,label:tr('50% floor after step-down','递减后50%底线'),color:C.axis,lane:1},
+    {from:s.age,to:80,label:tr('Accidental death double','意外身故双倍'),color:C.accent,lane:2,dash:1}
+  ];
+  if(s.tpd || s.earlyCi || s.advCi) segs.push({from:s.age,to:Math.min(s.mca,80),label:tr('Selected TPD / CI rider layer','已选全残/重疾附加层'),color:C.good,lane:0,dash:1});
+  const markers=[{age:s.mca,label:tr('Multiplier age','倍数年龄'),color:C.primaryDark}];
+  for(let k=1;k<=4;k++) if(s.mca+k<end) markers.push({age:s.mca+k,label:`${100-10*k}%`,color:C.warn});
+  markers.push({age:99,label:tr('matures','满期'),color:C.good});
+  const tl = ageline({a0:s.age, a1:end, segs, markers,
+    payTo:s.age+s.pay, payLabel:tr(`pay ${s.pay} years`,`缴费${s.pay}年`)});
+  const fitProfiles = [
+    tr('Young working adults with new income who want to lock in protection early.','刚开始有稳定收入、希望趁早锁定保障的年轻在职人士。'),
+    tr('Newly married clients or those planning to start a family.','新婚或准备组建家庭的客户。'),
+    tr('Clients with mortgage, loans, children or dependants.','有房贷、贷款、孩子或家属责任的客户。'),
+    tr('Clients who want death, TPD and terminal illness protection up to age 99.','希望身故、全残及末期疾病保障延续至99岁的客户。'),
+    tr('Clients who want to add critical illness coverage for income replacement during recovery.','希望加入重疾保障，在康复期间替代收入的客户。'),
+    tr('Clients who want some cash value, not just pure term insurance.','希望保单具备一定现金价值，而不只是纯定期保障的客户。'),
+    tr('Parents who want to give their child an early whole life insurance foundation.','想为孩子尽早建立终身寿险基础的父母。'),
+    tr('Clients in their 40s to 50s whose older policies may now be under-covered.','40至50多岁、旧保单保障额可能已不足的客户。')
+  ];
+  const notIdeal = [
+    tr('Someone who only wants investment returns.','只追求投资回报的人。'),
+    tr('Someone who needs very short-term liquidity.','短期内需要高度流动性的人。'),
+    tr('Someone with very tight cash flow.','现金流非常紧的人。'),
+    tr('Someone who only needs cheap temporary coverage, where term insurance may fit better.','只需要便宜短期保障的人；定期寿险可能更合适。'),
+    tr('Someone with health issues, unless underwriting terms are acceptable.','已有健康状况的人，除非核保条件可以接受。')
+  ];
+  const pitchSteps = [
+    {
+      h:tr('Fix the constants first','先固定常数'),
+      b:tr(`Client age ${s.age}, budget about ${fmt(s.budget)}/year, desired working-years coverage ${fmt(s.target)}, needs ${needLabels.join(' + ')}.`,`客户${s.age}岁，预算约${fmt(s.budget)}/年，工作年期目标保障${fmt(s.target)}，需求为${needLabels.join(' + ')}。`)
+    },
+    {
+      h:tr('Choose the combination','选择组合'),
+      b:tr(`Combination ${comboLabel} uses ${fmt(s.sa)} basic sum assured and ${s.mult}x multiplier. Direction: ${comboDirection}.`,`组合${comboLabel}使用${fmt(s.sa)}基本保额及${s.mult}倍。方向：${comboDirection}。`),
+      eq:tr(`${fmt(s.sa)} x ${s.mult} = ${fmt(multCover)}`,`${fmt(s.sa)} x ${s.mult} = ${fmt(multCover)}`)
+    },
+    {
+      h:tr('Choose the premium payment term','选择缴费年期'),
+      b:tr(`Pay for ${s.pay} years, roughly to age ${payEndAge}. Shorter payment usually means higher yearly cash flow; longer payment spreads the commitment.`,`缴费${s.pay}年，大约至${payEndAge}岁。较短缴费期通常年缴较高；较长缴费期则把现金流压力拉长。`)
+    },
+    {
+      h:tr('Add the multiplier for the heavy-responsibility years','为责任最高的年期加倍数'),
+      b:tr(`During the high-responsibility years, the basic sum assured is multiplied by ${s.mult}x. This is the whiteboard number clients remember.`,`在家庭责任最高的年期，基本保额乘以${s.mult}倍。这就是客户最容易记住的白板数字。`),
+      eq:tr(`${fmt(s.sa)} x ${s.mult} = ${fmt(multCover)}`,`${fmt(s.sa)} x ${s.mult} = ${fmt(multCover)}`)
+    },
+    {
+      h:tr('Pick the drop-off age','选择倍数到几岁'),
+      b:tr(`Keep the multiplier until age ${s.mca}. Match this to mortgage, children’s education, retirement age or when responsibilities should be lower.`,`倍数保障维持至${s.mca}岁。这个年龄应配合房贷、孩子教育、退休年龄，或家庭责任预计降低的时间点。`)
+    },
+    {
+      h:tr('Explain the step-down and age 99 ending','解释递减和99岁'),
+      b:tr(`After age ${s.mca}, the multiplier steps down by 10% each year until a 50% floor from age ${floorAge} to 99. The policy then becomes more about long-term cover, cash value and legacy.`,`在${s.mca}岁后，倍数保障每年递减10%，至${floorAge}岁后维持50%底线直到99岁。之后重点会从高额保障转向长期保障、现金价值和传承。`),
+      eq:tr(`50% floor: ${fmt(floorCover)} to age 99`,`${fmt(floorCover)}的50%底线至99岁`)
+    }
+  ];
+  const pitchLayers = [
+    {
+      h:tr('Core cover first','先讲核心保障'),
+      b:tr('Explain the life-event cover first: death, terminal illness and TPD treatment based on the final plan setup.','先解释人生事件保障：身故、末期疾病及全残如何按最终计划配置处理。')
+    },
+    {
+      h:tr('Then add recovery-income riders','再加康复收入附加险'),
+      b:tr('If the client worries about income during recovery, position Early CI, Advanced CI and selected CI riders as recovery cash, not hospital-bill cover.','如果客户担心康复期间收入中断，可把早期重疾、晚期重疾及相关重疾附加险定位为康复现金，而不是住院账单保障。')
+    },
+    {
+      h:tr('Finally protect the premium commitment','最后保护缴费能力'),
+      b:tr('Use premium waiver or payer waiver when the concern is: “What if I cannot keep paying after illness, disability or income shock?”','当客户担心“如果生病、失能或收入受冲击，我还能不能继续缴保费？”时，可说明保费豁免或投保人豁免。')
+    }
+  ];
+  const decisionRows = [
+    [tr('Lower yearly premium','较低年缴保费'),tr('Use higher multiplier, lower basic SA and longer payment term direction.','偏向较高倍数、较低基本保额及较长缴费年期。')],
+    [tr('Stronger long-term base coverage','较强长期基础保障'),tr('Use higher basic SA and lower multiplier.','偏向较高基本保额、较低倍数。')],
+    [tr('More cash value / legacy angle','更重现金价值/传承角度'),tr('Use higher basic SA and shorter payment term where cash flow allows.','现金流允许时，偏向较高基本保额及较短缴费年期。')],
+    [tr('Strong protection during working years','工作年期需要高保障'),tr('Use multiplier age 70 or 80, aligned to mortgage, children or retirement.','倍数年龄可选70或80，配合房贷、孩子或退休节奏。')],
+    [tr('Budget very tight','预算很紧'),tr('Reduce basic SA, review riders and extend payment term before cutting core protection.','先降低基本保额、检视附加险及延长缴费年期，再考虑削减核心保障。')],
+    [tr('CI is important','重疾很重要'),tr('Keep Early CI and Advanced CI; reduce elsewhere if needed.','尽量保留早期及晚期重疾；必要时从其他部分调整。')]
+  ];
+  return head('HSBC Life - Life Treasure III',
+      tr('Participating whole life cover to age 99 with a protection multiplier','分红终身寿险，保障至99岁，附保障倍数'),
+      tr('Whole of life','终身'),'','lt3')
+    +`<div class="cmp-grid">
+      <div class="cmp-card highlight-attractive"><h3>${tr('Best fit client profiles','最适合的客户类型')}</h3>
+        <ul class="value-card-list">${fitProfiles.map(p=>`<li>${p}</li>`).join('')}</ul>
+      </div>
+      <div class="cmp-card highlight-important"><h3>${tr('Simple positioning','简单定位')}</h3>
+        <p style="font-size:13px;color:var(--grey);line-height:1.5;">${tr('Life Treasure III is suitable if you want protection for your family and yourself, especially during the years when your income, mortgage, children and responsibilities are highest.','如果你希望在收入、房贷、孩子和家庭责任最高的阶段，同时保障自己和家人，Life Treasure III 会比较适合。')}</p>
+        <div class="timeline-notes" style="margin-top:10px;">
+          <span>${tr('Family protection','家庭保障')}</span>
+          <span>${tr('Working-years multiplier','工作年期倍数保障')}</span>
+          <span>${tr('Cash value element','现金价值元素')}</span>
+        </div>
+      </div>
+      <div class="cmp-card"><h3>${tr('Not ideal for','不太适合')}</h3>
+        <ul class="value-card-list">${notIdeal.map(p=>`<li>${p}</li>`).join('')}</ul>
+      </div>
+    </div>
+    <section class="pitch-panel">
+      <h3>${tr('Client constants and levers','客户常数与可调变量')}</h3>
+      <p>${tr('Fix the client constants first, then use the levers below to play with the structure. The budget number is a planning anchor, not a quotation.','先固定客户的常数，再用下面的变量调整结构。预算数字是规划锚点，不是正式报价。')}</p>
+      <div class="stage-flow">
+        <div class="stage-card"><b>${tr('Client','客户')}</b><span>${tr('Age','年龄')} ${s.age}; ${tr('budget about','预算约')} ${fmt(s.budget)}/${tr('yr','年')}</span></div>
+        <div class="stage-card"><b>${tr('Required coverage','所需总保障')}</b><span>${fmt(s.target)} ${tr('during the working years','在工作责任最高年期')}</span></div>
+        <div class="stage-card"><b>${tr('Coverage need','保障需求')}</b><span>${needLabels.join(' + ')}</span></div>
+        <div class="stage-card"><b>${tr('Selected structure','已选结构')}</b><span>${tr('Combination','组合')} ${comboLabel}: ${comboDirection}</span></div>
+      </div>
+      <span class="pitch-equation">${tr('Core formula','核心公式')}: ${fmt(s.sa)} x ${s.mult} = ${fmt(multCover)}</span>
+    </section>
+    <section class="premium-selector">
+      <h3>${tr('Combination selector','组合选择器')}</h3>
+      <p>${tr('Click a combination to set the basic sum assured and multiplier for the current target coverage. For a S$350k target, this mirrors the whiteboard example.','点击组合即可按当前目标保障额设定基本保额和倍数。目标为35万时，这会对应白板例子。')}</p>
+      <div class="premium-band-wrap"><table class="premium-band-table">
+        <thead><tr>
+          <th>${tr('Combination','组合')}</th>
+          <th>${tr('Basic Sum Assured','基本保额')}</th>
+          <th>${tr('Multiplier','倍数')}</th>
+          <th>${tr('Total Coverage','总保障额')}</th>
+          <th>${tr('Direction','方向')}</th>
+        </tr></thead>
+        <tbody>${LT3_COMBOS.map(c=>{
+          const comboSa = lt3ComboSa(c,s.target), comboTotal = comboSa*c.mult;
+          return `<tr class="${activeCombo && activeCombo.k===c.k?'active':''}">
+            <td><button type="button" onclick="setLt3Combo('${c.k}')">${tr('Combination','组合')} ${c.k}</button></td>
+            <td>${fmt(comboSa)}</td>
+            <td>${c.mult}x</td>
+            <td>${fmt(comboTotal)}</td>
+            <td>${tr(c.dirEn,c.dirCn)}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table></div>
+      <p class="mini-source">${tr('Rounding note: basic sum assured is rounded up to the nearest S$1,000 for quick planning. A policy illustration is still needed for exact premium and values.','四舍五入说明：基本保额按最接近的上调至1,000新元作快速规划。准确保费及价值仍须以保单利益演示为准。')}</p>
+    </section>
+    <div class="controls">
+      ${ctrlNum('lt3','age',tr('Entry age','投保年龄'),1,1,70)}
+      ${ctrlNum('lt3','budget',tr('Budget S$/yr','预算（新元/年）'),100,0,50000)}
+      ${ctrlNum('lt3','target',tr('Desired total coverage S$','目标总保障（新元）'),10000,50000,5000000)}
+      ${ctrlNum('lt3','sa',tr('Basic sum assured S$','基本保额（新元）'),10000,50000,2000000)}
+      ${ctrlSel('lt3','mult',tr('Multiplier','倍数'),[2.5,3.5,4.5,6].map(m=>({v:m,t:m+'x'})))}
+      ${ctrlSel('lt3','mca',tr('Multiplier to age','倍数保障至'),[65,70,80].map(a=>({v:a,t:a})))}
+      ${ctrlSel('lt3','pay',tr('Premium term','缴费年期'),[10,15,20,25,30].map(p=>({v:p,t:p+tr(' yrs','年')})))}
+    </div>
+    <div class="claimbtns">
+      <button class="${s.tpd?'primary':''}" onclick="set('lt3','tpd',${!s.tpd})">TPD</button>
+      <button class="${s.earlyCi?'primary':''}" onclick="set('lt3','earlyCi',${!s.earlyCi})">${tr('Early CI','早期重疾')}</button>
+      <button class="${s.advCi?'primary':''}" onclick="set('lt3','advCi',${!s.advCi})">${tr('Advanced CI','晚期重疾')}</button>
+    </div>`
+    +`<div class="tl-wrap">${tl}</div>
+    ${timelineNotes([
+      tr(`Target ${fmt(s.target)}; selected working-years cover ${fmt(multCover)} (${coverageGap>=0?'+':''}${fmt(coverageGap)} vs target)`,`目标${fmt(s.target)}；已选工作年期保障${fmt(multCover)}（相对目标${coverageGap>=0?'+':''}${fmt(coverageGap)}）`),
+      tr(`Budget anchor ${fmt(s.budget)}/yr; exact premium needs policy illustration`,`预算锚点${fmt(s.budget)}/年；准确保费须以保单利益演示为准`),
+      tr('Multiplier benefit steps down after the chosen multiplier age','保障倍数在所选倍数年龄后逐步递减'),
+      tr('All Values Non-Guaranteed','所有数值均非保证'),
+      tr('Multiplier can apply to basic benefits, accidental death and eligible CI riders','保障倍数可适用于基本保障、意外身故及合资格重疾附加险')
+    ])}`
+    +`<section class="pitch-panel">
+      <h3>${tr('Step-by-step timeline pitch','时间轴逐步话术')}</h3>
+      <p>${tr('Use this when explaining the whiteboard timeline. The numbers update when you change entry age, sum assured, multiplier, drop-off age or payment term.','讲解白板时间轴时可按这个顺序。投保年龄、基本保额、倍数、倍数年龄或缴费年期改变时，下方数字会同步更新。')}</p>
+      <div class="stage-flow">${pitchSteps.map((p,i)=>`<div class="stage-card pitch-step">
+        <b data-step="${i+1}">${p.h}</b>
+        <span>${p.b}</span>
+        ${p.eq?`<span class="pitch-equation">${p.eq}</span>`:''}
+      </div>`).join('')}</div>
+    </section>
+    <div class="cmp-grid">
+      <div class="cmp-card highlight-important"><h3>${tr('Whiteboard example from current controls','当前设定的白板例子')}</h3>
+        ${row(tr('Combination','组合'),comboLabel)}
+        ${row(tr('Entry age','投保年龄'),s.age)}
+        ${row(tr('Budget anchor','预算锚点'),fmt(s.budget)+'/'+tr('yr','年'))}
+        ${row(tr('Desired total coverage','目标总保障'),fmt(s.target))}
+        ${row(tr('Coverage need','保障需求'),needLabels.join(' + '))}
+        ${row(tr('Basic sum assured','基本保额'),fmt(s.sa))}
+        ${row(tr('Multiplier amount','倍数保障额'),`${s.mult}x = ${fmt(multCover)}`)}
+        ${row(tr('Gap against target','相对目标差额'),(coverageGap>=0?'+':'')+fmt(coverageGap))}
+        ${row(tr('Keep high cover until','高额保障至'),tr('age '+s.mca,s.mca+'岁'))}
+        ${row(tr('Step-down floor','递减后底线'),fmt(floorCover))}
+        ${row(tr('Whole-life endpoint','终身终点'),tr('age 99','99岁'))}
+      </div>
+      <div class="cmp-card highlight-attractive"><h3>${tr('How to explain rider layers','如何讲附加险层次')}</h3>
+        <ul class="value-card-list">${pitchLayers.map(layer=>`<li><b style="color:var(--primary-dark);">${layer.h}</b><br>${layer.b}</li>`).join('')}</ul>
+      </div>
+      <div class="cmp-card highlight-attractive"><h3>${tr('How to choose the structure','如何选择结构')}</h3>
+        ${decisionRows.map(d=>row(d[0],d[1])).join('')}
+      </div>
+      <div class="cmp-card"><h3>${tr('Client discovery prompts','客户需求提问')}</h3>
+        <ul class="value-card-list">
+          <li>${tr('How many years until the mortgage or major loan becomes comfortable?','房贷或主要贷款还需要多少年才会比较轻松？')}</li>
+          <li>${tr('How many years until children’s education or dependant needs reduce?','孩子教育或家属责任还需要多少年才会减少？')}</li>
+          <li>${tr('If illness stops income, should payout replace income, cover loan payments, or fund recovery time?','如果疾病影响收入，赔付应优先替代收入、支付贷款，还是换取康复时间？')}</li>
+          <li>${tr('Would the client rather pay for fewer years, or keep annual cash flow lighter for longer?','客户比较想缩短缴费年期，还是把每年现金流压力拉低但缴费更久？')}</li>
+        </ul>
+      </div>
+    </div>`
+    +`<div class="cmp-grid">
+      <div class="cmp-card"><h3>${tr('Base plan','基本计划')}</h3>
+        ${row(tr('Core benefits','核心保障'),tr('death, TPD and terminal illness to age 99','身故、全残及末期疾病至99岁'))}
+        ${row(tr('Family Support Benefit','家庭支援给付'),tr('2 years of premiums on spouse or parent death','配偶或父母身故时给付2年保费'))}
+        ${row(tr('Premium terms','缴费年期'),tr('10 / 15 / 20 / 25 / 30 years','10/15/20/25/30年'))}
+        ${row(tr('Premium frequency','缴费频率'),tr('monthly, quarterly, semi-annual or annual','每月、每季、每半年或每年'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('How the cover moves','保障如何变化')}</h3>
+        ${row(tr('To age '+s.mca,'至'+s.mca+'岁'),fmt(s.sa*s.mult))}
+        ${steps.slice(1).map((f,k)=>row(tr('Age '+(s.mca+k+1)+(k===4?' to 99':''),(s.mca+k+1)+'岁'+(k===4?'至99岁':'')),fmt(s.sa*s.mult*f))).join('')}
+        ${row(tr('Accidental death','意外身故'),tr('extra basic SA or multiplier benefit to age 80','至80岁额外给付基本保额或倍数保障'))}
+        <p class="muted" style="font-size:12px;margin-top:6px;">${tr('Death benefit is the higher of the multiplier benefit or sum assured plus accumulated bonuses.','身故保险金为倍数保障与保额加累积红利两者中的较高者。')}</p>
+      </div>
+      <div class="cmp-card"><h3>${tr('Cash value & options','现金价值与选择权')}</h3>
+        ${row(tr('Surrender value','退保价值'),tr('from policy year 3','自第3保单年度起'))}
+        ${row(tr('Bonuses','红利'),tr('reversionary + terminal (non-gtd)','复归红利+终期红利（非保证）'))}
+        ${row(tr('Payout option','现金领取选择'),tr('selected portion of SV over 10 yrs after multiplier age','倍数年龄后可将所选退保价值分10年领取'))}
+        ${row(tr('Guaranteed insurability','保证可保权'),tr('marriage, child, property; no extra health questions','结婚、生育、置业；无需额外健康问题'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Riders','附加险')}</h3>
+        ${row(tr('Early CI Benefit III','早期重疾III'),tr('170 conditions','170种疾病'))}
+        ${row(tr('CI Benefit III','重疾III'),tr('56 advanced CIs','56种晚期重疾'))}
+        ${row(tr('Top 5 CIs extra','五大重疾额外赔付'),tr('+50% of rider SA','附加保额的+50%'))}
+        ${row(tr('Special / juvenile conditions','特别/少儿疾病'),tr('14 + 14 conditions, +20% rider SA, max S$25k each','14+14种，另加附加保额20%，每项上限2.5万'))}
+        ${row(tr('Payer PremiumEraser','投保人豁免'),tr('death, TPD, early-to-advanced CI, involuntary unemployment','身故、全残、早至晚期重疾、非自愿失业'))}
+      </div>
+    </div>`;
+}
+
+/* ================= TERM PROTECT ADVANTAGE ================= */
+function rTpa(){
+  const s=S.tpa;
+  const tl = ageline({a0:s.age, a1:s.covTo,
+    segs:[{from:s.age,to:s.covTo,label:tr(`Death + TI ${fmt(s.sa)}`,`身故+末疾 ${fmt(s.sa)}`),color:C.primaryDark,lane:1},
+          {from:s.age+2,to:s.age+s.pay,label:tr('Cash value builds','现金价值累积'),color:C.good,lane:2,dash:1}],
+    markers:[{age:65,label:tr('convert by 65','65岁前转换'),color:C.axis},
+             {age:s.covTo,label:tr('cover ends','保障终止'),color:C.primaryDark}],
+    payTo:s.age+s.pay, payLabel:tr(`pay ${s.pay} years`,`缴费${s.pay}年`)});
+  return head('HSBC Life Term Protect Advantage',
+      tr('Flexible term cover with a cash value twist on limited pay','灵活定期保障，限期缴费另有现金价值'),
+      tr('Term + cash value','定期+现金价值'),'','tpa')
+    +`<div class="controls">
+      ${ctrlNum('tpa','age',tr('Entry age','投保年龄'),1,18,60)}
+      ${ctrlSel('tpa','covTo',tr('Cover to age','保障至'),[60,65,70,75,80].map(a=>({v:a,t:a})))}
+      ${ctrlSel('tpa','pay',tr('Premium term','缴费年期'),[10,15,20].map(p=>({v:p,t:p+tr(' yrs','年')})))}
+      ${ctrlNum('tpa','sa',tr('Sum insured S$','保额（新元）'),50000,100000,5000000)}
+    </div>`
+    +`<div class="tl-wrap">${tl}</div>
+    ${timelineNotes([
+      tr('Guaranteed cash value starts from policy year 3','保证现金价值自第3保单年度起'),
+      tr('Conversion option is available before age 65','65岁前可行使转换权'),
+      tr('Limited-pay term cover with no maturity value at the end of the policy term','限期缴费定期保障；保单期满时无期满价值')
+    ])}`
+    +`<div class="cmp-grid">
+      <div class="cmp-card"><h3>${tr('Brochure reference case','手册参考案例')}</h3>
+        ${row(tr('Male 35, cover to 70','35岁男性，保障至70岁'),'S$1,000,000')}
+        ${row(tr('Pay 15 years','缴费15年'),tr('S$1,818 / yr','每年1,818新元'))}
+        ${row(tr('Guaranteed cash value at yr 15','第15年保证现金价值'),'S$15,544')}
+        ${row(tr('Disability cover rider','失能附加险'),tr('+S$280 / yr for S$1m','每年另加280新元保100万'))}
+        <p class="muted" style="font-size:12px;margin-top:6px;">${tr('Cash value starts in policy year 3, peaks around end of premium term, then runs down to zero at expiry.','现金价值自第3保单年度起累积，约在缴费期末达到峰值，其后逐步降至期满时为零。')}</p>
+      </div>
+      <div class="cmp-card"><h3>${tr('Flexibility','灵活性')}</h3>
+        ${row(tr('Convertibility','转换权'),tr('to whole life/endowment before 65','65岁前转终身/储蓄险'))}
+        ${row(tr('Guaranteed insurability','保证可保权'),tr('marriage/divorce, child, school entry, age 21, property, first full-time job','结婚/离婚、添丁、升学、21岁、置业、首份全职工作'))}
+        ${row(tr('Unemployment support','失业支援'),tr('if unemployed at least 30 days, defer premiums up to 365 days','失业至少30天，可延付保费最多365天'))}
+        ${row(tr('Limited-pay advantage','限期缴费优势'),tr('complete base premium commitment earlier; rider premiums may still change','较早完成主约缴费承诺；附加险保费仍可能调整'))}
+        ${row(tr('Riders','附加险'),tr('disability, advanced CI cover/waiver','失能、晚期重疾保障/豁免'))}
+      </div>
+    </div>`;
+}
+
+/* ================= TERM PROTECTOR PRIME ================= */
+function rTpp(){
+  const s=S.tpp;
+  let segs=[], markers=[{age:60,label:tr('convert by 60','60岁前转换'),color:C.axis}], end;
+  if(s.form==='ren'){
+    const lastRen={15:75,20:75,25:74,30:69}[s.term];
+    end = Math.min(99, s.age + Math.ceil((lastRen+1-s.age)/s.term)*s.term);
+    for(let a=s.age; a<end; a+=s.term){
+      segs.push({from:a,to:Math.min(a+s.term,end),label:(a===s.age?tr('first term','首个期限'):tr('renewed','续保')),color:a===s.age?C.primaryDark:C.warn,lane:1});
+      if(a>s.age && a!==lastRen) markers.push({age:a,label:tr('renewal','续保'),color:C.warn});
+    }
+    markers.push({age:lastRen,label:tr('last renewal','最后续保'),color:C.primaryDark});
+  } else {
+    end = s.toAge;
+    segs.push({from:s.age,to:end,label:tr('Death + TI cover','身故+末疾保障'),color:C.primaryDark,lane:1});
+    segs.push({from:s.age,to:end,label:tr('Indexation option','指数化选择'),color:C.good,lane:2,dash:1});
+  }
+  const tl = ageline({a0:s.age, a1:end, segs, markers, payTo:end,
+    payLabel:tr('regular premiums','定期缴费')});
+  return head('HSBC Life Term Protector Prime',
+      tr('Pure term protection - renewable terms or level cover to a chosen age','纯定期保障 - 可续保定期或保至指定年龄'),
+      tr('SGD or USD','新元或美元'),'','tpp')
+    +`<div class="controls">
+      ${segBtns('tpp','form',[{v:'ren',t:tr('Renewable','可续保')},{v:'toage',t:tr('To age','保至指定年龄')}])}
+      ${s.form==='ren'
+        ? ctrlSel('tpp','term',tr('Term (years)','期限（年）'),[15,20,25,30].map(t=>({v:t,t:t})))
+        : ctrlSel('tpp','toAge',tr('Cover to age','保障至'),[50,55,60,65,70,75,85,99].map(a=>({v:a,t:a})))}
+      ${ctrlNum('tpp','age',tr('Entry age','投保年龄'),1,18,60)}
+    </div>`
+    +`<div class="tl-wrap">${tl}</div>
+    ${timelineNotes([
+      tr('Renewable terms renew automatically and are not dependent on health condition','可续保期限自动续保，且不取决于健康状况'),
+      tr('Renewal premiums are repriced at attained age','续保保费按届时年龄重新定价'),
+      tr('To-age form can add yearly indexation','保至指定年龄形式可选择每年指数化')
+    ])}`
+    +`<div class="cmp-grid">
+      <div class="cmp-card"><h3>${tr('Renewable form','可续保形式')}</h3>
+        ${row(tr('Terms','期限'),tr('15 / 20 / 25 / 30 years','15/20/25/30年'))}
+        ${row(tr('Renewal','续保'),tr('automatic, same term, no underwriting','自动按原期限续保，免核保'))}
+        ${row(tr('Last renewal age','最后续保年龄'),'75 / 75 / 74 / 69')}
+        ${row(tr('Renewal premium','续保保费'),tr('repriced at attained age','按届时年龄重新定价'))}
+        ${row(tr('Maximum expiry','最高满期年龄'),'99')}
+      </div>
+      <div class="cmp-card"><h3>${tr('To-age form','保至指定年龄形式')}</h3>
+        ${row(tr('Cover to','保障至'),tr('age 50-75, 85 or 99','50至75、85或99岁'))}
+        ${row(tr('Premiums','保费'),tr('guaranteed within the term','期限内保证不变'))}
+        ${row(tr('Indexation option','指数化选择'),tr('+5% or CPI, whichever higher','每年+5%或按通胀，取高者'))}
+        ${row(tr('Indexation stops','指数化终止'),tr('age 60 or 5 years before expiry, earlier of both','60岁或期满前5年，以较早者为准'))}
+        ${row(tr('Cash value','现金价值'),tr('none - pure protection','无 - 纯保障'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Conversion & riders','转换权与附加险')}</h3>
+        ${row(tr('Convertibility','转换权'),tr('from 1st policy anniversary, age 60 or younger','第1保单周年后且60岁或以下'))}
+        ${row(tr('Conversion limits','转换限制'),tr('same or lower SA, no partial conversion, no admitted claim','相同或较低保额，不可部分转换，无已获批理赔'))}
+        ${row(tr('Currency','币种'),tr('SGD or USD','新元或美元'))}
+        ${row(tr('CI / TPD riders','重疾/全残附加险'),tr('Advance CI, CI Plus, Early CI II, Advance TPD II','预支重疾、重疾Plus、早期重疾II、预支全残II'))}
+        ${row(tr('Waiver / survival riders','豁免/生存给付'),tr('Premium Waiver, Payer PremiumEraser, Survival Payout to-age 99','保费豁免、投保人豁免、99岁期满生存给付'))}
+      </div>
+    </div>`;
+}
+
+/* ================= TERM LITE ================= */
+function rTl(){
+  const s=S.tl;
+  let segs=[], markers=[], end, payLabel;
+  if(s.term==='5yr'){
+    end = 80;
+    for(let a=s.age; a<80; a+=5){
+      segs.push({from:a,to:Math.min(a+5,80),label:a===s.age?tr('5-yr term','5年期'):tr('renews','续保'),color:a===s.age?C.primaryDark:C.warn,lane:1});
+    }
+    markers.push({age:80,label:tr('last renewal','最后续保'),color:C.primaryDark});
+    payLabel = tr('premiums reset every 5 years','保费每5年重设');
+  } else if(s.term==='20yr'){
+    end = s.age+20;
+    segs.push({from:s.age,to:end,label:tr('20-year level term','20年定期'),color:C.primaryDark,lane:1});
+    payLabel = tr('premiums for 20 years','缴费20年');
+  } else {
+    end = 65;
+    segs.push({from:s.age,to:65,label:tr('cover to age 65','保障至65岁'),color:C.primaryDark,lane:1});
+    payLabel = tr('premiums to age 65','缴费至65岁');
+  }
+  markers.push({age:Math.min(65,end),label:tr('Riders end','附加险终止'),color:C.axis});
+  const tl = ageline({a0:s.age, a1:end, segs, markers, payTo:end, payLabel});
+  return head('DIRECT - HSBC Life - Term Lite',
+      tr('Simple direct-purchase term cover, no advice process','直接投保的简易定期保障，无需顾问流程'),
+      tr('S$50k-400k','保额5万至40万'),'grey','tl')
+    +`<div class="controls">
+      ${segBtns('tl','term',[{v:'5yr',t:tr('5-yr renewable','5年可续保')},{v:'20yr',t:tr('20-yr','20年')},{v:'to65',t:tr('To 65','保至65岁')}])}
+      ${ctrlNum('tl','age',tr('Entry age','投保年龄'),1,18,s.term==='to65'?60:65)}
+      ${ctrlNum('tl','sa',tr('Coverage S$','保额（新元）'),10000,50000,400000)}
+    </div>`
+    +`<div class="tl-wrap">${tl}</div>
+    ${timelineNotes([
+      tr('Direct-purchase term with simpler choices','直接投保定期，选项较简单'),
+      tr('5-year term renews every 5 years regardless of health condition, up to last renewal age 80','5年期每5年续保，不受健康状况影响，最后续保年龄80岁'),
+      tr('TPD and Termcare rider coverage ends at age 65','全残及Termcare附加险保障至65岁')
+    ])}`
+    +`<div class="cmp-grid">
+      <div class="cmp-card"><h3>${tr('What it pays','给付内容')}</h3>
+        ${row(tr('Death / terminal illness','身故/末期疾病'),fmt(s.sa))}
+        ${row(tr('TPD (advance, to 65)','完全永久失能（预付，至65岁）'),fmt(s.sa))}
+        ${row(tr('Termcare rider','Termcare附加险'),tr('30 CIs, to age 65','30种重疾，至65岁'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Eligibility','投保资格')}</h3>
+        ${row(tr('Entry age, 5-yr renewable','投保年龄（5年可续保）'),'18-65')}
+        ${row(tr('Entry age, 20-yr','投保年龄（20年期）'),'18-60')}
+        ${row(tr('Entry age, to 65','投保年龄（保至65岁）'),'18-60')}
+        ${row(tr('Coverage','保额范围'),'S$50,000-400,000')}
+        ${row(tr('Early CI / payer waiver','早期重疾/投保人豁免'),tr('not on direct channel - see adviser','直销渠道不提供 - 需经顾问'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Simple purchase flow','简易投保流程')}</h3>
+        ${row('1',tr('Choose cover amount and policy term','选择保障额及保单期限'))}
+        ${row('2',tr('Choose payment frequency and optional cover','选择缴费频率及可选保障'))}
+        ${row('3',tr('Fill in personal details','填写个人资料'))}
+        ${row('4',tr('Prepare required documents','准备相关文件'))}
+        ${row('5',tr('Make payment and wait for approval','付款并等待批核'))}
+      </div>
+    </div>`;
+}
+
+/* ================= HAPPYMUMMY / HAPPYFAMILY ================= */
+function happySubnav(active){
+  const tabs=[
+    {v:'cover', t:tr('HappyMummy cover','HappyMummy保障')},
+    {v:'cost', t:tr('Singapore child cost','新加坡育儿成本')}
+  ];
+  return `<div class="controls" style="margin-top:8px;"><div class="ctrl"><label>${tr('HappyMummy sub-tab','HappyMummy子标签')}</label><div class="seg">`+
+    tabs.map(t=>`<button class="${active===t.v?'active':''}" onclick="set('happy','view','${t.v}')">${t.t}</button>`).join('')+
+    `</div></div></div>`;
+}
+function rHappyCover(){
+  const stages=[
+    {hEn:'From week 13', hCn:'怀孕第13周起', bEn:'EmpoweredMum covers mother for death, pregnancy complications, hospital care and early delivery by caesarean section.', bCn:'EmpoweredMum开始保障母亲：身故、妊娠并发症、住院护理及早产剖腹产。'},
+    {hEn:'Birth of child', hCn:'宝宝出生', bEn:'Newborn cover starts for death, congenital illnesses, hospital care and developmental delay.', bCn:'新生儿保障开始：身故、先天性疾病、住院护理及发育迟缓。'},
+    {hEn:'Within 60 days', hCn:'出生后60天内', bEn:'Apply for free first-year Shield Plan B and use transfer or newborn purchase options without underwriting.', bCn:'申请首年免费Shield B计划，并可免核保行使转移或新生儿投保选择。'},
+    {hEn:'End of year 3', hCn:'第3保单年度末', bEn:'EmpoweredMum ends; Flexi Protector or Life Treasure III can continue for mother or child.', bCn:'EmpoweredMum终止；Flexi Protector或Life Treasure III可继续保障母亲或孩子。'}
+  ];
+  const pregnancy=[
+    'Abruptio placentae','Amniotic fluid embolism','Choriocarcinoma and malignant hydatidiform mole',
+    'Disseminated intravascular coagulation','Fatty liver of pregnancy',
+    'Gestational diabetes mellitus resulting in foetal macrosomia and neonatal hypoglycaemia',
+    'HELLP syndrome','Incompetent cervix leading to preterm birth','Miscarriage due to accident',
+    'Placenta increta or percreta','Postpartum haemorrhage requiring hysterectomy',
+    'Pre-eclampsia with severe features or eclampsia','Still birth','Uterine rupture','Vasa previa'
+  ];
+  const congenital=[
+    'Absence of 2 limbs','Anal atresia','Atrial septal defect','Biliary atresia','Cerebral palsy',
+    'Cleft palate or cleft lip','Club foot','Coarctation of the aorta',
+    'Congenital Abnormalities of the Kidney and Urinary Tract (CAKUT)','Congenital blindness',
+    'Congenital cataract','Congenital deafness','Congenital diaphragmatic hernia',
+    'Congenital dislocation of hip','Congenital hypertrophic pyloric stenosis',
+    'Development dysplasia of the hip','Down syndrome','Infantile hydrocephalus',
+    'Patent ductus arteriosus','Retinopathy of prematurity','Spina bifida','Tetralogy of Fallot',
+    'Tracheo-esophageal fistula or esophageal atresia','Transposition of great vessel',
+    'Truncus arteriosis','Ventricular septal defect'
+  ];
+  const motherHospital=[
+    'Any covered pregnancy complication','Complications of lactational mastitis','Inpatient psychiatric treatment',
+    'Post-natal anaemia','Puerperal pyrexia','Pulmonary embolism','Repair of 4th degree perineal tear',
+    'Septic pelvic thrombophlebitis','Surgical site infection following caesarean section',
+    'Uterine infection or transfusion due to retained placenta following childbirth'
+  ];
+  const childHospital=[
+    'Admission into ICU or HDU','Avian influenza A (H7N9) and (H5N1)','Chikungunya fever',
+    'Creutzfeldt-Jakob disease','Dengue haemorrhagic fever','Ebola',
+    'Hospitalisation as an inpatient due to hand, foot and mouth disease',
+    'Incubation of the newborn child for more than 3 consecutive days immediately following birth',
+    'Japanese encephalitis','Malaria','Nipah virus encephalitis',
+    'Phototherapy or blood transfusion for severe neonatal jaundice',
+    'Premature birth requiring neo-natal ICU or HDU','Rabies','Severe measles','Typhoid fever','Zika virus'
+  ];
+  const list=items=>`<ol>${items.map(x=>`<li>${x}</li>`).join('')}</ol>`;
+  return head('HSBC Life HappyMummy / HappyFamily',
+      tr('EmpoweredMum prenatal cover bundled with Flexi Protector or Life Treasure III','EmpoweredMum孕期保障，搭配Flexi Protector或Life Treasure III'),
+      tr('Prenatal + family','孕期+家庭'),'','happy')
+    + happySubnav('cover')
+    +`<div class="stage-flow">${stages.map(s=>`
+      <div class="stage-card"><b>${tr(s.hEn,s.hCn)}</b><span>${tr(s.bEn,s.bCn)}</span></div>`).join('')}</div>
+    ${timelineNotes([
+      tr('EmpoweredMum is a 3-year single premium prenatal plan','EmpoweredMum为3年期趸缴孕期计划'),
+      tr('Mother is covered from the 13th week of pregnancy','母亲自怀孕第13周起受保'),
+      tr('Free first-year Shield Plan B must be applied for within 60 days from birth','首年免费Shield B计划须在宝宝出生后60天内申请')
+    ])}`
+    +`<div class="cmp-grid">
+      <div class="cmp-card"><h3>${tr('Mother benefits','母亲保障')}</h3>
+        ${row(tr('Early C-section','早产剖腹产'),tr('15% SA, medically necessary, before 36 weeks, singleton only','保额15%，须医学需要，36周前，仅单胎'))}
+        ${row(tr('Pregnancy complications','妊娠并发症'),tr('100% SA for any of 15 conditions','15种疾病之一给付保额100%'))}
+        ${row(tr('Hospital care','住院护理'),tr('2% SA per day, up to 30 days, 10 events','每日保额2%，最多30天，10类事件'))}
+        ${row(tr('Death benefit','身故给付'),tr('100% SA','保额100%'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Baby benefits','宝宝保障')}</h3>
+        ${row(tr('Congenital illnesses','先天性疾病'),tr('100% SA for any of 26 conditions','26种疾病之一给付保额100%'))}
+        ${row(tr('Hospital care','住院护理'),tr('2% SA per day, up to 30 days, 17 events','每日保额2%，最多30天，17类事件'))}
+        ${row(tr('Developmental delay','发育迟缓'),tr('15% SA, capped S$3,000, from attained age 28 months','保额15%，上限3,000新元，自28个月起'))}
+        ${row(tr('Death benefit','身故给付'),tr('100% SA','保额100%'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Bundle options','搭配方式')}</h3>
+        ${row('HappyMummy',tr('EmpoweredMum + Flexi Protector or Life Treasure III for mother or newborn','EmpoweredMum + 母亲或新生儿的Flexi Protector或Life Treasure III'))}
+        ${row(tr('Transfer option','转移选择'),tr('transfer Flexi Protector or Life Treasure III cover from mother to child within 60 days, no underwriting','60天内可将Flexi Protector或Life Treasure III保障由母亲转至孩子，免核保'))}
+        ${row('HappyFamily',tr('parents may buy Flexi Protector or Life Treasure III for newborn within 60 days, no underwriting','父母可在60天内为新生儿投保Flexi Protector或Life Treasure III，免核保'))}
+        ${row(tr('Shield Plan B','Shield B计划'),tr('free 1st-year basic premium; MediShield Life/rider premiums still payable','首年基本计划保费免费；仍须缴付终身健保及附加险保费'))}
+      </div>
+      <div class="cmp-card"><h3>${tr('Important limits','重要限制')}</h3>
+        ${row(tr('Benefit termination','保障终止'),tr('pregnancy complication / congenital illness benefit terminates once paid','妊娠并发症/先天性疾病给付后该项终止'))}
+        ${row(tr('Shield exclusions','Shield除外'),tr('known pre-existing or congenital conditions are not covered under the free Shield offer','免费Shield优惠不保障已知既往或先天状况'))}
+        ${row(tr('Definitions','定义'),tr('full definitions are in the EmpoweredMum product summary','完整定义以EmpoweredMum产品摘要为准'))}
+      </div>
+    </div>
+    <details class="rules"><summary>${tr('Covered condition lists from the brochure','产品手册列明的受保疾病清单')}</summary>
+      <div class="condition-grid">
+        <div><h4>${tr('Pregnancy complications (15)','妊娠并发症（15）')}</h4>${list(pregnancy)}</div>
+        <div><h4>${tr('Congenital illnesses (26)','先天性疾病（26）')}</h4>${list(congenital)}</div>
+        <div><h4>${tr('Mother hospital care events (10)','母亲住院护理事件（10）')}</h4>${list(motherHospital)}</div>
+        <div><h4>${tr('Child hospital care events (17)','宝宝住院护理事件（17）')}</h4>${list(childHospital)}</div>
+      </div>
+    </details>`;
+}
+
+function costLine(main,sub){ return `<b>${main}</b><br><span class="muted">${sub}</span>`; }
+function rHappyCost(){
+  const rows=[
+    {
+      stage:tr('Expecting: checkups','怀孕：产检'),
+      basic:costLine('S$500 - S$1,500',tr('public/subsidised route, team care, budget extra for tests and supplements','公立/津贴路线，团队护理；另预留检查及补充剂')),
+      adv:costLine('S$1,500 - S$4,000',tr('private gynae package plus detailed scan, blood tests, OGTT or NIPT if chosen','私人妇产科配套，加详细扫描、验血、糖耐或NIPT')),
+      lux:costLine('S$4,000 - S$10,000+',tr('senior private gynae, high-risk monitoring, frequent scans or specialist tests','资深私人医生、高风险监测、频密扫描或专科检查')),
+      note:tr('KKH private antenatal package starts from S$818 before GST; private visits often run about S$120 - S$350 with scan depending on clinic. MediSave Maternity Package can reimburse up to S$900 for pre-delivery expenses.','KKH私人产检配套从税前818新元起；私人门诊含扫描常见约120至350新元。保健储蓄产妇配套可报销产前费用最高900新元。')
+    },
+    {
+      stage:tr('Pregnancy medicine','孕期药物'),
+      basic:costLine('S$100 - S$500',tr('routine vitamins, iron, folate, calcium, nausea medication if prescribed','常规维生素、铁、叶酸、钙、止吐药等')),
+      adv:costLine('S$500 - S$3,000',tr('condition-based support such as progesterone, aspirin, injections or extra review','按情况使用黄体酮、阿司匹林、针剂或额外复诊')),
+      lux:costLine('S$3,000+',tr('fertility/high-risk pregnancy support, frequent labs or specialist medication','生育/高风险孕期支持、频密化验或专科药物')),
+      note:tr('There is no standard baby-stabilising medication for every pregnancy. Treat this as doctor-dependent and never self-prescribe.','并非每个孕期都有标准保胎药物；必须以医生诊断为准，切勿自行用药。')
+    },
+    {
+      stage:tr('Delivery: natural birth','分娩：自然产'),
+      basic:costLine('S$946 - S$1,609 median',tr('NUH/SGH subsidised B2/C median examples from MOH bill sizes','MOH账单资料中NUH/SGH津贴B2/C中位数例子')),
+      adv:costLine('S$4,345 - S$9,263 median',tr('public B1/private gynae or private 2-bed/4-bed examples','公立B1/私人医生或私人医院2/4人房例子')),
+      lux:costLine('S$10,287 - S$13,367+ median',tr('private 1-bed examples; suites and complications can be much higher','私人医院1人房例子；套房及并发症可更高')),
+      note:tr('MOH figures are before insurance and MediSave payouts; public hospital figures are after subsidies where applicable.','MOH数字为保险及保健储蓄赔付前；公立医院数字如适用已扣政府津贴。')
+    },
+    {
+      stage:tr('Delivery: C-section','分娩：剖腹产'),
+      basic:costLine('S$2,240 - S$3,237 median',tr('NUH/SGH subsidised B2/C median examples from MOH bill sizes','MOH账单资料中NUH/SGH津贴B2/C中位数例子')),
+      adv:costLine('S$8,222 - S$13,780 median',tr('public B1/private or private 2-bed examples','公立B1/私人或私人医院2人房例子')),
+      lux:costLine('S$15,074 - S$19,494+ median',tr('private 1-bed examples; complex cases and suites can exceed this','私人医院1人房例子；复杂个案及套房可超过此范围')),
+      note:tr('Delivery-only, MOH medians show C-section is materially higher than natural birth: about +S$1.2k to +S$1.7k in subsidised B2/C, +S$3.8k to +S$4.0k in public A/B1, and +S$4.8k to +S$8.2k+ in private 1-bed examples.','只看分娩账单，MOH中位数显示剖腹产明显高于自然产：津贴B2/C约多1.2千至1.7千新元，公立A/B1约多3.8千至4.0千新元，私人1人房例子约多4.8千至8.2千新元以上。')
+    },
+    {
+      stage:tr('Baby jaundice','宝宝黄疸'),
+      basic:costLine('S$298 + S$99/night',tr('home phototherapy rental if baby is suitable and paediatrician agrees','宝宝合适且儿科医生同意时，可用居家光疗租赁')),
+      adv:costLine('S$800 - S$3,000+',tr('hospital phototherapy/readmission depending on ward and length of stay','医院光疗/再入院，视病房和住院天数而定')),
+      lux:costLine('S$3,000 - S$8,000+',tr('private hospital readmission, paediatrician fees, longer monitoring or severe jaundice','私人医院再入院、儿科医生费、较长监测或严重黄疸')),
+      note:tr('Severe neonatal jaundice can require hospital care or exchange transfusion. Do not delay clinical review.','严重新生儿黄疸可能需要住院甚至换血治疗，不应延迟就医。')
+    },
+    {
+      stage:tr('Confinement','月子护理'),
+      basic:costLine('S$800 - S$2,500',tr('DIY with confinement meals, part-time cleaning or family help','自己安排月子餐、兼职清洁或家人帮忙')),
+      adv:costLine('S$2,300 - S$5,000',tr('28-day stay-in confinement nanny, before levy, angbao and food for nanny','28天住家月嫂，不含税费、红包及月嫂膳食')),
+      lux:costLine('S$15,888 - S$42,000+',tr('confinement centre or premium confinement hotel for 28 days','月子中心或高端月子酒店28天')),
+      note:tr('Peak periods, twins, festive surcharges and room category can change the quote materially.','旺季、双胞胎、节日附加费及房型会明显影响报价。')
+    },
+    {
+      stage:tr('Baby necessities, first year','宝宝用品，第一年'),
+      basic:costLine('S$5,000 - S$10,000',tr('mix of gifts, second-hand gear, basic stroller/cot, diapers, wipes, checkups','礼物、二手用品、基本推车/婴儿床、尿片、湿巾、体检')),
+      adv:costLine('S$10,000 - S$20,000',tr('new gear, private paediatrician, S-26/formula, pump, steriliser, bottles, toys','新用品、私人儿科、S-26/奶粉、吸奶器、消毒机、奶瓶、玩具')),
+      lux:costLine('S$25,000+',tr('premium stroller/car seat, smart cot, UV/anti-germ machines, premium formula, frequent private care','高端推车/安全座椅、智能婴儿床、UV/抗菌设备、高端奶粉、频密私人医疗')),
+      note:tr('FairPrice S-26 Stage 1 is S$71.80 per 900g tin. Four tins a month is about S$287.20 before diapers and wipes.','FairPrice S-26一段900克每罐71.80新元；每月4罐约287.20新元，未含尿片及湿巾。')
+    },
+    {
+      stage:tr('Childcare, 2 months to 6 years','托婴/托儿，2个月至6岁'),
+      basic:costLine('S$3 - S$746/month net',tr('AOP/POP centre after subsidies; amount depends heavily on income and work status','AOP/POP中心扣津贴后，取决于收入及工作状态')),
+      adv:costLine('S$900 - S$2,000/month net',tr('private preschool after basic subsidy; varies by centre and enrichment','私人幼儿园扣基本津贴后，视中心及课程而定')),
+      lux:costLine('S$2,500 - S$3,500+/month',tr('premium private preschool or international-style early years programme','高端私人幼儿园或国际课程式学前教育')),
+      note:tr('From Jan 2026, AOP full-day childcare cap is S$610 before GST and POP cap is S$650 before GST. Working mothers get basic subsidies of S$600 infant care or S$300 childcare, plus means-tested additional subsidy.','2026年1月起，AOP全日托儿上限税前610新元，POP税前650新元。工作母亲托婴基本津贴600新元或托儿300新元，并可按收入获额外津贴。')
+    },
+    {
+      stage:tr('Primary school','小学'),
+      basic:costLine('S$500 - S$1,500/year',tr('MOE school fee S$0 for Singapore Citizens; budget for books, uniform, transport, meals','公民MOE学费0新元；预留课本、校服、交通、餐食')),
+      adv:costLine('S$3,000 - S$10,000/year',tr('MOE school plus tuition, enrichment, sport/music or holiday programmes','MOE学校加补习、才艺、运动/音乐或假期课程')),
+      lux:costLine('S$25,000 - S$50,000+/year',tr('international/private school path, transport and activities extra','国际/私立学校路线，交通及活动另计')),
+      note:tr('Government school fees are low, but enrichment choices can dominate the real bill.','政府学校费用低，但补习和才艺选择会成为真正的大头。')
+    },
+    {
+      stage:tr('Secondary school','中学'),
+      basic:costLine('S$300 - S$2,000/year',tr('MOE school fee S$5/month for Singapore Citizens plus misc, books and transport','公民MOE学费每月5新元，另有杂费、书本及交通')),
+      adv:costLine('S$4,000 - S$15,000/year',tr('tuition, O-level/IP support, CCA gear, laptop and enrichment','补习、O水准/IP支持、CCA装备、电脑及才艺')),
+      lux:costLine('S$30,000 - S$60,000+/year',tr('independent/international pathway or premium overseas boarding option','独立/国际路线或高端海外寄宿')),
+      note:tr('SC monthly school fees remain S$5 for secondary and S$6 for pre-university in government and government-aided schools.','公民在政府及政府资助学校中学月费维持5新元，大学预科6新元。')
+    },
+    {
+      stage:tr('JC or Polytechnic','JC或理工学院'),
+      basic:costLine('JC S$500 - S$1,500 total; Poly ~S$9,500 total',tr('JC school fee S$6/month plus misc; poly about S$3.17k - S$3.19k/year after MOE grant','JC月费6新元加杂费；理工学院扣MOE津贴后约每年3,170至3,190新元')),
+      adv:costLine('S$5,000 - S$20,000 total',tr('extra tuition, laptop, transport, project materials and internships','额外补习、电脑、交通、项目材料及实习')),
+      lux:costLine('S$40,000 - S$150,000+',tr('private diploma, international pre-university or overseas foundation route','私立文凭、国际大学预科或海外预科路线')),
+      note:tr('Polytechnic fees are cohort-based. SP and NYP list AY2026 Singapore Citizen fees around S$3.17k - S$3.19k per academic year.','理工学院费用按入学批次固定。SP及NYP列明AY2026公民年费约3,170至3,190新元。')
+    },
+    {
+      stage:tr('University','大学'),
+      basic:costLine('S$33,000 - S$50,000',tr('local subsidised non-medical degree while living at home','本地受津贴非医学学位，住家')),
+      adv:costLine('S$60,000 - S$160,000',tr('local degree with hostel/exchange, or medicine/dentistry/law path','本地大学加宿舍/交换，或医学/牙科/法律路线')),
+      lux:costLine('S$250,000 - S$700,000+',tr('overseas university with living costs, flights and exchange-rate risk','海外大学含生活费、机票及汇率风险')),
+      note:tr('NUS AY2026/27 SC tuition ranges from S$8,250 - S$9,650/year for many courses, S$12,700 law, and S$30,200 medicine or dentistry.','NUS AY2026/27公民学费多数课程每年8,250至9,650新元，法律12,700新元，医学或牙科30,200新元。')
+    }
+  ];
+  const totalCards=[
+    {h:tr('Basic path','基础选择'), a:'S$180k - S$280k', p:tr('public/subsidised delivery, AOP/POP preschool, MOE schools, local subsidised university','公立/津贴分娩，AOP/POP幼儿园，MOE学校，本地受津贴大学')},
+    {h:tr('Advanced path','进阶选择'), a:'S$350k - S$650k', p:tr('private gynae, mixed private childcare, enrichment, local uni with hostel/exchange','私人妇产科，部分私人托育，补习才艺，本地大学加宿舍/交换')},
+    {h:tr('Luxury path','高端选择'), a:'S$900k - S$1.8m+', p:tr('private 1-bed/suite, confinement centre, premium preschool, international/overseas education','私人1人房/套房，月子中心，高端幼儿园，国际/海外教育')}
+  ];
+  const ppCell=(label,html)=>`<div class="pp-cell"><em>${label}</em>${html}</div>`;
+  const prePrimaryCards=[
+    {
+      tier:tr('Basic','基础'), total:'S$8k - S$70k',
+      note:tr('public/subsidised delivery path, AOP/POP childcare, low gear spend','公立/津贴分娩路线、AOP/POP托育、低用品开支'),
+      setup:tr('S$8k - S$18k','8千至1.8万新元'), monthly:'S$3 - S$746', yearly:'S$36 - S$8,952',
+      childTotal:'S$210 - S$52k'
+    },
+    {
+      tier:tr('Advanced','进阶'), total:'S$82k - S$189k',
+      note:tr('private gynae, nanny, new baby setup and private preschool','私人妇产科、月嫂、新宝宝用品及私人幼儿园'),
+      setup:tr('S$19k - S$49k','1.9万至4.9万新元'), monthly:'S$900 - S$2,000', yearly:'S$10,800 - S$24,000',
+      childTotal:'S$63k - S$140k'
+    },
+    {
+      tier:tr('Luxury','高端'), total:'S$236k - S$353k+',
+      note:tr('private 1-bed or suite, confinement centre and premium preschool','私人1人房或套房、月子中心及高端幼儿园'),
+      setup:tr('S$61k - S$108k+','6.1万至10.8万新元以上'), monthly:'S$2,500 - S$3,500+', yearly:'S$30,000 - S$42,000+',
+      childTotal:'S$175k - S$245k+',
+      hot:true
+    }
+  ];
+  const prePrimaryGroups=[
+    {
+      h:tr('1. Birth and first-year setup','1. 分娩及第一年准备'),
+      rows:[
+        {l:tr('Natural birth route','自然产路线'),
+         b:costLine('S$8k - S$16k',tr('checkups, medicine, delivery, jaundice, confinement, first-year necessities','产检、药物、分娩、黄疸、月子、第一年用品')),
+         a:costLine('S$19k - S$44k',tr('private gynae, mixed hospital route, nanny, new gear and formula','私人妇产科、公私立医院组合、月嫂、新用品及奶粉')),
+         x:costLine('S$61k - S$102k+',tr('senior private care, private 1-bed, confinement centre and premium setup','资深私人医疗、私人1人房、月子中心及高端用品'))},
+        {l:tr('C-section route','剖腹产路线'),
+         b:costLine('S$9k - S$18k',tr('same basket, using subsidised C-section examples','同一篮子，按津贴剖腹产例子')),
+         a:costLine('S$23k - S$49k',tr('same basket, using public B1/private or private 2-bed examples','同一篮子，按公立B1/私人或私人2人房例子')),
+         x:costLine('S$66k - S$108k+',tr('same basket, using private 1-bed/suite-style range','同一篮子，按私人1人房/套房式区间'))},
+        {l:tr('Baby necessities average','宝宝用品平均'),
+         b:costLine('S$417 - S$833/month',tr('about S$5k - S$10k/year','约每年5千至1万新元')),
+         a:costLine('S$833 - S$1,667/month',tr('about S$10k - S$20k/year','约每年1万至2万新元')),
+         x:costLine('S$2,083+/month',tr('about S$25k+/year','约每年2.5万新元以上'))}
+      ]
+    },
+    {
+      h:tr('2. Recurring childcare burn','2. 托育持续开支'),
+      rows:[
+        {l:tr('Monthly childcare','每月托育'),
+         b:costLine('S$3 - S$746/month net',tr('after AOP/POP subsidies, income-dependent','扣AOP/POP津贴后，视收入而定')),
+         a:costLine('S$900 - S$2,000/month net',tr('private preschool after basic subsidy','私人幼儿园扣基本津贴后')),
+         x:costLine('S$2,500 - S$3,500+/month',tr('premium private or international-style preschool','高端私人或国际课程式幼儿园'))},
+        {l:tr('Yearly childcare','年度托育'),
+         b:costLine('S$36 - S$8,952/year',tr('12 months of monthly range','月度区间乘12个月')),
+         a:costLine('S$10,800 - S$24,000/year',tr('12 months of monthly range','月度区间乘12个月')),
+         x:costLine('S$30,000 - S$42,000+/year',tr('12 months of monthly range','月度区间乘12个月'))},
+        {l:tr('Childcare total before Primary 1','上小学前托育总额'),
+         b:costLine('S$210 - S$52k',tr('about 70 months from 2 months old to age 6','约70个月，从2个月大至6岁')),
+         a:costLine('S$63k - S$140k',tr('about 70 months from 2 months old to age 6','约70个月，从2个月大至6岁')),
+         x:costLine('S$175k - S$245k+',tr('about 70 months from 2 months old to age 6','约70个月，从2个月大至6岁'))}
+      ]
+    },
+    {
+      h:tr('3. All-in before Primary 1','3. 上小学前总额'),
+      rows:[
+        {l:tr('Natural birth path','自然产路线'),
+         b:costLine('S$8k - S$69k',tr('one-off setup plus childcare total','一次性准备加托育总额')),
+         a:costLine('S$82k - S$184k',tr('one-off setup plus childcare total','一次性准备加托育总额')),
+         x:costLine('S$236k - S$347k+',tr('one-off setup plus childcare total','一次性准备加托育总额'))},
+        {l:tr('C-section path','剖腹产路线'),
+         b:costLine('S$9k - S$70k',tr('one-off setup plus childcare total','一次性准备加托育总额')),
+         a:costLine('S$86k - S$189k',tr('one-off setup plus childcare total','一次性准备加托育总额')),
+         x:costLine('S$241k - S$353k+',tr('one-off setup plus childcare total','一次性准备加托育总额'))}
+      ]
+    }
+  ];
+  const trimesterCards=[
+    {
+      h:tr('1st trimester','第一孕期'),
+      weeks:tr('Weeks 1-12','第1-12周'),
+      visits:tr('1-2 doctor visits','看医生1-2次'),
+      mediumCost:'S$600 - S$1,500',
+      highCost:'S$900 - S$2,800+',
+      note:tr('Confirm pregnancy, dating scan, baseline blood tests and optional Down syndrome screening. This is where first-consult + scan + bloodwork can quickly feel like hundreds.','确认怀孕、预产期扫描、基础验血及可选唐氏筛查。第一次门诊加扫描和验血，很容易就是数百新元。')
+    },
+    {
+      h:tr('2nd trimester','第二孕期'),
+      weeks:tr('Weeks 13-27','第13-27周'),
+      visits:tr('3-4 doctor visits','看医生3-4次'),
+      mediumCost:'S$800 - S$2,200',
+      highCost:'S$1,200 - S$3,500+',
+      note:tr('Monthly reviews plus the 20-week anomaly scan, anaemia check, OGTT and pregnancy vaccines if advised. Package coverage varies, so add-ons matter.','每月复诊，加20周结构扫描、贫血检查、妊娠糖尿病OGTT及医生建议的孕期疫苗。配套涵盖不同，额外项目会影响总额。')
+    },
+    {
+      h:tr('3rd trimester','第三孕期'),
+      weeks:tr('Week 28 to delivery','第28周至分娩'),
+      visits:tr('5-8 doctor visits','看医生5-8次'),
+      mediumCost:'S$1,200 - S$3,500',
+      highCost:'S$2,000 - S$5,000+',
+      note:tr('Visits step up to every 2 weeks, then weekly near delivery; budget for growth scan, GBS swab and extra monitoring if needed.','复诊会增加至约每两周一次，临近分娩每周一次；预留成长扫描、GBS拭子及必要额外监测。')
+    },
+    {
+      h:tr('4th trimester','第四孕期'),
+      weeks:tr('Birth to 12 weeks after delivery','出生至产后12周'),
+      visits:tr('2-5 doctor visits','看医生2-5次'),
+      mediumCost:'S$300 - S$1,800',
+      highCost:'S$500 - S$2,500+',
+      note:tr('Mother postnatal review plus baby weight, jaundice, feeding and vaccination/development checks. Extra jaundice review can add cost.','妈妈产后复诊，加宝宝体重、黄疸、喂养及疫苗/发育检查。额外黄疸复查会增加费用。')
+    }
+  ];
+  return head(tr('Cost of Raising a Child in Singapore','在新加坡养育孩子的成本'),
+      tr('Planning ranges from pregnancy to university, before Baby Bonus/CDA unless stated','从怀孕到大学的规划区间，除特别注明外未扣Baby Bonus/CDA'),
+      tr('Cost planner','成本规划'),'navy','happy')
+    + happySubnav('cost')
+    + `<div class="cost-kpis">${totalCards.map(c=>`
+      <div class="cost-kpi"><h3>${c.h}</h3><span class="amt">${c.a}</span><p>${c.p}</p></div>`).join('')}</div>
+    ${timelineNotes([
+      tr('Pregnancy, birth and first year are the biggest cash-flow shock','怀孕、分娩及第一年通常是现金流冲击最大阶段'),
+      tr('Childcare and enrichment become the recurring monthly cost','托育及补习才艺会成为长期月度开支'),
+      tr('University or overseas education is the long-term lump-sum goal','大学或海外教育是长期大额目标')
+    ])}
+    <section class="visit-rhythm">
+      <div class="visit-title">
+        <h3>${tr('Pregnancy Visit Rhythm and Check-up Cost','孕期复诊次数与产检费用')}</h3>
+        <p>${tr('Medium-to-high planning ranges per stage, not subsidised floor pricing and not one-visit pricing. Healthy low-risk pregnancies are usually around 8 to 10 antenatal visits, then mother and baby reviews after birth.','以下为每个阶段的中高预算区间，不是津贴最低价，也不是单次门诊价。健康低风险孕期通常约8至10次产检，宝宝出生后再做妈妈及宝宝复诊。')}</p>
+      </div>
+      <div class="visit-grid">${trimesterCards.map(c=>`
+        <div class="visit-card">
+          <h4>${c.h}</h4>
+          <span class="visit-weeks">${c.weeks}</span>
+          <span class="visit-count">${c.visits}</span>
+          <div class="visit-costs">
+            <div><span>${tr('Medium stage total','中等阶段总额')}</span><b>${c.mediumCost}</b></div>
+            <div><span>${tr('High stage total','高预算阶段总额')}</span><b>${c.highCost}</b></div>
+          </div>
+          <p>${c.note}</p>
+        </div>`).join('')}</div>
+      <div class="visit-note"><b>${tr('Real fee anchors.','真实费用参考。')}</b> ${tr('KKH private women consultations start from S$167.86 - S$208.84 for a first consultation and S$118.59 - S$158.27 for repeat consultations. SGH private specialist fees start from S$170.48 - S$221.27 first visit and S$118.59 - S$159.47 repeat. Raffles Womens Centre lists S$221.27 first and S$159.47 subsequent, plus S$19.62 practice cost. Thomson cites pregnancy first consultation with scan at S$200 - S$350, follow-up consultations at S$120 - S$200 and detailed anomaly scans at S$300 - S$500. KKH private antenatal package starts from S$818 before GST for 6 consultations with scans/tests. MediSave Maternity Package can reimburse up to S$900 for pre-delivery expenses.','KKH私人妇科门诊第一次约167.86至208.84新元起，复诊118.59至158.27新元起。SGH私人专科第一次约170.48至221.27新元起，复诊118.59至159.47新元起。Raffles Womens Centre列明第一次221.27新元，复诊159.47新元，另有19.62新元practice cost。Thomson资料显示孕期第一次门诊含扫描约200至350新元，复诊120至200新元，详细结构扫描300至500新元。KKH私人产检配套税前818新元起，含6次咨询及部分扫描/检查。保健储蓄产妇配套可报销产前费用最高900新元。')}</div>
+    </section>
+    <section class="preprimary-snapshot">
+      <div class="pp-title">
+        <h3>${tr('Before Primary 1 Cost Snapshot','上小学前成本快照')}</h3>
+        <p>${tr('Read this first: total range, monthly childcare burn, yearly childcare burn and childcare total before school starts.','先看这里：总额区间、每月托育开支、年度托育开支，以及上小学前托育总额。')}</p>
+      </div>
+      <div class="pp-scenario-grid">${prePrimaryCards.map(c=>`
+        <div class="pp-card ${c.hot?'highlight':''}">
+          <div class="pp-tier"><span>${c.tier}</span></div>
+          <span class="pp-total">${c.total}</span>
+          <p>${c.note}</p>
+          <div class="pp-mini">
+            <div><span>${tr('Pregnancy to age 1','怀孕至1岁')}</span><b>${c.setup}</b></div>
+            <div><span>${tr('Childcare monthly','托育每月')}</span><b>${c.monthly}</b></div>
+            <div><span>${tr('Childcare yearly','托育每年')}</span><b>${c.yearly}</b></div>
+            <div><span>${tr('Childcare before P1','小学前托育')}</span><b>${c.childTotal}</b></div>
+          </div>
+        </div>`).join('')}</div>
+      <div class="pp-groups">${prePrimaryGroups.map(g=>`
+        <div class="pp-group">
+          <h4>${g.h}</h4>
+          ${g.rows.map(r=>`<div class="pp-line">
+            <div class="pp-line-label">${r.l}</div>
+            ${ppCell(tr('Basic','基础'),r.b)}
+            ${ppCell(tr('Advanced','进阶'),r.a)}
+            ${ppCell(tr('Luxury','高端'),r.x)}
+          </div>`).join('')}
+        </div>`).join('')}</div>
+    </section>
+    <p class="cost-note"><b>${tr('Delivery-only reality check.','只看分娩账单。')}</b> ${tr('C-section is not close to natural birth on the hospital bill itself. The all-in pregnancy-to-age-1 totals look closer only because checkups, jaundice, confinement and baby necessities sit in the same basket. For planning, keep a separate C-section buffer of about S$1k-S$2k on subsidised wards, S$4k-S$5k for public A/B1 or private 2-bed, and S$5k-S$8k+ for private 1-bed/suite style care.','剖腹产本身的医院账单并不接近自然产。怀孕至1岁总额看起来较接近，只是因为产检、黄疸、月子和宝宝用品都放在同一个篮子里。规划时应另预留剖腹产缓冲：津贴病房约1千至2千新元，公立A/B1或私人2人房约4千至5千新元，私人1人房/套房式护理约5千至8千新元以上。')}</p>
+    <p class="cost-note"><b>${tr('Before Primary School assumption.','小学前假设。')}</b> ${tr('The tally uses the detailed ranges below, assumes about 70 months of childcare from 2 months old to age 6, and excludes helper, car, housing, parent income loss, NICU and major complications.','合计使用下方明细区间，假设从2个月大至6岁约70个月托育，不包括女佣、车、住房、父母收入损失、NICU及重大并发症。')}</p>
+    <div class="compare-wrap"><table class="compare cost">
+      <tr>
+        <th>${tr('Stage','阶段')}</th>
+        <th>${tr('Basic','基础')}</th>
+        <th>${tr('Advanced','进阶')}</th>
+        <th>${tr('Luxury','高端')}</th>
+        <th>${tr('Planning note','规划备注')}</th>
+      </tr>
+      ${rows.map(r=>`<tr>
+        <td>${r.stage}</td>
+        <td>${r.basic}</td>
+        <td>${r.adv}</td>
+        <td>${r.lux}</td>
+        <td>${r.note}</td>
+      </tr>`).join('')}
+    </table></div>
+    <p class="cost-note"><b>${tr('Important.','重要。')}</b> ${tr('These are planning ranges, not medical advice and not a quote. Delivery complications, NICU, helper/car/housing, parent income disruption, insurance claims and subsidies can move the final number sharply.','这些是规划区间，不是医疗建议，也不是报价。分娩并发症、NICU、女佣/车/住房、父母收入中断、保险理赔及津贴都会大幅改变最终数字。')}</p>
+    <p class="mini-source">${tr('Research updated 16 Jun 2026 from KKH, Gleneagles, MOH, ECDA, MOE, polytechnic and NUS fee pages, plus current market price references in the Source Pack.','研究于2026年6月16日更新，来源包括KKH、Gleneagles、MOH、ECDA、MOE、理工学院及NUS费用页面，以及资料包内的当前市场价格参考。')}</p>`;
+}
+
+function rHappy(){
+  return (S.happy.view || 'cover') === 'cost' ? rHappyCost() : rHappyCover();
+}
+
+/* ================= OVERVIEW ================= */
+function rOver(){
+  const items=[
+    {id:'shield', en:'Hospital bills, as charged, for life', cn:'住院账单按实际费用终身保障', span:tr('age 1 to lifetime','1岁起，终身'), bar:[1,100]},
+    {id:'happy', en:'Prenatal cover plus newborn and family protection bridge', cn:'孕期保障加新生儿及家庭保障衔接', span:tr('week 13 to year 3, then bundled continuation','孕13周至第3年，其后由搭配计划延续'), bar:[1,3]},
+    {id:'scc', en:'Repeated CI payouts, up to 600% of SA', cn:'重疾多次赔付，累计至保额600%', span:tr('to age 75, renewable to 99','保至75岁，可续保至99'), bar:[30,99]},
+    {id:'pc', en:'Hospital cash on top of insurance', cn:'保险之外的住院现金', span:tr('renewable to 85','续保至85岁'), bar:[30,85]},
+    {id:'lt3', en:'Whole life + multiplier for the working years', cn:'终身寿险+工作年期保障倍数', span:tr('to age 99','至99岁'), bar:[30,99]},
+    {id:'tpa', en:'Term cover with cash value on limited pay', cn:'定期保障，限期缴费含现金价值', span:tr('to chosen age, convert by 65','至所选年龄，65岁前可转换'), bar:[30,70]},
+    {id:'tpp', en:'Pure term - renewable or to-age, SGD/USD', cn:'纯定期 - 可续保或保至指定年龄', span:tr('to age 99 max','最长至99岁'), bar:[30,99]},
+    {id:'tl', en:'Direct-purchase simple term', cn:'直接投保简易定期', span:tr('renewable to 80','可续保至80岁'), bar:[30,80]}
+  ];
+  const tabButtons = ids => `<div class="value-tabs">${ids.map(id=>`<button type="button" onclick="openTab('${id}')">${PROD[id]()}</button>`).join('')}</div>`;
+  const comparisonFitProfiles = [
+    tr('Clients who are not sure whether they need medical reimbursement, critical illness, hospital cash, term cover or whole life cover.','不确定自己需要医疗报销、重疾、住院现金、定期保障还是终身寿险的客户。'),
+    tr('Clients with income, mortgage, children, dependants or family responsibilities to protect.','需要保障收入、房贷、孩子、家属或家庭责任的客户。'),
+    tr('Expecting parents who need to connect pregnancy, newborn, child medical and family protection decisions.','需要衔接孕期、新生儿、孩子医疗和家庭保障决定的准父母。'),
+    tr('Clients reviewing older policies that may no longer match today’s income, debt or family stage.','正在检视旧保单、担心保障已不符合现有收入、债务或家庭阶段的客户。'),
+    tr('Clients who want to see the protection layers before choosing a product.','想先看清保障层次，再决定产品的客户。'),
+    tr('Budget-conscious clients who need to rank priorities instead of buying everything at once.','预算有限、需要先排优先次序，而不是一次买齐所有保障的客户。')
+  ];
+  const comparisonNotIdeal = [
+    tr('Someone who wants a final quote or exact premium without underwriting and illustration.','想要最终报价或精确保费，但还没有核保及保单说明书的人。'),
+    tr('Someone who only wants investment returns and does not need protection planning.','只想追求投资回报、不需要保障规划的人。'),
+    tr('Someone who already knows the exact product and only needs the official product summary.','已经确定产品，只需要官方产品摘要的人。'),
+    tr('Someone who needs urgent medical, legal, tax or claims advice.','需要紧急医疗、法律、税务或理赔建议的人。'),
+    tr('Someone with complex health history, where underwriting terms may change the recommendation.','健康状况较复杂、核保条件可能改变建议的人。')
+  ];
+  const valueCards = [
+    {
+      kickerEn:'Why people care',
+      kickerCn:'为什么会关注',
+      titleEn:'Health events can break cash flow before they break a plan',
+      titleCn:'健康事件往往先影响现金流',
+      points:[
+        tr('Hospital bills can be large and timing is not controllable.','住院账单可能很大，而且时间无法控制。'),
+        tr('Cash payouts can help with recovery, income disruption and family expenses.','现金赔付可协助康复、收入中断及家庭开支。'),
+        tr('The value is choice: treatment route, recovery time and less pressure to sell investments.','价值在于选择权：治疗路线、康复时间，以及减少被迫变现投资的压力。')
+      ]
+    },
+    {
+      kickerEn:'Who notices first',
+      kickerCn:'谁最容易有感觉',
+      titleEn:'People with dependants, loans or work income to protect',
+      titleCn:'有家人责任、贷款或工作收入的人',
+      points:[
+        tr('Parents and breadwinners usually care about replacing income and protecting education plans.','父母和家庭经济支柱通常关注收入替代及孩子教育规划。'),
+        tr('Self-employed clients may need extra cash because paid medical leave is limited.','自雇人士可能更需要额外现金，因为带薪病假保障有限。'),
+        tr('Legacy-focused clients look at liquidity, estate equalisation and long-term promises.','重视传承的客户会关注流动性、资产分配及长期承诺。')
+      ]
+    },
+    {
+      kickerEn:'Value behind the plans',
+      kickerCn:'计划背后的价值',
+      titleEn:'Layer the protection instead of expecting one plan to do everything',
+      titleCn:'用分层保障，而不是期待一个计划解决所有问题',
+      points:[
+        tr('Shield handles eligible medical bills; CI and hospital cash handle cash needs.','Shield处理合资格医疗账单；重疾及住院现金处理现金需求。'),
+        tr('Term creates larger family protection per premium dollar; whole life adds long-term and legacy structure.','定期寿险以较低保费建立较大保障；终身寿险补上长期及传承结构。'),
+        tr('HappyMummy / HappyFamily is the bridge from pregnancy to newborn and family planning.','HappyMummy / HappyFamily 是从孕期到新生儿及家庭规划的衔接。')
+      ]
+    }
+  ];
+  const personas = [
+    {
+      whoEn:'Expecting parents',
+      whoCn:'准父母',
+      whyEn:'Pregnancy, delivery, newborn health, mother recovery and the first insurance decisions for the child.',
+      whyCn:'孕期、分娩、新生儿健康、妈妈康复，以及孩子第一份保障决定。',
+      valueEn:'Creates a bridge from pregnancy week 13 to newborn protection, then connects to child medical cover and family protection.',
+      valueCn:'从怀孕第13周衔接到新生儿保障，再连接孩子医疗保障及家庭保障。',
+      tabs:['happy','shield','lt3','tpp']
+    },
+    {
+      whoEn:'Young working adults',
+      whoCn:'年轻在职人士',
+      whyEn:'No dependants yet, but hospital bills or CI recovery can interrupt savings and career plans.',
+      whyCn:'可能还没有家属责任，但住院账单或重疾康复会影响储蓄及事业规划。',
+      valueEn:'Builds the base early: medical bills first, then cash benefits if income is the main asset.',
+      valueCn:'尽早建立基础：先处理医疗账单，再按收入风险补上现金保障。',
+      tabs:['shield','scc','pc','tl']
+    },
+    {
+      whoEn:'Parents with dependants',
+      whoCn:'有家属责任的父母',
+      whyEn:'Childcare, education, mortgage and household commitments continue even when health stops work.',
+      whyCn:'即使健康影响工作，托儿、教育、房贷及家庭开支仍会继续。',
+      valueEn:'Uses term cover for large family protection, with CI or hospital cash to protect recovery and monthly cash flow.',
+      valueCn:'用定期寿险建立较大保障，再用重疾或住院现金保障康复及每月现金流。',
+      tabs:['tpp','tpa','scc','pc']
+    },
+    {
+      whoEn:'Self-employed or business owners',
+      whoCn:'自雇人士或企业主',
+      whyEn:'Personal health can affect business revenue, staff obligations and family income at the same time.',
+      whyCn:'个人健康可能同时影响生意收入、员工责任及家庭收入。',
+      valueEn:'Adds liquidity through hospital cash and CI payouts, while life cover protects family and business obligations.',
+      valueCn:'通过住院现金及重疾赔付增加流动性，同时用寿险保障家庭及业务责任。',
+      tabs:['pc','scc','tpp','lt3']
+    },
+    {
+      whoEn:'Legacy-focused clients',
+      whoCn:'重视传承的客户',
+      whyEn:'They want protection to support estate liquidity, family promises and longer-term capital transfer.',
+      whyCn:'他们希望保障可支持遗产流动性、家庭承诺及长期资产传承。',
+      valueEn:'Whole life and limited-pay structures can sit beside term cover to balance protection, cash value and legacy goals.',
+      valueCn:'终身寿险及限期缴费结构可配合定期保障，平衡保障、现金价值及传承目标。',
+      tabs:['lt3','tpa','shield']
+    },
+    {
+      whoEn:'Budget-conscious buyers',
+      whoCn:'重视预算的客户',
+      whyEn:'They need a clear starting point and do not want to overcommit before priorities are ranked.',
+      whyCn:'他们需要明确起点，不希望在优先次序清楚前过度承诺。',
+      valueEn:'Starts with the biggest painful gap: hospital bills, then death, TPD or CI cover through simple term choices.',
+      valueCn:'先处理最痛的缺口：住院账单，再以简易定期选择补上身故、全残或重疾保障。',
+      tabs:['shield','tl','tpp']
+    }
+  ];
+  const compareRows = items.map(it=>{
+    const m = PRODUCT_META[it.id];
+    return `<tr>
+      <td><b>${PROD[it.id]()}</b><br><span class="muted">${tr(m.bestEn,m.bestCn)}</span></td>
+      <td>${tr(m.purposeEn,m.purposeCn)}</td>
+      <td>${tr(m.premiumEn,m.premiumCn)}</td>
+      <td>${tr(m.coverEn,m.coverCn)}</td>
+      <td>${tr(m.claimEn,m.claimCn)}</td>
+      <td><button type="button" onclick="openTab('${it.id}')">${tr('Open','打开')}</button></td>
+    </tr>`;
+  }).join('');
+  return head(tr('Comparison tab','对比标签页'),
+      tr('Choose by client need first, then open the product tab for timeline details','先按客户需求筛选，再打开产品标签页看时间轴细节'),
+      tr('8 products','8个产品'),'navy')
+    +`<section class="value-section">
+      <div class="cmp-grid">
+        <div class="cmp-card highlight-attractive"><h3>${tr('Best fit client profiles','最适合的客户类型')}</h3>
+          <ul class="value-card-list">${comparisonFitProfiles.map(p=>`<li>${p}</li>`).join('')}</ul>
+        </div>
+        <div class="cmp-card highlight-important"><h3>${tr('Simple positioning','简单定位')}</h3>
+          <p style="font-size:13px;color:var(--grey);line-height:1.5;">${tr('Use this Comparison tab when a client wants to choose the right protection layer first: medical bills, recovery cash, income and family protection, or long-term legacy planning.','当客户想先选对保障层次时，可使用这个对比页：医疗账单、康复现金、收入及家庭保障，或长期传承规划。')}</p>
+          <div class="timeline-notes" style="margin-top:10px;">
+            <span>${tr('Medical bill protection','医疗账单保障')}</span>
+            <span>${tr('Recovery and income cash','康复及收入现金')}</span>
+            <span>${tr('Family and legacy cover','家庭及传承保障')}</span>
+          </div>
+        </div>
+        <div class="cmp-card"><h3>${tr('Not ideal for','不太适合')}</h3>
+          <ul class="value-card-list">${comparisonNotIdeal.map(p=>`<li>${p}</li>`).join('')}</ul>
+        </div>
+      </div>
+      <div class="value-hero">
+        <div>
+          <h3>${tr('Why clients become interested in Health & Protection','为什么客户会关注健康与保障')}</h3>
+          <p>${tr('Health & Protection is not just about buying more insurance. It is about protecting the choices a family wants to keep when medical bills, recovery time, income disruption or dependants enter the picture.','健康与保障不只是买更多保险，而是在医疗账单、康复时间、收入中断或家人责任出现时，保住一个家庭想保留的选择权。')}</p>
+        </div>
+        <div class="value-question">
+          <b>${tr('Core planning question','核心规划问题')}</b>
+          <span>${tr('If a health event happens, which bill, cash flow or family promise must not break?','如果健康事件发生，哪一张账单、哪一段现金流、哪一个家庭承诺不能断？')}</span>
+        </div>
+      </div>
+      <div class="cmp-grid value-lenses">${valueCards.map(card=>`<div class="cmp-card highlight-attractive">
+        <span class="value-kicker">${tr(card.kickerEn,card.kickerCn)}</span>
+        <h3>${tr(card.titleEn,card.titleCn)}</h3>
+        <ul class="value-card-list">${card.points.map(point=>`<li>${point}</li>`).join('')}</ul>
+      </div>`).join('')}</div>
+      <div class="persona-wrap"><table class="persona-table">
+        <tr>
+          <th>${tr('Who may be interested','谁会感兴趣')}</th>
+          <th>${tr('Why they care','为什么在意')}</th>
+          <th>${tr('Value behind the plans','计划背后的价值')}</th>
+          <th>${tr('Relevant tabs','相关标签页')}</th>
+        </tr>
+        ${personas.map(p=>`<tr>
+          <td>${tr(p.whoEn,p.whoCn)}</td>
+          <td>${tr(p.whyEn,p.whyCn)}</td>
+          <td>${tr(p.valueEn,p.valueCn)}</td>
+          <td>${tabButtons(p.tabs)}</td>
+        </tr>`).join('')}
+      </table></div>
+    </section>`
+    +`<div class="compare-wrap"><table class="compare">
+      <tr>
+        <th>${tr('Product','产品')}</th>
+        <th>${tr('Main purpose','主要用途')}</th>
+        <th>${tr('Premium style','缴费方式')}</th>
+        <th>${tr('Coverage span','保障期限')}</th>
+        <th>${tr('Claim style','理赔方式')}</th>
+        <th></th>
+      </tr>
+      ${compareRows}
+    </table></div>
+    <div class="cmp-grid">`+items.map(it=>{
+      const w0=(it.bar[0]-1)/99*100, w1=(it.bar[1]-it.bar[0])/99*100;
+      return `<div class="cmp-card" style="cursor:pointer" onclick="openTab('${it.id}')">
+        <h3>${PROD[it.id]()}</h3>
+        <span class="best-for" style="margin-top:0;">${tr('Best for: ','适合：')}${tr(PRODUCT_META[it.id].bestEn,PRODUCT_META[it.id].bestCn)}</span>
+        <p style="font-size:13px;margin:4px 0 8px 0;">${tr(it.en,it.cn)}</p>
+        <div style="height:12px;background:#f3f1ea;border-radius:6px;position:relative;overflow:hidden;">
+          <div style="position:absolute;left:${w0}%;width:${w1}%;top:0;bottom:0;background:var(--primary);border-radius:6px;"></div>
+        </div>
+        <p class="muted" style="font-size:12px;margin-top:6px;">${it.span}</p>
+      </div>`;
+    }).join('')+`</div>
+    <p class="muted" style="margin-top:14px;font-size:12.5px;">${tr('Coverage bars are indicative spans from a typical entry age of 30, except Shield from age 1 and HappyMummy / HappyFamily from pregnancy week 13.','保障条为示意区间，通常按30岁投保；Shield自1岁起，HappyMummy / HappyFamily自怀孕第13周起。')}</p>`;
+}
+
+/* ================= render ================= */
+const RENDER = {over:rOver, shield:rShield, happy:rHappy, scc:rScc, pc:rPc, lt3:rLt3, tpa:rTpa, tpp:rTpp, tl:rTl};
+function render(){
+  document.getElementById('tabs').innerHTML = Object.keys(PROD).map(id=>
+    `<button class="${G.tab===id?'active':''}" onclick="openTab('${id}')">${PROD[id]()}</button>`).join('');
+  document.getElementById('app').innerHTML = `<div class="panel">${RENDER[G.tab]()}</div>`;
+}
+renderFooter();
+render();
+</script>
 </body>
 </html>
