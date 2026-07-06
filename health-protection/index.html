@@ -120,6 +120,26 @@
   .value-tabs{display:flex; flex-wrap:wrap; gap:6px;}
   .value-tabs button{border:1px solid #c6ded0; background:#eef7ef; color:var(--primary-dark); border-radius:7px; padding:5px 8px; font-size:11.5px; font-weight:800; cursor:pointer; text-align:left;}
   .value-tabs button:hover{border-color:var(--gold); background:#fffdf7;}
+  .medical-risk{display:grid; gap:12px; margin-top:14px;}
+  .medical-risk-hero{display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:12px; align-items:stretch; background:#fffdf7; border:1px solid #d7b783; border-radius:10px; padding:14px;}
+  .medical-risk-hero h3{font-size:17px; line-height:1.25; color:var(--navy); margin-bottom:5px;}
+  .medical-risk-hero p{font-size:13px; color:var(--grey);}
+  .medical-risk-callout{background:#f9fbf6; border:1px solid var(--line); border-radius:8px; padding:12px; font-size:12.5px; color:var(--grey);}
+  .medical-risk-callout b{display:block; color:var(--primary-dark); margin-bottom:5px;}
+  .medical-risk-flow{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px;}
+  .medical-risk-step{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:11px;}
+  .medical-risk-step b{display:block; color:var(--navy); font-size:13px; margin-bottom:4px;}
+  .medical-risk-step span{display:block; color:var(--grey); font-size:12.4px;}
+  .medical-risk-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px;}
+  .medical-risk-card{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:12px;}
+  .medical-risk-card h4{font-size:14px; color:var(--navy); margin-bottom:6px;}
+  .medical-risk-card h4::before{content:"★"; color:var(--gold); margin-right:6px;}
+  .medical-risk-amount{display:block; color:var(--primary-dark); font-size:16px; font-weight:900; line-height:1.2; margin-bottom:5px; font-variant-numeric:tabular-nums;}
+  .medical-risk-card p{font-size:12.3px; color:var(--grey); margin-top:5px;}
+  .medical-risk-card a{color:var(--primary-dark); text-decoration:none; border-bottom:1px solid rgba(30,93,85,.35); font-weight:750;}
+  .medical-risk-card a:hover{color:var(--warn); border-bottom-color:var(--warn);}
+  .medical-risk-source{font-size:11.5px; color:var(--faint); margin-top:8px;}
+  .medical-risk-source b{color:var(--primary-dark);}
   .star-inline{display:inline-flex; align-items:baseline; gap:5px;}
   .star-inline::before{content:"★"; color:var(--gold); font-size:.9em; line-height:1;}
   .star-inline.important::before{color:var(--warn);}
@@ -229,6 +249,8 @@
     .prodhead{align-items:flex-start;}
     .cmp-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px;}
     .value-hero{grid-template-columns:1fr;}
+    .medical-risk-hero{grid-template-columns:1fr;}
+    .medical-risk-flow{grid-template-columns:1fr;}
     table.persona-table{min-width:780px; font-size:12.5px;}
     table.persona-table td:first-child{width:150px;}
     .pp-scenario-grid{grid-template-columns:1fr;}
@@ -415,6 +437,16 @@ const SOURCE_PACK = [
     {en:'Doctor Anywhere home phototherapy price', cn:'Doctor Anywhere居家黄疸光疗价格', href:'https://doctoranywhere.com/home-treatment-jaundice/'},
     {en:'PEM confinement nanny cost guide', cn:'PEM月嫂费用指南', href:'https://pemconfinement.com/blog/confinement-nanny-cost-in-singapore-guide/'},
     {en:'Singapore confinement centre price guide', cn:'新加坡月子中心价格参考', href:'https://www.hatchery.com.sg/blogs/baby-guides-singapore/best-confinement-centre-singapore'}
+  ]},
+  {en:'Singapore medical bill risk research', cn:'新加坡医疗账单风险资料', docs:[
+    {en:'MOH diabetes bill benchmark', cn:'MOH糖尿病账单基准', href:'https://www.moh.gov.sg/managing-expenses/bills-and-fee-benchmarks/cost-financing/drg-k60b-bill-information/'},
+    {en:'MOH acute heart attack bill benchmark', cn:'MOH急性心梗账单基准', href:'https://www.moh.gov.sg/managing-expenses/bills-and-fee-benchmarks/cost-financing/drg-f60b-bill-information/'},
+    {en:'MOH emergency PCI / stent bill benchmark', cn:'MOH急诊PCI/支架账单基准', href:'https://www.moh.gov.sg/managing-expenses/bills-and-fee-benchmarks/cost-financing/tosp-sd714h-bill-information/'},
+    {en:'MOH stroke bill benchmark', cn:'MOH中风账单基准', href:'https://www.moh.gov.sg/managing-expenses/bills-and-fee-benchmarks/cost-financing/drg-b70b-bill-information/'},
+    {en:'MOH chemotherapy bill benchmark', cn:'MOH化疗账单基准', href:'https://www.moh.gov.sg/managing-expenses/bills-and-fee-benchmarks/cost-financing/drg-r63z-bill-information/'},
+    {en:'MOH MediShield Life benefits', cn:'MOH MediShield Life保障限额', href:'https://www.moh.gov.sg/managing-expenses/schemes-and-subsidies/medishield-life/medishield-life-benefits/'},
+    {en:'MOH community dialysis subsidies', cn:'MOH社区透析津贴', href:'https://www.moh.gov.sg/managing-expenses/schemes-and-subsidies/subsidies-for-community-dialysis-services/'},
+    {en:'Raffles dialysis cost guide', cn:'Raffles透析费用参考', href:'https://www.rafflesmedicalgroup.com/health-resources/health-articles/top-5-things-you-need-to-know-about-dialysis/'}
   ]},
   {en:'Term Protect Advantage / Term Lite', cn:'Term Protect Advantage / Term Lite', docs:[
     {en:'Term Protect Advantage product page', cn:'Term Protect Advantage 产品页面', href:'https://www.insurance.hsbc.com.sg/life-and-critical-illness/products/term-protect-advantage/'},
@@ -1866,6 +1898,84 @@ function rOver(){
       ]
     }
   ];
+  const medRiskLinks = {
+    diabetes:'https://www.moh.gov.sg/managing-expenses/bills-and-fee-benchmarks/cost-financing/drg-k60b-bill-information/',
+    heart:'https://www.moh.gov.sg/managing-expenses/bills-and-fee-benchmarks/cost-financing/drg-f60b-bill-information/',
+    pci:'https://www.moh.gov.sg/managing-expenses/bills-and-fee-benchmarks/cost-financing/tosp-sd714h-bill-information/',
+    stroke:'https://www.moh.gov.sg/managing-expenses/bills-and-fee-benchmarks/cost-financing/drg-b70b-bill-information/',
+    chemo:'https://www.moh.gov.sg/managing-expenses/bills-and-fee-benchmarks/cost-financing/drg-r63z-bill-information/',
+    msl:'https://www.moh.gov.sg/managing-expenses/schemes-and-subsidies/medishield-life/medishield-life-benefits/',
+    dialysis:'https://www.moh.gov.sg/managing-expenses/schemes-and-subsidies/subsidies-for-community-dialysis-services/',
+    raffles:'https://www.rafflesmedicalgroup.com/health-resources/health-articles/top-5-things-you-need-to-know-about-dialysis/'
+  };
+  const medicalRisks = [
+    {
+      conditionEn:'Diabetes and complications',
+      conditionCn:'糖尿病及并发症',
+      amountEn:'Public B2/C: S$1.0k - S$1.2k median; private: S$9.8k median',
+      amountCn:'公立B2/C：中位数约S$1.0k - S$1.2k；私立：中位数约S$9.8k',
+      billEn:'MOH K60B shows private inpatient typical range of S$6.2k - S$16.2k.',
+      billCn:'MOH K60B显示，私立住院常见区间约S$6.2k - S$16.2k。',
+      uwEn:'Insurers may look closely at HbA1c control, medication, BMI, blood pressure and kidney, eye or nerve complications.',
+      uwCn:'保险公司通常会关注HbA1c控制、药物、BMI、血压，以及肾、眼或神经并发症。',
+      talkEn:'Use this to explain why medical and CI cover should be arranged before diabetes becomes part of the application.',
+      talkCn:'可用来说明：应在糖尿病成为投保资料之前，先安排医疗及重疾保障。',
+      sources:[['MOH K60B','MOH K60B','diabetes']]
+    },
+    {
+      conditionEn:'Heart attack / coronary stent',
+      conditionCn:'心脏病发作 / 冠脉支架',
+      amountEn:'Emergency PCI/stent: public B2/C S$6.7k - S$7.8k median; private S$47.2k median',
+      amountCn:'急诊PCI/支架：公立B2/C中位数S$6.7k - S$7.8k；私立中位数S$47.2k',
+      billEn:'AMI without invasive procedure is already S$10.4k private median; emergency PCI private range is S$41.1k - S$52.6k.',
+      billCn:'未做介入手术的急性心梗私立中位数已约S$10.4k；急诊PCI私立区间约S$41.1k - S$52.6k。',
+      uwEn:'Past heart attack, stent, abnormal ECG, hypertension, cholesterol, smoking or family history can materially affect underwriting.',
+      uwCn:'曾心梗、装支架、心电图异常、高血压、胆固醇、吸烟或家族史，都可能明显影响核保。',
+      talkEn:'Good bridge into Shield first, then CI and income-protection cash for recovery time.',
+      talkCn:'适合带入：先有Shield医疗账单保障，再补重疾及收入现金保障。',
+      sources:[['MOH AMI','MOH AMI','heart'],['MOH PCI','MOH PCI','pci']]
+    },
+    {
+      conditionEn:'Stroke',
+      conditionCn:'中风',
+      amountEn:'Public B2/C: S$2.5k - S$2.8k median; private: S$21.0k median',
+      amountCn:'公立B2/C：中位数S$2.5k - S$2.8k；私立：中位数S$21.0k',
+      billEn:'MOH B70B private typical range is S$14.1k - S$35.0k before insurance and MediSave payouts.',
+      billCn:'MOH B70B私立常见区间约S$14.1k - S$35.0k，未扣除保险及保健储蓄赔付。',
+      uwEn:'Stroke history is usually serious for underwriting; even warning signs, blood pressure and diabetes history matter.',
+      uwCn:'中风病史通常属于严重核保因素；即使是先兆、高血压及糖尿病史也会影响。',
+      talkEn:'This is where lump-sum CI and hospital cash matter because recovery and rehab may affect work for months.',
+      talkCn:'这里可强调一次性重疾赔付及住院现金，因为康复及复健可能影响工作数月。',
+      sources:[['MOH B70B','MOH B70B','stroke']]
+    },
+    {
+      conditionEn:'Cancer treatment',
+      conditionCn:'癌症治疗',
+      amountEn:'Chemo day surgery: subsidised S$485 median; private S$12.8k median',
+      amountCn:'化疗日间手术：受津贴中位数S$485；私立中位数S$12.8k',
+      billEn:'MediShield Life cancer drug treatment limits vary by drug, from S$200 - S$12.8k per month for one primary cancer.',
+      billCn:'MediShield Life癌症药物治疗限额按药物而定，单一原发癌症每月S$200 - S$12.8k。',
+      uwEn:'A cancer diagnosis can lead to postponement, exclusions, loading or decline depending on type, stage, treatment and remission period.',
+      uwCn:'癌症诊断后，核保可能因癌种、分期、治疗及缓解期而延期、除外、加费或拒保。',
+      talkEn:'Explain that cancer planning is not one bill only; it can be repeated treatment plus time away from work.',
+      talkCn:'可说明癌症规划不是一张账单，而是反复治疗加上离开工作的时间成本。',
+      sources:[['MOH R63Z','MOH R63Z','chemo'],['MOH MediShield Life','MOH MediShield Life','msl']]
+    },
+    {
+      conditionEn:'Kidney failure / dialysis',
+      conditionCn:'肾衰竭 / 透析',
+      amountEn:'Private haemodialysis: about S$2.5k - S$3.0k/month before claims',
+      amountCn:'私立血液透析：理赔前约S$2.5k - S$3.0k/月',
+      billEn:'MediShield Life kidney dialysis claim limit is S$1,750/month. MOH community haemodialysis subsidy can be S$0 - S$2,185/month for Singapore Citizens, based on means test.',
+      billCn:'MediShield Life肾透析赔付限额为S$1,750/月。MOH社区血液透析津贴按入息审查，新加坡公民每月可为S$0 - S$2,185。',
+      uwEn:'Kidney impairment, protein in urine, dialysis or transplant history can make new cover difficult or unavailable.',
+      uwCn:'肾功能受损、尿蛋白、透析或肾移植病史，可能令新保障变得困难或无法投保。',
+      talkEn:'Use this for recurring-cost risk: the problem is not one hospital stay, but a monthly medical commitment.',
+      talkCn:'可用于说明持续费用风险：问题不只是一场住院，而是每月医疗开销。',
+      sources:[['Raffles dialysis guide','Raffles透析费用参考','raffles'],['MOH dialysis subsidy','MOH透析津贴','dialysis'],['MOH MSHL limit','MOH MSHL限额','msl']]
+    }
+  ];
+  const sourceLinks = risk => risk.sources.map(s=>`<a href="${medRiskLinks[s[2]]}" target="_blank" rel="noopener">${tr(s[0],s[1])}</a>`).join(' · ');
   const personas = [
     {
       whoEn:'Expecting parents',
@@ -1968,6 +2078,34 @@ function rOver(){
         <h3>${tr(card.titleEn,card.titleCn)}</h3>
         <ul class="value-card-list">${card.points.map(point=>`<li>${point}</li>`).join('')}</ul>
       </div>`).join('')}</div>
+      <section class="medical-risk">
+        <div class="medical-risk-hero">
+          <div>
+            <h3>${tr('Top medical bill risks before insurance gets harder','投保变难前，最需要看到的医疗账单风险')}</h3>
+            <p>${tr('The planning point is simple: after a major diagnosis, the conversation may no longer be about which plan is cheapest. It may become whether new cover is accepted, loaded, excluded, postponed or declined.','规划重点很简单：重大诊断之后，问题可能不再是哪一个计划最便宜，而是新保障是否还能被接受、是否加费、除外、延期或拒保。')}</p>
+          </div>
+          <div class="medical-risk-callout">
+            <b>${tr('Client-facing pitch','客户沟通句')}</b>
+            <span>${tr('Most people only feel the need for insurance after they see the bill. But by then, the health condition may already be part of underwriting.','多数人看到医疗账单后才感受到保障需要。但到了那时，健康状况可能已经成为核保资料的一部分。')}</span>
+          </div>
+        </div>
+        <div class="medical-risk-flow">
+          <div class="medical-risk-step"><b>${tr('1. Bill shock','1. 账单冲击')}</b><span>${tr('Show the real Singapore bill range first, especially private and repeated-treatment costs.','先展示真实新加坡账单区间，尤其是私立及反复治疗费用。')}</span></div>
+          <div class="medical-risk-step"><b>${tr('2. Underwriting timing','2. 核保时机')}</b><span>${tr('Explain that health history can change acceptance terms after diagnosis.','说明诊断后的健康记录可能改变承保条件。')}</span></div>
+          <div class="medical-risk-step"><b>${tr('3. Layer the solution','3. 分层解决')}</b><span>${tr('Use Shield for eligible bills, then CI, hospital cash, term or whole life for recovery and family cash flow.','用Shield处理合资格账单，再用重疾、住院现金、定期或终身寿险处理康复及家庭现金流。')}</span></div>
+        </div>
+        <div class="medical-risk-grid">
+          ${medicalRisks.map(r=>`<article class="medical-risk-card">
+            <h4>${tr(r.conditionEn,r.conditionCn)}</h4>
+            <span class="medical-risk-amount">${tr(r.amountEn,r.amountCn)}</span>
+            <p><b>${tr('Bill view','账单角度')}:</b> ${tr(r.billEn,r.billCn)}</p>
+            <p><b>${tr('Underwriting angle','核保角度')}:</b> ${tr(r.uwEn,r.uwCn)}</p>
+            <p><b>${tr('Planning conversation','规划沟通')}:</b> ${tr(r.talkEn,r.talkCn)}</p>
+            <div class="medical-risk-source"><b>${tr('Sources','资料')}:</b> ${sourceLinks(r)}</div>
+          </article>`).join('')}
+        </div>
+        <p class="medical-risk-source"><b>${tr('Data note','资料说明')}.</b> ${tr('MOH bill benchmark figures are based on transacted Singapore Citizen bills from 1 Jan 2023 to 31 Dec 2023, inclusive of GST. Public hospital figures are after Government subsidies where applicable and before insurance, MediShield Life and MediSave payouts. Research refreshed 6 Jul 2026.','MOH账单基准基于2023年1月1日至2023年12月31日的新加坡公民实际账单，已含GST。公立医院数字在适用时已扣除政府津贴，并未扣除保险、MediShield Life及保健储蓄赔付。资料于2026年7月6日更新。')}</p>
+      </section>
       <div class="persona-wrap"><table class="persona-table">
         <tr>
           <th>${tr('Who may be interested','谁会感兴趣')}</th>
