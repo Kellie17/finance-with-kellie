@@ -135,6 +135,10 @@
   .medical-risk-card h4{font-size:14px; color:var(--navy); margin-bottom:6px;}
   .medical-risk-card h4::before{content:"★"; color:var(--gold); margin-right:6px;}
   .medical-risk-amount{display:block; color:var(--primary-dark); font-size:16px; font-weight:900; line-height:1.2; margin-bottom:5px; font-variant-numeric:tabular-nums;}
+  .medical-risk-metrics{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; margin:8px 0 6px 0;}
+  .medical-risk-metric{background:#f9fbf6; border:1px solid #dce7df; border-radius:7px; padding:7px;}
+  .medical-risk-metric em{display:block; font-style:normal; color:var(--faint); font-size:10px; font-weight:850; text-transform:uppercase; letter-spacing:.45px; margin-bottom:2px;}
+  .medical-risk-metric b{display:block; color:var(--primary-dark); font-size:12.1px; line-height:1.25; font-variant-numeric:tabular-nums;}
   .medical-risk-card p{font-size:12.3px; color:var(--grey); margin-top:5px;}
   .medical-risk-card a{color:var(--primary-dark); text-decoration:none; border-bottom:1px solid rgba(30,93,85,.35); font-weight:750;}
   .medical-risk-card a:hover{color:var(--warn); border-bottom-color:var(--warn);}
@@ -267,6 +271,7 @@
     .top-notice,.page-actions,nav.tabs{padding-left:14px; padding-right:14px;}
     .page-actions{justify-content:flex-start; flex-wrap:wrap;}
     .visit-grid{grid-template-columns:1fr;}
+    .medical-risk-metrics{grid-template-columns:1fr;}
   }
   @media print{
     nav.tabs,.controls,.claimbtns,.pill,footer,.page-actions{display:none !important;}
@@ -446,7 +451,14 @@ const SOURCE_PACK = [
     {en:'MOH chemotherapy bill benchmark', cn:'MOH化疗账单基准', href:'https://www.moh.gov.sg/managing-expenses/bills-and-fee-benchmarks/cost-financing/drg-r63z-bill-information/'},
     {en:'MOH MediShield Life benefits', cn:'MOH MediShield Life保障限额', href:'https://www.moh.gov.sg/managing-expenses/schemes-and-subsidies/medishield-life/medishield-life-benefits/'},
     {en:'MOH community dialysis subsidies', cn:'MOH社区透析津贴', href:'https://www.moh.gov.sg/managing-expenses/schemes-and-subsidies/subsidies-for-community-dialysis-services/'},
-    {en:'Raffles dialysis cost guide', cn:'Raffles透析费用参考', href:'https://www.rafflesmedicalgroup.com/health-resources/health-articles/top-5-things-you-need-to-know-about-dialysis/'}
+    {en:'Raffles dialysis cost guide', cn:'Raffles透析费用参考', href:'https://www.rafflesmedicalgroup.com/health-resources/health-articles/top-5-things-you-need-to-know-about-dialysis/'},
+    {en:'Singapore type 2 diabetes direct medical cost study', cn:'新加坡二型糖尿病直接医疗费用研究', href:'https://pmc.ncbi.nlm.nih.gov/articles/PMC4376523/'},
+    {en:'HealthHub outpatient chronic disease costs', cn:'HealthHub慢性病门诊费用', href:'https://www.healthhub.sg/support-and-tools/costs-and-financing/medisave_chronic_disease_management'},
+    {en:'HealthHub heart attack activity restrictions', cn:'HealthHub心梗后活动限制', href:'https://www.healthhub.sg/well-being-and-lifestyle/personal-care/activity-restrictions-after-a-heart-attack'},
+    {en:'HealthXchange cardiac rehabilitation sessions', cn:'HealthXchange心脏复健次数', href:'https://www.healthxchange.sg/exercise/heart-health/cardiac-rehabilitation-for-heart-attack'},
+    {en:'HealthHub stroke post-care', cn:'HealthHub中风后护理', href:'https://www.healthhub.sg/support-and-tools/support-and-care-programmes/care-after-stroke'},
+    {en:'AIC community rehabilitation cost', cn:'AIC社区复健费用', href:'https://www.aic.sg/care-services/community-rehabilitation-centre'},
+    {en:'NCCS cancer fatigue support', cn:'NCCS癌症疲劳支持', href:'https://www.nccs.com.sg/your-care/patient-support/coping-with-cancer-and-treatments/fatigue'}
   ]},
   {en:'Term Protect Advantage / Term Lite', cn:'Term Protect Advantage / Term Lite', docs:[
     {en:'Term Protect Advantage product page', cn:'Term Protect Advantage 产品页面', href:'https://www.insurance.hsbc.com.sg/life-and-critical-illness/products/term-protect-advantage/'},
@@ -1906,7 +1918,14 @@ function rOver(){
     chemo:'https://www.moh.gov.sg/managing-expenses/bills-and-fee-benchmarks/cost-financing/drg-r63z-bill-information/',
     msl:'https://www.moh.gov.sg/managing-expenses/schemes-and-subsidies/medishield-life/medishield-life-benefits/',
     dialysis:'https://www.moh.gov.sg/managing-expenses/schemes-and-subsidies/subsidies-for-community-dialysis-services/',
-    raffles:'https://www.rafflesmedicalgroup.com/health-resources/health-articles/top-5-things-you-need-to-know-about-dialysis/'
+    raffles:'https://www.rafflesmedicalgroup.com/health-resources/health-articles/top-5-things-you-need-to-know-about-dialysis/',
+    diabetesCost:'https://pmc.ncbi.nlm.nih.gov/articles/PMC4376523/',
+    cdmp:'https://www.healthhub.sg/support-and-tools/costs-and-financing/medisave_chronic_disease_management',
+    heartRecovery:'https://www.healthhub.sg/well-being-and-lifestyle/personal-care/activity-restrictions-after-a-heart-attack',
+    cardiacRehab:'https://www.healthxchange.sg/exercise/heart-health/cardiac-rehabilitation-for-heart-attack',
+    strokeCare:'https://www.healthhub.sg/support-and-tools/support-and-care-programmes/care-after-stroke',
+    strokeRehab:'https://www.aic.sg/care-services/community-rehabilitation-centre',
+    cancerFatigue:'https://www.nccs.com.sg/your-care/patient-support/coping-with-cancer-and-treatments/fatigue'
   };
   const medicalRisks = [
     {
@@ -1914,58 +1933,88 @@ function rOver(){
       conditionCn:'糖尿病及并发症',
       amountEn:'Public B2/C: S$1.0k - S$1.2k median; private: S$9.8k median',
       amountCn:'公立B2/C：中位数约S$1.0k - S$1.2k；私立：中位数约S$9.8k',
+      monthlyEn:'~S$170/month average direct cost benchmark',
+      monthlyCn:'直接医疗费用基准约S$170/月',
+      yearlyEn:'~S$2.0k/year average; complex cases higher',
+      yearlyCn:'平均约S$2.0k/年；复杂个案更高',
+      recoveryEn:'Usually managed long-term, not “recovered” once-off',
+      recoveryCn:'通常是长期控制，不是一次性“康复”',
       billEn:'MOH K60B shows private inpatient typical range of S$6.2k - S$16.2k.',
       billCn:'MOH K60B显示，私立住院常见区间约S$6.2k - S$16.2k。',
       uwEn:'Insurers may look closely at HbA1c control, medication, BMI, blood pressure and kidney, eye or nerve complications.',
       uwCn:'保险公司通常会关注HbA1c控制、药物、BMI、血压，以及肾、眼或神经并发症。',
       talkEn:'Use this to explain why medical and CI cover should be arranged before diabetes becomes part of the application.',
       talkCn:'可用来说明：应在糖尿病成为投保资料之前，先安排医疗及重疾保障。',
-      sources:[['MOH K60B','MOH K60B','diabetes']]
+      sources:[['MOH K60B','MOH K60B','diabetes'],['Singapore T2D cost study','新加坡糖尿病费用研究','diabetesCost'],['CDMP MediSave','CDMP保健储蓄','cdmp']]
     },
     {
       conditionEn:'Heart attack / coronary stent',
       conditionCn:'心脏病发作 / 冠脉支架',
       amountEn:'Emergency PCI/stent: public B2/C S$6.7k - S$7.8k median; private S$47.2k median',
       amountCn:'急诊PCI/支架：公立B2/C中位数S$6.7k - S$7.8k；私立中位数S$47.2k',
+      monthlyEn:'Event bill first; rehab and medicines add recurring spend',
+      monthlyCn:'先是突发账单；复健及药物形成持续开支',
+      yearlyEn:'Year 1 can include hospital bill + 16 rehab sessions',
+      yearlyCn:'第一年可能包括住院账单 + 16次心脏复健',
+      recoveryEn:'Heart repair ~4-6 weeks; normal brisk walking ~3 months',
+      recoveryCn:'心脏修复约4至6周；正常快走约3个月',
       billEn:'AMI without invasive procedure is already S$10.4k private median; emergency PCI private range is S$41.1k - S$52.6k.',
       billCn:'未做介入手术的急性心梗私立中位数已约S$10.4k；急诊PCI私立区间约S$41.1k - S$52.6k。',
       uwEn:'Past heart attack, stent, abnormal ECG, hypertension, cholesterol, smoking or family history can materially affect underwriting.',
       uwCn:'曾心梗、装支架、心电图异常、高血压、胆固醇、吸烟或家族史，都可能明显影响核保。',
       talkEn:'Good bridge into Shield first, then CI and income-protection cash for recovery time.',
       talkCn:'适合带入：先有Shield医疗账单保障，再补重疾及收入现金保障。',
-      sources:[['MOH AMI','MOH AMI','heart'],['MOH PCI','MOH PCI','pci']]
+      sources:[['MOH AMI','MOH AMI','heart'],['MOH PCI','MOH PCI','pci'],['HealthHub recovery','HealthHub康复','heartRecovery'],['HealthXchange rehab','HealthXchange复健','cardiacRehab']]
     },
     {
       conditionEn:'Stroke',
       conditionCn:'中风',
       amountEn:'Public B2/C: S$2.5k - S$2.8k median; private: S$21.0k median',
       amountCn:'公立B2/C：中位数S$2.5k - S$2.8k；私立：中位数S$21.0k',
+      monthlyEn:'Rehab can start from S$55/session before subsidies',
+      monthlyCn:'复健津贴前可由S$55/次起',
+      yearlyEn:'S$5.3k-S$26k+/year if sustained for 12 months',
+      yearlyCn:'若持续12个月：约S$5.3k至S$26k+/年',
+      recoveryEn:'Often 3-6 months rehab; some need long-term care',
+      recoveryCn:'复健常见3至6个月；部分需长期照护',
       billEn:'MOH B70B private typical range is S$14.1k - S$35.0k before insurance and MediSave payouts.',
       billCn:'MOH B70B私立常见区间约S$14.1k - S$35.0k，未扣除保险及保健储蓄赔付。',
       uwEn:'Stroke history is usually serious for underwriting; even warning signs, blood pressure and diabetes history matter.',
       uwCn:'中风病史通常属于严重核保因素；即使是先兆、高血压及糖尿病史也会影响。',
       talkEn:'This is where lump-sum CI and hospital cash matter because recovery and rehab may affect work for months.',
       talkCn:'这里可强调一次性重疾赔付及住院现金，因为康复及复健可能影响工作数月。',
-      sources:[['MOH B70B','MOH B70B','stroke']]
+      sources:[['MOH B70B','MOH B70B','stroke'],['HealthHub stroke care','HealthHub中风护理','strokeCare'],['AIC rehab cost','AIC复健费用','strokeRehab']]
     },
     {
       conditionEn:'Cancer treatment',
       conditionCn:'癌症治疗',
       amountEn:'Chemo day surgery: subsidised S$485 median; private S$12.8k median',
       amountCn:'化疗日间手术：受津贴中位数S$485；私立中位数S$12.8k',
+      monthlyEn:'Cancer drug limits can be S$200-S$12.8k/month',
+      monthlyCn:'癌症药物限额可为S$200至S$12.8k/月',
+      yearlyEn:'Cancer drug services limit: S$4.5k/year',
+      yearlyCn:'癌症药物服务限额：S$4.5k/年',
+      recoveryEn:'Treatment may run months; fatigue can continue after treatment',
+      recoveryCn:'治疗可能持续数月；疲劳可在治疗后继续',
       billEn:'MediShield Life cancer drug treatment limits vary by drug, from S$200 - S$12.8k per month for one primary cancer.',
       billCn:'MediShield Life癌症药物治疗限额按药物而定，单一原发癌症每月S$200 - S$12.8k。',
       uwEn:'A cancer diagnosis can lead to postponement, exclusions, loading or decline depending on type, stage, treatment and remission period.',
       uwCn:'癌症诊断后，核保可能因癌种、分期、治疗及缓解期而延期、除外、加费或拒保。',
       talkEn:'Explain that cancer planning is not one bill only; it can be repeated treatment plus time away from work.',
       talkCn:'可说明癌症规划不是一张账单，而是反复治疗加上离开工作的时间成本。',
-      sources:[['MOH R63Z','MOH R63Z','chemo'],['MOH MediShield Life','MOH MediShield Life','msl']]
+      sources:[['MOH R63Z','MOH R63Z','chemo'],['MOH MediShield Life','MOH MediShield Life','msl'],['NCCS fatigue','NCCS疲劳','cancerFatigue']]
     },
     {
       conditionEn:'Kidney failure / dialysis',
       conditionCn:'肾衰竭 / 透析',
       amountEn:'Private haemodialysis: about S$2.5k - S$3.0k/month before claims',
       amountCn:'私立血液透析：理赔前约S$2.5k - S$3.0k/月',
+      monthlyEn:'~S$2.5k-S$3.0k/month before claims',
+      monthlyCn:'理赔前约S$2.5k至S$3.0k/月',
+      yearlyEn:'~S$30k-S$36k/year before claims',
+      yearlyCn:'理赔前约S$30k至S$36k/年',
+      recoveryEn:'Usually lifelong dialysis unless transplant is suitable',
+      recoveryCn:'通常长期透析，除非适合肾移植',
       billEn:'MediShield Life kidney dialysis claim limit is S$1,750/month. MOH community haemodialysis subsidy can be S$0 - S$2,185/month for Singapore Citizens, based on means test.',
       billCn:'MediShield Life肾透析赔付限额为S$1,750/月。MOH社区血液透析津贴按入息审查，新加坡公民每月可为S$0 - S$2,185。',
       uwEn:'Kidney impairment, protein in urine, dialysis or transplant history can make new cover difficult or unavailable.',
@@ -2082,7 +2131,7 @@ function rOver(){
         <div class="medical-risk-hero">
           <div>
             <h3>${tr('Top medical bill risks before insurance gets harder','投保变难前，最需要看到的医疗账单风险')}</h3>
-            <p>${tr('The planning point is simple: after a major diagnosis, the conversation may no longer be about which plan is cheapest. It may become whether new cover is accepted, loaded, excluded, postponed or declined.','规划重点很简单：重大诊断之后，问题可能不再是哪一个计划最便宜，而是新保障是否还能被接受、是否加费、除外、延期或拒保。')}</p>
+            <p>${tr('The planning point is simple: show the bill shock, the monthly or yearly burn, and the recovery reality. After a major diagnosis, the conversation may no longer be about which plan is cheapest. It may become whether new cover is accepted, loaded, excluded, postponed or declined.','规划重点很简单：先看突发账单、每月或每年开支，以及真实康复时间。重大诊断之后，问题可能不再是哪一个计划最便宜，而是新保障是否还能被接受、是否加费、除外、延期或拒保。')}</p>
           </div>
           <div class="medical-risk-callout">
             <b>${tr('Client-facing pitch','客户沟通句')}</b>
@@ -2098,13 +2147,18 @@ function rOver(){
           ${medicalRisks.map(r=>`<article class="medical-risk-card">
             <h4>${tr(r.conditionEn,r.conditionCn)}</h4>
             <span class="medical-risk-amount">${tr(r.amountEn,r.amountCn)}</span>
+            <div class="medical-risk-metrics">
+              <div class="medical-risk-metric"><em>${tr('Monthly burn','每月开支')}</em><b>${tr(r.monthlyEn,r.monthlyCn)}</b></div>
+              <div class="medical-risk-metric"><em>${tr('Yearly view','每年视角')}</em><b>${tr(r.yearlyEn,r.yearlyCn)}</b></div>
+              <div class="medical-risk-metric"><em>${tr('Recovery reality','康复现实')}</em><b>${tr(r.recoveryEn,r.recoveryCn)}</b></div>
+            </div>
             <p><b>${tr('Bill view','账单角度')}:</b> ${tr(r.billEn,r.billCn)}</p>
             <p><b>${tr('Underwriting angle','核保角度')}:</b> ${tr(r.uwEn,r.uwCn)}</p>
             <p><b>${tr('Planning conversation','规划沟通')}:</b> ${tr(r.talkEn,r.talkCn)}</p>
             <div class="medical-risk-source"><b>${tr('Sources','资料')}:</b> ${sourceLinks(r)}</div>
           </article>`).join('')}
         </div>
-        <p class="medical-risk-source"><b>${tr('Data note','资料说明')}.</b> ${tr('MOH bill benchmark figures are based on transacted Singapore Citizen bills from 1 Jan 2023 to 31 Dec 2023, inclusive of GST. Public hospital figures are after Government subsidies where applicable and before insurance, MediShield Life and MediSave payouts. Research refreshed 6 Jul 2026.','MOH账单基准基于2023年1月1日至2023年12月31日的新加坡公民实际账单，已含GST。公立医院数字在适用时已扣除政府津贴，并未扣除保险、MediShield Life及保健储蓄赔付。资料于2026年7月6日更新。')}</p>
+        <p class="medical-risk-source"><b>${tr('Data note','资料说明')}.</b> ${tr('MOH bill benchmark figures are based on transacted Singapore Citizen bills from 1 Jan 2023 to 31 Dec 2023, inclusive of GST. Public hospital figures are after Government subsidies where applicable and before insurance, MediShield Life and MediSave payouts. Monthly and yearly figures are planning references from the listed sources; actual cost depends on severity, ward class, treatment route, subsidies and insurance. Chronic diseases are often managed, monitored or put into remission rather than “fully recovered” once-off. Research refreshed 9 Jul 2026.','MOH账单基准基于2023年1月1日至2023年12月31日的新加坡公民实际账单，已含GST。公立医院数字在适用时已扣除政府津贴，并未扣除保险、MediShield Life及保健储蓄赔付。每月及每年数字为资料来源所支持的规划参考；实际费用取决于严重程度、病房等级、治疗路线、津贴及保险。慢性病通常是长期管理、监测或达到缓解状态，而不是一次性“完全康复”。资料于2026年7月9日更新。')}</p>
       </section>
       <div class="persona-wrap"><table class="persona-table">
         <tr>
