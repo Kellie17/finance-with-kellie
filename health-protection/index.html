@@ -1940,8 +1940,10 @@ function rOver(){
       yearlyCn:'平均约S$2.0k/年；复杂个案更高',
       recoveryEn:'Usually managed long-term, not “recovered” once-off',
       recoveryCn:'通常是长期控制，不是一次性“康复”',
-      billEn:'MOH K60B shows private inpatient typical range of S$6.2k - S$16.2k.',
-      billCn:'MOH K60B显示，私立住院常见区间约S$6.2k - S$16.2k。',
+      billLabelEn:'Bill view (per admission)',
+      billLabelCn:'账单角度（每次住院）',
+      billEn:'MOH K60B shows private inpatient typical range per admission of S$6.2k - S$16.2k.',
+      billCn:'MOH K60B显示，每次私立住院常见区间约S$6.2k - S$16.2k。',
       uwEn:'Insurers may look closely at HbA1c control, medication, BMI, blood pressure and kidney, eye or nerve complications.',
       uwCn:'保险公司通常会关注HbA1c控制、药物、BMI、血压，以及肾、眼或神经并发症。',
       talkEn:'Use this to explain why medical and CI cover should be arranged before diabetes becomes part of the application.',
@@ -1959,8 +1961,10 @@ function rOver(){
       yearlyCn:'第一年可能包括住院账单 + 16次心脏复健',
       recoveryEn:'Heart repair ~4-6 weeks; normal brisk walking ~3 months',
       recoveryCn:'心脏修复约4至6周；正常快走约3个月',
-      billEn:'AMI without invasive procedure is already S$10.4k private median bill; emergency PCI private range is S$41.1k - S$52.6k.',
-      billCn:'未做介入手术的急性心梗私立账单中位数已约S$10.4k；急诊PCI私立区间约S$41.1k - S$52.6k。',
+      billLabelEn:'Bill view (per emergency episode)',
+      billLabelCn:'账单角度（每次急诊事件）',
+      billEn:'AMI without invasive procedure is already S$10.4k private median bill per admission; emergency PCI private range per episode is S$41.1k - S$52.6k.',
+      billCn:'未做介入手术的急性心梗每次私立住院账单中位数已约S$10.4k；每次急诊PCI私立区间约S$41.1k - S$52.6k。',
       uwEn:'Past heart attack, stent, abnormal ECG, hypertension, cholesterol, smoking or family history can materially affect underwriting.',
       uwCn:'曾心梗、装支架、心电图异常、高血压、胆固醇、吸烟或家族史，都可能明显影响核保。',
       talkEn:'Good bridge into Shield first, then CI and income-protection cash for recovery time.',
@@ -1978,8 +1982,10 @@ function rOver(){
       yearlyCn:'若持续12个月：约S$5.3k至S$26k+/年',
       recoveryEn:'Often 3-6 months rehab; some need long-term care',
       recoveryCn:'复健常见3至6个月；部分需长期照护',
-      billEn:'MOH B70B private typical range is S$14.1k - S$35.0k before insurance and MediSave payouts.',
-      billCn:'MOH B70B私立常见区间约S$14.1k - S$35.0k，未扣除保险及保健储蓄赔付。',
+      billLabelEn:'Bill view (per admission)',
+      billLabelCn:'账单角度（每次住院）',
+      billEn:'MOH B70B private typical range per admission is S$14.1k - S$35.0k before insurance and MediSave payouts.',
+      billCn:'MOH B70B每次私立住院常见区间约S$14.1k - S$35.0k，未扣除保险及保健储蓄赔付。',
       uwEn:'Stroke history is usually serious for underwriting; even warning signs, blood pressure and diabetes history matter.',
       uwCn:'中风病史通常属于严重核保因素；即使是先兆、高血压及糖尿病史也会影响。',
       talkEn:'This is where lump-sum CI and hospital cash matter because recovery and rehab may affect work for months.',
@@ -1997,6 +2003,8 @@ function rOver(){
       yearlyCn:'癌症药物服务限额：S$4.5k/年',
       recoveryEn:'Treatment may run months; fatigue can continue after treatment',
       recoveryCn:'治疗可能持续数月；疲劳可在治疗后继续',
+      billLabelEn:'Bill view (monthly drug limit)',
+      billLabelCn:'账单角度（每月药物限额）',
       billEn:'MediShield Life cancer drug treatment limits vary by drug, from S$200 - S$12.8k per month for one primary cancer.',
       billCn:'MediShield Life癌症药物治疗限额按药物而定，单一原发癌症每月S$200 - S$12.8k。',
       uwEn:'A cancer diagnosis can lead to postponement, exclusions, loading or decline depending on type, stage, treatment and remission period.',
@@ -2016,6 +2024,8 @@ function rOver(){
       yearlyCn:'理赔前约S$30k至S$36k/年',
       recoveryEn:'Usually lifelong dialysis unless transplant is suitable',
       recoveryCn:'通常长期透析，除非适合肾移植',
+      billLabelEn:'Bill view (monthly dialysis limit/subsidy)',
+      billLabelCn:'账单角度（每月透析限额/津贴）',
       billEn:'MediShield Life kidney dialysis claim limit is S$1,750/month. MOH community haemodialysis subsidy can be S$0 - S$2,185/month for Singapore Citizens, based on means test.',
       billCn:'MediShield Life肾透析赔付限额为S$1,750/月。MOH社区血液透析津贴按入息审查，新加坡公民每月可为S$0 - S$2,185。',
       uwEn:'Kidney impairment, protein in urine, dialysis or transplant history can make new cover difficult or unavailable.',
@@ -2153,7 +2163,7 @@ function rOver(){
               <div class="medical-risk-metric"><em>${tr('Yearly view','每年视角')}</em><b>${tr(r.yearlyEn,r.yearlyCn)}</b></div>
               <div class="medical-risk-metric"><em>${tr('Recovery reality','康复现实')}</em><b>${tr(r.recoveryEn,r.recoveryCn)}</b></div>
             </div>
-            <p><b>${tr('Bill view','账单角度')}:</b> ${tr(r.billEn,r.billCn)}</p>
+            <p><b>${tr(r.billLabelEn || 'Bill view',r.billLabelCn || '账单角度')}:</b> ${tr(r.billEn,r.billCn)}</p>
             <p><b>${tr('Underwriting angle','核保角度')}:</b> ${tr(r.uwEn,r.uwCn)}</p>
             <p><b>${tr('Planning conversation','规划沟通')}:</b> ${tr(r.talkEn,r.talkCn)}</p>
             <div class="medical-risk-source"><b>${tr('Sources','资料')}:</b> ${sourceLinks(r)}</div>
