@@ -130,15 +130,15 @@
   .medical-risk-step{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:11px;}
   .medical-risk-step b{display:block; color:var(--navy); font-size:13px; margin-bottom:4px;}
   .medical-risk-step span{display:block; color:var(--grey); font-size:12.4px;}
-  .medical-risk-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px;}
+  .medical-risk-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:10px;}
   .medical-risk-card{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:12px;}
   .medical-risk-card h4{font-size:14px; color:var(--navy); margin-bottom:6px;}
   .medical-risk-card h4::before{content:"★"; color:var(--gold); margin-right:6px;}
   .medical-risk-amount{display:block; color:var(--primary-dark); font-size:16px; font-weight:900; line-height:1.2; margin-bottom:5px; font-variant-numeric:tabular-nums;}
-  .medical-risk-metrics{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; margin:8px 0 6px 0;}
-  .medical-risk-metric{background:#f9fbf6; border:1px solid #dce7df; border-radius:7px; padding:7px;}
-  .medical-risk-metric em{display:block; font-style:normal; color:var(--faint); font-size:10px; font-weight:850; text-transform:uppercase; letter-spacing:.45px; margin-bottom:2px;}
-  .medical-risk-metric b{display:block; color:var(--primary-dark); font-size:12.1px; line-height:1.25; font-variant-numeric:tabular-nums;}
+  .medical-risk-metrics{display:grid; grid-template-columns:1fr; gap:6px; margin:8px 0 10px 0;}
+  .medical-risk-metric{display:grid; grid-template-columns:96px minmax(0,1fr); align-items:start; gap:8px; background:#f9fbf6; border:1px solid #dce7df; border-radius:7px; padding:8px 9px;}
+  .medical-risk-metric em{display:block; font-style:normal; color:var(--faint); font-size:9.8px; font-weight:850; text-transform:uppercase; letter-spacing:.35px; line-height:1.25;}
+  .medical-risk-metric b{display:block; min-width:0; color:var(--primary-dark); font-size:12.4px; line-height:1.32; font-variant-numeric:tabular-nums; overflow-wrap:anywhere;}
   .medical-risk-card p{font-size:12.3px; color:var(--grey); margin-top:5px;}
   .medical-risk-card a{color:var(--primary-dark); text-decoration:none; border-bottom:1px solid rgba(30,93,85,.35); font-weight:750;}
   .medical-risk-card a:hover{color:var(--warn); border-bottom-color:var(--warn);}
@@ -255,6 +255,7 @@
     .value-hero{grid-template-columns:1fr;}
     .medical-risk-hero{grid-template-columns:1fr;}
     .medical-risk-flow{grid-template-columns:1fr;}
+    .medical-risk-grid{grid-template-columns:1fr;}
     table.persona-table{min-width:780px; font-size:12.5px;}
     table.persona-table td:first-child{width:150px;}
     .pp-scenario-grid{grid-template-columns:1fr;}
@@ -271,7 +272,7 @@
     .top-notice,.page-actions,nav.tabs{padding-left:14px; padding-right:14px;}
     .page-actions{justify-content:flex-start; flex-wrap:wrap;}
     .visit-grid{grid-template-columns:1fr;}
-    .medical-risk-metrics{grid-template-columns:1fr;}
+    .medical-risk-metric{grid-template-columns:1fr; gap:3px;}
   }
   @media print{
     nav.tabs,.controls,.claimbtns,.pill,footer,.page-actions{display:none !important;}
