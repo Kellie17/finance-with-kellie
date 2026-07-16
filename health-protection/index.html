@@ -1932,8 +1932,8 @@ function rOver(){
     {
       conditionEn:'Diabetes and complications',
       conditionCn:'糖尿病及并发症',
-      amountEn:'Public B2/C: S$1.0k - S$1.2k median; private: S$9.8k median',
-      amountCn:'公立B2/C：中位数约S$1.0k - S$1.2k；私立：中位数约S$9.8k',
+      amountEn:'Median bill per admission: public B2/C S$1.0k - S$1.2k; private S$9.8k',
+      amountCn:'每次住院账单中位数：公立B2/C约S$1.0k - S$1.2k；私立约S$9.8k',
       monthlyEn:'~S$170/month average direct cost benchmark',
       monthlyCn:'直接医疗费用基准约S$170/月',
       yearlyEn:'~S$2.0k/year average; complex cases higher',
@@ -1951,16 +1951,16 @@ function rOver(){
     {
       conditionEn:'Heart attack / coronary stent',
       conditionCn:'心脏病发作 / 冠脉支架',
-      amountEn:'Emergency PCI/stent: public B2/C S$6.7k - S$7.8k median; private S$47.2k median',
-      amountCn:'急诊PCI/支架：公立B2/C中位数S$6.7k - S$7.8k；私立中位数S$47.2k',
+      amountEn:'Median bill per emergency PCI/stent episode: public B2/C S$6.7k - S$7.8k; private S$47.2k',
+      amountCn:'每次急诊PCI/支架账单中位数：公立B2/C S$6.7k - S$7.8k；私立S$47.2k',
       monthlyEn:'Event bill first; rehab and medicines add recurring spend',
       monthlyCn:'先是突发账单；复健及药物形成持续开支',
       yearlyEn:'Year 1 can include hospital bill + 16 rehab sessions',
       yearlyCn:'第一年可能包括住院账单 + 16次心脏复健',
       recoveryEn:'Heart repair ~4-6 weeks; normal brisk walking ~3 months',
       recoveryCn:'心脏修复约4至6周；正常快走约3个月',
-      billEn:'AMI without invasive procedure is already S$10.4k private median; emergency PCI private range is S$41.1k - S$52.6k.',
-      billCn:'未做介入手术的急性心梗私立中位数已约S$10.4k；急诊PCI私立区间约S$41.1k - S$52.6k。',
+      billEn:'AMI without invasive procedure is already S$10.4k private median bill; emergency PCI private range is S$41.1k - S$52.6k.',
+      billCn:'未做介入手术的急性心梗私立账单中位数已约S$10.4k；急诊PCI私立区间约S$41.1k - S$52.6k。',
       uwEn:'Past heart attack, stent, abnormal ECG, hypertension, cholesterol, smoking or family history can materially affect underwriting.',
       uwCn:'曾心梗、装支架、心电图异常、高血压、胆固醇、吸烟或家族史，都可能明显影响核保。',
       talkEn:'Good bridge into Shield first, then CI and income-protection cash for recovery time.',
@@ -1970,8 +1970,8 @@ function rOver(){
     {
       conditionEn:'Stroke',
       conditionCn:'中风',
-      amountEn:'Public B2/C: S$2.5k - S$2.8k median; private: S$21.0k median',
-      amountCn:'公立B2/C：中位数S$2.5k - S$2.8k；私立：中位数S$21.0k',
+      amountEn:'Median bill per admission: public B2/C S$2.5k - S$2.8k; private S$21.0k',
+      amountCn:'每次住院账单中位数：公立B2/C S$2.5k - S$2.8k；私立S$21.0k',
       monthlyEn:'Rehab can start from S$55/session before subsidies',
       monthlyCn:'复健津贴前可由S$55/次起',
       yearlyEn:'S$5.3k-S$26k+/year if sustained for 12 months',
@@ -1989,8 +1989,8 @@ function rOver(){
     {
       conditionEn:'Cancer treatment',
       conditionCn:'癌症治疗',
-      amountEn:'Chemo day surgery: subsidised S$485 median; private S$12.8k median',
-      amountCn:'化疗日间手术：受津贴中位数S$485；私立中位数S$12.8k',
+      amountEn:'Median bill per chemo day-surgery episode: subsidised S$485; private S$12.8k',
+      amountCn:'每次化疗日间手术账单中位数：受津贴S$485；私立S$12.8k',
       monthlyEn:'Cancer drug limits can be S$200-S$12.8k/month',
       monthlyCn:'癌症药物限额可为S$200至S$12.8k/月',
       yearlyEn:'Cancer drug services limit: S$4.5k/year',
@@ -2159,7 +2159,7 @@ function rOver(){
             <div class="medical-risk-source"><b>${tr('Sources','资料')}:</b> ${sourceLinks(r)}</div>
           </article>`).join('')}
         </div>
-        <p class="medical-risk-source"><b>${tr('Data note','资料说明')}.</b> ${tr('MOH bill benchmark figures are based on transacted Singapore Citizen bills from 1 Jan 2023 to 31 Dec 2023, inclusive of GST. Public hospital figures are after Government subsidies where applicable and before insurance, MediShield Life and MediSave payouts. Monthly and yearly figures are planning references from the listed sources; actual cost depends on severity, ward class, treatment route, subsidies and insurance. Chronic diseases are often managed, monitored or put into remission rather than “fully recovered” once-off. Research refreshed 9 Jul 2026.','MOH账单基准基于2023年1月1日至2023年12月31日的新加坡公民实际账单，已含GST。公立医院数字在适用时已扣除政府津贴，并未扣除保险、MediShield Life及保健储蓄赔付。每月及每年数字为资料来源所支持的规划参考；实际费用取决于严重程度、病房等级、治疗路线、津贴及保险。慢性病通常是长期管理、监测或达到缓解状态，而不是一次性“完全康复”。资料于2026年7月9日更新。')}</p>
+        <p class="medical-risk-source"><b>${tr('Data note','资料说明')}.</b> ${tr('MOH bill benchmark figures are based on transacted Singapore Citizen bills from 1 Jan 2023 to 31 Dec 2023, inclusive of GST. “Median bill” means one hospital admission, day surgery or treatment episode, not monthly or yearly spend. Public hospital figures are after Government subsidies where applicable and before insurance, MediShield Life and MediSave payouts. Monthly and yearly figures are planning references from the listed sources; actual cost depends on severity, ward class, treatment route, subsidies and insurance. Chronic diseases are often managed, monitored or put into remission rather than “fully recovered” once-off. Research refreshed 9 Jul 2026.','MOH账单基准基于2023年1月1日至2023年12月31日的新加坡公民实际账单，已含GST。“账单中位数”是指一次住院、日间手术或治疗事件的账单，不是每月或每年开支。公立医院数字在适用时已扣除政府津贴，并未扣除保险、MediShield Life及保健储蓄赔付。每月及每年数字为资料来源所支持的规划参考；实际费用取决于严重程度、病房等级、治疗路线、津贴及保险。慢性病通常是长期管理、监测或达到缓解状态，而不是一次性“完全康复”。资料于2026年7月9日更新。')}</p>
       </section>
       <div class="persona-wrap"><table class="persona-table">
         <tr>
