@@ -1670,6 +1670,13 @@ window.addEventListener('afterprint', ()=>{
   const e = document.getElementById('print-extra');
   if(e) e.innerHTML = '';
 });
+
+Object.assign(window, {
+  G, S, render, toggleLang, toggleCampaign, printReport,
+  toggleLayer, stepLayer, resetLayers, allLayers, setVoyageMip,
+  clampStartAge, setStartAge, setRetirementAge
+});
+
 function refreshCountdown(){
   const end = new Date(CAMPAIGN.lastSubmission);
   const days = Math.max(0, Math.ceil((end - Date.now())/86400000));
