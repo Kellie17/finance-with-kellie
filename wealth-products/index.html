@@ -672,7 +672,7 @@ function tlSVG(o){
    Flexi 3 / 5 and Abundance minimums are not on the public site - defaults sit at the low band. */
 const MINP = {wf1:25000, wf3:9000, wf5:6000, voyage:3600, abundance:6000, invest:10000};   /* all per official Product Summaries (Dec 2025 / Feb 2026) */
 const S = {
-  wf1:{P:25000, ret:3.5, payYears:1, horizon:11, divMode:'reinvest'},
+  wf1:{P:25000, ret:4, payYears:1, horizon:11, divMode:'reinvest'},
   wf3:{P:9000, ret:6,   payYears:3, horizon:11, divMode:'reinvest'},
   wf5:{P:6000, ret:8,   payYears:5, horizon:11, divMode:'reinvest'},
   voyage:{P:3600, ret:6, mip:20, payYears:20, horizon:25, divMode:'reinvest'},
@@ -768,8 +768,8 @@ function voyageMipCtrl(){
 function retChips(id){
   const cur = S[id].ret;
   return `<div class="ctrl"><label>${tr('Assumed return % p.a.','假设回报率 % 每年')}</label><div class="chips">
-    ${[3.5,4,6,8].map(r=>`<button class="${cur===r?'active':''}" onclick="S['${id}'].ret=${r};render();">${r}%</button>`).join('')}
-    <input type="number" step="0.1" min="0" max="8" title="Capped at 8% p.a., the Benefit Illustration ceiling" style="width:74px;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:12.5px;" value="${cur}" onchange="S['${id}'].ret=Math.min(8,+this.value);render();">
+    ${[4,6,8,10].map(r=>`<button class="${cur===r?'active':''}" onclick="S['${id}'].ret=${r};render();">${r}%</button>`).join('')}
+    <input type="number" step="0.1" min="0" max="10" title="${tr('Custom assumed return, capped at 10% p.a.','自定义假设回报率，最高10%每年')}" style="width:74px;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:12.5px;" value="${cur}" onchange="S['${id}'].ret=Math.min(10,+this.value);render();">
   </div></div>`;
 }
 function divModeCtrl(id){
@@ -1272,7 +1272,7 @@ function compareTab(){
     <div class="prodhead"><h2>${tr('Same budget, three Flexi Terms','同一笔预算，三种缴费期')}</h2><span class="tagline">${tr('Your Flexi 1 vs Flexi 5 comparison, generalised. Same total outlay, deployed once or spread over 3 or 5 years.','Flexi 1 对 Flexi 5 的对比推广版。同一笔总投入，一次过或分3年、5年投入。')}</span><button class="report-btn" onclick="printReport()" title="${tr('Print or save this page as a PDF report','打印或另存为 PDF 报告')}">${tr('Generate report','生成报告')}</button></div>
     <div class="controls">
       <div class="ctrl"><label>${tr('Total budget S$','总预算 S$')}</label><input type="number" step="5000" min="5000" value="${CMP.budget}" onchange="CMP.budget=+this.value;render();"></div>
-      <div class="ctrl"><label>${tr('Assumed return % p.a.','假设回报率 % 每年')}</label><div class="chips">${[3.5,6,8].map(x=>`<button class="${CMP.ret===x?'active':''}" onclick="CMP.ret=${x};render();">${x}%</button>`).join('')}</div></div>
+      <div class="ctrl"><label>${tr('Assumed return % p.a.','假设回报率 % 每年')}</label><div class="chips">${[4,6,8,10].map(x=>`<button class="${CMP.ret===x?'active':''}" onclick="CMP.ret=${x};render();">${x}%</button>`).join('')}</div></div>
     </div>
     <div class="cmp-grid">${cards}</div>
     <p class="muted" style="margin-top:12px;font-size:12.5px">${tr('Lump sum in early beats staggered entry on pure arithmetic: the full capital compounds from day one and the AMF base is the same 2.5% of total premiums either way once fully paid. The staggered terms answer cash-flow reality and the campaign bonus differential (30% on Flexi 5 high band vs 5-10% on Flexi 1), not the maths of compounding. Dollar-cost averaging into volatile markets is the honest counter-argument.','纯算术上，整笔早投优于分期：全部资金从第一天起复利，而缴清后管理费基数同为总保费的2.5%。分期缴费期回应的是现金流现实与优惠花红差距（Flexi 5 高档30% 对 Flexi 1 的5-10%），不是复利数学。诚实的反方论点是波动市况下的定期定额。')}</p>
