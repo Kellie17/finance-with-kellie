@@ -67,6 +67,7 @@
   .prodhead{display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; margin-bottom:6px;}
   .prodhead h2{font-size:20px;}
   .prodhead .tagline{color:var(--grey); font-size:13px;}
+  .report-subtitle{display:none;}
   .badge{font-size:11px; font-weight:800; color:#16233f; background:var(--gold); padding:2px 8px; border-radius:5px;}
   .badge.grey{background:#777;}
   .controls{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0 8px 0; align-items:flex-end;}
@@ -229,6 +230,14 @@
     header{border-bottom-width:3px; padding:8px 12px;}
     main{padding:6px 0;}
     .panel{border:none; padding:4px 0; border-radius:0;}
+    .prodhead{margin-bottom:4px;}
+    .prodhead .tagline{display:none;}
+    .report-subtitle{display:block; margin:3px 0 10px; color:#555; font-size:12.8px; line-height:1.35;}
+    .summary{display:grid; grid-template-columns:repeat(var(--summary-cols,5), minmax(0,1fr)); gap:7px; align-items:stretch;}
+    .summary .stat{min-width:0; padding:7px 8px; border-radius:8px;}
+    .summary .stat .k{font-size:9.3px; line-height:1.18; letter-spacing:.18px;}
+    .summary .stat .v{font-size:14.4px; line-height:1.15;}
+    table.yrs th:first-child, table.yrs td:first-child{min-width:52px;}
     body.report-hide-main-panel #app > .panel{display:none !important;}
     body.report-hide-illustration .benefit-strip,
     body.report-hide-illustration .facts,
@@ -971,12 +980,15 @@ function layerBar(id){
 }
 
 function yearTable(R, s, prodId){
+  const hasAge = s.startAge!==null && s.startAge!==undefined && s.startAge!=='';
+  const yearHead = hasAge ? tr('Yr/Age','年/年龄') : tr('Yr','年');
   let h = `<table class="yrs"><thead><tr>
-    <th>${tr('Yr','年')}</th><th>${tr('Premium in','缴入保费')}</th><th>${tr('Bonus in','花红')}</th><th>${tr('AMF out','管理费')}</th>
+    <th>${yearHead}</th><th>${tr('Premium in','缴入保费')}</th><th>${tr('Bonus in','花红')}</th><th>${tr('AMF out','管理费')}</th>
     ${s.divMode==='payout'
       ? `<th>${tr('Account value','账户价值')}</th><th>${tr('Income this year /yr (/mth)','本年入息（/每月）')}</th><th>${tr('Income received so far','累计已领入息')}</th><th>${tr('Total value','总价值')}</th><th>${tr('Gain / loss incl. income','含入息盈亏')}</th>`
       : `<th>${tr('Dividend /yr (/mth) indicative','每年派息（/每月）示意')}</th><th>${tr('Account value','账户价值')}</th><th>${tr('Gain / loss','盈亏')}</th>`}</tr></thead><tbody>`;
   R.rows.forEach(row=>{
+    const yearCell = hasAge ? `${row.y}/${+s.startAge + row.y - 1}` : row.y;
     const incomeSoFar = s.divMode==='payout'? R.rows.slice(0,row.y).reduce((a,x)=>a+x.divOut,0):0;
     const totalValue = row.val + incomeSoFar;
     const pl = totalValue - row.tpp;
@@ -985,7 +997,7 @@ function yearTable(R, s, prodId){
       ? `<span class="income-cell"><b>${fmt(yearlyDividend)}/yr</b><small>${fmt2(row.mdiv)}/mth</small></span>`
       : '<span class="dim">-</span>';
     h += `<tr class="${row.y===R.mip?'mipRow':''}">
-      <td>${row.y}${row.y===R.mip?' &#9873;':''}</td>
+      <td>${yearCell}${row.y===R.mip?' &#9873;':''}</td>
       <td>${row.prem? fmt(row.prem):'<span class="dim">-</span>'}</td>
       <td title="${row.parts.join('\n')}">${row.credits? (row.credits>0?'<span class="pos">+'+fmt(row.credits)+'</span>':'<span class="neg">'+fmt(row.credits)+'</span>'):'<span class="dim">-</span>'}</td>
       <td>${row.amf? '<span class="neg">-'+fmt(row.amf).slice(0)+'</span>':'<span class="dim">-</span>'}</td>
@@ -1131,9 +1143,11 @@ function productPanel(id){
   if(id==='invest') extraCtrls = investFundingCtrl() + (s.funding==='cpf' ? '' : `<div class="ctrl"><label>${tr('Premium charge %','保费费用 %')}</label><input type="number" step="0.5" min="0" max="5" value="${s.chargeRate}" onchange="S.invest.chargeRate=+this.value;render();"></div>`);
 
   const campBadge = PROD[id].camp ? (G.campaign? `<span class="badge">${CAMPAIGN.name} ${tr('campaign rates','优惠利率')}</span>`:`<span class="badge grey">${tr('standard rates','标准利率')}</span>`) : '';
+  const summaryCols = s.divMode==='payout' ? 7 : 5;
 
   return `<div class="panel">
     <div class="prodhead"><h2>${productName(id)}</h2>${campBadge}<span class="tagline">${productTag(id)}</span><button class="report-btn" onclick="printReport()" title="${tr('Print or save this page as a PDF report','打印或另存为 PDF 报告')}">${tr('Generate report','生成报告')}</button></div>
+    <div class="report-subtitle">${productTag(id)}</div>
     ${warn}
     ${protectionLine(id)}
     ${id==='invest'? investFactStrip():''}
@@ -1149,7 +1163,7 @@ function productPanel(id){
       ${retirementAgeCtrl(id)}
     </div>
     ${layerBar(id)}
-    <div class="summary">
+    <div class="summary" style="--summary-cols:${summaryCols}">
       <div class="stat"><div class="k">${summaryIsMip?tr('Total paid to MIP','投资期末已缴保费'):tr('Total paid to '+periodLabel,periodLabel+'已缴保费')}</div><div class="v">${fmt(paidToSummary)}</div></div>
       <div class="stat"><div class="k">${summaryIsMip?tr('Bonuses to MIP','投资期末已获花红'):tr('Bonuses to '+periodLabel,periodLabel+'已获花红')}</div><div class="v good">+${fmt(bonusToSummary)}</div></div>
       <div class="stat"><div class="k">${summaryIsMip?tr('AMF to MIP','投资期末管理费'):tr('AMF to '+periodLabel,periodLabel+'管理费')}</div><div class="v red">-${fmt(amfToSummary)}</div></div>
