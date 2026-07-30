@@ -209,9 +209,20 @@
   @page{margin:0;}
   @media print{
     nav.tabs, .overview-note, .controls, .ctrl, .chips, .liq-tabs, .pill, .report-btn, .note-chip,
-    details.rules, footer, .copyline, .report-modal-backdrop{display:none !important;}
+    details.rules, footer, .foot-copy, .copyline, .report-copy, .report-modal-backdrop{display:none !important;}
     html,body{margin:0;}
     body{background:#fff; padding:10mm 12mm 8mm;}
+    body::after{
+      content:"";
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      height:9mm;
+      background:#fff;
+      z-index:2147483647;
+      pointer-events:none;
+    }
     header{border-bottom-width:3px; padding:8px 12px;}
     main{padding:6px 0;}
     .panel{border:none; padding:4px 0; border-radius:0;}
@@ -1865,7 +1876,6 @@ function buildReportInfoPage(opts){
       ${productRules}
       ${refs}
       ${important}
-      <p class="report-copy">&copy; Kellie Zheng. All rights reserved.</p>
     </div>`;
 }
 function clearReportPrintClasses(){
