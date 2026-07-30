@@ -661,10 +661,6 @@ function tlSVG(o){
     /* exit branch */
     const ex=X(N);
     s += `<path d="M${X(o.mip)+6} ${yL-12} C ${X(o.mip)+60} ${yL-30}, ${ex-70} ${yL-30}, ${ex-6} ${yL-14}" fill="none" stroke="#23355c" stroke-width="1.4" stroke-dasharray="2 3"/>`;
-    s += `<g style="${hand}" font-size="12.5" fill="#23355c">
-      <text x="${ex+8}" y="${yL-46}">${tr('AFTER MIP','投资期后')}</text>
-      <text x="${ex+8}" y="${yL-30}">${tr('FULL / PARTIAL W/D','全额 / 部分提取')}</text>
-      <text x="${ex+8}" y="${yL-14}">${tr('or DIV W/D','或派息提取')} &#10003;</text></g>`;
   }
   /* withdrawal availability and charge strip */
   if(hasWithdrawalGuide){
@@ -706,9 +702,9 @@ const S = {
 S.wf1.mip=10; S.wf3.mip=10; S.wf5.mip=10;
 
 /* build-up layers: reveal the timeline piece by piece, in pitch sequence */
-const LAYERSEQ = {wf1:['prem','sub1','pcb','loy','amf'], wf3:['prem','sub1','loy','amf'], wf5:['prem','sub1','loy','amf'],
-                  voyage:['prem','sub1','sub2','pu','loy','amf'], abundance:['prem','sub1','pu','loy','amf'], invest:['prem']};
-const LAYERLABEL = {prem:'Premiums', sub1:'Y1 start-up', sub2:'Y2 start-up', pcb:'Prem contribution', pu:'Power-up', loy:'Loyalty', amf:'AMF'};
+const LAYERSEQ = {wf1:['prem','sub1','pcb','loy','amf','wd'], wf3:['prem','sub1','loy','amf','wd'], wf5:['prem','sub1','loy','amf','wd'],
+                  voyage:['prem','sub1','sub2','pu','loy','amf','wd'], abundance:['prem','sub1','pu','loy','amf','wd'], invest:['prem']};
+const LAYERLABEL = {prem:'Premiums', sub1:'Y1 start-up', sub2:'Y2 start-up', pcb:'Prem contribution', pu:'Power-up', loy:'Loyalty', amf:'AMF', wd:'W/D options'};
 /* land on a bare timeline: premiums only, then Step reveals each piece in pitch order */
 Object.keys(LAYERSEQ).forEach(id=>{ if(S[id]){ S[id].layers={}; LAYERSEQ[id].forEach(k=>S[id].layers[k]=false); S[id].startAge=null; }});
 Object.keys(S).forEach(id=>{ S[id].retirementAge=65; });
@@ -964,7 +960,7 @@ function protectionRulePara(id){
   }
   return '';
 }
-const LAYERLABEL_CN = {prem:'保费', sub1:'首年起步花红', sub2:'次年起步花红', pcb:'保费贡献花红', pu:'加码花红', loy:'忠诚花红', amf:'账户管理费'};
+const LAYERLABEL_CN = {prem:'保费', sub1:'首年起步花红', sub2:'次年起步花红', pcb:'保费贡献花红', pu:'加码花红', loy:'忠诚花红', amf:'账户管理费', wd:'提取选项'};
 function layerBar(id){
   const seq = LAYERSEQ[id]||[];
   if(!seq.length) return '';
@@ -1121,7 +1117,7 @@ function productPanel(id){
   const svg = tlSVG({
     years:s.horizon, mip:id==='invest'? s.horizon+1 : R.mip, payYears:on('prem')?Math.min(s.payYears,s.horizon):0,
     startAge:s.startAge, retirementAge:s.retirementAge,
-    withdrawalGuide:timelineWithdrawalGuide(id, R.mip, s.horizon),
+    withdrawalGuide:layerOn(s,'wd') ? timelineWithdrawalGuide(id, R.mip, s.horizon) : null,
     subLabel, sub2Label, amfLabel, amfAfterLabel:amfAfter, puSegs, puLabel, loyLabel, premLabel, pcbSeg,
     plTitle:s.divMode==='payout' ? tr(`Total gain/loss at ${periodShort}`,`${periodShort}总盈亏`) : tr(`Gain/loss at ${periodShort}`,`${periodShort}盈亏`),
     plLabel:(totalPl>=0?'+':'')+fmt(totalPl), plPos:totalPl>=0
