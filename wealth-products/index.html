@@ -312,12 +312,12 @@ function referenceMaterialsHtml(){
         link('Flexi 3', doc('HSBC Products/investmentrelatedplans/Specimen HSBC Life Wealth Focus GP v1.9 (circulation 22Dec)_MIP10Flexi3 (clean).pdf')),
         link('Flexi 5', doc('HSBC Products/investmentrelatedplans/Specimen HSBC Life Wealth Focus GP v1.9 (circulation 22Dec)_MIP10Flexi5 (clean) (003).pdf'))
       ]),
-      link(tr('Q2 2026 campaign T&Cs','2026年第二季优惠条款'), 'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/investments/products/hsbc-life-wealth-focus-campaigns-tcs.pdf')
+      link(tr('Q3 2026 campaign T&Cs','2026年第三季优惠条款'), 'https://www.insurance.hsbc.com.sg/content/dam/hsbc/insn/documents/investments/products/hsbc-life-wealth-focus-campaigns-tcs.pdf')
     ]],
     [tr('Wealth Voyage','Wealth Voyage'), [
       link(tr('Product Summary (Dec 2025)','产品摘要（2025年12月）'), doc('HSBC Products/investmentrelatedplans/Product Summary/Wealth Voyage PS_Dec25.pdf')),
       link(tr('Product brochure','产品手册'), doc('HSBC Products/investmentrelatedplans/HSBC Life Wealth Voyage product brochure (English) (Feb 2026).pdf')),
-      tr('Q2 2026 campaign T&Cs / circular','2026年第二季优惠条款 / 通告')
+      tr('Q3 2026 campaign T&Cs / circular','2026年第三季优惠条款 / 通告')
     ]],
     [tr('Wealth Abundance','Wealth Abundance'), [
       link(tr('Product Summary (Dec 2025)','产品摘要（2025年12月）'), doc('HSBC Products/investmentrelatedplans/Product Summary/Wealth Abundance PS_Dec25.pdf')),
@@ -383,9 +383,9 @@ const pct  = n => (Math.round(n*10000)/100) + '%';
    (repo > Add file > Upload files > Commit). Live in about a minute.
    ===================================================================== */
 const CAMPAIGN = {
-  name: 'Q2 2026',
-  lastSubmission: '2026-06-30T23:59:59+08:00',   /* last submission datetime */
-  labelDate: '30 Jun 2026',                      /* as shown in the header   */
+  name: 'Q3 2026',
+  lastSubmission: '2026-09-30T23:59:59+08:00',   /* last submission datetime */
+  labelDate: '30 Sep 2026',                      /* as shown in the header   */
   voyage: {
     /* Start-up bonus DURING CAMPAIGN: [year 1, year 2] by band and MIP.
        Bands: 1 = $3,600-11,999 | 2 = $12,000-23,999 | 3 = $24,000+    */
@@ -399,8 +399,7 @@ const CAMPAIGN = {
     ft1:[.05,.10],      /* Flexi 1: no campaign uplift              */
     ft3:[.10,.20],
     ft5:[.12,.30],
-    bandFloor:{ft1:50000, ft3:18000, ft5:12000},   /* high band starts at */
-    grab:[.015,.030]    /* Grab vouchers, % of first premium [low, high]  */
+    bandFloor:{ft1:50000, ft3:18000, ft5:12000}    /* high band starts at */
   }
 };
 /* Standard (non-campaign) tables - product level, rarely change */
@@ -1161,11 +1160,11 @@ function rulesInner(id){
       <p><b>AMF.</b> 2.5% p.a. x annualised premium x lower of (policy year, Flexi Term) during the MIP; 1.0% after. Payable throughout, including premium holiday.</p>
       <p><b>Liquidity.</b> Partial withdrawal from month 4 (min S$250, keep at least 3 months of premium). Free partial withdrawal benefit in years 6-10 for marriage or divorce, birth, property purchase completion, retrenchment: up to 30% of the account value at the 5th anniversary. Regular withdrawal after MIP, min S$1,200 a year, free. Premium holiday from month 13 with no charge. EEC applies if the policy terminates during the MIP.</p>`,
     wf3:`<p><b>Start-up bonus.</b> Standard ${pct(STANDARD.focus.ft3[0])} (S$9,000 to below S$18,000) or ${pct(STANDARD.focus.ft3[1])} (S$18,000 and above). Campaign to ${CAMPAIGN.labelDate}: ${pct(CAMPAIGN.focus.ft3[0])} / ${pct(CAMPAIGN.focus.ft3[1])}. Year-1 premiums only. Channel: Agency, Singpost, Direct. No bonus recovery charge.</p>
-      <p><b>Grab vouchers (campaign).</b> 1.5% of first premium (low band) or 3.0% (high band), rounded up to the nearest S$10, emailed within 60 days after the promotion ends. Clawback if the policy ends within 12 months.</p>
+      <p><b>Q3 campaign note.</b> The Wealth Focus Grab voucher campaign ended on 30 June 2026; Q3 keeps the additional start-up bonus only.</p>
       <p><b>Loyalty bonus.</b> 0.10% p.a. of the regular premium account value, monthly, after the MIP - the thinnest of the three Flexi Terms (Flexi 1 pays 0.70%, Flexi 5 pays 0.35%). AMF mirrors Flexi 1: 2.5% p.a. x premium x lower of (policy year, 3) during MIP, 1.0% after.</p>
       <p><b>Liquidity.</b> Partial withdrawal effectively from month 25 (the charge is 100% in years 1-2); free partial withdrawal benefit years 6-10 for life events, up to 20% of the account value at the 5th anniversary; regular withdrawal after MIP free (min S$1,200 a year); premium holiday from month 25, charged only in year 3. Premium changes only after the Flexi Term: reduce up to 25%, increases only restore a previous cut, no bonus recovery charge.</p>`,
     wf5:`<p><b>Start-up bonus.</b> Standard ${pct(STANDARD.focus.ft5[0])} (below S$12,000) or ${pct(STANDARD.focus.ft5[1])} (S$12,000 and above). Campaign to ${CAMPAIGN.labelDate}: ${pct(CAMPAIGN.focus.ft5[0])} / ${pct(CAMPAIGN.focus.ft5[1])}. Year-1 premiums only.</p>
-      <p><b>Grab vouchers (campaign).</b> 1.5% / 3.0% of first premium by band, same mechanics as Flexi 3.</p>
+      <p><b>Q3 campaign note.</b> The Wealth Focus Grab voucher campaign ended on 30 June 2026; Q3 keeps the additional start-up bonus only.</p>
       <p><b>Loyalty bonus.</b> 0.35% p.a. of the regular premium account value, monthly, after the MIP (PS v1.51, Feb 2026).</p>
       <p><b>AMF.</b> 2.5% p.a. x premium x lower of (policy year, 5) during the MIP, so it steps up over the first five years to 2.5% of total premiums; 1.0% after the MIP.</p>
       <p><b>Liquidity.</b> As Flexi 3: withdrawals effectively from month 25 (100% charge in years 1-2), life-event free withdrawals years 6-10 up to 20% of the 5th-anniversary account value, free regular withdrawals after MIP (min S$1,200 a year), premium holiday charged in years 3-5 only. No bonus recovery charge. Premium changes only after the Flexi Term: reduce up to 25%, increases only restore a previous cut.</p>`,
@@ -1189,11 +1188,11 @@ function rulesInner(id){
       <p><b>账户管理费。</b>投资期内每年 2.5% x 年缴保费 x（保单年度与缴费期取小者）；投资期后 1.0%。保费假期内照收。</p>
       <p><b>流动性。</b>第4个月起可部分提取（最低 S$250，账户须留至少3个月保费）。第6至10年遇人生大事（结婚或离婚、生育、在新加坡完成购房、被裁员）可免费提取，上限为第5周年账户价值的 30%。投资期后定期提取每年最低 S$1,200，免费。第13个月起保费假期，无费用。投资期内退保须付提前退保费。</p>`,
     wf3:`<p><b>起步花红。</b>标准 ${pct(STANDARD.focus.ft3[0])}（S$9,000 至 S$18,000 以下）或 ${pct(STANDARD.focus.ft3[1])}（S$18,000 及以上）。优惠至 ${CAMPAIGN.labelDate}：${pct(CAMPAIGN.focus.ft3[0])} / ${pct(CAMPAIGN.focus.ft3[1])}。仅计首年保费。渠道：代理、Singpost、直销。无花红追回费。</p>
-      <p><b>Grab 礼券（优惠）。</b>首期保费的 1.5%（低档）或 3.0%（高档），进位至最近 S$10，优惠期结束后60天内电邮发出。保单12个月内终止会被追回。</p>
+      <p><b>第三季优惠说明。</b>Wealth Focus Grab 礼券优惠已于 2026年6月30日结束；第三季延续的是额外起步花红。</p>
       <p><b>忠诚花红。</b>年率 0.10%，投资期后按月以账户价值计，三种缴费期中最低（Flexi 1 为0.70%，Flexi 5 为0.35%）。管理费同 Flexi 1 结构：投资期内 2.5% x 保费 x（保单年度与3取小者），之后 1.0%。</p>
       <p><b>流动性。</b>部分提取实际上从第25个月起（首两年费率为100%）；第6至10年人生大事可免费提取，上限为第5周年账户价值的20%；投资期后定期提取免费（每年最低S$1,200）；第25个月起可保费假期，仅第3年收费。调整保费须待缴费期后：可调低至多25%，加回仅限恢复原额，无花红追回费。</p>`,
     wf5:`<p><b>起步花红。</b>标准 ${pct(STANDARD.focus.ft5[0])}（S$12,000 以下）或 ${pct(STANDARD.focus.ft5[1])}（S$12,000 及以上）。优惠至 ${CAMPAIGN.labelDate}：${pct(CAMPAIGN.focus.ft5[0])} / ${pct(CAMPAIGN.focus.ft5[1])}。仅计首年保费。</p>
-      <p><b>Grab 礼券（优惠）。</b>按档位 1.5% / 3.0% 计于首期保费，机制同 Flexi 3。</p>
+      <p><b>第三季优惠说明。</b>Wealth Focus Grab 礼券优惠已于 2026年6月30日结束；第三季延续的是额外起步花红。</p>
       <p><b>忠诚花红。</b>年率 0.35%，投资期后按月以账户价值计（产品摘要 v1.51，2026年2月）。</p>
       <p><b>账户管理费。</b>投资期内 2.5% x 保费 x（保单年度与5取小者），首五年逐步升至总保费的 2.5%；投资期后 1.0%。</p>
       <p><b>流动性。</b>同 Flexi 3：提取实际上从第25个月起（首两年费率100%），第6至10年人生大事免费提取（上限为第5周年账户价值的20%），投资期后定期提取免费（每年最低S$1,200），保费假期仅第3至5年收费。无花红追回费。调整保费须待缴费期后：可调低至多25%，加回仅限恢复原额。</p>`,
@@ -1266,7 +1265,6 @@ function compareTab(){
       <div class="row"><span>${tr('P/L at year 10','第10年盈亏')}</span><b class="${y10.val-T>=0?'':''}" style="color:${y10.val-T>=0?'var(--good)':'var(--red-dark)'}">${(y10.val-T>=0?'+':'')+fmt(y10.val-T)}</b></div>
       <div class="row"><span>${tr('Indicative dividend at yr 10','第10年示意派息')}</span><b>${fmt(y10.val*r/100)}/yr (${fmt2(y10.val*r/100/12)}/mth)</b></div>
       <div class="row"><span>${tr('Loyalty into yr 11','第11年起忠诚花红')}</span><b>${y11 && y11.parts.length? y11.parts.filter(p=>p.indexOf('Loyalty')===0||p.indexOf('忠诚')===0).join('') || (ft===3?tr('per PS','见产品摘要'):'-') : (ft===3?tr('per PS','见产品摘要'):'-')}</b></div>
-      ${c.id==='wf3'||c.id==='wf5'? `<div class="row"><span>${tr('Grab voucher (campaign)','Grab 礼券（优惠）')}</span><b>${G.campaign? fmt(Math.ceil((c.P*CAMPAIGN.focus.grab[c.P>=CAMPAIGN.focus.bandFloor['ft'+ft]?1:0])/10)*10):'-'}</b></div>`:''}
       </div>`;
     S[c.id] = saved;
   });
@@ -1684,51 +1682,76 @@ function liquidityTab(){
   </div>`;
 }
 
-/* ================= Q2 campaigns tab ================= */
+/* ================= Q3 campaigns tab ================= */
 function campaignsTab(){
   return `<div class="panel">
-  <div class="prodhead"><h2>Q2 2026 campaign window</h2><span class="tagline">1 April - 30 June 2026. Last submission 30 June 2026. Issuance by 31 July (ILPs) or 30 September (legacy plans).</span></div>
+  <div class="prodhead"><h2>Q3 2026 campaign window</h2><span class="tagline">1 July - 30 September 2026. Last submission 30 September 2026.</span></div>
   <div class="camp-grid">
 
     <div class="camp-card"><h3>Wealth Voyage - extra start-up + 2x loyalty</h3>
-      <div class="when">Submit by 30 Jun 2026, issue by 31 Jul 2026</div>
+      <div class="when">Submit by 30 Sep 2026, issue by 31 Oct 2026</div>
       <table><tr><th>Annual premium</th><th>MIP 15 Y1</th><th>MIP 20 Y1</th><th>MIP 25 Y1</th></tr>
       <tr><td>S$3,600-11,999</td><td>15%</td><td>20%</td><td>25%</td></tr>
       <tr><td>S$12,000-23,999</td><td class="hl">40%</td><td class="hl">40%</td><td class="hl">50%</td></tr>
       <tr><td>S$24,000+</td><td class="hl">50%</td><td class="hl">50%</td><td class="hl">60%</td></tr></table>
-      <p style="font-size:12.5px">Year 2 unchanged: up to 20% / 40% / 50% by MIP for S$12,000+. Loyalty bonus doubles to <b>2.0 / 2.2 / 2.4% p.a.</b> after MIP for campaign policies. Customer letter and sales-tool update by Oct 2026; no acknowledgement form needed (EASE attestation).</p></div>
+      <p style="font-size:12.5px">Year 2 unchanged: up to 20% / 40% / 50% by MIP for S$12,000+. Loyalty bonus doubles after MIP to <b>2.0 / 2.2 / 2.4% p.a.</b> for MIP 15 / 20 / 25. Customer letter and digital sales-tool update by January 2027; no acknowledgement form needed because attestation is done on EASE.</p></div>
 
-    <div class="camp-card"><h3>Wealth Focus - extra start-up + Grab vouchers</h3>
-      <div class="when">9 Feb - 30 Jun 2026, issue by 31 Jul 2026. Flexi 3: Agency / Singpost / Direct only</div>
-      <table><tr><th>Term</th><th>Band</th><th>Standard</th><th>Campaign</th></tr>
-      <tr><td>Flexi 1</td><td>&lt;50k / 50k+</td><td>5% / 10%</td><td>unchanged</td></tr>
-      <tr><td>Flexi 3</td><td>&lt;18k / 18k+</td><td>6% / 12%</td><td class="hl">10% / 20%</td></tr>
-      <tr><td>Flexi 5</td><td>&lt;12k / 12k+</td><td>7.5% / 15%</td><td class="hl">12% / 30%</td></tr></table>
-      <p style="font-size:12.5px">Plus Grab vouchers on Flexi 3 / 5: <b>1.5%</b> (low band) or <b>3.0%</b> (high band) of first premium, rounded up to S$10, emailed within 60 days after the window. 12-month clawback on early termination.</p></div>
+    <div class="camp-card"><h3>Wealth Focus - additional start-up bonus</h3>
+      <div class="when">Submit by 30 Sep 2026, issue by 31 Oct 2026. Flexi 3: Agency / Singpost / Direct only</div>
+      <table><tr><th>Term</th><th>Annual premium band</th><th>Standard</th><th>Q3 campaign</th></tr>
+      <tr><td>Flexi 1</td><td>Below S$50k / S$50k+</td><td>5% / 10%</td><td>5% / 10%</td></tr>
+      <tr><td>Flexi 3</td><td>Below S$18k / S$18k+</td><td>6% / 12%</td><td class="hl">10% / 20%</td></tr>
+      <tr><td>Flexi 5</td><td>Below S$12k / S$12k+</td><td>7.5% / 15%</td><td class="hl">12% / 30%</td></tr></table>
+      <p style="font-size:12.5px">Applicable to both SGD and USD policies; the same dollar band applies for both currencies. Wealth Focus Grab voucher campaign ended on <b>30 June 2026</b>. Customer acknowledgement form not required because attestation is done on EASE.</p></div>
 
     <div class="camp-card"><h3>Jade / Jade Ultra Legacy UL - GCR update</h3>
-      <div class="when">Submit by 30 Jun 2026, issue by 30 Sep 2026</div>
+      <div class="when">Submit by 30 Sep 2026, issue by 31 Dec 2026</div>
       <table><tr><th></th><th>Jade</th><th>Jade Ultra</th></tr>
       <tr><td>Promo GCR</td><td>4.70%</td><td>4.75%</td></tr>
       <tr><td>1-yr lock</td><td class="hl">4.75%</td><td class="hl">4.80%</td></tr>
       <tr><td>3-yr lock</td><td>4.70%</td><td>4.75%</td></tr>
       <tr><td>5-yr lock</td><td>-</td><td>4.70%</td></tr></table>
-      <p style="font-size:12.5px">Single and regular premium. Country class upgrade A to A+ extended for Malaysia, Indonesia, Philippines, Thailand, Taiwan (also Diamond Prestige IUL II; not substandard policies).</p></div>
+      <p style="font-size:12.5px">Applicable to both single premium and regular premium for Standard (Non-NLG). Country class upgrade from A to A+ is extended for Malaysia, Indonesia, Philippines, Thailand and Taiwan; also applies to Diamond Prestige IUL II, and is not applicable for substandard policies.</p></div>
 
-    <div class="camp-card"><h3>Premium discounts - quick reference</h3>
-      <div class="when">All: submit by 30 Jun 2026</div>
+    <div class="camp-card"><h3>Emerald III and Term Protector discounts</h3>
+      <div class="when">Submit by 30 Sep 2026, issue by 31 Dec 2026</div>
       <table>
-      <tr><th>Plan</th><th>Discount</th></tr>
-      <tr><td>Emerald Legacy Life III (single premium)</td><td class="hl">3.5%</td></tr>
-      <tr><td>Term Protector / Prime, to age 50-85 + eligible rider</td><td class="hl">35% perpetual</td></tr>
-      <tr><td>Term Protector / Prime, to age 99 + eligible rider</td><td class="hl">20% perpetual</td></tr>
-      <tr><td>Diamond Prestige IUL II, single pay</td><td>2.3% (cap US$50k)</td></tr>
-      <tr><td>Diamond Prestige IUL II, multi-pay 2-15+</td><td>5% - 23% first premium</td></tr>
-      <tr><td>Indexed Flexi Income, single pay / 5-pay</td><td>1% / <span class="hl">10%</span> first premium</td></tr></table>
-      <p style="font-size:12.5px">Discounts apply on the lower of planned or first premium, once at inception only; no extension to later premiums. 2026Q2 campaign calculator and acknowledgement form needed for Emerald III, Diamond Prestige IUL II and Indexed Flexi Income.</p></div>
+      <tr><th>Plan</th><th>Campaign discount</th></tr>
+      <tr><td>Emerald Legacy Life III (SGD / USD), single premium</td><td class="hl">3.50%</td></tr>
+      <tr><td>Term Protector / Term Protector Prime, to age 50-85 with eligible rider</td><td class="hl">35% perpetual</td></tr>
+      <tr><td>Term Protector / Term Protector Prime, to age 99 with eligible rider</td><td class="hl">20% perpetual</td></tr></table>
+      <p style="font-size:12.5px">Emerald III needs the 2026Q3 campaign calculator and customer acknowledgement form with the application. Term Protector acknowledgement form is not required because attestation is done on EASE; renewable plans and basic plans without at least one eligible rider are excluded.</p></div>
+
+    <div class="camp-card"><h3>Diamond Prestige IUL II premium discount</h3>
+      <div class="when">Submit by 30 Sep 2026, issue by 31 Dec 2026</div>
+      <table><tr><th>Premium term</th><th>First premium discount</th><th>Maximum discount</th></tr>
+      <tr><td>Single Pay</td><td>2.3%</td><td>US$50,000</td></tr>
+      <tr><td>Multi-Pay 2</td><td>5.0%</td><td>US$30,000</td></tr>
+      <tr><td>Multi-Pay 3</td><td>7.0%</td><td>US$30,000</td></tr>
+      <tr><td>Multi-Pay 4</td><td>9.0%</td><td>US$30,000</td></tr>
+      <tr><td>Multi-Pay 5</td><td>11.0%</td><td>US$30,000</td></tr>
+      <tr><td>Multi-Pay 6-9</td><td>13.0%</td><td>US$30,000</td></tr>
+      <tr><td>Multi-Pay 10</td><td>15.0%</td><td>US$50,000</td></tr>
+      <tr><td>Multi-Pay 15+</td><td class="hl">23.0%</td><td>US$50,000</td></tr></table>
+      <p style="font-size:12.5px">Discount applies on the lower of planned premium or first premium paid. It is once at policy inception only, and does not apply to unscheduled premiums or later premiums received after issue.</p></div>
+
+    <div class="camp-card"><h3>Indexed Flexi Income discount</h3>
+      <div class="when">Submit by 30 Sep 2026, issue by 31 Oct 2026</div>
+      <table><tr><th>Premium term</th><th>First premium discount</th></tr>
+      <tr><td>Single Pay</td><td>1%</td></tr>
+      <tr><td>5 Pay</td><td class="hl">10%</td></tr></table>
+      <p style="font-size:12.5px">Discount applies on the lower of planned premium or first premium paid, once at policy inception only. It does not apply to unscheduled premiums or later premiums received after issue. Submit the 2026Q3 campaign calculator and customer acknowledgement form with the application.</p></div>
+
+    <div class="camp-card"><h3>Q3 use notes</h3>
+      <div class="when">Internal campaign pack dated 1 July 2026</div>
+      <table><tr><th>Circulated files</th><th>Status</th></tr>
+      <tr><td>2026Q3 Campaign Terms &amp; Conditions</td><td>Use with customers when discussing mechanics</td></tr>
+      <tr><td>2026Q3 Customer Acknowledgement Form</td><td>Submit where required</td></tr>
+      <tr><td>2026Q3 Product Campaign Calculator</td><td>Submit where required</td></tr></table>
+      <p style="font-size:12.5px">Do not use campaign incentives as a conversation starter. Complete proper fact finding before customers are informed about campaign incentives.</p></div>
 
   </div>
-  <p class="muted" style="margin-top:12px;font-size:12px">Bonus tables for Voyage and Focus mirror the public campaign T&amp;Cs; the discount cards summarise the internal Q2 2026 circular (not for external dissemination - keep this tab off-screen with clients).</p>
+  <p class="muted" style="margin-top:12px;font-size:12px">Bonus tables for Voyage and Focus mirror the Q3 campaign T&amp;Cs; the discount cards summarise the internal 2026Q3 circular (not for external dissemination - keep this tab off-screen with clients).</p>
   <div class="copyline">&copy; Kellie Zheng. All rights reserved.</div>
   </div>`;
 }
@@ -1737,7 +1760,7 @@ function campaignsTab(){
 const TABS = [
   ['wf1','WF Flexi 1'], ['wf3','WF Flexi 3'], ['wf5','WF Flexi 5'],
   ['voyage','Wealth Voyage'], ['abundance','Wealth Abundance'], ['invest','Wealth Invest'],
-  ['liquidity','PH & Withdrawals'], ['compare','Compare 1·3·5'], ['campaigns','Q2 Campaigns']
+  ['liquidity','PH & Withdrawals'], ['compare','Compare 1·3·5'], ['campaigns','Q3 Campaigns']
 ];
 function render(){
   document.getElementById('tabs').innerHTML = TABS.map(([id,label])=>{
@@ -1789,7 +1812,7 @@ function reportOptionRow(o){
 function printReport(){
   const modal = document.getElementById('reportModal');
   if(!modal) return window.print();
-  const activeName = G.tab==='liquidity' ? tr('PH & Withdrawals','保费假期与提取') : (PROD[G.tab] ? productName(G.tab) : (G.tab==='compare'?tr('Compare 1·3·5','对比 1·3·5'):tr('Q2 Campaigns','Q2优惠')));
+  const activeName = G.tab==='liquidity' ? tr('PH & Withdrawals','保费假期与提取') : (PROD[G.tab] ? productName(G.tab) : (G.tab==='compare'?tr('Compare 1·3·5','对比 1·3·5'):tr('Q3 Campaigns','Q3优惠')));
   modal.innerHTML = `<div class="report-modal" role="dialog" aria-modal="true" aria-labelledby="reportTitle">
     <h3 id="reportTitle">${tr('Choose what to show in the report','选择报告要显示的内容')}</h3>
     <div class="hint">${tr(`Report will follow what is currently selected on: ${activeName}.`,`报告会跟随当前页面选择：${activeName}。`)}</div>
