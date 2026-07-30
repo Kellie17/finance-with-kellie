@@ -768,7 +768,15 @@ function fitHorizonToRetirement(id){
   if(!y) return;
   S[id].horizon = Math.min(80, Math.max(S[id].horizon, y + 1));
 }
+let ageInputTimer = null;
+function clearAgeInputTimer(){
+  if(ageInputTimer){
+    clearTimeout(ageInputTimer);
+    ageInputTimer = null;
+  }
+}
 function setStartAge(id, value){
+  clearAgeInputTimer();
   if(value==='') S[id].startAge = null;
   else {
     S[id].startAge = +value;
@@ -778,6 +786,7 @@ function setStartAge(id, value){
   render();
 }
 function setRetirementAge(id, value){
+  clearAgeInputTimer();
   if(value==='') S[id].retirementAge = null;
   else {
     S[id].retirementAge = Math.max(1, Math.min(99, +value));
@@ -785,14 +794,25 @@ function setRetirementAge(id, value){
   }
   render();
 }
-let ageInputTimer = null;
 function queueStartAge(id, value){
   clearTimeout(ageInputTimer);
-  ageInputTimer = setTimeout(()=>setStartAge(id, value), 160);
+  ageInputTimer = setTimeout(()=>{
+    if(document.activeElement && document.activeElement.tagName==='INPUT'){
+      document.activeElement.blur();
+      return;
+    }
+    setStartAge(id, value);
+  }, 900);
 }
 function queueRetirementAge(id, value){
   clearTimeout(ageInputTimer);
-  ageInputTimer = setTimeout(()=>setRetirementAge(id, value), 160);
+  ageInputTimer = setTimeout(()=>{
+    if(document.activeElement && document.activeElement.tagName==='INPUT'){
+      document.activeElement.blur();
+      return;
+    }
+    setRetirementAge(id, value);
+  }, 900);
 }
 function ageCtrl(id){
   clampStartAge(id);
