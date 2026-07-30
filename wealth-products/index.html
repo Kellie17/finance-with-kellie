@@ -769,7 +769,7 @@ function retChips(id){
   const cur = S[id].ret;
   return `<div class="ctrl"><label>${tr('Assumed return % p.a.','假设回报率 % 每年')}</label><div class="chips">
     ${[4,6,8,10].map(r=>`<button class="${cur===r?'active':''}" onclick="S['${id}'].ret=${r};render();">${r}%</button>`).join('')}
-    <input type="number" step="0.1" min="0" max="10" title="${tr('Custom assumed return, capped at 10% p.a.','自定义假设回报率，最高10%每年')}" style="width:74px;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:12.5px;" value="${cur}" onchange="S['${id}'].ret=Math.min(10,+this.value);render();">
+    <input type="number" step="0.1" title="${tr('Custom assumed return','自定义假设回报率')}" style="width:74px;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:12.5px;" value="${cur}" onchange="S['${id}'].ret=+this.value;render();">
   </div></div>`;
 }
 function divModeCtrl(id){
