@@ -67,7 +67,6 @@
   .prodhead{display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; margin-bottom:6px;}
   .prodhead h2{font-size:20px;}
   .prodhead .tagline{color:var(--grey); font-size:13px;}
-  .report-subtitle{display:none;}
   .badge{font-size:11px; font-weight:800; color:#16233f; background:var(--gold); padding:2px 8px; border-radius:5px;}
   .badge.grey{background:#777;}
   .controls{display:flex; flex-wrap:wrap; gap:14px; margin:14px 0 8px 0; align-items:flex-end;}
@@ -232,7 +231,6 @@
     .panel{border:none; padding:4px 0; border-radius:0;}
     .prodhead{margin-bottom:4px;}
     .prodhead .tagline{display:none;}
-    .report-subtitle{display:block; margin:3px 0 10px; color:#555; font-size:12.8px; line-height:1.35;}
     .summary{display:grid; grid-template-columns:repeat(var(--summary-cols,5), minmax(0,1fr)); gap:7px; align-items:stretch;}
     .summary .stat{min-width:0; padding:7px 8px; border-radius:8px;}
     .summary .stat .k{font-size:9.3px; line-height:1.18; letter-spacing:.18px;}
@@ -1147,7 +1145,6 @@ function productPanel(id){
 
   return `<div class="panel">
     <div class="prodhead"><h2>${productName(id)}</h2>${campBadge}<span class="tagline">${productTag(id)}</span><button class="report-btn" onclick="printReport()" title="${tr('Print or save this page as a PDF report','打印或另存为 PDF 报告')}">${tr('Generate report','生成报告')}</button></div>
-    <div class="report-subtitle">${productTag(id)}</div>
     ${warn}
     ${protectionLine(id)}
     ${id==='invest'? investFactStrip():''}
