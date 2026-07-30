@@ -785,13 +785,22 @@ function setRetirementAge(id, value){
   }
   render();
 }
+let ageInputTimer = null;
+function queueStartAge(id, value){
+  clearTimeout(ageInputTimer);
+  ageInputTimer = setTimeout(()=>setStartAge(id, value), 160);
+}
+function queueRetirementAge(id, value){
+  clearTimeout(ageInputTimer);
+  ageInputTimer = setTimeout(()=>setRetirementAge(id, value), 160);
+}
 function ageCtrl(id){
   clampStartAge(id);
   const v = S[id].startAge;
   const b = ageBounds(id);
   return `<div class="ctrl"><label>${tr('Age','年龄')}</label>
     <input type="number" min="${b.min}" max="${b.max}" placeholder="${tr('blank = off','留空=不显示')}" value="${v===null||v===undefined?'':v}"
-      oninput="if(this.value!=='' && +this.value>+this.max) this.value=this.max;"
+      oninput="if(this.value!=='' && +this.value>+this.max) this.value=this.max; queueStartAge('${id}',this.value)"
       onchange="setStartAge('${id}',this.value)"
       onblur="setStartAge('${id}',this.value)"
       onkeydown="if(event.key==='Enter') this.blur();">${b.label?`<div class="age-hint">${b.label}</div>`:''}</div>`;
@@ -805,7 +814,7 @@ function retirementAgeCtrl(id){
         : tr('Retirement age must be at or above current age.','退休年龄须不低于当前年龄。');
   return `<div class="ctrl"><label>${tr('Retirement age','退休年龄')}</label>
     <input type="number" min="1" max="99" placeholder="${tr('e.g. 65','例如65')}" value="${v===null||v===undefined?'':v}"
-      oninput="if(this.value!=='' && +this.value>+this.max) this.value=this.max;"
+      oninput="if(this.value!=='' && +this.value>+this.max) this.value=this.max; queueRetirementAge('${id}',this.value)"
       onchange="setRetirementAge('${id}',this.value)"
       onblur="setRetirementAge('${id}',this.value)"
       onkeydown="if(event.key==='Enter') this.blur();"><div class="age-hint">${hint}</div></div>`;
@@ -1674,7 +1683,8 @@ window.addEventListener('afterprint', ()=>{
 Object.assign(window, {
   G, S, render, toggleLang, toggleCampaign, printReport,
   toggleLayer, stepLayer, resetLayers, allLayers, setVoyageMip,
-  clampStartAge, setStartAge, setRetirementAge
+  clampStartAge, setStartAge, setRetirementAge, queueStartAge,
+  queueRetirementAge
 });
 
 function refreshCountdown(){
