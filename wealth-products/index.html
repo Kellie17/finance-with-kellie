@@ -19,6 +19,19 @@
   .mascot{width:52px;height:52px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 0 2px var(--navy),0 0 0 4px var(--gold);}
   .report-btn{margin-left:auto;background:var(--gold);color:#16233f;border:none;border-radius:8px;padding:8px 14px;font-weight:800;font-size:13px;cursor:pointer;}
   .report-btn:hover{background:#b88a2c;}
+  .report-modal-backdrop{position:fixed;inset:0;background:rgba(24,39,64,.38);display:none;align-items:center;justify-content:center;padding:22px;z-index:20;}
+  .report-modal-backdrop.open{display:flex;}
+  .report-modal{width:min(520px,100%);background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 18px 60px rgba(24,39,64,.24);padding:18px;}
+  .report-modal h3{font-size:18px;margin-bottom:3px;}
+  .report-modal .hint{font-size:12.5px;color:#687080;margin-bottom:12px;}
+  .report-options{display:grid;gap:7px;margin:12px 0 16px;}
+  .report-option{display:flex;align-items:flex-start;gap:8px;border:1px solid #ece8df;background:#faf9f6;border-radius:8px;padding:9px 10px;font-size:13px;color:#333;}
+  .report-option input{margin-top:3px;accent-color:var(--gold);}
+  .report-option b{display:block;font-size:13px;}
+  .report-option span{display:block;font-size:11.5px;color:#777;margin-top:1px;}
+  .report-actions{display:flex;justify-content:flex-end;gap:8px;}
+  .report-actions button{border:1px solid var(--line);border-radius:8px;background:#fff;color:#555;padding:8px 12px;font-weight:800;cursor:pointer;}
+  .report-actions button.primary{background:var(--gold);border-color:var(--gold);color:#16233f;}
   .copyline{margin-top:16px;padding-top:8px;border-top:1px solid #eceae4;font-size:11px;color:var(--faint);text-align:right;}
   .rules-print{font-size:13px;color:#333;margin-top:18px;}
   .rules-print h3{font-size:15px;border-top:2px solid var(--red);padding-top:10px;margin-bottom:6px;}
@@ -195,16 +208,29 @@
   #print-extra{display:none;}
   @media print{
     nav.tabs, .overview-note, .controls, .ctrl, .chips, .liq-tabs, .pill, .report-btn, .note-chip,
-    details.rules, footer, .copyline{display:none !important;}
+    details.rules, footer, .copyline, .report-modal-backdrop{display:none !important;}
     body{background:#fff;}
     header{border-bottom-width:3px; padding:8px 12px;}
     main{padding:6px 0;}
     .panel{border:none; padding:4px 0; border-radius:0;}
+    body.report-hide-main-panel #app > .panel{display:none !important;}
+    body.report-hide-illustration .benefit-strip,
+    body.report-hide-illustration .facts,
+    body.report-hide-illustration .summary,
+    body.report-hide-illustration .tl-wrap{display:none !important;}
+    body.report-hide-table .table-print-page{display:none !important;}
+    body.report-hide-charge-timeline .charge-kpis,
+    body.report-hide-charge-timeline .charge-flow,
+    body.report-hide-charge-timeline .legend{display:none !important;}
+    body.report-hide-period .period-title,
+    body.report-hide-period .period-scroll{display:none !important;}
+    body.report-hide-charge-table .charge-table{display:none !important;}
     .tl-wrap{border:none; background:#fff; overflow:visible;}
     .tl-wrap svg, .camp-card svg{max-width:100%; height:auto;}
     #print-extra{display:block;}
     .print-page{page-break-before:always;}
     .table-print-page{page-break-before:always;}
+    body.report-hide-illustration .table-print-page{page-break-before:auto;}
     .yrs tr{page-break-inside:avoid;}
     *{-webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;}
     .flow-row, .charge-flow{page-break-inside:avoid;}
@@ -236,6 +262,7 @@
 
 <nav class="tabs" id="tabs"></nav>
 <main id="app"></main>
+<div class="report-modal-backdrop" id="reportModal" aria-hidden="true"></div>
 
 <footer id="footx"></footer>
 
@@ -1726,36 +1753,142 @@ function toggleCampaign(){
   document.getElementById('campSwitch').classList.toggle('on', G.campaign);
   render();
 }
+function reportOptionsForCurrentTab(){
+  if(PROD[G.tab]){
+    return [
+      {key:'illustration', checked:true, label:tr('Summary + timeline','摘要 + 时间线'), desc:tr('Current product, selected assumptions and visible timeline layers.','当前产品、已选假设及已显示的时间线层级。')},
+      {key:'table', checked:true, label:tr('Year-by-year table','逐年表格'), desc:tr('The value table shown below the illustration.','时间线下方显示的数值表。')},
+      {key:'rules', checked:true, label:tr('Product rules','产品规则'), desc:tr('Rules for this selected product only.','仅当前产品的规则。')},
+      {key:'refs', checked:FOOT.showSources, label:tr('Reference materials','参考资料'), desc:tr('Official summaries, brochures and campaign references.','官方产品摘要、产品册及优惠资料。')},
+      {key:'important', checked:true, label:tr('Important information','重要说明'), desc:tr('Non-guaranteed values and adviser-use notes.','非保证数值及顾问使用说明。')}
+    ];
+  }
+  if(G.tab==='liquidity'){
+    return [
+      {key:'chargeTimeline', checked:true, label:tr('Charge timeline','费用时间线'), desc:tr('Only the selected product and selected charge type.','仅当前选择的产品及费用项目。')},
+      {key:'period', checked:true, label:tr('Period-by-period schedule','逐期说明表'), desc:tr('The time-by-time explanation shown below the timeline.','时间线下方的逐期解释。')},
+      {key:'chargeTable', checked:true, label:tr('Charge table','费用表格'), desc:tr('The product-summary style charge table.','产品摘要式费用表。')},
+      {key:'refs', checked:FOOT.showSources, label:tr('Reference materials','参考资料'), desc:tr('Official summaries, brochures and campaign references.','官方产品摘要、产品册及优惠资料。')},
+      {key:'important', checked:true, label:tr('Important information','重要说明'), desc:tr('Non-guaranteed values and adviser-use notes.','非保证数值及顾问使用说明。')}
+    ];
+  }
+  return [
+    {key:'current', checked:true, label:tr('Current page','当前页面'), desc:tr('Print the page exactly as currently selected.','按当前选择打印本页。')},
+    {key:'refs', checked:FOOT.showSources, label:tr('Reference materials','参考资料'), desc:tr('Official summaries, brochures and campaign references.','官方产品摘要、产品册及优惠资料。')},
+    {key:'important', checked:true, label:tr('Important information','重要说明'), desc:tr('Non-guaranteed values and adviser-use notes.','非保证数值及顾问使用说明。')}
+  ];
+}
+function reportOptionRow(o){
+  return `<label class="report-option">
+    <input type="checkbox" data-report-option="${o.key}" ${o.checked?'checked':''}>
+    <span><b>${o.label}</b><span>${o.desc}</span></span>
+  </label>`;
+}
 function printReport(){
-  /* Report layout: current tab first; product reports add one rules/important page.
-     PH & Withdrawals prints as its own sheet from that tab. */
+  const modal = document.getElementById('reportModal');
+  if(!modal) return window.print();
+  const activeName = G.tab==='liquidity' ? tr('PH & Withdrawals','保费假期与提取') : (PROD[G.tab] ? productName(G.tab) : (G.tab==='compare'?tr('Compare 1·3·5','对比 1·3·5'):tr('Q2 Campaigns','Q2优惠')));
+  modal.innerHTML = `<div class="report-modal" role="dialog" aria-modal="true" aria-labelledby="reportTitle">
+    <h3 id="reportTitle">${tr('Choose what to show in the report','选择报告要显示的内容')}</h3>
+    <div class="hint">${tr(`Report will follow what is currently selected on: ${activeName}.`,`报告会跟随当前页面选择：${activeName}。`)}</div>
+    <div class="report-options">${reportOptionsForCurrentTab().map(reportOptionRow).join('')}</div>
+    <div class="report-actions">
+      <button type="button" onclick="closeReportOptions()">${tr('Cancel','取消')}</button>
+      <button type="button" class="primary" onclick="confirmPrintReport()">${tr('Generate report','生成报告')}</button>
+    </div>
+  </div>`;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  modal.onclick = e => { if(e.target===modal) closeReportOptions(); };
+}
+function closeReportOptions(){
+  const modal = document.getElementById('reportModal');
+  if(!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  modal.innerHTML = '';
+}
+function selectedReportOptions(){
+  const picked = {};
+  document.querySelectorAll('#reportModal input[data-report-option]').forEach(input=>{
+    picked[input.dataset.reportOption] = input.checked;
+  });
+  return picked;
+}
+function ensurePrintExtra(){
   let extra = document.getElementById('print-extra');
   if(!extra){
     extra = document.createElement('div');
     extra.id = 'print-extra';
-    document.getElementById('app').appendChild(extra);
   }
-  const productRules = (G.tab !== 'liquidity' && PROD[G.tab])
+  const foot = document.getElementById('footx');
+  if(extra.parentElement !== document.body){
+    document.body.insertBefore(extra, foot || null);
+  }
+  return extra;
+}
+function buildReportInfoPage(opts){
+  const productRules = (opts.rules && PROD[G.tab])
     ? `<div class="rules-print"><h3>${tr('Product rules that matter in the room','谈单时要紧的产品规则')}</h3>${rulesInner(G.tab)}</div>`
     : '';
-  const refs = FOOT.showSources ? referenceMaterialsHtml() : '';
-  const p3 = `<div class="print-page panel report-info-page">
+  const refs = (opts.refs && FOOT.showSources) ? `<div class="sources-print">${referenceMaterialsHtml()}</div>` : '';
+  const important = opts.important ? `<div class="important-title">${tr('Important information','重要说明')}</div>
+      <div class="sources-print">${importantInfoHtml()}</div>` : '';
+  if(!productRules && !refs && !important) return '';
+  return `<div class="print-page panel report-info-page">
       ${productRules}
-      <div class="sources-print">${refs}</div>
-      <div class="important-title">${tr('Important information','重要说明')}</div>
-      <div class="sources-print">${importantInfoHtml()}</div>
+      ${refs}
+      ${important}
       <p class="report-copy">&copy; Kellie Zheng. All rights reserved.</p>
     </div>`;
-  extra.innerHTML = p3;
+}
+function clearReportPrintClasses(){
+  document.body.classList.remove(
+    'report-hide-main-panel',
+    'report-hide-illustration',
+    'report-hide-table',
+    'report-hide-charge-timeline',
+    'report-hide-period',
+    'report-hide-charge-table'
+  );
+}
+function applyReportPrintClasses(opts){
+  clearReportPrintClasses();
+  const b = document.body.classList;
+  if(PROD[G.tab]){
+    if(!opts.illustration) b.add('report-hide-illustration');
+    if(!opts.table) b.add('report-hide-table');
+    if(!opts.illustration && !opts.table) b.add('report-hide-main-panel');
+    return;
+  }
+  if(G.tab==='liquidity'){
+    if(!opts.chargeTimeline) b.add('report-hide-charge-timeline');
+    if(!opts.period) b.add('report-hide-period');
+    if(!opts.chargeTable) b.add('report-hide-charge-table');
+    if(!opts.chargeTimeline && !opts.period && !opts.chargeTable) b.add('report-hide-main-panel');
+    return;
+  }
+  if(!opts.current) b.add('report-hide-main-panel');
+}
+function confirmPrintReport(){
+  const opts = selectedReportOptions();
+  closeReportOptions();
+  const extra = ensurePrintExtra();
+  extra.innerHTML = buildReportInfoPage(opts);
+  applyReportPrintClasses(opts);
   window.print();
 }
+window.addEventListener('keydown', e=>{
+  if(e.key==='Escape') closeReportOptions();
+});
 window.addEventListener('afterprint', ()=>{
   const e = document.getElementById('print-extra');
   if(e) e.innerHTML = '';
+  clearReportPrintClasses();
 });
 
 Object.assign(window, {
-  G, S, render, toggleLang, toggleCampaign, printReport,
+  G, S, render, toggleLang, toggleCampaign, printReport, closeReportOptions, confirmPrintReport,
   toggleLayer, stepLayer, resetLayers, allLayers, setVoyageMip,
   clampStartAge, setStartAge, setRetirementAge, queueStartAge,
   queueRetirementAge
