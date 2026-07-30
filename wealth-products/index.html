@@ -667,7 +667,9 @@ function tlSVG(o){
       const a = X(from), b = X(to);
       const fill = guideFill[g.kind] || guideFill.charged;
       s += `<rect x="${a}" y="${yG-9}" width="${Math.max(6,b-a)}" height="18" rx="8" fill="${fill}" opacity=".92"/>`;
-      if(b-a>82) s += `<text x="${(a+b)/2}" y="${yG+4}" text-anchor="middle" font-size="10.8" fill="#fff" font-weight="800">${g.label}</text>`;
+      if(g.caption && b-a>70) s += `<text x="${(a+b)/2}" y="${yG-15}" text-anchor="middle" font-size="10.2" fill="${fill}" font-weight="800">${g.caption}</text>`;
+      const barLabel = (g.caption && b-a<140 && g.short) ? g.short : g.label;
+      if(b-a>82) s += `<text x="${(a+b)/2}" y="${yG+4}" text-anchor="middle" font-size="10.4" fill="#fff" font-weight="800">${barLabel}</text>`;
       else if(g.short) s += `<text x="${(a+b)/2}" y="${yG+4}" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="800">${g.short}</text>`;
     });
   }
@@ -1024,7 +1026,8 @@ function timelineWithdrawalGuide(id, mip, horizon){
       from:1,
       to:firstTwoEnd,
       kind:'blocked',
-      label:tr('Yr 1-2: no full / partial W/D','第1-2年：不可全额 / 部分提取'),
+      caption:tr('Yr 1-2','第1-2年'),
+      label:tr('No full / partial W/D','不可全额 / 部分提取'),
       short:tr('No W/D','不可提取')
     });
   }
