@@ -1180,7 +1180,45 @@ function productPanel(id){
   </div>`;
 }
 
-function rulesInner(id){
+function voyagePowerUpRuleText(){
+  const M = +S.voyage.mip || 20;
+  const en = {
+    15:'Monthly on the regular premium account value until the end of MIP 15: 0.20% p.a. from year 6 to year 15. Paused 12 months after any partial withdrawal, premium holiday or premium reduction; forfeited during premium holiday.',
+    20:'Monthly on the regular premium account value until the end of MIP 20: 0.10% p.a. in years 3-5, 0.30% in years 6-10, 0.50% in years 11-15, and 0.70% in years 16-20. Paused 12 months after any partial withdrawal, premium holiday or premium reduction; forfeited during premium holiday.',
+    25:'Monthly on the regular premium account value until the end of MIP 25: 0.10% p.a. in years 3-5, 0.40% in years 6-10, 0.70% in years 11-15, 0.80% in years 16-20, and 1.00% in years 21-25. Paused 12 months after any partial withdrawal, premium holiday or premium reduction; forfeited during premium holiday.'
+  };
+  const cn = {
+    15:'按月以定期保费账户价值计，派至15年投资期末：第6至15年为年率0.20%。部分提取、保费假期或调低保费后暂停12个月；假期期间直接没收。',
+    20:'按月以定期保费账户价值计，派至20年投资期末：第3至5年0.10%、第6至10年0.30%、第11至15年0.50%、第16至20年0.70%。部分提取、保费假期或调低保费后暂停12个月；假期期间直接没收。',
+    25:'按月以定期保费账户价值计，派至25年投资期末：第3至5年0.10%、第6至10年0.40%、第11至15年0.70%、第16至20年0.80%、第21至25年1.00%。部分提取、保费假期或调低保费后暂停12个月；假期期间直接没收。'
+  };
+  return G.lang==='cn' ? cn[M] : en[M];
+}
+function voyageLoyaltyRuleText(){
+  const M = +S.voyage.mip || 20;
+  const base = {15:'1.00%',20:'1.10%',25:'1.20%'}[M];
+  const camp = {15:'2.00%',20:'2.20%',25:'2.40%'}[M];
+  return G.lang==='cn'
+    ? `投资期${M}年后按月派发：年率 ${base}；优惠期内投保为 ${camp}。任何提取后暂停12个月。`
+    : `Monthly after MIP ${M}: ${base} p.a.; ${camp} p.a. for policies bought in the campaign window. Paused 12 months after any withdrawal.`;
+}
+function voyageAmfRuleText(){
+  const M = +S.voyage.mip || 20;
+  const rate = M===15 ? '2.30%' : '2.15%';
+  const cap = {15:12,20:16,25:19}[M];
+  return G.lang==='cn'
+    ? `${rate}/年 x 年缴保费 x（保单年度与上限${cap}两者较低）；投资期${M}年后为 1.0% x 年缴保费 x ${M}。全程收取。`
+    : `${rate} p.a. x annualised premium x lower of policy year and cap ${cap}; after MIP ${M}, 1.0% x annualised premium x ${M}. Payable throughout.`;
+}
+function voyagePremiumChangeRuleText(reportMode=false){
+  const M = +S.voyage.mip || 20;
+  const lock = {15:5,20:8,25:10}[M];
+  return G.lang==='cn'
+    ? `第${lock}个保单年度前锁定（投资期${M}年）。调低上限为原保费的25%；投资期内每次调低均触发花红追回费及加码花红暂停12个月。${reportMode?'':'加保不补发起步花红。'}`
+    : `Locked until policy year ${lock} for MIP ${M}. Reductions cap at 25% of the original premium; each reduction during the MIP triggers the bonus recovery charge and a 12-month power-up pause.${reportMode?'':' Increases never earn back start-up bonus.'}`;
+}
+function rulesInner(id, opts={}){
+  const reportMode = !!opts.report;
   const blocks = {
     wf1:`<p><b>Start-up bonus.</b> 5% of year-1 premiums (S$25,000 to below S$50,000) or 10% (S$50,000 and above). One-time, year 1, no campaign uplift for Flexi 1. No bonus recovery charge; the premium can only be reduced (max 25%) after the Flexi Term, subject to the minimum, and increases only restore a previous reduction, never above the original.</p>
       <p><b>Premium contribution bonus.</b> 1% of each regular premium actually paid, from month 13 to the end of the MIP. Forfeited for missed premiums and during premium holiday. Exclusive to Flexi 1.</p>
@@ -1196,12 +1234,12 @@ function rulesInner(id){
       <p><b>Loyalty bonus.</b> 0.35% p.a. of the regular premium account value, monthly, after the MIP (PS v1.51, Feb 2026).</p>
       <p><b>AMF.</b> 2.5% p.a. x premium x lower of (policy year, 5) during the MIP, so it steps up over the first five years to 2.5% of total premiums; 1.0% after the MIP.</p>
       <p><b>Liquidity.</b> As Flexi 3: withdrawals effectively from month 25 (100% charge in years 1-2), life-event free withdrawals years 6-10 up to 20% of the 5th-anniversary account value, free regular withdrawals after MIP (min S$1,200 a year), premium holiday charged in years 3-5 only. No bonus recovery charge. Premium changes only after the Flexi Term: reduce up to 25%, increases only restore a previous cut.</p>`,
-    voyage:`<p><b>Start-up bonus.</b> Years 1 and 2, rate by premium band and MIP. Standard year 1 up to 30%; campaign to ${CAMPAIGN.labelDate} lifts year 1 to ${pct(CAMPAIGN.voyage.sub[2][15][0])}-${pct(CAMPAIGN.voyage.sub[3][25][0])} for premiums of S$12,000 and above. Year 2 rates unchanged by the campaign.</p>
-      <p><b>Power-up bonus.</b> Monthly on the regular premium account value until the end of MIP. MIP 15: 0.20% from year 6. MIP 20: 0.10% (yr 3-5), 0.30% (6-10), 0.50% (11-15), 0.70% (16-20). MIP 25: 0.10%, 0.40%, 0.70%, 0.80%, 1.00% (21-25). Paused 12 months after any partial withdrawal, premium holiday or premium reduction; forfeited during premium holiday.</p>
-      <p><b>Loyalty bonus.</b> Monthly after the MIP: 1.00% / 1.10% / 1.20% p.a. by MIP, doubled to 2.00% / 2.20% / 2.40% for policies bought in the campaign window. Paused 12 months after any withdrawal.</p>
-      <p><b>AMF.</b> 2.30% p.a. (MIP 15) or 2.15% (MIP 20/25) x annualised premium x lower of (policy year, cap of 12/16/19); after the MIP, 1.0% x premium x MIP. Payable throughout.</p>
+    voyage:`${reportMode?'':`<p><b>Start-up bonus.</b> Years 1 and 2, rate by premium band and MIP. Standard year 1 up to 30%; campaign to ${CAMPAIGN.labelDate} lifts year 1 to ${pct(CAMPAIGN.voyage.sub[2][15][0])}-${pct(CAMPAIGN.voyage.sub[3][25][0])} for premiums of S$12,000 and above. Year 2 rates unchanged by the campaign.</p>`}
+      <p><b>Power-up bonus.</b> ${voyagePowerUpRuleText()}</p>
+      <p><b>Loyalty bonus.</b> ${voyageLoyaltyRuleText()}</p>
+      <p><b>AMF.</b> ${voyageAmfRuleText()}</p>
       <p><b>Liquidity.</b> Premiums payable to age 99; premium holiday from month 25, first 24 months free in total, no charge after MIP. Partial withdrawal from month 25 (min S$250, keep 18 months of premium; charge during MIP, plus extra EEC if surrendering within 24 months of a withdrawal). No free partial withdrawal benefit on this product. Regular withdrawal after MIP free (min S$1,200 a year). Top-ups from month 13 (insured below age 70): min S$5,000, 3% charge, capped at 2x annual premium, earn no bonuses, withdrawable free.</p>
-      <p><b>Premium changes.</b> Locked until policy year 5 / 8 / 10 (MIP 15 / 20 / 25). Reductions cap at 25% of the original premium; each reduction during the MIP triggers the bonus recovery charge and a 12-month power-up pause. Increases never earn back start-up bonus.</p>`,
+      <p><b>Premium changes.</b> ${voyagePremiumChangeRuleText(reportMode)}</p>`,
     abundance:`<p><b>Bonuses.</b> One-time start-up bonus on year-1 premiums: 8% (S$6,000 to below S$24,000), 10% (S$24,000 to below S$42,000), 12% (S$42,000 and above). Power-up 0.10% p.a. monthly from year 5 to the end of MIP. Loyalty 0.30% p.a. monthly after the MIP. Bonuses pause 12 months after any withdrawal, holiday or premium cut.</p>
       <p><b>AMF.</b> Charged on account value, not premiums: 2.1% p.a. during the MIP, 0.6% after. 100% premium allocation, no premium charge on regular premiums.</p>
       <p><b>Liquidity.</b> Two free partial withdrawals during the MIP, available after the first 2 policy years, each capped at 6% of the regular premium account value, and each use pauses power-up and loyalty bonuses for 12 months. Other partial withdrawals only from month 37, with charges. Premium holiday from month 37, currently free of charge (capped at 50% of premium if ever imposed); AMF keeps accruing. Regular withdrawal after MIP free (min S$1,200 a year). Top-ups and recurring single premium from month 13 to age 70, 3% charge, no bonuses, withdrawable free. Premium increases are never allowed on this product; reductions only from month 37, capped at 25% of the original, with a prorated bonus recovery charge and a 12-month bonus pause, and once reduced the premium cannot go back up.</p>`,
@@ -1224,12 +1262,12 @@ function rulesInner(id){
       <p><b>忠诚花红。</b>年率 0.35%，投资期后按月以账户价值计（产品摘要 v1.51，2026年2月）。</p>
       <p><b>账户管理费。</b>投资期内 2.5% x 保费 x（保单年度与5取小者），首五年逐步升至总保费的 2.5%；投资期后 1.0%。</p>
       <p><b>流动性。</b>同 Flexi 3：提取实际上从第25个月起（首两年费率100%），第6至10年人生大事免费提取（上限为第5周年账户价值的20%），投资期后定期提取免费（每年最低S$1,200），保费假期仅第3至5年收费。无花红追回费。调整保费须待缴费期后：可调低至多25%，加回仅限恢复原额。</p>`,
-    voyage:`<p><b>起步花红。</b>首两年派发，按保费档与投资期定。标准首年最高 30%；优惠至 ${CAMPAIGN.labelDate}，S$12,000 及以上首年升至 ${pct(CAMPAIGN.voyage.sub[2][15][0])}-${pct(CAMPAIGN.voyage.sub[3][25][0])}。次年利率不受优惠影响。</p>
-      <p><b>加码花红。</b>按月以定期保费账户价值计，派至投资期末。MIP 15：第6年起 0.20%。MIP 20：0.10%（第3-5年）、0.30%（6-10）、0.50%（11-15）、0.70%（16-20）。MIP 25：0.10%、0.40%、0.70%、0.80%、1.00%（21-25）。部分提取、保费假期或调低保费后暂停12个月；假期期间直接没收。</p>
-      <p><b>忠诚花红。</b>投资期后按月派发：年率 1.00% / 1.10% / 1.20%（按投资期），优惠期内投保翻倍至 2.00% / 2.20% / 2.40%。任何提取后暂停12个月。</p>
-      <p><b>账户管理费。</b>2.30%（MIP 15）或 2.15%（MIP 20/25）x 年缴保费 x（保单年度，上限 12/16/19）；投资期后 1.0% x 保费 x 投资期年数。全程收取。</p>
+    voyage:`${reportMode?'':`<p><b>起步花红。</b>首两年派发，按保费档与投资期定。标准首年最高 30%；优惠至 ${CAMPAIGN.labelDate}，S$12,000 及以上首年升至 ${pct(CAMPAIGN.voyage.sub[2][15][0])}-${pct(CAMPAIGN.voyage.sub[3][25][0])}。次年利率不受优惠影响。</p>`}
+      <p><b>加码花红。</b>${voyagePowerUpRuleText()}</p>
+      <p><b>忠诚花红。</b>${voyageLoyaltyRuleText()}</p>
+      <p><b>账户管理费。</b>${voyageAmfRuleText()}</p>
       <p><b>流动性。</b>保费缴至99岁；第25个月起可保费假期，累计首24个月免费，投资期后免费。第25个月起可部分提取（最低 S$250，账户留18个月保费；投资期内收费，且提取后24个月内退保另加提前退保费）。本产品没有人生大事免费提取。投资期后定期提取免费（每年最低S$1,200）。附加保费第13个月起（受保人未满70岁）：最低 S$5,000、收3%、上限两倍年缴保费、不享花红、可随时免费提取。</p>
-      <p><b>调整保费。</b>第5 / 8 / 10个保单年度前锁定（投资期15 / 20 / 25年）。调低上限为原保费的25%；投资期内每次调低均触发花红追回费及加码花红暂停12个月。加保不补发起步花红。</p>`,
+      <p><b>调整保费。</b>${voyagePremiumChangeRuleText(reportMode)}</p>`,
     abundance:`<p><b>花红。</b>一次性起步花红按首年保费：8%（S$6,000 至 S$24,000 以下）、10%（S$24,000 至 S$42,000 以下）、12%（S$42,000 及以上）。加码花红年率 0.10%，第5年至投资期末按月派发。忠诚花红年率 0.30%，投资期后按月派发。任何提取、假期或减保后花红暂停12个月。</p>
       <p><b>账户管理费。</b>按账户价值收取：投资期内每年 2.1%，之后 0.6%。定期保费 100% 投入，无保费费用。</p>
       <p><b>流动性。</b>投资期内两次免费部分提取：首两个保单年度之后可用，每次上限为定期保费账户价值的 6%，且每次使用后花红暂停12个月。其他部分提取须待第37个月起，并收费。第37个月起可保费假期，目前免费（若日后收取，上限为保费的50%）；管理费照常累计。投资期后定期提取免费（每年最低S$1,200）。第13个月起至70岁可附加保费及定额单次保费，收3%，不享花红，可免费提取。本产品永不可调高保费；第37个月起才可调低（上限为原保费的25%），按比例扣花红追回费并暂停花红12个月，调低后不可再加回。</p>`,
@@ -1256,7 +1294,8 @@ function rulesInner(id){
   };
   const base = (G.lang==='cn' ? cnBlocks[id] : blocks[id]) || '';
   if(!base) return '';
-  return protectionRulePara(id) + base + `<p><b>${tr('PH & withdrawal charges.','保费假期与提取费用。')}</b> ${(G.lang==='cn'?chCn:chEn)[id]||''} ${tr('For all other terms and the full charge schedules, please refer to the official Policy Illustration and Product Summary.','其余条款及完整费率表，请以官方保单利益演示及产品摘要为准。')}</p>`;
+  const chargePara = reportMode ? '' : `<p><b>${tr('PH & withdrawal charges.','保费假期与提取费用。')}</b> ${(G.lang==='cn'?chCn:chEn)[id]||''} ${tr('For all other terms and the full charge schedules, please refer to the official Policy Illustration and Product Summary.','其余条款及完整费率表，请以官方保单利益演示及产品摘要为准。')}</p>`;
+  return protectionRulePara(id) + base + chargePara;
 }
 function rulesBlock(id){
   return `<details class="rules"><summary>${tr('Product rules that matter in the room','谈单时要紧的产品规则')}</summary><div class="inner">${rulesInner(id)}</div></details>`;
@@ -1883,7 +1922,7 @@ function ensurePrintExtra(){
 }
 function buildReportInfoPage(opts){
   const productRules = (opts.rules && PROD[G.tab])
-    ? `<div class="rules-print"><h3>${tr('Product rules that matter in the room','谈单时要紧的产品规则')}</h3>${rulesInner(G.tab)}</div>`
+    ? `<div class="rules-print"><h3>${tr('Product rules that matter in the room','谈单时要紧的产品规则')}</h3>${rulesInner(G.tab,{report:true})}</div>`
     : '';
   const refs = (opts.refs && FOOT.showSources) ? `<div class="sources-print">${referenceMaterialsHtml()}</div>` : '';
   const important = opts.important ? `<div class="important-title">${tr('Important information','重要说明')}</div>
