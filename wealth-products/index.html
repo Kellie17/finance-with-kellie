@@ -1217,6 +1217,9 @@ function voyagePremiumChangeRuleText(reportMode=false){
     ? `第${lock}个保单年度前锁定（投资期${M}年）。调低上限为原保费的25%；投资期内每次调低均触发花红追回费及加码花红暂停12个月。${reportMode?'':'加保不补发起步花红。'}`
     : `Locked until policy year ${lock} for MIP ${M}. Reductions cap at 25% of the original premium; each reduction during the MIP triggers the bonus recovery charge and a 12-month power-up pause.${reportMode?'':' Increases never earn back start-up bonus.'}`;
 }
+function reportFullTermsPara(){
+  return `<p><b>${tr('Full terms.','完整条款。')}</b> ${tr('Premium changes, withdrawals, premium holidays, charges, limits and conditions are subject to the official Policy Illustration, Product Summary and policy contract. This report is a simplified discussion guide only.','调整保费、提取、保费假期、费用、限制及相关条件，均以官方保单利益演示、产品摘要及保单条款为准。本报告仅作简化说明及讨论用途。')}</p>`;
+}
 function rulesInner(id, opts={}){
   const reportMode = !!opts.report;
   const blocks = {
@@ -1239,7 +1242,7 @@ function rulesInner(id, opts={}){
       <p><b>Loyalty bonus.</b> ${voyageLoyaltyRuleText()}</p>
       <p><b>AMF.</b> ${voyageAmfRuleText()}</p>
       <p><b>Liquidity.</b> Premiums payable to age 99; premium holiday from month 25, first 24 months free in total, no charge after MIP. Partial withdrawal from month 25 (min S$250, keep 18 months of premium; charge during MIP, plus extra EEC if surrendering within 24 months of a withdrawal). No free partial withdrawal benefit on this product. Regular withdrawal after MIP free (min S$1,200 a year). Top-ups from month 13 (insured below age 70): min S$5,000, 3% charge, capped at 2x annual premium, earn no bonuses, withdrawable free.</p>
-      <p><b>Premium changes.</b> ${voyagePremiumChangeRuleText(reportMode)}</p>`,
+      ${reportMode?'':`<p><b>Premium changes.</b> ${voyagePremiumChangeRuleText(reportMode)}</p>`}`,
     abundance:`<p><b>Bonuses.</b> One-time start-up bonus on year-1 premiums: 8% (S$6,000 to below S$24,000), 10% (S$24,000 to below S$42,000), 12% (S$42,000 and above). Power-up 0.10% p.a. monthly from year 5 to the end of MIP. Loyalty 0.30% p.a. monthly after the MIP. Bonuses pause 12 months after any withdrawal, holiday or premium cut.</p>
       <p><b>AMF.</b> Charged on account value, not premiums: 2.1% p.a. during the MIP, 0.6% after. 100% premium allocation, no premium charge on regular premiums.</p>
       <p><b>Liquidity.</b> Two free partial withdrawals during the MIP, available after the first 2 policy years, each capped at 6% of the regular premium account value, and each use pauses power-up and loyalty bonuses for 12 months. Other partial withdrawals only from month 37, with charges. Premium holiday from month 37, currently free of charge (capped at 50% of premium if ever imposed); AMF keeps accruing. Regular withdrawal after MIP free (min S$1,200 a year). Top-ups and recurring single premium from month 13 to age 70, 3% charge, no bonuses, withdrawable free. Premium increases are never allowed on this product; reductions only from month 37, capped at 25% of the original, with a prorated bonus recovery charge and a 12-month bonus pause, and once reduced the premium cannot go back up.</p>`,
@@ -1267,7 +1270,7 @@ function rulesInner(id, opts={}){
       <p><b>忠诚花红。</b>${voyageLoyaltyRuleText()}</p>
       <p><b>账户管理费。</b>${voyageAmfRuleText()}</p>
       <p><b>流动性。</b>保费缴至99岁；第25个月起可保费假期，累计首24个月免费，投资期后免费。第25个月起可部分提取（最低 S$250，账户留18个月保费；投资期内收费，且提取后24个月内退保另加提前退保费）。本产品没有人生大事免费提取。投资期后定期提取免费（每年最低S$1,200）。附加保费第13个月起（受保人未满70岁）：最低 S$5,000、收3%、上限两倍年缴保费、不享花红、可随时免费提取。</p>
-      <p><b>调整保费。</b>${voyagePremiumChangeRuleText(reportMode)}</p>`,
+      ${reportMode?'':`<p><b>调整保费。</b>${voyagePremiumChangeRuleText(reportMode)}</p>`}`,
     abundance:`<p><b>花红。</b>一次性起步花红按首年保费：8%（S$6,000 至 S$24,000 以下）、10%（S$24,000 至 S$42,000 以下）、12%（S$42,000 及以上）。加码花红年率 0.10%，第5年至投资期末按月派发。忠诚花红年率 0.30%，投资期后按月派发。任何提取、假期或减保后花红暂停12个月。</p>
       <p><b>账户管理费。</b>按账户价值收取：投资期内每年 2.1%，之后 0.6%。定期保费 100% 投入，无保费费用。</p>
       <p><b>流动性。</b>投资期内两次免费部分提取：首两个保单年度之后可用，每次上限为定期保费账户价值的 6%，且每次使用后花红暂停12个月。其他部分提取须待第37个月起，并收费。第37个月起可保费假期，目前免费（若日后收取，上限为保费的50%）；管理费照常累计。投资期后定期提取免费（每年最低S$1,200）。第13个月起至70岁可附加保费及定额单次保费，收3%，不享花红，可免费提取。本产品永不可调高保费；第37个月起才可调低（上限为原保费的25%），按比例扣花红追回费并暂停花红12个月，调低后不可再加回。</p>`,
@@ -1294,8 +1297,9 @@ function rulesInner(id, opts={}){
   };
   const base = (G.lang==='cn' ? cnBlocks[id] : blocks[id]) || '';
   if(!base) return '';
+  const reportTerms = reportMode ? reportFullTermsPara() : '';
   const chargePara = reportMode ? '' : `<p><b>${tr('PH & withdrawal charges.','保费假期与提取费用。')}</b> ${(G.lang==='cn'?chCn:chEn)[id]||''} ${tr('For all other terms and the full charge schedules, please refer to the official Policy Illustration and Product Summary.','其余条款及完整费率表，请以官方保单利益演示及产品摘要为准。')}</p>`;
-  return protectionRulePara(id) + base + chargePara;
+  return protectionRulePara(id) + base + reportTerms + chargePara;
 }
 function rulesBlock(id){
   return `<details class="rules"><summary>${tr('Product rules that matter in the room','谈单时要紧的产品规则')}</summary><div class="inner">${rulesInner(id)}</div></details>`;
