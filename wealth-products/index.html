@@ -1794,6 +1794,7 @@ function printReport(){
     <h3 id="reportTitle">${tr('Choose what to show in the report','选择报告要显示的内容')}</h3>
     <div class="hint">${tr(`Report will follow what is currently selected on: ${activeName}.`,`报告会跟随当前页面选择：${activeName}。`)}</div>
     <div class="report-options">${reportOptionsForCurrentTab().map(reportOptionRow).join('')}</div>
+    <div class="hint"><b>${tr('PDF tip.','PDF提示。')}</b> ${tr('In the browser print settings, turn off Headers and footers to hide the website URL at the bottom.','在浏览器打印设置里关闭「页眉和页脚」，底部网址才会消失。')}</div>
     <div class="report-actions">
       <button type="button" onclick="closeReportOptions()">${tr('Cancel','取消')}</button>
       <button type="button" class="primary" onclick="confirmPrintReport()">${tr('Generate report','生成报告')}</button>
