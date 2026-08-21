@@ -546,7 +546,7 @@ function run(prodId, s){
 
 /* ================= timeline SVG ================= */
 function tlSVG(o){
-  /* o: {years, mip, payYears, startAge, retirementAge, withdrawalGuide, subLabel, sub2Label, amfLabel, amfAfterLabel, puSegs, puLabel, loyLabel, premLabel, plTitle, plLabel, plPos} */
+  /* o: {years, mip, payYears, startAge, retirementAge, withdrawalGuide, subLabel, sub2Label, amfLabel, amfAfterLabel, puSegs, puLabel, loyLabel, premLabel} */
   const ageRow = o.startAge!==null && o.startAge!==undefined && o.startAge!=='';
   const retirementAge = o.retirementAge!==null && o.retirementAge!==undefined && o.retirementAge!=='' ? +o.retirementAge : null;
   const retirementYear = ageRow && retirementAge!==null && retirementAge>=+o.startAge ? Math.round(retirementAge - +o.startAge + 1) : null;
@@ -681,10 +681,6 @@ function tlSVG(o){
       else if(g.short) s += `<text x="${(a+b)/2}" y="${yG+4}" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="800">${g.short}</text>`;
     });
   }
-  /* P/L chip - bottom right, clear of the timeline */
-  s += `<g><rect x="${W-232}" y="${H-54}" width="214" height="42" rx="9" fill="#fff" stroke="#c9a14e" stroke-width="1.6"/>
-        <text x="${W-125}" y="${H-37}" text-anchor="middle" font-size="11.5" fill="#777">${o.plTitle}</text>
-        <text x="${W-125}" y="${H-20}" text-anchor="middle" font-size="14.5" font-weight="700" fill="${o.plPos?'#0a7a3d':'#8a6508'}">${o.plLabel}</text></g>`;
   return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
 }
 
@@ -1120,9 +1116,7 @@ function productPanel(id){
     years:s.horizon, mip:id==='invest'? s.horizon+1 : R.mip, payYears:on('prem')?Math.min(s.payYears,s.horizon):0,
     startAge:s.startAge, retirementAge:s.retirementAge,
     withdrawalGuide:layerOn(s,'wd') ? timelineWithdrawalGuide(id, R.mip, s.horizon) : null,
-    subLabel, sub2Label, amfLabel, amfAfterLabel:amfAfter, puSegs, puLabel, loyLabel, premLabel, pcbSeg,
-    plTitle:s.divMode==='payout' ? tr(`Total gain/loss at ${periodShort}`,`${periodShort}总盈亏`) : tr(`Gain/loss at ${periodShort}`,`${periodShort}盈亏`),
-    plLabel:(totalPl>=0?'+':'')+fmt(totalPl), plPos:totalPl>=0
+    subLabel, sub2Label, amfLabel, amfAfterLabel:amfAfter, puSegs, puLabel, loyLabel, premLabel, pcbSeg
   });
 
   let warn='';
