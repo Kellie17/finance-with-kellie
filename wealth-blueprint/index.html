@@ -4198,6 +4198,23 @@
       letter-spacing: 0.02em;
     }
 
+    .pdf-export-root {
+      position: fixed;
+      left: -12000px;
+      top: 0;
+      width: 1120px;
+      background: #ffffff;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .pdf-export-root .profile-report {
+      width: 1120px;
+      max-width: none;
+      padding: 28px;
+      box-shadow: none;
+    }
+
     @media print {
       @page {
         size: A4;
@@ -4873,7 +4890,7 @@
         </div>
         <div class="report-actions">
           <button class="control-button" type="button" id="copyReportBtn">Copy summary</button>
-          <button class="control-button primary" type="button" id="printReportBtn">Print / Save PDF</button>
+          <button class="control-button primary" type="button" id="printReportBtn">Download PDF</button>
           <button class="control-button" type="button" id="closeReportBtn">Close</button>
         </div>
       </div>
@@ -5363,6 +5380,9 @@
       nextMetric: document.getElementById("nextMetric")
     };
 
+    const PDF_EXPORTER_URL = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+    let pdfExporterPromise = null;
+
     function clone(value) {
       return JSON.parse(JSON.stringify(value));
     }
@@ -5536,6 +5556,10 @@
       "Report": "报告",
       "Copy summary": "复制摘要",
       "Print / Save PDF": "打印 / 保存 PDF",
+      "Download PDF": "下载 PDF",
+      "Preparing PDF...": "正在生成 PDF...",
+      "PDF ready": "PDF 已生成",
+      "Print fallback": "打开打印备用方式",
       "Close": "关闭",
       "Copied": "已复制",
       "Complete": "完成",
@@ -6146,7 +6170,7 @@
       el.presentBtn.textContent = state.present ? translatedText("Full view") : translatedText("Focus view");
       el.reportBtn.textContent = translatedText("Report");
 	      el.copyReportBtn.textContent = translatedText("Copy summary");
-	      el.printReportBtn.textContent = translatedText("Print / Save PDF");
+	      el.printReportBtn.textContent = translatedText("Download PDF");
 	      el.closeReportBtn.textContent = translatedText("Close");
 	      el.reportProspectInput.placeholder = translatedText("Name");
 	      el.reportNotesInput.placeholder = translatedText("Optional follow-up notes");
@@ -8408,7 +8432,7 @@
         el.reportTitle.innerHTML = translatedHtml("Retirement Profile Report");
         el.reportSubtitle.innerHTML = translatedHtml("Generated from the retirement profile inputs");
         el.copyReportBtn.textContent = translatedText("Copy summary");
-        el.printReportBtn.textContent = translatedText("Print / Save PDF");
+        el.printReportBtn.textContent = translatedText("Download PDF");
         el.closeReportBtn.textContent = translatedText("Close");
         el.reportProspectInput.placeholder = translatedText("Name");
         el.reportNotesInput.placeholder = translatedText("Optional follow-up notes");
@@ -8431,6 +8455,96 @@
 
     function closeReport() {
       el.reportModal.hidden = true;
+    }
+
+    function ensurePdfExporter() {
+      if (window.html2pdf) return Promise.resolve(window.html2pdf);
+      if (pdfExporterPromise) return pdfExporterPromise;
+      pdfExporterPromise = new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = PDF_EXPORTER_URL;
+        script.async = true;
+        script.onload = () => {
+          if (window.html2pdf) {
+            resolve(window.html2pdf);
+          } else {
+            reject(new Error("PDF exporter unavailable"));
+          }
+        };
+        script.onerror = () => reject(new Error("PDF exporter failed to load"));
+        document.head.appendChild(script);
+      });
+      return pdfExporterPromise;
+    }
+
+    function reportPdfFileName() {
+      const prospect = (state.report.prospectName || translatedText("Prospect")).trim() || translatedText("Prospect");
+      const date = state.report.meetingDate || todayInputValue();
+      const base = `wealth-blueprint-${prospect}-${date}`;
+      const slug = base
+        .replace(/[^\w\u4e00-\u9fff-]+/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "")
+        .slice(0, 90);
+      return `${slug || "wealth-blueprint-report"}.pdf`;
+    }
+
+    function createPdfExportNode() {
+      const root = document.createElement("div");
+      root.className = "pdf-export-root";
+      const reportClone = el.profileReport.cloneNode(true);
+      reportClone.removeAttribute("id");
+      root.appendChild(reportClone);
+      document.body.appendChild(root);
+      return { root, reportClone };
+    }
+
+    async function downloadReportPdf() {
+      syncCalcInputsFromDom();
+      if (!state.report.meetingDate) state.report.meetingDate = todayInputValue();
+      syncReportControls();
+      renderReport();
+      saveState();
+
+      const originalText = translatedText("Download PDF");
+      el.printReportBtn.disabled = true;
+      el.printReportBtn.textContent = translatedText("Preparing PDF...");
+      let exportRoot = null;
+
+      try {
+        const html2pdf = await ensurePdfExporter();
+        const exportNode = createPdfExportNode();
+        exportRoot = exportNode.root;
+        await html2pdf()
+          .set({
+            filename: reportPdfFileName(),
+            margin: 0,
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: {
+              scale: Math.min(window.devicePixelRatio || 2, 2),
+              useCORS: true,
+              backgroundColor: "#ffffff",
+              windowWidth: 1120,
+              scrollX: 0,
+              scrollY: 0
+            },
+            jsPDF: { unit: "mm", format: "a4", orientation: "portrait", compress: true },
+            pagebreak: { mode: ["css", "legacy"], before: ".report-page-break" }
+          })
+          .from(exportNode.reportClone)
+          .save();
+        el.printReportBtn.textContent = translatedText("PDF ready");
+      } catch (error) {
+        console.error(error);
+        el.printReportBtn.textContent = translatedText("Print fallback");
+        window.print();
+      } finally {
+        if (exportRoot) exportRoot.remove();
+        window.setTimeout(() => {
+          el.printReportBtn.disabled = false;
+          el.printReportBtn.textContent = originalText;
+        }, 1100);
+      }
     }
 
     async function copyReportSummary() {
@@ -8484,10 +8598,7 @@
     });
     el.reportBtn.addEventListener("click", openReport);
     el.closeReportBtn.addEventListener("click", closeReport);
-    el.printReportBtn.addEventListener("click", () => {
-      renderReport();
-      window.print();
-    });
+    el.printReportBtn.addEventListener("click", downloadReportPdf);
     el.copyReportBtn.addEventListener("click", copyReportSummary);
     el.reportModal.addEventListener("click", (event) => {
       if (event.target === el.reportModal) closeReport();
