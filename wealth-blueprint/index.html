@@ -2071,6 +2071,46 @@
       margin-left: 0;
     }
 
+    .readiness-spend-note {
+      margin-top: 10px;
+      padding: 11px 12px;
+      border: 1.5px solid rgba(183, 121, 31, 0.40);
+      border-radius: var(--radius);
+      background: rgba(255, 247, 230, 0.92);
+      color: var(--muted);
+      box-shadow: 0 8px 18px rgba(183, 121, 31, 0.08);
+    }
+
+    .readiness-spend-note strong {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--amber);
+      font-size: 0.78rem;
+      line-height: 1.14;
+    }
+
+    .readiness-spend-note-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .readiness-spend-note p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 760;
+      line-height: 1.24;
+    }
+
+    .readiness-spend-note .formula {
+      margin-top: 7px;
+      padding-top: 7px;
+      border-top: 1px solid rgba(183, 121, 31, 0.22);
+      color: var(--navy);
+      font-weight: 850;
+    }
+
     .timeline-controls,
     .mini-input-grid {
       display: grid;
@@ -5097,7 +5137,7 @@
         renderer: "readiness",
         bankTitle: "Readiness pieces",
         cues: [
-          "Capture the cashflow facts: income, essential and lifestyle spending, current saving and liquid savings.",
+          "Capture the cashflow facts: income, essential and lifestyle spending, monthly saving and emergency buffer.",
           "Then reveal the verdict: monthly surplus, savings rate and emergency buffer."
         ],
         items: [
@@ -5722,6 +5762,8 @@
       "Selected": "已选择",
       "Your concerns": "你的担忧",
       "Select what you want the plan to answer.": "选择你希望这个规划回答的问题。",
+      "Capture the cashflow facts: income, essential and lifestyle spending, monthly saving and emergency buffer.": "记录现金流数据：收入、必要开销、生活开销、每月储蓄和应急金。",
+      "Then reveal the verdict: monthly surplus, savings rate and emergency buffer.": "再显示结论：每月结余、储蓄率和应急金缓冲。",
       "Monthly surplus": "每月结余",
       "Savings rate": "储蓄率",
       "Emergency buffer": "应急金缓冲",
@@ -5732,15 +5774,15 @@
       "Spending is manageable but tight.": "开销可控，但比较紧。",
       "There is room between income and spending.": "收入和开销之间有空间。",
       "Spending is within the 50/30/20 baseline.": "开销符合50/30/20基准。",
-      "Current saving rate is strong.": "当前储蓄率不错。",
+      "Monthly saving rate is strong.": "每月储蓄率不错。",
       "Savings habit exists, but may need stepping up.": "已有储蓄习惯，但可能需要提高。",
       "Saving rate is low versus income.": "储蓄率相对收入偏低。",
       "Emergency buffer is at least three months.": "应急金至少覆盖三个月。",
       "Emergency buffer exists but is thin.": "有应急金，但较薄弱。",
       "Emergency buffer is below one month.": "应急金少于一个月。",
       "Formula: monthly income - monthly spending": "公式：每月收入 - 每月开销",
-      "Formula: current monthly saving / monthly income": "公式：当前每月储蓄 / 每月收入",
-      "Formula: liquid savings / monthly spending": "公式：流动储蓄 / 每月开销",
+      "Formula: monthly saving / monthly income": "公式：每月储蓄 / 每月收入",
+      "Formula: emergency buffer / monthly spending": "公式：应急金 / 每月开销",
       "Age": "年龄",
       "Married": "结婚",
       "Edu 1": "教育1",
@@ -5752,8 +5794,7 @@
       "Income": "收入",
       "Essential spend": "必要开销",
       "Lifestyle spend": "生活开销",
-      "Current saving": "当前储蓄",
-      "Liquid savings": "流动储蓄",
+      "Monthly saving": "每月储蓄",
       "PV monthly": "现值每月",
       "Use %": "采用 %",
       "Prepared for": "为谁准备",
@@ -5871,6 +5912,7 @@
       "Monthly income": "每月收入",
       "Total monthly spending": "每月总开销",
       "Current monthly saving": "当前每月储蓄",
+      "Emergency buffer amount": "应急金金额",
       "Your concerns selected:": "已选择的担忧：",
       "Wealth Consultant's Notes:": "财富顾问备注：",
       "Trinity of events:": "三大事件：",
@@ -5990,7 +6032,11 @@
       "Optional follow-up notes": "可选后续备注",
       "Needs <=50%": "必要开销 <=50%",
       "Wants <=30%": "想要/生活选择 <=30%",
-      "Save/invest >=20%": "储蓄/投资 >=20%"
+      "Save/invest >=20%": "储蓄/投资 >=20%",
+      "What counts as spending?": "什么算开销？",
+      "Essential spend = must-pay basics: housing, utilities, groceries, transport, insurance premiums, loan payments and basic family commitments.": "必要开销 = 每月必须支付的基本生活费用：房租/房贷、水电、食物、交通、保险费、贷款和基本家庭责任。",
+      "Lifestyle spend = comfort and choice: dining out, shopping, holidays, subscriptions, entertainment, gifts, beauty and hobbies.": "生活开销 = 舒适和选择：外食、购物、旅行、订阅、娱乐、礼物、美容和兴趣爱好。",
+      "Total monthly spending = Essential spend + Lifestyle spend.": "每月总开销 = 必要开销 + 生活开销。"
     });
 
     function isBilingual() {
@@ -6711,7 +6757,7 @@
           ? { tone: "amber", label: "Watch", note: "Spending is manageable but tight." }
           : { tone: "green", label: "Healthy", note: "Spending is within the 50/30/20 baseline." };
       const savingStatus = savingsRate >= 0.2
-        ? { tone: "green", label: "Healthy", note: "Current saving rate is strong." }
+        ? { tone: "green", label: "Healthy", note: "Monthly saving rate is strong." }
         : savingsRate >= 0.1
           ? { tone: "amber", label: "Watch", note: "Savings habit exists, but may need stepping up." }
           : { tone: "red", label: "Needs attention", note: "Saving rate is low versus income." };
@@ -6753,7 +6799,7 @@
             title: "Savings rate",
             value: `${Math.round(savingsRate * 100)}%`,
             status: savingStatus,
-            formula: "Formula: current monthly saving / monthly income",
+            formula: "Formula: monthly saving / monthly income",
             rating: {
               label: "Saving rate",
               columns: "25fr 25fr 50fr",
@@ -6770,7 +6816,7 @@
             title: "Emergency buffer",
             value: `${emergencyMonths.toFixed(1)} months`,
             status: emergencyStatus,
-            formula: "Formula: liquid savings / monthly spending",
+            formula: "Formula: emergency buffer / monthly spending",
             rating: {
               label: "Emergency months",
               columns: "1fr 2fr 3fr",
@@ -6827,6 +6873,19 @@
             </article>
           `).join("")}
         </div>
+      `;
+    }
+
+    function readinessSpendNoteHtml() {
+      return `
+        <aside class="readiness-spend-note">
+          <strong>${translatedHtml("What counts as spending?")}</strong>
+          <div class="readiness-spend-note-grid">
+            <p>${translatedHtml("Essential spend = must-pay basics: housing, utilities, groceries, transport, insurance premiums, loan payments and basic family commitments.")}</p>
+            <p>${translatedHtml("Lifestyle spend = comfort and choice: dining out, shopping, holidays, subscriptions, entertainment, gifts, beauty and hobbies.")}</p>
+          </div>
+          <p class="formula">${translatedHtml("Total monthly spending = Essential spend + Lifestyle spend.")}</p>
+        </aside>
       `;
     }
 
@@ -7087,10 +7146,11 @@
                 ${moneyInput("monthlyIncome", "Income")}
                 ${moneyInput("essentialSpending", "Essential spend")}
                 ${moneyInput("lifestyleSpending", "Lifestyle spend")}
-                ${moneyInput("currentMonthlySaving", "Current saving")}
-                ${moneyInput("liquidSavings", "Liquid savings")}
+                ${moneyInput("currentMonthlySaving", "Monthly saving")}
+                ${moneyInput("liquidSavings", "Emergency buffer")}
               </div>
               ${has("verdict") ? readinessCardsHtml() : ""}
+              ${readinessSpendNoteHtml()}
             </section>
           ` : ""}
 
@@ -7966,8 +8026,8 @@
               <tbody>
                 <tr><td><strong>${translatedHtml("Monthly income")}</strong></td><td style="text-align:right;">${reportMoney(readiness.monthlyIncome)}/mth</td></tr>
                 <tr><td><strong>${translatedHtml("Total monthly spending")}</strong></td><td style="text-align:right;">${reportMoney(readiness.totalSpending)}/mth</td></tr>
-                <tr><td><strong>${translatedHtml("Current monthly saving")}</strong></td><td style="text-align:right;">${reportMoney(readiness.currentMonthlySaving)}/mth</td></tr>
-                <tr><td><strong>${translatedHtml("Liquid savings")}</strong></td><td style="text-align:right;">${reportMoney(readiness.liquidSavings)}</td></tr>
+                <tr><td><strong>${translatedHtml("Monthly saving")}</strong></td><td style="text-align:right;">${reportMoney(readiness.currentMonthlySaving)}/mth</td></tr>
+                <tr><td><strong>${translatedHtml("Emergency buffer amount")}</strong></td><td style="text-align:right;">${reportMoney(readiness.liquidSavings)}</td></tr>
               </tbody>
             </table>
             <div class="report-note-box report-concerns-box">
@@ -8270,8 +8330,8 @@
           `${translatedText("Your concerns")}: ${concernLabels.length ? concernLabels.join("; ") : translatedText("No concerns selected yet")}.`,
           `${translatedText("Monthly income")}: ${reportMoney(readiness.monthlyIncome)}/mth.`,
           `${translatedText("Total monthly spending")}: ${reportMoney(readiness.totalSpending)}/mth.`,
-          `${translatedText("Current monthly saving")}: ${reportMoney(readiness.currentMonthlySaving)}/mth.`,
-          `${translatedText("Liquid savings")}: ${reportMoney(readiness.liquidSavings)}.`,
+          `${translatedText("Monthly saving")}: ${reportMoney(readiness.currentMonthlySaving)}/mth.`,
+          `${translatedText("Emergency buffer amount")}: ${reportMoney(readiness.liquidSavings)}.`,
           ...readinessLines
         ]);
       }
