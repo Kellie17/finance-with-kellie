@@ -5422,6 +5422,21 @@
       } catch (error) {}
     }
 
+    function syncCalcInputsFromDom() {
+      let changed = false;
+      document.querySelectorAll("[data-calc]").forEach((input) => {
+        const key = input.dataset.calc;
+        if (!key) return;
+        const value = Number(input.value || 0);
+        const nextValue = Number.isFinite(value) ? value : (DEFAULT_STATE.calc[key] ?? 0);
+        if (state.calc[key] !== nextValue) {
+          state.calc[key] = nextValue;
+          changed = true;
+        }
+      });
+      if (changed) saveState();
+    }
+
     function totalPlacedCount() {
       return STEPS.reduce((sum, pitchStep) => sum + placedCount(pitchStep), 0);
     }
@@ -6157,7 +6172,7 @@
       wireLifestyleCards();
       wireMoodControls();
       wireConcernChips();
-      if (["timeline", "checkIn", "retirementPlan", "lifestyle", "mathTime", "methods", "secret"].includes(currentStep.renderer)) {
+      if (["timeline", "checkIn", "readiness", "retirementPlan", "lifestyle", "mathTime", "methods", "secret"].includes(currentStep.renderer)) {
         wireCalcInputs();
       }
       saveState();
@@ -6180,6 +6195,7 @@
 
       el.stepList.querySelectorAll("[data-step-index]").forEach((button) => {
         button.addEventListener("click", () => {
+          syncCalcInputsFromDom();
           state.current = Number(button.dataset.stepIndex);
           state.selectedItem = null;
           state.lastItem = null;
@@ -7458,6 +7474,7 @@
     }
 
     function revealNext() {
+      syncCalcInputsFromDom();
       const currentStep = step();
       const nextId = nextUnplaced(currentStep);
       if (!nextId) return;
@@ -7469,6 +7486,7 @@
     }
 
     function backPoint() {
+      syncCalcInputsFromDom();
       const currentStep = step();
       const currentPlaced = placedFor(currentStep);
       const lastPlacedId = [...currentStep.reveal].reverse().find((itemId) => Object.values(currentPlaced).includes(itemId));
@@ -7481,6 +7499,7 @@
     }
 
     function resetStep() {
+      syncCalcInputsFromDom();
       const currentStep = step();
       state.placed[currentStep.id] = {};
       state.selectedItem = null;
@@ -7489,6 +7508,7 @@
     }
 
     function revealAllCurrentStep() {
+      syncCalcInputsFromDom();
       const currentStep = step();
       currentStep.items.forEach((item) => {
         placedFor(currentStep)[item.target] = item.id;
@@ -7510,6 +7530,7 @@
     }
 
     function previousStep() {
+      syncCalcInputsFromDom();
       if (state.current > 0) {
         state.current -= 1;
         state.selectedItem = null;
@@ -7519,6 +7540,7 @@
     }
 
     function nextStep() {
+      syncCalcInputsFromDom();
       if (state.current < STEPS.length - 1) {
         state.current += 1;
         state.selectedItem = null;
@@ -8321,6 +8343,7 @@
     }
 
     function renderReport() {
+      syncCalcInputsFromDom();
       withReportLanguageOutput(() => {
         el.reportTitle.innerHTML = translatedHtml("Retirement Profile Report");
         el.reportSubtitle.innerHTML = translatedHtml("Generated from the retirement profile inputs");
@@ -8337,6 +8360,7 @@
     }
 
     function openReport() {
+      syncCalcInputsFromDom();
       if (!state.report.meetingDate) state.report.meetingDate = todayInputValue();
       syncReportControls();
       renderReport();
@@ -8350,6 +8374,7 @@
     }
 
     async function copyReportSummary() {
+      syncCalcInputsFromDom();
       const text = withReportLanguageOutput(reportText);
       try {
         if (navigator.clipboard?.writeText) {
