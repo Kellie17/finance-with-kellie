@@ -8639,7 +8639,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
       if (reportSectionEnabled("math")) {
         sections.push(`
-          <section class="report-section${retirementGroupClass()}">
+          <section class="report-section report-keep-together${retirementGroupClass()}">
             <h3>${heading("Retirement Lifestyle Funding Projection")}</h3>
             <div class="report-amount-needed">
               <div>
@@ -8951,6 +8951,38 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
       return { root, reportClone };
     }
 
+    function collectPdfAvoidRanges(reportNode) {
+      const rootRect = reportNode.getBoundingClientRect();
+      return Array.from(reportNode.querySelectorAll(".report-keep-together, .report-table tr"))
+        .map((node) => {
+          const rect = node.getBoundingClientRect();
+          return {
+            top: rect.top - rootRect.top,
+            bottom: rect.bottom - rootRect.top
+          };
+        })
+        .filter((range) => range.bottom > range.top);
+    }
+
+    function choosePdfSliceEnd(pageStart, rawEnd, canvasHeight, avoidRanges) {
+      const pageHeight = rawEnd - pageStart;
+      const minSliceHeight = pageHeight * 0.38;
+      const guard = Math.max(10, pageHeight * 0.015);
+      const pageEnd = Math.min(rawEnd, canvasHeight);
+      const splitRange = avoidRanges
+        .filter((range) => {
+          const rangeHeight = range.bottom - range.top;
+          return rangeHeight < pageHeight * 0.92
+            && range.top < pageEnd - guard
+            && range.bottom > pageEnd + guard
+            && range.top - pageStart > minSliceHeight;
+        })
+        .sort((a, b) => a.top - b.top)[0];
+
+      if (!splitRange) return pageEnd;
+      return Math.max(pageStart + 1, Math.floor(splitRange.top - guard));
+    }
+
     function savePdfBlob(blob, filename) {
       const blobUrl = URL.createObjectURL(blob);
       const link = document.createElement("a");
@@ -8985,6 +9017,8 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
     async function createReportPdfBlob(reportNode) {
       await ensurePdfLibraries();
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      const cssAvoidRanges = collectPdfAvoidRanges(reportNode);
       const canvas = await window.html2canvas(reportNode, {
         scale: Math.min(window.devicePixelRatio || 1.5, 1.5),
         useCORS: true,
@@ -8999,18 +9033,26 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
       const pageHeight = pdf.internal.pageSize.getHeight();
       const pxPerMm = canvas.width / pageWidth;
       const pageHeightPx = Math.floor(pageHeight * pxPerMm);
+      const rootHeight = Math.max(reportNode.getBoundingClientRect().height, 1);
+      const pxPerCssPx = canvas.height / rootHeight;
+      const avoidRanges = cssAvoidRanges.map((range) => ({
+        top: range.top * pxPerCssPx,
+        bottom: range.bottom * pxPerCssPx
+      }));
       const pageCanvas = document.createElement("canvas");
       const pageContext = pageCanvas.getContext("2d");
       pageCanvas.width = canvas.width;
 
-      for (let y = 0, pageIndex = 0; y < canvas.height; y += pageHeightPx, pageIndex += 1) {
-        const sliceHeight = Math.min(pageHeightPx, canvas.height - y);
+      for (let y = 0, pageIndex = 0; y < canvas.height; pageIndex += 1) {
+        const sliceEnd = choosePdfSliceEnd(y, y + pageHeightPx, canvas.height, avoidRanges);
+        const sliceHeight = Math.min(sliceEnd - y, canvas.height - y);
         pageCanvas.height = sliceHeight;
         pageContext.fillStyle = "#ffffff";
         pageContext.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
         pageContext.drawImage(canvas, 0, y, canvas.width, sliceHeight, 0, 0, canvas.width, sliceHeight);
         if (pageIndex > 0) pdf.addPage();
         pdf.addImage(pageCanvas.toDataURL("image/png"), "PNG", 0, 0, pageWidth, sliceHeight / pxPerMm);
+        y = sliceEnd;
       }
 
       return pdf.output("blob");
